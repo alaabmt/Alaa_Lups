@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="دليل عربي مبسط لفحوصات الذئبة الحمراء من منظور المريض: لماذا يطلب الطبيب الفحص، ماذا قد تعني النتيجة، وماذا تفعل بعدها.">
+<meta name="description" content="دليل عربي مبسط لفحوصات الذئبة الحمراء من منظور المريض: لماذا يطلب الطبيب الفحص، ماذا يحدث أثناءه، ماذا قد تعني النتيجة، وما الخطوة التالية.">
 <title>التشخيص والفحوصات | الذئبة الحمراء</title>
 <link rel="stylesheet" href="styles.css">
 <style>
-.test-map{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}.test-map>div,.patient-tool{padding:18px;border:1px solid var(--line);border-radius:16px;background:#fff}.tag{display:inline-block;padding:5px 10px;margin:0 0 10px 6px;border-radius:999px;background:var(--purple-soft);color:var(--purple-dark);font-size:.88rem;font-weight:700}.mini-title{font-size:1rem;margin:18px 0 7px}.patient-table{width:100%;border-collapse:collapse;margin-top:14px;background:#fff}.patient-table th,.patient-table td{border:1px solid var(--line);padding:12px;text-align:right;vertical-align:top}.patient-table th{background:var(--purple-soft)}.steps{margin:10px 0;padding-right:22px}.steps li{margin:9px 0}.key-message{font-size:1.08rem}.lab-word{font-weight:800;color:var(--purple-dark)}@media(max-width:760px){.test-map{grid-template-columns:1fr}.patient-table{font-size:.92rem}.patient-table th,.patient-table td{padding:9px}}
+.test-map{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}.test-map>div,.patient-tool,.action-box{padding:18px;border:1px solid var(--line);border-radius:16px;background:#fff}.tag{display:inline-block;padding:5px 10px;margin:0 0 10px 6px;border-radius:999px;background:var(--purple-soft);color:var(--purple-dark);font-size:.88rem;font-weight:700}.mini-title{font-size:1rem;margin:18px 0 7px}.patient-table{width:100%;border-collapse:collapse;margin-top:14px;background:#fff}.patient-table th,.patient-table td{border:1px solid var(--line);padding:12px;text-align:right;vertical-align:top}.patient-table th{background:var(--purple-soft)}.steps{margin:10px 0;padding-right:22px}.steps li{margin:9px 0}.key-message{font-size:1.08rem}.lab-word{font-weight:800;color:var(--purple-dark)}.quick-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.action-box h3{margin-top:0}.action-box p:last-child{margin-bottom:0}.micro-note{font-size:.94rem;color:var(--muted)}@media(max-width:760px){.test-map,.quick-actions{grid-template-columns:1fr}.patient-table{font-size:.92rem}.patient-table th,.patient-table td{padding:9px}}
 </style>
 </head>
 <body>
@@ -15,17 +15,18 @@
 <main>
 <section class="page-hero">
 <p class="eyebrow">التشخيص والفحوصات</p>
-<h1>دليل يساعدك على فهم تحاليلك، لا حفظ أسمائها.</h1>
-<p class="lead">بعد قراءة هذه الصفحة ستعرف لماذا قد يطلب الطبيب كل فحص، وما الذي قد تعنيه النتيجة، وما الذي لا يمكن استنتاجه منها، وما الأسئلة التي يمكنك أن تطرحها في موعدك.</p>
+<h1>افهم لماذا طُلب الفحص، وما الخطوة التالية.</h1>
+<p class="lead">بعد قراءة هذه الصفحة ستعرف ما دور الفحص، ماذا يحدث عادة أثناءه، ماذا قد تعني النتيجة، وما الذي لا يمكن استنتاجه منها، وكيف تستعد لمناقشتها مع طبيبك.</p>
+<div class="section-actions"><a class="button primary" href="#start-here">ابدأ من الصورة الكبيرة</a><a class="button secondary" href="#appointment-tool">حضّر أسئلتك للموعد</a></div>
 </section>
 
 <section class="notice">
-<strong>ثلاث رسائل أساسية قبل أن تبدأ</strong>
-<p class="key-message">لا يوجد تحليل واحد يشخّص الذئبة بمفرده. كلمة «إيجابي» أو «مرتفع» أو «منخفض» لا تعني تلقائيًا أن حالتك خطيرة. والطبيب يفسر النتيجة مع أعراضك وفحصك ونتائجك السابقة وبقية التحاليل.</p>
+<strong>إذا تذكرت شيئًا واحدًا فقط</strong>
+<p class="key-message">لا يوجد تحليل واحد يشخّص الذئبة أو يحدد شدتها بمفرده. كلمة «إيجابي» أو «مرتفع» أو «منخفض» تحتاج دائمًا إلى سياق: الأعراض، الفحص السريري، النتائج السابقة، الأدوية، وبقية التحاليل.</p>
 </section>
 
-<section class="section">
-<div class="section-heading"><p class="eyebrow">ابدأ من الصورة الكبيرة</p><h2>لماذا تُطلب الفحوصات؟</h2><p>يمكنك التفكير في فحوص الذئبة ضمن أربع مجموعات بسيطة.</p></div>
+<section class="section" id="start-here">
+<div class="section-heading"><p class="eyebrow">ابدأ من الصورة الكبيرة</p><h2>لماذا تُطلب الفحوصات؟</h2><p>يمكنك التفكير في فحوص الذئبة ضمن أربع مجموعات. معرفة المجموعة أهم من حفظ كل اسم.</p></div>
 <div class="test-map">
 <div><span class="tag">تساعد في التشخيص</span><h3>هل توجد دلائل تدعم وجود مرض مناعي؟</h3><p>مثل فحص الأجسام المضادة للنواة وبعض الأجسام المضادة الأكثر ارتباطًا بالذئبة.</p></div>
 <div><span class="tag">تساعد في المتابعة</span><h3>هل توجد إشارات قد تتغير مع نشاط المرض؟</h3><p>مثل بعض الأجسام المضادة وبروتينات المتممة، لكن لا يُحكم على نشاط الذئبة من رقم واحد.</p></div>
@@ -35,10 +36,27 @@
 </section>
 
 <section class="section soft">
+<div class="section-heading"><p class="eyebrow">قبل الفحص</p><h2>هل أحتاج إلى تحضير؟ وماذا سيحدث؟</h2></div>
+<div class="quick-actions">
+<div class="action-box"><h3>تحاليل الدم</h3><p>تُجرى معظم هذه الفحوص من عينة دم. قد تُطلب فحوص أخرى في الزيارة نفسها لها تعليمات مختلفة.</p><p><strong>اسأل قبل الموعد:</strong> هل أحتاج إلى صيام أو توقيت معين للفحص؟</p></div>
+<div class="action-box"><h3>تحاليل البول</h3><p>قد يطلب الطبيب عينة بول عادية أو قياسًا أكثر تحديدًا للبروتين. اتبع تعليمات المختبر الخاصة بجمع العينة إذا أعطيت لك.</p><p><strong>مهم:</strong> لا تؤجل الفحص لأنك لا تشعر بألم في الكلى؛ بعض التغيرات قد تظهر في البول قبل الأعراض.</p></div>
+<div class="action-box"><h3>الأدوية والمكملات</h3><p>أخبر الفريق المعالج بما تستخدمه من أدوية ومكملات لأن بعضها قد يؤثر في تفسير النتائج أو في الفحوص المطلوبة.</p><p><strong>لا توقف دواءً أو مكملًا موصوفًا لك من تلقاء نفسك</strong> بهدف تحسين نتيجة التحليل.</p></div>
+</div>
+<p class="micro-note">وقت ظهور النتيجة يختلف بين الفحوص والمختبرات؛ إذا كانت النتيجة مهمة لقرار قريب، اسأل متى تتوقع ظهورها وكيف ستصلك.</p>
+</section>
+
+<section class="section">
 <div class="section-heading"><p class="eyebrow">كيف يقرأ الطبيب النتائج؟</p><h2>النتيجة جزء من صورة، وليست الصورة كلها.</h2></div>
 <div class="content-card">
 <p><strong>عادةً ينظر الطبيب إلى خمسة أمور معًا:</strong></p>
 <div class="check-grid"><span><strong>1. ما الذي تشعر به؟</strong><br>أعراض جديدة أو تغير في أعراض قديمة.</span><span><strong>2. ماذا وجد في الفحص؟</strong><br>الجلد والمفاصل وضغط الدم وأعضاء أخرى حسب حالتك.</span><span><strong>3. ماذا تقول نتائج اليوم؟</strong><br>الدم والبول وغيرها.</span><span><strong>4. كيف تغيرت النتائج مع الوقت؟</strong><br>الاتجاه قد يكون أهم من قراءة واحدة.</span><span><strong>5. ما الأدوية والعوامل الأخرى؟</strong><br>بعض الأدوية والعدوى وحالات أخرى قد تغير النتائج.</span></div>
+</div>
+</section>
+
+<section class="section soft">
+<div class="section-heading"><p class="eyebrow">كيف أفكر في النتيجة؟</p><h2>لا تسأل فقط: «هل الرقم طبيعي؟»</h2></div>
+<div class="content-card">
+<ol class="steps"><li><strong>هل النتيجة جديدة؟</strong> قارنها بنتائجك السابقة إن وجدت.</li><li><strong>هل تتماشى مع الأعراض؟</strong> الرقم الذي يتغير بلا أعراض قد يفسَّر بشكل مختلف عن الرقم نفسه مع أعراض جديدة.</li><li><strong>هل هناك فحوص أخرى تغير المعنى؟</strong> الطبيب لا يقرأ ANA أو C3 أو الكرياتينين بمعزل عن بقية النتائج.</li><li><strong>هل يمكن أن يكون هناك سبب آخر؟</strong> العدوى أو الأدوية أو حالات أخرى قد تغيّر بعض النتائج.</li><li><strong>هل تغيّر النتيجة ما سنفعله؟</strong> اسأل إن كانت ستؤدي إلى إعادة فحص، متابعة أقرب، فحص عضو، أو مجرد الاستمرار في المتابعة المعتادة.</li></ol>
 </div>
 </section>
 
@@ -53,6 +71,7 @@
 <p><strong>لماذا يطلبه الطبيب؟</strong> لأن معظم المصابين بالذئبة الجهازية تكون النتيجة لديهم إيجابية، لذلك يفيد كجزء مبكر من التقييم عندما توجد أعراض مناسبة.</p>
 <p><strong>إذا كانت النتيجة إيجابية:</strong> هذا لا يعني وحده أنك مصاب بالذئبة؛ فقد تكون إيجابية في أمراض أخرى وحتى لدى بعض الأشخاص الأصحاء.</p>
 <p><strong>إذا كانت النتيجة سلبية:</strong> تصبح الذئبة الجهازية أقل احتمالًا، لكن القرار النهائي يعتمد على الصورة الطبية كاملة.</p>
+<p><strong>الخطوة التالية المحتملة:</strong> قد يقرر الطبيب أن الصورة لا تحتاج فحوصًا إضافية، أو يطلب أجسامًا مضادة وفحوص أعضاء أخرى إذا كانت الأعراض تستدعي ذلك.</p>
 <p><strong>اسأل طبيبك:</strong> هل نتيجة ANA تتوافق مع أعراضي؟ وهل أحتاج فحوصًا أخرى قبل الوصول إلى تشخيص؟</p>
 </article>
 
@@ -63,6 +82,7 @@
 <p><strong>لماذا يُطلب؟</strong> قد يدعم التشخيص، وقد يتابعه الطبيب لدى بعض المرضى، وخصوصًا عندما تكون الكلى محل اهتمام.</p>
 <p><strong>إذا ارتفع:</strong> قد يترافق مع زيادة نشاط المرض لدى بعض المرضى، لكنه لا يثبت وجود نوبة بمفرده.</p>
 <p><strong>إذا كان سلبيًا:</strong> لا ينفي الذئبة؛ فليس كل مريض لديه هذا الجسم المضاد.</p>
+<p><strong>الخطوة التالية المحتملة:</strong> قد يقارن الطبيب النتيجة بقيمك السابقة، وبالمتممة وتحليل البول ووظائف الكلى والأعراض بدل الاعتماد على هذه النتيجة وحدها.</p>
 <p><strong>اسأل طبيبك:</strong> هل تغير هذه النتيجة مهم بالنسبة إلى نمطي أنا مقارنة بنتائجي السابقة؟</p>
 </article>
 
@@ -104,6 +124,7 @@
 <div class="notice"><strong>معلومة مهمة</strong><p>قد يبدأ التهاب الكلى المرتبط بالذئبة من دون ألم في منطقة الكلى ومن دون أعراض واضحة؛ لذلك قد يطلب الطبيب تحليل البول حتى عندما تشعر أنك بخير.</p></div>
 <p><strong>ما الذي يبحث عنه الطبيب؟</strong> البروتين، الدم، خلايا أو تغيرات مجهرية أخرى، وأحيانًا علامات عدوى.</p>
 <p><strong>إذا ظهر بروتين أو دم:</strong> لا يعني ذلك تلقائيًا التهاب الكلى الذئبي؛ توجد أسباب أخرى، وقد يكرر الطبيب التحليل أو يطلب فحوصًا إضافية.</p>
+<p><strong>الخطوة التالية المحتملة:</strong> قد يحتاج الطبيب إلى إعادة عينة البول، قياس كمية البروتين، أو مراجعة وظائف الكلى وضغط الدم بحسب النتيجة والسياق.</p>
 <p><strong>اسأل طبيبك:</strong> هل النتيجة جديدة؟ هل كانت موجودة سابقًا؟ وهل أحتاج إلى قياس كمية البروتين في البول؟</p>
 <a class="card-link" href="kidneys.html">اقرأ عن الكلى والذئبة ←</a>
 </article>
@@ -145,6 +166,7 @@
 <span class="tag">أمان العلاج + أعضاء الجسم</span>
 <h2>وظائف الكبد والكلى</h2>
 <p>قد يطلب الطبيب تحاليل الكبد والكلى لمتابعة صحة الأعضاء، ولأن بعض الأدوية تحتاج إلى مراقبة دورية. لا تغيّر الدواء أو الجرعة بناءً على نتيجة منفردة من دون مراجعة الفريق المعالج.</p>
+<p><strong>اسأل طبيبك:</strong> هل هذا الفحص لمتابعة المرض نفسه أم لمراقبة أمان الدواء؟ وهل تغير عن نتيجتي السابقة؟</p>
 </article>
 
 <article class="content-card">
@@ -153,6 +175,7 @@
 <p><strong>هل يحتاج كل مريض إلى خزعة؟</strong> لا.</p>
 <p><strong>خزعة الجلد:</strong> قد تساعد في توضيح نوع بعض الطفوح الجلدية.</p>
 <p><strong>خزعة الكلى:</strong> قد يوصي بها الطبيب عند الاشتباه بالتهاب الكلى لأنها قد تساعد في تحديد نوع الإصابة وشدتها وتوجيه العلاج.</p>
+<p><strong>إذا أوصى الطبيب بالخزعة:</strong> اسأل عن سببها، ما الذي سيحدث أثناء الإجراء، التحضير المطلوب، المخاطر المتوقعة، ومتى ستظهر النتيجة.</p>
 <p><strong>اسأل طبيبك:</strong> ما المعلومة التي ستضيفها الخزعة؟ وهل ستغيّر قرار العلاج؟</p>
 </article>
 </div>
@@ -169,7 +192,7 @@
 </div>
 </section>
 
-<section class="section">
+<section class="section" id="appointment-tool">
 <div class="section-heading"><p class="eyebrow">أداة للمريض</p><h2>خذ هذه الأسئلة معك إلى الموعد.</h2><p>لا تحتاج إلى حفظ كل التحاليل. سجّل ما تريد فهمه واترك التفسير النهائي للطبيب.</p></div>
 <div class="patient-tool">
 <table class="patient-table">
@@ -186,11 +209,13 @@
 </section>
 
 <section class="section soft">
-<div class="section-heading"><p class="eyebrow">ماذا أفعل الآن؟</p><h2>أربع خطوات بسيطة قبل موعدك القادم.</h2></div>
-<div class="content-card">
-<ol class="steps"><li><strong>اجمع نتائجك السابقة،</strong> وليس آخر تحليل فقط.</li><li><strong>اكتب الأدوية والمكملات التي تستخدمها،</strong> لأن بعضها قد يؤثر في النتائج أو تفسيرها.</li><li><strong>دوّن أي أعراض جديدة وتاريخ بدايتها،</strong> وأحضر صورًا لطفح ظهر ثم اختفى إن وجدت.</li><li><strong>اختر أهم ثلاثة أسئلة،</strong> واستخدم الجدول أعلاه لتناقشها مع الطبيب.</li></ol>
-<div class="section-actions"><a class="button primary" href="appointment.html">استعد لموعدك</a><a class="button secondary" href="symptoms.html">راجع الأعراض</a></div>
+<div class="section-heading"><p class="eyebrow">قبل الموعد وأثناءه وبعده</p><h2>حوّل نتائجك إلى أسئلة وخطوات واضحة.</h2></div>
+<div class="quick-actions">
+<div class="action-box"><h3>قبل الموعد</h3><p>اجمع النتائج السابقة، واكتب قائمة الأدوية والمكملات، وسجّل الأعراض الجديدة ومتى بدأت. اختر أهم سؤالين أو ثلاثة.</p></div>
+<div class="action-box"><h3>أثناء الموعد</h3><p>اسأل: ما معنى التغير مقارنة بالسابق؟ هل توجد أسباب أخرى؟ هل أحتاج إلى إعادة الفحص أو متابعة عضو معين؟ وما الخطوة التالية؟</p></div>
+<div class="action-box"><h3>بعد الموعد</h3><p>تأكد أنك تعرف كيف ومتى ستصلك النتائج التالية، متى موعد المتابعة، ومن تتواصل معه إذا ظهرت أعراض جديدة أو ساءت حالتك.</p></div>
 </div>
+<div class="section-actions"><a class="button primary" href="appointment.html">استعد لموعدك</a><a class="button secondary" href="symptoms.html">راجع الأعراض</a></div>
 </section>
 
 <section class="notice">
@@ -201,7 +226,7 @@
 <section class="section">
 <div class="content-card">
 <h2>مصادر ومنهج إعداد الصفحة</h2>
-<p>المعلومات الطبية مبنية على مصادر موثوقة تشمل مؤسسة الذئبة الأمريكية، والمعهد الوطني لالتهاب المفاصل والأمراض العضلية الهيكلية والجلدية (NIAMS)، ومايو كلينك، وكليفلاند كلينك، مع الرجوع إلى التوصيات العلمية المناسبة. بُني تنظيم المادة التعليمية وفق مبادئ الوضوح وقابلية التطبيق في أداة تقييم مواد تثقيف المرضى (PEMAT) التابعة لوكالة أبحاث وجودة الرعاية الصحية الأمريكية (AHRQ).</p>
+<p>المعلومات الطبية مبنية على مصادر موثوقة تشمل مؤسسة الذئبة الأمريكية، والمعهد الوطني لالتهاب المفاصل والأمراض العضلية الهيكلية والجلدية (NIAMS)، ومايو كلينك، وكليفلاند كلينك، مع الرجوع إلى التوصيات العلمية المناسبة. بُني تنظيم المادة التعليمية وفق مبادئ AHRQ/PEMAT، وCDC Clear Communication Index، وأنماط تثقيف المرضى في MedlinePlus، مع فصل الحقيقة الطبية عن طريقة شرحها للمريض.</p>
 <p><strong>آخر تحديث تحريري:</strong> سبتمبر 2026. <strong>المراجعة الطبية الداخلية:</strong> بانتظار اعتماد طبيب مراجع.</p>
 </div>
 </section>
