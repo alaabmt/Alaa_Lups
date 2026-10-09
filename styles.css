@@ -63,3 +63,24 @@ html[dir="ltr"] .site-header .brand-language{flex-direction:row}
  .site-header .brand-language{gap:7px!important}
  .site-header .brand-language .language-switch{padding:6px 10px!important;font-size:12px!important}
 }
+
+/* Mobile hamburger navigation */
+.menu-toggle{display:none;border:0;background:transparent;padding:8px;cursor:pointer;border-radius:10px;color:var(--ink)}
+.menu-toggle span{display:block;width:24px;height:2px;margin:5px 0;background:currentColor;border-radius:2px;transition:transform .2s ease,opacity .2s ease}
+@media(max-width:900px){
+ .site-header{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;align-items:center!important;gap:10px!important}
+ .site-header .brand-language{grid-column:1!important;grid-row:1!important;justify-self:start!important}
+ html[dir="rtl"] .site-header .brand-language{justify-self:end!important}
+ .menu-toggle{display:block;grid-column:2;grid-row:1}
+ html[dir="rtl"] .menu-toggle{grid-column:1;justify-self:start}
+ html[dir="rtl"] .site-header .brand-language{grid-column:2}
+ .site-header nav#main-nav{display:none!important;grid-column:1/-1!important;grid-row:2!important;width:100%!important;overflow:visible!important;white-space:normal!important;padding:8px 0 4px!important;border-top:1px solid var(--line);flex-direction:column!important;gap:0!important}
+ .site-header nav#main-nav.open{display:flex!important}
+ .site-header nav#main-nav a{display:block!important;width:100%!important;padding:11px 4px!important;border-bottom:1px solid var(--line);font-size:14px!important}
+ html[dir="rtl"] .site-header nav#main-nav{text-align:right!important}
+ html[dir="ltr"] .site-header nav#main-nav{text-align:left!important}
+ .menu-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+ .menu-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+ .menu-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+}
+@media(min-width:901px){.site-header nav#main-nav{display:flex!important}}
