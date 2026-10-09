@@ -1,5 +1,21 @@
 (() => {
   const $ = id => document.getElementById(id);
+  // Password visibility works even when the Supabase library cannot load.
+  const passwordToggles = [...document.querySelectorAll(".password-toggle")];
+  function setPasswordVisibility(toggle, show) {
+    const field = $(toggle.dataset.target);
+    if (!field) return;
+    field.type = show ? "text" : "password";
+    toggle.textContent = show ? "إخفاء" : "إظهار";
+    toggle.setAttribute("aria-pressed", String(show));
+    toggle.setAttribute("aria-label", (show ? "إخفاء " : "إظهار ") + toggle.dataset.label);
+  }
+  passwordToggles.forEach(toggle => {
+    toggle.addEventListener("click", () => {
+      const field = $(toggle.dataset.target);
+      if (field) setPasswordVisibility(toggle, field.type === "password");
+    });
+  });
   const s = window.na7nSupabase;
   if (!s) {
     $("msg").textContent = window.na7nAuthError || "تعذر تحميل خدمة الحساب.";
@@ -99,7 +115,7 @@
     const messages = {
       user_already_exists: "هذا البريد مسجّل بالفعل. استخدم تسجيل الدخول بكلمة مرور حسابك الحالي.",
       invalid_credentials: "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
-      email_not_confirmed: "تحقق من بريدك الإلكتروني لتأكيد الحساب أولًا.",
+      email_not_confirmed: "هذا الحساب لا يزال يتطلب تأكيد البريد وفق إعدادات خدمة الحساب. يُرجى التواصل مع إدارة نَحْنُ.",
       anonymous_provider_disabled: "تعذر إرسال بيانات التسجيل بصورة صحيحة. أعد تحميل الصفحة ثم حاول مجددًا.",
       signup_disabled: "إنشاء الحسابات غير متاح حاليًا.",
       weak_password: "اختر كلمة مرور أقوى وحاول مجددًا."
@@ -115,6 +131,7 @@
     $("show-login").classList.toggle("secondary", signup);
     $("show-signup").classList.toggle("primary", signup);
     $("show-signup").classList.toggle("secondary", !signup);
+    passwordToggles.forEach(toggle => setPasswordVisibility(toggle, false));
     $("msg").textContent = "";
   }
   async function login() {
@@ -140,7 +157,14 @@
       const result=await s.auth.signUp({email,password,options:{data:metadata}});
       if(result.error){$("msg").textContent=authError(result.error);return}
       $("signup-password").value=$("signup-password2").value="";
-      if(result.data?.session){await state()} else {$("msg").textContent="تم إنشاء الحساب. تحقق من بريدك الإلكتروني لتأكيده، ثم سجّل الدخول."; showAuthPanel("login"); $("login-email").value=email; $("msg").textContent="تم إنشاء الحساب. تحقق من بريدك الإلكتروني لتأكيده، ثم سجّل الدخول."}
+      if (result.data?.session) {
+        await state(); // Immediate dashboard when Supabase Auth has email confirmation disabled.
+      } else {
+        // Never claim instant activation when the backend did not issue a session.
+        showAuthPanel("login");
+        $("login-email").value = email;
+        $("msg").textContent = "لم يتم تسجيل الدخول تلقائيًا. ما زال إعداد تأكيد البريد مفعّلًا في خدمة الحساب، أو تعذر إصدار جلسة. يُرجى التواصل مع إدارة نَحْنُ.";
+      }
     }catch{$("msg").textContent="تعذر الاتصال بخدمة الحساب. حاول مجددًا."}finally{busy=false;$("signup").disabled=false}
   }
   $("trend-controls").innerHTML = Object.entries(metricNames).map(([key, name]) =>
