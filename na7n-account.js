@@ -175,7 +175,6 @@
   });
   $("show-login").addEventListener("click",()=>showAuthPanel("login"));
   $("show-signup").addEventListener("click",()=>showAuthPanel("signup"));
-  $("cancel-signup").addEventListener("click",()=>showAuthPanel("login"));
   $("login").addEventListener("click",login);
   $("signup").addEventListener("click",signup);
   $("login-password").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();login()}});
