@@ -110,3 +110,6 @@ html[dir="ltr"] .site-header .brand-language{flex-direction:row}
 
 /* Final homepage brand hierarchy */
 .compact-hero .hero-copy>.hero-brand-lockup+h1{margin-top:8px;max-width:780px}.compact-hero .hero-copy>.hero-brand-lockup+h1+.lead{margin-top:16px}.hero-brand-lockup{padding-bottom:18px;border-bottom:1px solid var(--line)}@media(max-width:600px){.compact-hero .hero-copy>.hero-brand-lockup+h1{font-size:34px;line-height:1.22}.hero-brand-lockup{padding-bottom:14px}}
+
+/* Final homepage brand hierarchy */
+.compact-hero .hero-brand-lockup+.hero-copy h1{margin-top:0}.compact-hero .hero-copy>h1{max-width:720px}.compact-hero .hero-copy>.hero-support{max-width:690px;margin-top:14px;line-height:1.85}.compact-hero .hero-actions{margin-top:24px}@media(max-width:600px){.compact-hero .hero-brand-lockup{gap:10px}.compact-hero .hero-copy>h1{font-size:34px;line-height:1.22}.compact-hero .hero-copy>.hero-support{line-height:1.75}.compact-hero .hero-actions{margin-top:20px}}
