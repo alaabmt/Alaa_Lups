@@ -20,6 +20,19 @@
     $("empty").classList.add("hidden");
     $("dashboard-msg").textContent = "";
   }
+  // Create the NA7N-only profile after a verified login. Email-confirmation signups
+  // have no session yet; their non-health profile fields are read on first login.
+  async function ensureProfile(user) {
+    const name = typeof user.user_metadata?.full_name === "string" ? user.user_metadata.full_name.trim() : "";
+    if (name.length < 2 || name.length > 80) return null;
+    const rawPhone = typeof user.user_metadata?.phone === "string" ? user.user_metadata.phone.trim() : "";
+    const phone = rawPhone && rawPhone.length <= 30 ? rawPhone : null;
+    const { error } = await s.from("na7n_profiles").upsert(
+      { id: user.id, full_name: name, phone },
+      { onConflict: "id", ignoreDuplicates: true }
+    );
+    return error;
+  }
   async function state() {
     const version = ++stateVersion;
     clearDashboard();
@@ -29,6 +42,9 @@
       if (version !== stateVersion) return;
       $("auth").classList.toggle("hidden", !!user && !error);
       if (!user || error) return;
+      const profileError = await ensureProfile(user);
+      if (version !== stateVersion) return;
+      if (profileError) $("dashboard-msg").textContent = "تم تسجيل الدخول، لكن تعذر حفظ الملف الشخصي. يمكنك إعادة تحميل الصفحة والمحاولة لاحقًا.";
       if ($("login-password")) $("login-password").value = "";
       $("signed-in-as").textContent = "تم تسجيل الدخول: " + user.email;
       $("dashboard").classList.remove("hidden");
@@ -120,9 +136,7 @@
     if(!$("signup-consent").checked){$("msg").textContent="نحتاج موافقتك على إنشاء الحساب وحفظ المتابعة.";return}
     busy=true;$("signup").disabled=true;$("msg").textContent="جارٍ إنشاء الحساب…";
     try{
-      const bytes=crypto.getRandomValues(new Uint8Array(12));
-      const username="na7n_"+Array.from(bytes,b=>b.toString(16).padStart(2,"0")).join("");
-      const metadata={username,full_name:name}; if(phone) metadata.phone=phone;
+      const metadata={full_name:name}; if(phone) metadata.phone=phone;
       const result=await s.auth.signUp({email,password,options:{data:metadata}});
       if(result.error){$("msg").textContent=authError(result.error);return}
       $("signup-password").value=$("signup-password2").value="";
@@ -141,7 +155,18 @@
   $("login").addEventListener("click",login);
   $("signup").addEventListener("click",signup);
   $("login-password").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();login()}});
-  $("new-account").addEventListener("click",async()=>{await s.auth.signOut({scope:"local"});++stateVersion;clearDashboard();$("dashboard").classList.add("hidden");$("auth").classList.remove("hidden");showAuthPanel("signup")});
+  $("new-account").addEventListener("click",async()=>{
+    $("new-account").disabled = true;
+    try {
+      const { error } = await s.auth.signOut({scope:"local"});
+      if (error) { $("dashboard-msg").textContent = "تعذر تسجيل الخروج من الحساب الحالي. حاول مجددًا."; return; }
+      ++stateVersion;
+      clearDashboard();
+      $("dashboard").classList.add("hidden");
+      $("auth").classList.remove("hidden");
+      showAuthPanel("signup");
+    } finally { $("new-account").disabled = false; }
+  });
   $("logout").addEventListener("click", async () => {
     $("logout").disabled = true;
     try {
