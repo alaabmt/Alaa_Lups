@@ -16,3 +16,27 @@ html[lang="en"] .language-switch{direction:rtl}
 .brand-language .language-switch{position:static!important;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;padding:6px 10px!important}
 @media(max-width:900px){.brand-language{width:100%;justify-content:space-between}.site-header .brand-language .brand{padding-left:0;padding-right:0}.brand-language .language-switch{margin-inline-start:8px}.site-header nav{order:2}}
 @media(max-width:420px){.brand-language{gap:6px}.brand-language .language-switch{padding:5px 8px!important}.brand-language .language-switch strong{font-size:11px}.brand strong{font-size:15px}}
+
+/* Final responsive bilingual header: logo and language control stay together */
+.site-header .brand-language{display:inline-flex;align-items:center;justify-content:flex-start;gap:10px;width:auto;min-width:0;flex:0 0 auto}
+.site-header .brand-language .brand{min-width:0;padding:0!important}
+.site-header .brand-language .language-switch{position:static!important;inset:auto!important;margin:0!important;flex:0 0 auto}
+html[dir="rtl"] .site-header .brand-language{flex-direction:row}
+html[dir="ltr"] .site-header .brand-language{flex-direction:row}
+@media(max-width:900px){
+ .site-header{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+ .site-header .brand-language{width:auto;max-width:100%;justify-self:start}
+ html[dir="rtl"] .site-header .brand-language{justify-self:end}
+ html[dir="ltr"] .site-header .brand-language{justify-self:start}
+ .site-header nav{width:100%;min-width:0}
+}
+@media(max-width:480px){
+ .site-header{padding:11px 14px}
+ .site-header .brand-language{gap:8px}
+ .site-header .brand-mark{width:34px;height:34px;border-radius:11px}
+ .site-header .brand strong{font-size:15px}
+ .site-header .brand small{font-size:10px}
+ .site-header .language-switch{padding:5px 8px!important;gap:5px}
+ .site-header .language-switch span{min-width:23px;height:23px;font-size:9px}
+ .site-header .language-switch strong{font-size:11px}
+}
