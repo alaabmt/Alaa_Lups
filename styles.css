@@ -84,3 +84,20 @@ html[dir="ltr"] .site-header .brand-language{flex-direction:row}
  .menu-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 }
 @media(min-width:901px){.site-header nav#main-nav{display:flex!important}}
+
+
+/* NA7N homepage self-management system */
+.hero-support{max-width:760px;margin:14px 0 0;color:var(--ink);font-size:16px}
+.action-section{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.self-flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:25px}
+.self-flow>div{padding:18px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.self-flow b{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--purple-soft);color:var(--purple);margin-bottom:18px}
+.self-flow strong,.self-flow span{display:block}.self-flow span{margin-top:5px;color:var(--muted);font-size:13px}
+.priority-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.priority-grid a{padding:16px 18px;border:1px solid #dfd4ea;border-radius:15px;background:#fff;font-weight:700}
+.priority-grid a:hover{border-color:#bfa8d7;color:var(--purple)}
+.microcopy{margin:18px 0 0;color:var(--muted);font-size:13px}
+.safety-card{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:28px;border:1px solid #e2d6ec;border-radius:22px;background:#fbf8fd}
+.safety-card>div{max-width:790px}.safety-card h2{font-size:29px}.safety-card p{color:var(--muted)}.safety-card .eyebrow{color:var(--purple-dark)}
+@media(max-width:900px){.self-flow{grid-template-columns:repeat(2,1fr)}.priority-grid{grid-template-columns:repeat(2,1fr)}.safety-card{align-items:flex-start;flex-direction:column}}
+@media(max-width:600px){.self-flow,.priority-grid{grid-template-columns:1fr}.self-flow>div{padding:16px}.safety-card{padding:21px}.hero-support{font-size:15px}}
