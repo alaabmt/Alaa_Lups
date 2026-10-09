@@ -95,11 +95,29 @@
     if (busy) return;
     const email = $("email").value.trim(), password = $("password").value;
     $("email").value = email;
-    if (!$("email").reportValidity() || !$("password").reportValidity()) return;
-    if (!email || !password) return;
+    if (!email) {
+      $("msg").textContent = "يرجى إدخال البريد الإلكتروني أولًا.";
+      $("email").focus();
+      return;
+    }
+    if (!$("email").checkValidity()) {
+      $("msg").textContent = "يرجى إدخال بريد إلكتروني صحيح.";
+      $("email").focus();
+      return;
+    }
+    if (!password) {
+      $("msg").textContent = "يرجى إدخال كلمة المرور أولًا.";
+      $("password").focus();
+      return;
+    }
+    if (!$("password").checkValidity()) {
+      $("msg").textContent = "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل.";
+      $("password").focus();
+      return;
+    }
     busy = true;
     $("login").disabled = $("signup").disabled = true;
-    $("msg").textContent = "جارٍ إكمال الطلب…";
+    $("msg").textContent = mode === "signup" ? "جارٍ إنشاء الحساب…" : "جارٍ تسجيل الدخول…";
     try {
       let result;
       if (mode === "signup") {
@@ -116,9 +134,11 @@
         return;
       }
       $("password").value = "";
-      $("msg").textContent = mode === "signup" && !result.data.session ?
-        "تحقق من بريدك الإلكتروني لتأكيد الحساب، ثم سجّل الدخول." : "";
+      const needsConfirmation = mode === "signup" && !result.data?.session;
       await state();
+      $("msg").textContent = needsConfirmation ?
+        "تم استلام طلب إنشاء الحساب. تحقق من بريدك الإلكتروني ورسائل البريد غير المرغوب فيه لتأكيده، ثم سجّل الدخول." :
+        mode === "signup" ? "تم إنشاء الحساب وتسجيل الدخول بنجاح." : "تم تسجيل الدخول بنجاح.";
     } catch {
       $("msg").textContent = "تعذر الاتصال بخدمة الحساب. حاول مجددًا.";
     } finally {
