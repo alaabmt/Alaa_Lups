@@ -148,12 +148,14 @@
     const name=$("signup-name").value.trim(),email=$("signup-email").value.trim(),phone=$("signup-phone").value.trim(),password=$("signup-password").value,password2=$("signup-password2").value;
     if(name.length<2){$("msg").textContent="أدخل اسمك أولًا."; $("signup-name").focus();return}
     if(!email||!$("signup-email").checkValidity()){$("msg").textContent="أدخل بريدًا إلكترونيًا صحيحًا."; $("signup-email").focus();return}
+    const phoneDigits=phone.replace(/\D/g,"");
+    if(!/^\+?[0-9\s().-]+$/.test(phone) || phoneDigits.length<7 || phoneDigits.length>15){$("msg").textContent="أدخل رقم هاتف صحيحًا مع رمز الدولة (من 7 إلى 15 رقمًا)."; $("signup-phone").focus();return}
     if(password.length<8){$("msg").textContent="اختر كلمة مرور من 8 أحرف على الأقل."; $("signup-password").focus();return}
     if(password!==password2){$("msg").textContent="كلمتا المرور غير متطابقتين."; $("signup-password2").focus();return}
     if(!$("signup-consent").checked){$("msg").textContent="نحتاج موافقتك على إنشاء الحساب وحفظ المتابعة.";return}
     busy=true;$("signup").disabled=true;$("msg").textContent="جارٍ إنشاء الحساب…";
     try{
-      const metadata={full_name:name}; if(phone) metadata.phone=phone;
+      const metadata={full_name:name, phone};
       const result=await s.auth.signUp({email,password,options:{data:metadata}});
       if(result.error){$("msg").textContent=authError(result.error);return}
       $("signup-password").value=$("signup-password2").value="";
