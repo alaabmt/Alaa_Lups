@@ -29,7 +29,7 @@
       if (version !== stateVersion) return;
       $("auth").classList.toggle("hidden", !!user && !error);
       if (!user || error) return;
-      $("password").value = "";
+      if ($("login-password")) $("login-password").value = "";
       $("signed-in-as").textContent = "تم تسجيل الدخول: " + user.email;
       $("dashboard").classList.remove("hidden");
       const { data, error: loadError } = await s.from("na7n_responses")
@@ -91,60 +91,43 @@
     // Do not expose database details or echo submitted credentials in UI/logs.
     return messages[error?.code] || "تعذر إكمال الطلب. تحقق من اتصالك وبياناتك وحاول مجددًا.";
   }
-  async function authenticate(mode) {
+  function showAuthPanel(mode) {
+    const signup = mode === "signup";
+    $("login-panel").classList.toggle("hidden", signup);
+    $("signup-panel").classList.toggle("hidden", !signup);
+    $("show-login").classList.toggle("primary", !signup);
+    $("show-login").classList.toggle("secondary", signup);
+    $("show-signup").classList.toggle("primary", signup);
+    $("show-signup").classList.toggle("secondary", !signup);
+    $("msg").textContent = "";
+  }
+  async function login() {
     if (busy) return;
-    const email = $("email").value.trim(), password = $("password").value;
-    $("email").value = email;
-    if (!email) {
-      $("msg").textContent = "يرجى إدخال البريد الإلكتروني أولًا.";
-      $("email").focus();
-      return;
-    }
-    if (!$("email").checkValidity()) {
-      $("msg").textContent = "يرجى إدخال بريد إلكتروني صحيح.";
-      $("email").focus();
-      return;
-    }
-    if (!password) {
-      $("msg").textContent = "يرجى إدخال كلمة المرور أولًا.";
-      $("password").focus();
-      return;
-    }
-    if (!$("password").checkValidity()) {
-      $("msg").textContent = "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل.";
-      $("password").focus();
-      return;
-    }
-    busy = true;
-    $("login").disabled = $("signup").disabled = true;
-    $("msg").textContent = mode === "signup" ? "جارٍ إنشاء الحساب…" : "جارٍ تسجيل الدخول…";
-    try {
-      let result;
-      if (mode === "signup") {
-        // Compatibility only: the existing shared trigger requires a 3–30 character username.
-        // This is not a login identifier or an authorization claim. Do not derive it from email.
-        const bytes = crypto.getRandomValues(new Uint8Array(12));
-        const username = "na7n_" + Array.from(bytes, b => b.toString(16).padStart(2, "0")).join("");
-        result = await s.auth.signUp({ email, password, options: { data: { username } } });
-      } else {
-        result = await s.auth.signInWithPassword({ email, password });
-      }
-      if (result.error) {
-        $("msg").textContent = authError(result.error);
-        return;
-      }
-      $("password").value = "";
-      const needsConfirmation = mode === "signup" && !result.data?.session;
-      await state();
-      $("msg").textContent = needsConfirmation ?
-        "تم استلام طلب إنشاء الحساب. تحقق من بريدك الإلكتروني ورسائل البريد غير المرغوب فيه لتأكيده، ثم سجّل الدخول." :
-        mode === "signup" ? "تم إنشاء الحساب وتسجيل الدخول بنجاح." : "تم تسجيل الدخول بنجاح.";
-    } catch {
-      $("msg").textContent = "تعذر الاتصال بخدمة الحساب. حاول مجددًا.";
-    } finally {
-      busy = false;
-      $("login").disabled = $("signup").disabled = false;
-    }
+    const email=$("login-email").value.trim(), password=$("login-password").value;
+    if(!email||!$("login-email").checkValidity()){ $("msg").textContent="أدخل بريدًا إلكترونيًا صحيحًا."; $("login-email").focus(); return; }
+    if(!password){ $("msg").textContent="أدخل كلمة المرور."; $("login-password").focus(); return; }
+    busy=true; $("login").disabled=true; $("msg").textContent="جارٍ تسجيل الدخول…";
+    try{ const result=await s.auth.signInWithPassword({email,password}); if(result.error){$("msg").textContent=authError(result.error);return;} $("login-password").value=""; await state(); }
+    catch{$("msg").textContent="تعذر الاتصال بخدمة الحساب. حاول مجددًا."} finally{busy=false;$("login").disabled=false}
+  }
+  async function signup() {
+    if (busy) return;
+    const name=$("signup-name").value.trim(),email=$("signup-email").value.trim(),phone=$("signup-phone").value.trim(),password=$("signup-password").value,password2=$("signup-password2").value;
+    if(name.length<2){$("msg").textContent="أدخل اسمك أولًا."; $("signup-name").focus();return}
+    if(!email||!$("signup-email").checkValidity()){$("msg").textContent="أدخل بريدًا إلكترونيًا صحيحًا."; $("signup-email").focus();return}
+    if(password.length<8){$("msg").textContent="اختر كلمة مرور من 8 أحرف على الأقل."; $("signup-password").focus();return}
+    if(password!==password2){$("msg").textContent="كلمتا المرور غير متطابقتين."; $("signup-password2").focus();return}
+    if(!$("signup-consent").checked){$("msg").textContent="نحتاج موافقتك على إنشاء الحساب وحفظ المتابعة.";return}
+    busy=true;$("signup").disabled=true;$("msg").textContent="جارٍ إنشاء الحساب…";
+    try{
+      const bytes=crypto.getRandomValues(new Uint8Array(12));
+      const username="na7n_"+Array.from(bytes,b=>b.toString(16).padStart(2,"0")).join("");
+      const metadata={username,full_name:name}; if(phone) metadata.phone=phone;
+      const result=await s.auth.signUp({email,password,options:{data:metadata}});
+      if(result.error){$("msg").textContent=authError(result.error);return}
+      $("signup-password").value=$("signup-password2").value="";
+      if(result.data?.session){await state()} else {$("msg").textContent="تم إنشاء الحساب. تحقق من بريدك الإلكتروني لتأكيده، ثم سجّل الدخول."; showAuthPanel("login"); $("login-email").value=email; $("msg").textContent="تم إنشاء الحساب. تحقق من بريدك الإلكتروني لتأكيده، ثم سجّل الدخول."}
+    }catch{$("msg").textContent="تعذر الاتصال بخدمة الحساب. حاول مجددًا."}finally{busy=false;$("signup").disabled=false}
   }
   $("trend-controls").innerHTML = Object.entries(metricNames).map(([key, name]) =>
     '<button type="button" class="trend-filter" data-key="' + key + '">' + name + '</button>').join("");
@@ -152,11 +135,13 @@
     const button = event.target.closest(".trend-filter");
     if (button && trendRows.length) renderTrend(button.dataset.key);
   });
-  $("login").addEventListener("click", () => authenticate("login"));
-  $("signup").addEventListener("click", () => authenticate("signup"));
-  $("password").addEventListener("keydown", event => {
-    if (event.key === "Enter") { event.preventDefault(); authenticate("login"); }
-  });
+  $("show-login").addEventListener("click",()=>showAuthPanel("login"));
+  $("show-signup").addEventListener("click",()=>showAuthPanel("signup"));
+  $("cancel-signup").addEventListener("click",()=>showAuthPanel("login"));
+  $("login").addEventListener("click",login);
+  $("signup").addEventListener("click",signup);
+  $("login-password").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();login()}});
+  $("new-account").addEventListener("click",async()=>{await s.auth.signOut({scope:"local"});++stateVersion;clearDashboard();$("dashboard").classList.add("hidden");$("auth").classList.remove("hidden");showAuthPanel("signup")});
   $("logout").addEventListener("click", async () => {
     $("logout").disabled = true;
     try {
@@ -164,7 +149,7 @@
       if (error) { $("dashboard-msg").textContent = "تعذر تسجيل الخروج. حاول مجددًا."; return; }
       ++stateVersion;
       clearDashboard();
-      $("password").value = $("msg").textContent = "";
+      $("login-password").value = $("msg").textContent = "";
       $("dashboard").classList.add("hidden");
       $("auth").classList.remove("hidden");
     } finally { $("logout").disabled = false; }
