@@ -113,3 +113,21 @@ html[dir="ltr"] .site-header .brand-language{flex-direction:row}
 
 /* Final homepage brand hierarchy */
 .compact-hero .hero-brand-lockup+.hero-copy h1{margin-top:0}.compact-hero .hero-copy>h1{max-width:720px}.compact-hero .hero-copy>.hero-support{max-width:690px;margin-top:14px;line-height:1.85}.compact-hero .hero-actions{margin-top:24px}@media(max-width:600px){.compact-hero .hero-brand-lockup{gap:10px}.compact-hero .hero-copy>h1{font-size:34px;line-height:1.22}.compact-hero .hero-copy>.hero-support{line-height:1.75}.compact-hero .hero-actions{margin-top:20px}}
+
+/* Mobile QA hardening — Oct 2026 */
+html,body{max-width:100%;overflow-x:hidden}
+img,svg,canvas{max-width:100%}
+@media(max-width:600px){
+ main{min-width:0}
+ .page-hero,.assessment-hero,.section,.notice{padding-left:20px!important;padding-right:20px!important}
+ .page-hero h1,.assessment-hero h1{font-size:clamp(2rem,10vw,3rem)!important;line-height:1.12!important;overflow-wrap:anywhere}
+ .page-hero .lead,.assessment-hero .lead{font-size:1rem!important;line-height:1.75!important}
+ .content-card,.tool-card,.notice,.boundary-box{max-width:100%;box-sizing:border-box}
+ .content-card,.tool-card{padding:20px!important}
+ .section-actions,.hero-actions{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:10px!important}
+ .section-actions .button,.hero-actions .button{width:100%!important;box-sizing:border-box;text-align:center!important;justify-content:center!important}
+ .check-grid,.pro-grid{grid-template-columns:1fr!important}
+ .content-layout{grid-template-columns:1fr!important}
+ .side-nav{position:static!important;width:100%!important;max-width:100%!important;overflow-x:auto}
+ footer{padding-left:20px!important;padding-right:20px!important}
+}
