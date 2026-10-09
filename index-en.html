@@ -47,4 +47,4 @@
 <script>
 const menuButton=document.querySelector('.menu-toggle');const mainNav=document.getElementById('main-nav');if(menuButton&&mainNav){menuButton.addEventListener('click',()=>{const open=menuButton.getAttribute('aria-expanded')==='true';menuButton.setAttribute('aria-expanded',String(!open));mainNav.classList.toggle('open',!open);});mainNav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{menuButton.setAttribute('aria-expanded','false');mainNav.classList.remove('open');}));}
 </script>
-<script>/* NA7N_MOBILE_NAV */(()=>{const b=document.querySelector(".menu-toggle"),n=document.getElementById("main-nav");if(!b||!n)return;b.addEventListener("click",()=>{const open=b.getAttribute("aria-expanded")==="true";b.setAttribute("aria-expanded",String(!open));n.classList.toggle("open",!open)});n.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{b.setAttribute("aria-expanded","false");n.classList.remove("open")}))})();</script></body></html>
+</body></html>
