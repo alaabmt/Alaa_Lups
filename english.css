@@ -26,3 +26,23 @@ html[lang="en"] .content-card,html[lang="en"] .tool-card,html[lang="en"] .notice
 
 /* English mobile QA */
 @media(max-width:600px){html[lang="en"] .page-hero h1,html[lang="en"] .assessment-hero h1{letter-spacing:-.025em}html[lang="en"] .site-header nav#main-nav a{white-space:normal}html[lang="en"] .notice,html[lang="en"] .content-card,html[lang="en"] .tool-card{overflow-wrap:anywhere}}
+
+/* Mobile QA hardening — Oct 2026 */
+@media(max-width:760px){
+ html[lang="en"] .site-header{padding-left:16px;padding-right:16px;gap:10px}
+ html[lang="en"] .brand-language{min-width:0;gap:8px}
+ html[lang="en"] .brand{min-width:0;gap:8px}
+ html[lang="en"] .brand-mark{flex:0 0 42px}
+ html[lang="en"] .brand strong,html[lang="en"] .brand small{white-space:nowrap}
+ html[lang="en"] .language-switch{white-space:nowrap}
+ html[lang="en"] #main-nav{max-width:100%;box-sizing:border-box}
+ html[lang="en"] .hero-brand-lockup{max-width:100%;box-sizing:border-box}
+ html[lang="en"] .hero-brand-lockup img{width:82px;height:auto;flex:0 0 auto}
+ html[lang="en"] .hero-brand-lockup strong{font-size:clamp(1.25rem,6vw,1.7rem)}
+ html[lang="en"] .hero-brand-lockup small{font-size:.82rem}
+ html[lang="en"] .content-layout{grid-template-columns:1fr}
+ html[lang="en"] .side-nav{position:static;max-width:100%;overflow-x:auto}
+ html[lang="en"] .tool-meta{max-width:100%}
+ html[lang="en"] input,html[lang="en"] select,html[lang="en"] textarea,html[lang="en"] button{max-width:100%;box-sizing:border-box}
+ html[lang="en"] .button{min-height:44px}
+}
