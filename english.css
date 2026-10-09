@@ -23,3 +23,6 @@ html[lang="en"] .content-card,html[lang="en"] .tool-card,html[lang="en"] .notice
  html[lang="en"] .check-grid,html[lang="en"] .pro-grid{grid-template-columns:1fr!important}
  html[lang="en"] table{display:block;max-width:100%;overflow-x:auto}
 }
+
+/* English mobile QA */
+@media(max-width:600px){html[lang="en"] .page-hero h1,html[lang="en"] .assessment-hero h1{letter-spacing:-.025em}html[lang="en"] .site-header nav#main-nav a{white-space:normal}html[lang="en"] .notice,html[lang="en"] .content-card,html[lang="en"] .tool-card{overflow-wrap:anywhere}}
