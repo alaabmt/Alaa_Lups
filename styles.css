@@ -9,3 +9,10 @@
 @media(max-width:900px){.language-switch{position:absolute;top:13px;left:18px}.site-header{position:sticky}.site-header .brand{padding-left:92px}}
 html[lang="en"] .language-switch{direction:rtl}
 @media(max-width:900px){html[lang="en"] .language-switch{left:auto;right:18px}html[lang="en"] .site-header .brand{padding-left:0;padding-right:92px}}
+
+/* Language switch sits directly beside the Ma3i identity */
+.brand-language{display:flex;align-items:center;gap:12px;flex:0 0 auto}
+.brand-language .brand{min-width:0}
+.brand-language .language-switch{position:static!important;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;padding:6px 10px!important}
+@media(max-width:900px){.brand-language{width:100%;justify-content:space-between}.site-header .brand-language .brand{padding-left:0;padding-right:0}.brand-language .language-switch{margin-inline-start:8px}.site-header nav{order:2}}
+@media(max-width:420px){.brand-language{gap:6px}.brand-language .language-switch{padding:5px 8px!important}.brand-language .language-switch strong{font-size:11px}.brand strong{font-size:15px}}
