@@ -1,7 +1,25 @@
-/* English/LTR layer for Ma3i. Keeps the existing visual system while adapting layout for English. */
+/* English/LTR layer for NA7N. */
 html[lang="en"] body{direction:ltr;text-align:left}
 html[lang="en"] .site-header,html[lang="en"] .hero,html[lang="en"] .split-feature,html[lang="en"] .trust-band,html[lang="en"] footer{direction:ltr}
 html[lang="en"] .brand{text-align:left}
 html[lang="en"] nav,html[lang="en"] .hero-actions,html[lang="en"] .section-actions{direction:ltr}
 html[lang="en"] .journey-card,html[lang="en"] .tool-card,html[lang="en"] .hero-panel{text-align:left}
 html[lang="en"] .assessment-flow{direction:ltr}
+
+/* Mobile QA — English pages */
+html[lang="en"],html[lang="en"] body{max-width:100%;overflow-x:hidden}
+html[lang="en"] img,html[lang="en"] svg,html[lang="en"] canvas{max-width:100%}
+html[lang="en"] main,html[lang="en"] section,html[lang="en"] article{min-width:0}
+html[lang="en"] .page-hero h1,html[lang="en"] .hero h1{overflow-wrap:anywhere}
+html[lang="en"] .content-card,html[lang="en"] .tool-card,html[lang="en"] .notice{min-width:0}
+@media(max-width:600px){
+ html[lang="en"] .page-hero,html[lang="en"] .section{padding-left:20px;padding-right:20px}
+ html[lang="en"] .page-hero h1{font-size:clamp(2rem,10vw,3rem);line-height:1.08}
+ html[lang="en"] .page-hero .lead{font-size:1.05rem;line-height:1.65}
+ html[lang="en"] .notice{margin-left:20px;margin-right:20px;padding:20px}
+ html[lang="en"] .content-card,html[lang="en"] .tool-card{padding:20px}
+ html[lang="en"] .section-actions{display:flex;flex-direction:column;align-items:stretch}
+ html[lang="en"] .section-actions .button{width:100%;box-sizing:border-box;text-align:center;justify-content:center}
+ html[lang="en"] .check-grid,html[lang="en"] .pro-grid{grid-template-columns:1fr!important}
+ html[lang="en"] table{display:block;max-width:100%;overflow-x:auto}
+}
