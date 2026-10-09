@@ -1,0 +1,7 @@
+/* English/LTR layer for Ma3i. Keeps the existing visual system while adapting layout for English. */
+html[lang="en"] body{direction:ltr;text-align:left}
+html[lang="en"] .site-header,html[lang="en"] .hero,html[lang="en"] .split-feature,html[lang="en"] .trust-band,html[lang="en"] footer{direction:ltr}
+html[lang="en"] .brand{text-align:left}
+html[lang="en"] nav,html[lang="en"] .hero-actions,html[lang="en"] .section-actions{direction:ltr}
+html[lang="en"] .journey-card,html[lang="en"] .tool-card,html[lang="en"] .hero-panel{text-align:left}
+html[lang="en"] .assessment-flow{direction:ltr}
