@@ -149,7 +149,7 @@
     if(name.length<2){$("msg").textContent="أدخل اسمك أولًا."; $("signup-name").focus();return}
     if(!email||!$("signup-email").checkValidity()){$("msg").textContent="أدخل بريدًا إلكترونيًا صحيحًا."; $("signup-email").focus();return}
     const phoneDigits=phone.replace(/\D/g,"");
-    if(!/^\+?[0-9\s().-]+$/.test(phone) || phoneDigits.length<7 || phoneDigits.length>15){$("msg").textContent="أدخل رقم هاتف صحيحًا مع رمز الدولة (من 7 إلى 15 رقمًا)."; $("signup-phone").focus();return}
+    if(!/^\+?[0-9\s().-]+$/.test(phone) || phoneDigits.length<7 || phoneDigits.length>15){$("msg").textContent="أدخل رقم هاتف صحيحًا (من 7 إلى 15 رقمًا)."; $("signup-phone").focus();return}
     if(password.length<8){$("msg").textContent="اختر كلمة مرور من 8 أحرف على الأقل."; $("signup-password").focus();return}
     if(password!==password2){$("msg").textContent="كلمتا المرور غير متطابقتين."; $("signup-password2").focus();return}
     if(!$("signup-consent").checked){$("msg").textContent="نحتاج موافقتك على إنشاء الحساب وحفظ المتابعة.";return}
