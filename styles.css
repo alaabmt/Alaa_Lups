@@ -101,3 +101,7 @@ html[dir="ltr"] .site-header .brand-language{flex-direction:row}
 .safety-card>div{max-width:790px}.safety-card h2{font-size:29px}.safety-card p{color:var(--muted)}.safety-card .eyebrow{color:var(--purple-dark)}
 @media(max-width:900px){.self-flow{grid-template-columns:repeat(2,1fr)}.priority-grid{grid-template-columns:repeat(2,1fr)}.safety-card{align-items:flex-start;flex-direction:column}}
 @media(max-width:600px){.self-flow,.priority-grid{grid-template-columns:1fr}.self-flow>div{padding:16px}.safety-card{padding:21px}.hero-support{font-size:15px}}
+
+/* NA7N brand mark — adapted from the approved butterfly/embrace concept */
+.brand-mark{display:inline-block;width:48px;height:40px;flex:0 0 48px;background:url("na7n-logo-mark.svg") center/contain no-repeat;font-size:0;line-height:0;color:transparent}
+@media (max-width:760px){.brand-mark{width:42px;height:34px;flex-basis:42px}}
