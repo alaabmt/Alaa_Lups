@@ -40,3 +40,26 @@ html[dir="ltr"] .site-header .brand-language{flex-direction:row}
  .site-header .language-switch span{min-width:23px;height:23px;font-size:9px}
  .site-header .language-switch strong{font-size:11px}
 }
+
+/* Override legacy language-switch rules: text only, beside logo, responsive */
+.site-header .brand-language .language-switch{
+ position:static!important;inset:auto!important;margin:0!important;
+ display:inline-flex!important;align-items:center;justify-content:center;
+ width:auto!important;min-width:auto!important;height:auto!important;
+ padding:7px 12px!important;border:1px solid #d8cae7!important;
+ border-radius:999px!important;background:#f5f0fa!important;
+ color:#4a2f73!important;font-size:13px!important;font-weight:700!important;
+ line-height:1.2!important;white-space:nowrap!important;letter-spacing:0!important;
+}
+.site-header .brand-language .language-switch span,
+.site-header .brand-language .language-switch strong{display:none!important}
+.site-header .brand-language{display:flex!important;align-items:center!important;gap:10px!important;width:auto!important}
+@media(max-width:900px){
+ .site-header .brand-language{width:auto!important;max-width:100%!important;justify-content:flex-start!important}
+ html[dir="rtl"] .site-header .brand-language{justify-self:end!important}
+ html[dir="ltr"] .site-header .brand-language{justify-self:start!important}
+}
+@media(max-width:480px){
+ .site-header .brand-language{gap:7px!important}
+ .site-header .brand-language .language-switch{padding:6px 10px!important;font-size:12px!important}
+}
