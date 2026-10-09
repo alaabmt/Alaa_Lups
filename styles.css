@@ -105,3 +105,5 @@ html[dir="ltr"] .site-header .brand-language{flex-direction:row}
 /* NA7N brand mark — adapted from the approved butterfly/embrace concept */
 .brand-mark{display:inline-block;width:48px;height:40px;flex:0 0 48px;background:url("na7n-logo-mark.svg") center/contain no-repeat;font-size:0;line-height:0;color:transparent}
 @media (max-width:760px){.brand-mark{width:42px;height:34px;flex-basis:42px}}
+
+.hero-brand-lockup{display:flex;align-items:center;gap:14px;margin:0 0 22px}.hero-brand-lockup img{width:92px;height:74px;object-fit:contain}.hero-brand-lockup div{display:flex;flex-direction:column;gap:3px}.hero-brand-lockup strong{font-size:25px;color:var(--purple-dark);line-height:1.2}.hero-brand-lockup strong span{color:var(--purple)}.hero-brand-lockup small{font-size:12px;color:var(--muted);font-weight:700}@media(max-width:600px){.hero-brand-lockup{margin-bottom:16px}.hero-brand-lockup img{width:70px;height:58px}.hero-brand-lockup strong{font-size:21px}.hero-brand-lockup small{font-size:11px}}
