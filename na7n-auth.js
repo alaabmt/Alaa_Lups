@@ -5,8 +5,8 @@
     return;
   }
   const client = window.supabase.createClient(
-    "https://dqrsjhcfmpjhcxvtxosy.supabase.co",
-    "sb_publishable_7nFtuefzXknxLJyonReR-A_7IsnbJDP"
+    "https://wobpwxdlfrzfugzocdie.supabase.co",
+    "sb_publishable_QlDRz3T6CwgTHI3cdGJLMA_BwH4qlwO"
   );
   window.na7nSupabase = client;
   let currentUser = null;
