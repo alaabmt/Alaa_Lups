@@ -250,6 +250,29 @@
     <div class="footer-links"><a href="about-lupus.html">افهم الذئبة</a><a href="tools.html">أدوات المريض</a><a href="faq.html">الأسئلة الشائعة</a><a href="about.html" aria-current="page">من نحن؟</a></div>
     <p>محتوى للتثقيف الصحي ودعم الإدارة الذاتية، لا يغني عن التقييم أو المشورة الطبية المتخصصة.</p>
   </footer>
+  <script>
+    /* NA7N mobile navigation: matches the behaviour on the home page. */
+    (() => {
+      const button = document.querySelector(".menu-toggle");
+      const nav = document.getElementById("main-nav");
+      if (!button || !nav) return;
+      function setMenu(open) {
+        button.setAttribute("aria-expanded", String(open));
+        button.setAttribute("aria-label", open ? "إغلاق القائمة" : "فتح القائمة");
+        nav.classList.toggle("open", open);
+      }
+      button.addEventListener("click", () => {
+        setMenu(button.getAttribute("aria-expanded") !== "true");
+      });
+      nav.querySelectorAll("a").forEach(link => link.addEventListener("click", () => setMenu(false)));
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && button.getAttribute("aria-expanded") === "true") {
+          setMenu(false);
+          button.focus();
+        }
+      });
+    })();
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script>
   <script src="na7n-auth.js?v=20261009-2"></script>
 
