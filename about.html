@@ -50,10 +50,10 @@
     .about-page .about-details-column {display:grid;gap:14px;}
     .about-page details.about-item {border:1px solid var(--line);border-radius:19px;background:#fff;overflow:hidden;box-shadow:0 4px 16px rgba(69,42,98,.025);}
     .about-page details.about-item[open] {border-color:#d7c6e8;box-shadow:0 8px 26px rgba(69,42,98,.055);}
-    .about-page .about-item summary {display:flex;align-items:center;justify-content:space-between;gap:14px;cursor:pointer;font-size:18px;line-height:1.6;font-weight:800;padding:19px 20px;list-style:none;color:var(--ink);}
+    .about-page .about-item summary {display:flex;align-items:center;justify-content:flex-start;gap:14px;cursor:pointer;font-size:18px;line-height:1.6;font-weight:800;padding:19px 20px;list-style:none;color:var(--ink);}
     .about-page .about-item summary::-webkit-details-marker {display:none;}
     .about-page .about-item summary::marker {content:"";}
-    .about-page .about-item summary::after {content:"+";flex:0 0 33px;width:33px;height:33px;display:grid;place-items:center;border-radius:50%;background:var(--about-soft);color:var(--purple-dark);font-size:24px;font-weight:500;line-height:1;}
+    .about-page .about-item summary::after {content:"+";order:-1;flex:0 0 33px;width:33px;height:33px;display:grid;place-items:center;border-radius:50%;background:var(--about-soft);color:var(--purple-dark);font-size:24px;font-weight:500;line-height:1;}
     .about-page .about-item[open] summary::after {content:"−";background:var(--purple);color:white;}
     .about-page .about-item summary:hover {color:var(--purple-dark);background:#fdfafe;}
     .about-page .about-item summary:focus-visible {outline:3px solid #9270be;outline-offset:-3px;border-radius:16px;}
