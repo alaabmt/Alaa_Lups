@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Meet NA7N, an Arabic patient education initiative starting with lupus. We turn health information into practical self-management skills and learn from patients to improve what we offer.">
-  <title>About NA7N | Patient Education That Makes a Difference</title>
+  <meta name="description" content="NA7N is an Arabic-first patient education platform, starting with lupus. Learn how we make health information practical, support self-management, and improve through patient insight and research.">
+  <title>About NA7N | Understanding Health Is Just the Beginning</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="english.css">
@@ -105,6 +105,20 @@
     .about-skip:focus{top:8px}
     .about-page .about-item summary{overflow-wrap:anywhere}
     .about-page .about-hero h1{overflow-wrap:break-word}
+
+    .about-page .about-trust-highlight{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;border:1px solid #ded2e9;border-radius:17px;background:#fbf8fe;padding:17px 22px;margin:-10px 0 38px;color:#4a2f73}
+    .about-page .about-trust-highlight strong{flex:0 0 auto;font-size:15px}
+    .about-page .about-trust-highlight p{flex:1 1 360px;margin:0;color:#61526c;font-size:14px;line-height:1.65}
+    .about-page .about-summary-copy{display:grid;gap:3px;min-width:0}
+    .about-page .about-summary-copy strong{font-size:inherit;line-height:1.5}
+    .about-page .about-summary-copy small{font-size:13px;line-height:1.55;color:#62586d;font-weight:400}
+    .about-back-top{position:fixed;right:22px;bottom:calc(22px + env(safe-area-inset-bottom, 0px));z-index:50;display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;min-width:50px;border:0;border-radius:99px;padding:11px 16px;background:#4a2f73;color:#fff;font:700 14px/1.3 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;box-shadow:0 7px 24px rgba(43,24,63,.25);cursor:pointer}
+    .about-back-top[hidden]{display:none!important}
+    .about-back-top:hover{background:#6d4aa2}
+    .about-back-top:focus-visible{outline:3px solid #b89ed4;outline-offset:3px}
+    .about-back-top .about-back-arrow{font-size:23px;font-weight:700;line-height:1}
+    @media(max-width:650px){.about-page .about-trust-highlight{display:block;padding:17px;margin:-4px 0 29px}.about-page .about-trust-highlight p{margin-top:5px}.about-page .about-summary-copy small{font-size:12px}.about-back-top{right:16px;bottom:calc(18px + env(safe-area-inset-bottom, 0px));width:50px;height:50px;padding:0}.about-back-top .about-back-label{display:none}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}}
   </style>
 </head>
 <body>
@@ -124,10 +138,10 @@
       <div class="about-wrap about-hero-layout">
         <div>
           <p class="about-kicker">THE IDEA BEHIND NA7N</p>
-          <h1 id="about-title">Health information should help you live, not just learn.</h1>
-          <p class="about-lead">A diagnosis may explain what you have. It doesn't always answer what to do on a difficult day, how to prepare for an appointment, or how to make sense of the choices ahead.</p>
-          <p class="about-lead">That's the gap <span class="about-emphasis">NA7N</span> aims to close. We are an Arabic patient education platform focused on making reliable health information easier to understand, more relevant to everyday life, and more useful for building self-management skills.</p>
-          <p class="about-slogan">Learning together. Growing together. Working toward a better quality of life.</p>
+          <h1 id="about-title">Understanding your health is just the beginning.</h1>
+          <p class="about-lead">A diagnosis may give your condition a name, but it does not answer every question about living with it. How do you manage a difficult day? What changes should you pay attention to? How can you make the most of your conversations with your healthcare team?</p>
+          <p class="about-lead">That is where <span class="about-emphasis">NA7N</span> comes in. We are an <strong>Arabic-first patient education platform</strong> that connects reliable health information with practical skills for everyday life. Starting with lupus, we help patients and families build understanding, strengthen self-management skills, and take a more active role in their care.</p>
+          <p class="about-slogan">Together, we learn, grow, and work toward a better quality of life.</p>
           <div class="about-actions"><a class="button primary" href="#about-how">Our approach</a><a class="button secondary" href="tools-en.html">Explore patient tools</a></div>
         </div>
         <aside class="about-hero-visual" aria-label="Where our work begins">
@@ -140,13 +154,19 @@
 
     <div class="about-wrap about-main">
       <section class="about-section about-statement-grid" aria-label="Our vision and mission">
-        <article class="about-statement"><h2>Our vision</h2><p>A future in which people living with chronic conditions are better informed, better equipped to manage day-to-day challenges, and more confident partners in their healthcare.</p></article>
-        <article class="about-statement"><h2>Our mission</h2><p>To make trustworthy health education practical: clear explanations, useful tools, and self-management strategies shaped by evidence and the needs of the people who use them.</p></article>
+        <article class="about-statement"><h2>Our vision</h2><p>People across the Arab world have the knowledge, skills, and support to take a more active role in managing chronic conditions and working with their healthcare teams.</p></article>
+        <article class="about-statement"><h2>Our mission</h2><p>To make evidence-informed health education easier to use through clear explanations, practical tools, and self-management strategies shaped by patients’ needs.</p></article>
       </section>
 
+
+      <div class="about-trust-highlight" role="note">
+        <strong>Our commitment to transparency</strong>
+        <p>We are building a review process with qualified healthcare professionals. We do not describe content as medically reviewed until that review has been completed and documented.</p>
+      </div>
+
       <section class="about-section" id="about-how" aria-labelledby="about-how-title">
-        <h2 id="about-how-title">A better way to make health education useful</h2>
-        <p class="about-section-intro">Patient education is our purpose. Listening to patients, evaluating our resources, and learning from research are how we aim to keep improving.</p>
+        <h2 id="about-how-title">Making health education work in everyday life</h2>
+        <p class="about-section-intro">We start with the questions people face, develop resources they can use, and seek feedback on what helps. Patient experiences and research guide how we improve our educational work.</p>
         <div class="about-graphic" role="group" aria-label="Our four-stage improvement approach">
           <ol>
             <li><span class="about-step-num" aria-hidden="true">1</span><strong>Listen</strong><p>Understand the questions and challenges people face.</p></li>
@@ -154,34 +174,34 @@
             <li><span class="about-step-num" aria-hidden="true">3</span><strong>Learn</strong><p>Seek feedback and evaluate what is useful.</p></li>
             <li><span class="about-step-num" aria-hidden="true">4</span><strong>Improve</strong><p>Use evidence and insight to make resources better.</p></li>
           </ol>
-          <p class="about-graphic-caption">This is the approach we are building toward, not a claim that a complete research programme is already operating.</p>
+          <p class="about-graphic-caption">Our approach to developing, evaluating, and improving patient education.</p>
         </div>
       </section>
 
       <section class="about-section" id="about-details" aria-labelledby="about-details-title">
         <div class="about-detail-heading">
-          <h2 id="about-details-title">Get to know NA7N</h2>
-          <p class="about-details-note">Select + to explore each topic; select again to close it.</p>
+          <h2 id="about-details-title">What we do and what drives us</h2>
+          <p class="about-details-note">Open any section with + to learn more.</p>
         </div>
         <div class="about-details">
           <div class="about-details-column">
-            <details class="about-item" open>
-              <summary>What will I find here today?</summary>
+            <details class="about-item">
+              <summary><span class="about-summary-copy"><strong>What can you use today?</strong><small>Lupus education, preparation guides, and practical tools</small></span></summary>
               <div class="about-answer">
-                <p>Patient-friendly education about lupus, its treatments, and the realities of everyday life with a chronic condition. We also offer resources to help you organise questions, prepare for medical appointments, and think through what matters most to you.</p>
+                <p>We offer clear, evidence-informed education about lupus, its treatments, and the realities of everyday life with a chronic condition. You will also find resources to help you organise questions, prepare for medical appointments, and focus on what matters to you.</p>
                 <p>Our emphasis is on practical self-management skills—recognising changes, planning ahead, and communicating with your healthcare team. These resources inform and support; they do not make diagnoses or treatment decisions.</p>
                 <p><a href="about-lupus-en.html">Understand lupus</a> · <a href="appointment-en.html">Prepare for a visit</a> · <a href="tools-en.html">Patient tools</a></p>
               </div>
             </details>
             <details class="about-item">
-              <summary>Why start with lupus?</summary>
+              <summary><span class="about-summary-copy"><strong>Why begin with lupus?</strong><small>Understanding the everyday realities of a complex condition</small></span></summary>
               <div class="about-answer">
                 <p>Lupus can affect energy, daily routines, relationships, and plans for the future. Symptoms and their impact vary, so living well with the condition involves far more than understanding test results or treatment names.</p>
                 <p>Beginning here helps us focus on real questions and develop educational approaches that may one day be adapted for other chronic conditions.</p>
               </div>
             </details>
             <details class="about-item">
-              <summary>How can patients shape what we do?</summary>
+              <summary><span class="about-summary-copy"><strong>How patients help shape our work</strong><small>Listening to lived experiences and identifying real needs</small></span></summary>
               <div class="about-answer">
                 <p>People living with a condition know which questions remain unanswered, which explanations are confusing, and which challenges matter in daily life. We want those perspectives to guide the topics, tools, and resources we develop.</p>
                 <p>Our aim is to involve patients in identifying priorities, giving feedback, and testing whether resources are understandable and useful. Personal experiences help identify needs; clinical claims still require scientific evidence.</p>
@@ -190,25 +210,25 @@
           </div>
           <div class="about-details-column">
             <details class="about-item">
-              <summary>What role will research play?</summary>
+              <summary><span class="about-summary-copy"><strong>How research helps us improve</strong><small>Understanding needs, testing ideas, and learning what works</small></span></summary>
               <div class="about-answer">
-                <p>Research and development serve our educational mission—not the other way around. We hope to explore gaps in health literacy, understand what helps people manage chronic conditions, and evaluate educational tools and programmes, including their potential impact on knowledge, skills, participation in care, and quality of life.</p>
+                <p>Research helps us understand what patients need, evaluate what works, and improve the education and tools we provide. As we develop this work, we hope to collaborate on studies of health literacy, self-management, and the ways educational programmes may influence knowledge, skills, participation in care, and quality of life.</p>
                 <p>Future studies will require the appropriate research methods, ethics review, permissions, and safeguards for participants' information.</p>
                 <p class="about-muted-note">Creating a NA7N account does not enrol anyone in a research study.</p>
               </div>
             </details>
             <details class="about-item">
-              <summary>What are our longer-term ambitions?</summary>
+              <summary><span class="about-summary-copy"><strong>Where we hope to go</strong><small>Training, partnerships, and better patient education standards</small></span></summary>
               <div class="about-answer">
-                <p>We hope to develop learning programmes for patients and families, training for healthcare professionals, and resources that help healthcare organisations strengthen patient education and self-management support.</p>
-                <p>With researchers and relevant institutions, we also aspire to contribute to evidence-informed approaches and quality standards for patient education across the Arab world—grounded in local needs, languages, and cultures.</p>
+                <p>Our longer-term plans include learning programmes for patients and families, training for healthcare professionals, and resources to help healthcare organisations strengthen patient education and self-management support.</p>
+                <p>In collaboration with researchers and institutions, we also hope to contribute to evidence-informed approaches and quality standards for patient education across the Arab world, shaped by local needs, languages, and cultures.</p>
                 <p class="about-muted-note">These are future goals, not services or accreditations we claim to offer today.</p>
               </div>
             </details>
             <details class="about-item">
-              <summary>How do we approach quality and trust?</summary>
+              <summary><span class="about-summary-copy"><strong>Our commitment to quality and trust</strong><small>Professional review, clear sources, and responsible boundaries</small></span></summary>
               <div class="about-answer">
-                <p>We are developing a multidisciplinary review process involving doctors, nurses, and other qualified healthcare professionals, each within their area of expertise. We aim to make sources, review status, and updates clear, and will never label content “medically reviewed” unless that review has actually been completed and documented.</p>
+                <p>We are developing a multidisciplinary review process involving doctors, nurses, and other qualified healthcare professionals, each working within their area of expertise. We aim to show sources, review status, and updates clearly. Content is labelled “medically reviewed” only when a review has been completed and documented.</p>
                 <p>Our principles are straightforward: put people first, respect evidence, support patient agency, value shared learning, improve through evaluation, and protect privacy.</p>
                 <p>NA7N provides education, not individual medical advice. Its materials cannot replace an assessment or treatment plan from a qualified healthcare professional.</p>
               </div>
@@ -218,13 +238,14 @@
       </section>
 
       <section class="about-section about-pledge" aria-labelledby="about-closing-title">
-        <h2 id="about-closing-title">Better understanding. More confidence. Shared progress.</h2>
+        <h2 id="about-closing-title">Better understanding. Stronger skills. Progress together.</h2>
         <p>We want people to leave NA7N with more than new facts. We want them to find something they can use: a clearer question, a practical skill, or a better starting point for a conversation with their care team. And we want to keep learning from what matters to them.</p>
-        <p><strong>Because progress in patient education should be shaped with patients, not simply delivered to them.</strong></p>
+        <p><strong>Better patient education is shaped with patients, not simply delivered to them.</strong></p>
         <div class="about-actions"><a class="button primary" href="newly-diagnosed-en.html">Start learning about lupus</a><a class="button secondary" href="index-en.html">Back to home</a></div>
       </section>
     </div>
   </main>
+  <button type="button" class="about-back-top" aria-label="Back to top" title="Back to top" hidden><span class="about-back-arrow" aria-hidden="true">↑</span><span class="about-back-label">Back to top</span></button>
   <footer>
     <div class="footer-brand"><strong>NA7N | Lupus</strong><span>Learning together. Working toward a better quality of life.</span></div>
     <div class="footer-links"><a href="about-lupus-en.html">Understand lupus</a><a href="tools-en.html">Patient tools</a><a href="faq-en.html">FAQ</a><a href="about-en.html" aria-current="page">About NA7N</a><a href="about.html" lang="ar" dir="rtl">العربية</a></div>
@@ -239,6 +260,20 @@
         const open=button.getAttribute("aria-expanded")==="true";
         button.setAttribute("aria-expanded",String(!open));
         nav.classList.toggle("open",!open);
+      });
+    })();
+  </script>
+
+  <script>
+    (() => {
+      const backTop = document.querySelector(".about-back-top");
+      if (!backTop) return;
+      const updateVisibility = () => { backTop.hidden = window.scrollY < 480; };
+      window.addEventListener("scroll", updateVisibility, {passive:true});
+      window.addEventListener("pageshow", updateVisibility);
+      updateVisibility();
+      backTop.addEventListener("click", () => {
+        window.scrollTo({top:0,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
       });
     })();
   </script>
