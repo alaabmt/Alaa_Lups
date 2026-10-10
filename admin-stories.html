@@ -78,10 +78,18 @@ body{background:#faf7fc;color:#30253b}
 <div id="owner-editor" class="admin-hidden">
 <label class="admin-field">النسخة المحررة للنشر<textarea id="detail-edited" maxlength="15000"></textarea></label>
 <label class="admin-field">تعيين المراجع التثقيفي<select id="detail-reviewer"><option value="">لم يُعيَّن</option></select></label>
+<p id="detail-author-contact" class="admin-note"></p>
+<label><input id="detail-clinical-required" type="checkbox"> إحالة للمراجعة الطبية/التثقيفية عند وجود ادعاءات علاجية — المراجع التثقيفي لا يُعد طبيبًا</label>
 <label class="admin-field">المرحلة<select id="detail-status"><option value="new">جديدة</option><option value="privacy_review">مراجعة الخصوصية</option><option value="assigned">مُعيّنة لمراجع</option><option value="educational_review">مراجعة تثقيفية</option><option value="awaiting_author_consent">بانتظار موافقة الكاتب</option><option value="rejected">مرفوضة</option><option value="withdrawn">مسحوبة</option></select></label>
 <label><input id="detail-privacy-cleared" type="checkbox"> تأكيد مراجعة الخصوصية وإزالة المعلومات المعرِّفة للغير</label>
-<p class="admin-status">لا تتوفر الموافقة النهائية والنشر من هذه الصفحة حتى يعتمد نظام التحقق من موافقة الكاتب على نسخة محددة ويجتاز تدقيق الامتثال.</p>
-<div class="admin-actions"><button id="save-case" class="admin-btn" type="button">حفظ مراجعة آمنة</button></div></div>
+<div class="admin-note"><strong>إثبات موافقة الكاتب — مخزن خاص وسجل غير قابل للتعديل بواسطة واجهة المراجع.</strong><p>لا تسجل موافقة قبل استلام دليل مؤكد، محدد بنسخة النص النهائية نفسها، ومخزن داخل النظام المعتمد. مجرد إرسال مسودة أو وضع علامة في نموذج عام لا يعد موافقة للنشر.</p>
+<label class="admin-field">مرجع دليل الموافقة في السجل الآمن<input id="consent-evidence" type="text" maxlength="500" placeholder="معرّف داخلي للدليل — لا تضع بيانات المريض"></label>
+<label class="admin-field">وقت استلام الموافقة الموثقة<input id="consent-received" type="datetime-local"></label>
+<label><input id="consent-attest" type="checkbox"> تحققت من هوية صاحب القصة، ومن موافقته على النسخة النهائية المحددة، وأن الموافقة لم تُسحب.</label>
+<div class="admin-actions"><button class="admin-btn secondary" id="record-consent" type="button">حفظ إثبات الموافقة على نسخة النص</button></div>
+<div id="consent-history" aria-live="polite" class="admin-status"></div></div>
+<p class="admin-status">اعتماد النشر يتطلب مراجعة الخصوصية، ودليل موافقة على بصمة النص النهائية، ومراجعة تثقيفية مسجلة عند الحاجة. الاعتماد لا يرفع القصة للموقع العام تلقائيًا.</p>
+<div class="admin-actions"><button id="save-case" class="admin-btn" type="button">حفظ مراجعة آمنة</button><button id="approve-case" class="admin-btn secondary" type="button">اعتماد النسخة للنشر بعد استيفاء الشروط</button></div></div>
 <div id="reviewer-editor" class="admin-hidden"><label class="admin-field">ملاحظات السلامة التثقيفية<textarea id="review-note" maxlength="4000" placeholder="لا تصدر تشخيصًا أو وصفة علاجية. أشر إلى الادعاءات التي تتطلب طبيبًا مختصًا."></textarea></label><button id="submit-review" class="admin-btn" type="button">حفظ المراجعة</button></div>
 <div id="review-history"><h3>سجل ملاحظات المراجعة</h3><div id="review-list"></div></div>
 <p id="detail-status-message" role="status" class="admin-status" aria-live="polite"></p></div>
