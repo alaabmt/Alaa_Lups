@@ -1,4 +1,246 @@
-<!doctype html><html lang="en" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="NA7N is being built as a patient-first health platform. This lupus section aims to make reliable information easier to understand and use in conversations with healthcare professionals."><title>About NA7N | NA7N | Lupus</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="english.css">  <link rel="canonical" href="https://na7nlupus.com/about-en.html">
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Meet NA7N, an Arabic patient education initiative starting with lupus. We turn health information into practical self-management skills and learn from patients to improve what we offer.">
+  <title>About NA7N | Patient Education That Makes a Difference</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="english.css">
+  <link rel="canonical" href="https://na7nlupus.com/about-en.html">
   <link rel="alternate" hreflang="ar" href="https://na7nlupus.com/about.html">
   <link rel="alternate" hreflang="en" href="https://na7nlupus.com/about-en.html">
-</head><body><header class="site-header"><div class="brand-language"><a class="brand" href="index-en.html"><span class="brand-mark">✦</span><span><strong>NA7N</strong><small>Lupus</small></span></a><a class="language-switch" href="about.html" lang="ar" dir="rtl">العربية</a></div><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu"><span></span><span></span><span></span></button><nav id="main-nav" aria-label="Main navigation"><a href="about-lupus-en.html">Understand lupus</a><a href="treatment-en.html">Treatment</a><a href="living-en.html">Living with lupus</a><a href="assessment-en.html">Track your health</a><a href="articles-en.html">Ask & learn</a></nav></header><main><section class="page-hero"><p class="eyebrow">About NA7N</p><h1>Patient education designed for understanding and action.</h1><p class="lead">NA7N is being built as a patient-first health platform. This lupus section aims to make reliable information easier to understand and use in conversations with healthcare professionals.</p></section><section class="notice"><strong>Important</strong><p>This information is educational. It does not diagnose your condition or replace advice from your healthcare team.</p></section><section class="section"><div class="content-stack"><article class="content-card"><span class="content-status">Key information</span><h2>How we write</h2><p>We begin with the patient's question, identify the main message and practical next step, then build detail underneath. Important medical claims are grounded in appropriate sources.</p></article><article class="content-card"><span class="content-status">Patient guide</span><h2>Editorial standard</h2><p>Our approach uses health-literacy principles including understandability and actionability. Medical accuracy, evidence, language, patient perspective, safety and actionability are reviewed separately.</p></article><article class="content-card"><span class="content-status">Patient guide</span><h2>Medical review status</h2><p>We do not label a page medically reviewed unless a real medical review has occurred. Pages may therefore state that internal medical review is pending.</p></article><article class="content-card"><span class="content-status">Patient guide</span><h2>What NA7N does not do</h2><p>NA7N does not diagnose an individual, prescribe treatment, change medication doses or interpret one laboratory result as a diagnosis.</p></article><article class="content-card"><span class="content-status">Patient guide</span><h2>Privacy in the current version</h2><p>The current website is static. It does not currently provide patient accounts or store personal health histories. Future health-data features will require appropriate privacy, security and governance.</p></article><article class="content-card"><h2>What should I do now?</h2><div class="check-grid"><span>Write down new or changing symptoms.</span><span>Keep your medicines and recent results organized.</span><span>Prepare your most important questions before your visit.</span><span>Seek medical assessment promptly for severe or rapidly worsening symptoms.</span></div><div class="section-actions"><a class="button primary" href="appointment-en.html">Prepare for your appointment</a><a class="button secondary" href="tools-en.html">Patient tools</a></div></article><article class="content-card"><h2>Editorial status</h2><p><strong>Last editorial update:</strong> October 2026.</p><p><strong>Internal medical review:</strong> Pending documented clinician review. NA7N does not claim medical review before it occurs.</p></article></div></section></main><footer><div class="footer-brand"><strong>NA7N | Lupus</strong><span>NA7N | Lupus</span></div><div class="footer-links"><a href="about-lupus-en.html">Understand lupus</a><a href="faq-en.html">FAQ</a><a href="tools-en.html">Patient tools</a><a href="about-en.html">About NA7N</a><a href="index.html" lang="ar">العربية</a></div><p>Educational content does not replace direct medical assessment or individualized medical advice.</p></footer><script>/* NA7N_MOBILE_NAV */(()=>{const b=document.querySelector(".menu-toggle"),n=document.getElementById("main-nav");if(!b||!n)return;b.onclick=()=>{const o=b.getAttribute("aria-expanded")==="true";b.setAttribute("aria-expanded",String(!o));n.classList.toggle("open",!o)}})();</script></body></html>
+  <style>
+    /* Scoped layout: the rest of NA7N keeps its existing theme. */
+    .about-page { --about-accent:#7654a6; --about-soft:#f5f0fa; font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif; line-height:1.65; }
+    .about-page .about-wrap { width:min(1100px,90vw);margin-inline:auto; }
+    .about-page .about-hero {padding:66px 0 46px;background:radial-gradient(ellipse at 88% 3%,#eee3f8 0%,transparent 46%),linear-gradient(125deg,#fffdfa,#f8f4fb);border-bottom:1px solid var(--line);}
+    .about-page .about-hero-layout {display:grid;grid-template-columns:minmax(0,1.55fr) minmax(245px,.65fr);align-items:center;gap:48px;}
+    .about-page .about-kicker {color:var(--purple-dark);font-size:13px;font-weight:800;letter-spacing:.02em;margin:0 0 14px;}
+    .about-page .about-hero h1 {font-size:clamp(33px,4.4vw,54px);line-height:1.32;letter-spacing:-.025em;max-width:770px;margin:0 0 20px;}
+    .about-page .about-hero .about-lead {font-size:clamp(17px,1.7vw,19px);line-height:1.78;max-width:760px;color:#43364f;margin-bottom:16px;}
+    .about-page .about-emphasis {font-weight:800;color:var(--purple-dark);}
+    .about-page .about-hero .about-slogan {margin:0;font-weight:800;color:var(--purple-dark);font-size:17px;}
+    .about-page .about-hero-visual {display:grid;gap:14px;padding:29px 23px;border:1px solid #e5d8ef;border-radius:26px;background:rgba(255,255,255,.87);box-shadow:0 20px 45px rgba(69,42,98,.07);}
+    .about-page .about-hero-visual .about-badge {width:69px;height:69px;border-radius:21px;background:var(--about-soft);display:grid;place-items:center;}
+    .about-page .about-hero-visual .about-badge img {width:62px;height:56px;object-fit:contain;}
+    .about-page .about-hero-visual strong {font-size:23px;line-height:1.5;color:var(--purple-dark);}
+    .about-page .about-hero-visual p {font-size:15px;line-height:1.7;color:var(--muted);margin:0;}
+    .about-page .about-main {padding:46px 0 12px;}
+    .about-page .about-section {margin-block:0 42px;scroll-margin-top:115px;}
+    .about-page .about-section h2 {font-size:clamp(24px,3vw,32px);margin:0 0 13px;}
+    .about-page .about-section-intro {font-size:16px;line-height:1.75;color:var(--muted);max-width:850px;margin:0 0 24px;}
+    .about-page .about-statement-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
+    .about-page .about-statement {border:1px solid var(--line);border-radius:22px;padding:26px;background:#fff;position:relative;overflow:hidden;}
+    .about-page .about-statement::before {content:"";position:absolute;left:0;top:0;width:5px;height:100%;background:#a98bc8;}
+    .about-page .about-statement h2 {font-size:23px;margin-bottom:10px;}
+    .about-page .about-statement p {color:var(--muted);line-height:1.9;margin:0;}
+    .about-page .about-graphic {padding:26px 22px;border:1px solid #e8ddec;border-radius:24px;background:linear-gradient(135deg,#fbf8fe,#fffdfa);}
+    .about-page .about-graphic ol {list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;counter-reset:about-steps;}
+    .about-page .about-graphic li {position:relative;text-align:center;padding:8px 10px 6px;min-width:0;}
+    .about-page .about-graphic li:not(:last-child)::after {content:"→";position:absolute;right:-13px;top:23px;color:#9b80b8;font-size:23px;font-weight:700;line-height:1;}
+    .about-page .about-step-num {display:grid;place-items:center;margin:0 auto 13px;width:58px;height:58px;border-radius:19px;background:var(--purple);color:#fff;font-size:22px;font-weight:900;box-shadow:0 8px 18px rgba(109,74,162,.15);}
+    .about-page .about-graphic strong {display:block;color:var(--purple-dark);font-size:17px;margin-bottom:5px;}
+    .about-page .about-graphic p {color:var(--muted);font-size:14px;line-height:1.7;margin:0;}
+    .about-page .about-graphic-caption {margin:18px 0 0;text-align:center;font-size:13px;color:var(--muted);}
+    .about-page .about-detail-heading {display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:15px;}
+    .about-page .about-detail-heading h2 {margin:0;}
+    .about-page .about-details-note {color:var(--muted);font-size:13px;margin:0;}
+    .about-page .about-details {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:14px;}
+    .about-page .about-details-column {display:grid;gap:14px;}
+    .about-page details.about-item {border:1px solid var(--line);border-radius:19px;background:#fff;overflow:hidden;box-shadow:0 4px 16px rgba(69,42,98,.025);}
+    .about-page details.about-item[open] {border-color:#d7c6e8;box-shadow:0 8px 26px rgba(69,42,98,.055);}
+    .about-page .about-item summary {display:flex;align-items:center;justify-content:space-between;gap:14px;cursor:pointer;font-size:18px;line-height:1.6;font-weight:800;padding:19px 20px;list-style:none;color:var(--ink);}
+    .about-page .about-item summary::-webkit-details-marker {display:none;}
+    .about-page .about-item summary::marker {content:"";}
+    .about-page .about-item summary::after {content:"+";flex:0 0 33px;width:33px;height:33px;display:grid;place-items:center;border-radius:50%;background:var(--about-soft);color:var(--purple-dark);font-size:24px;font-weight:500;line-height:1;}
+    .about-page .about-item[open] summary::after {content:"−";background:var(--purple);color:white;}
+    .about-page .about-item summary:hover {color:var(--purple-dark);background:#fdfafe;}
+    .about-page .about-item summary:focus-visible {outline:3px solid #9270be;outline-offset:-3px;border-radius:16px;}
+    .about-page .about-item .about-answer {padding:0 20px 19px;color:#5d5264;line-height:1.95;}
+    .about-page .about-item .about-answer p {margin:0 0 12px;color:inherit;}
+    .about-page .about-item .about-answer p:last-child {margin-bottom:0;}
+    .about-page .about-item .about-answer ul {margin:4px 0 12px;padding-left:21px;}
+    .about-page .about-item .about-answer li {margin-bottom:7px;}
+    .about-page .about-item .about-answer a {color:var(--purple-dark);font-weight:800;text-decoration:underline;text-underline-offset:3px;}
+    .about-page .about-muted-note {margin:12px 0 0;padding:12px 14px;border-left:3px solid #b89ed4;border-radius:9px;background:#faf7fd;font-size:14px;line-height:1.85;}
+    .about-page .about-pledge {margin:22px 0 0;padding:26px;border:1px solid #d9c8e8;border-radius:23px;background:linear-gradient(125deg,#f7f1fb,#fff);}
+    .about-page .about-pledge h2 {font-size:24px;margin:0 0 9px;}
+    .about-page .about-pledge p {color:#4d4055;line-height:1.9;margin:0 0 12px;}
+    .about-page .about-pledge p:last-child {margin-bottom:0;}
+    .about-page .about-pledge strong {color:var(--purple-dark);}
+    .about-page .about-actions {display:flex;flex-wrap:wrap;gap:11px;margin:22px 0 0;}
+    .about-page .about-actions a {display:inline-flex;align-items:center;justify-content:center;min-height:45px;}
+    @media(max-width:850px) {
+      .about-page .about-hero-layout {grid-template-columns:1fr;gap:24px;}
+      .about-page .about-hero-visual {grid-template-columns:auto 1fr;align-items:center;column-gap:16px;padding:19px;}
+      .about-page .about-hero-visual p {grid-column:2;}
+      .about-page .about-graphic li:not(:last-child)::after {display:none;}
+    }
+    @media(max-width:650px) {
+      .about-page .about-wrap {width:calc(100% - 36px);}
+      .about-page .about-hero {padding:39px 0 34px;}
+      .about-page .about-hero h1 {font-size:clamp(30px,8vw,38px);}
+      .about-page .about-hero .about-lead {font-size:16px;line-height:1.85;}
+      .about-page .about-main {padding-top:32px;}
+      .about-page .about-section {margin-bottom:31px;}
+      .about-page .about-statement-grid,.about-page .about-details {grid-template-columns:1fr;}
+      .about-page .about-statement {padding:20px;}
+      .about-page .about-graphic {padding:18px 12px;}
+      .about-page .about-graphic ol {grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 8px;}
+      .about-page .about-step-num {width:49px;height:49px;border-radius:15px;font-size:19px;margin-bottom:8px;}
+      .about-page .about-graphic strong {font-size:15px;}
+      .about-page .about-graphic p {font-size:12px;}
+      .about-page .about-item summary {font-size:16px;padding:17px;}
+      .about-page .about-item .about-answer {padding:0 17px 17px;}
+      .about-page .about-pledge {padding:21px;}
+      .about-page .about-actions {flex-direction:column;}
+      .about-page .about-actions .button {width:100%;}
+    }
+    @media(prefers-reduced-motion:reduce) {.about-page * {scroll-behavior:auto;transition:none!important;}}
+  
+    /* Accessible skip navigation, visible only when focused. */
+    .about-skip{position:absolute;left:12px;top:-100px;z-index:99;background:#fff;color:#4a2f73;padding:10px 16px;border:2px solid #6d4aa2;border-radius:10px}
+    .about-skip:focus{top:8px}
+    .about-page .about-item summary{overflow-wrap:anywhere}
+    .about-page .about-hero h1{overflow-wrap:break-word}
+  </style>
+</head>
+<body>
+  <a class="about-skip" href="#about-content">Skip to main content</a>
+  <header class="site-header">
+    <div class="brand-language">
+      <a class="brand" href="index-en.html" aria-label="NA7N | Lupus home"><span class="brand-mark" aria-hidden="true">✦</span><span><strong>NA7N</strong><small>Lupus</small></span></a>
+      <a class="language-switch" href="about.html" lang="ar" dir="rtl" aria-label="العربية">العربية</a>
+    </div>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <nav id="main-nav" aria-label="Main navigation">
+      <a href="about-lupus-en.html">Understand lupus</a><a href="treatment-en.html">Treatment</a><a href="living-en.html">Living with lupus</a><a href="assessment-en.html">Track your health</a><a href="articles-en.html">Ask &amp; learn</a>
+    </nav>
+  </header>
+  <main class="about-page" id="about-content">
+    <section class="about-hero" aria-labelledby="about-title">
+      <div class="about-wrap about-hero-layout">
+        <div>
+          <p class="about-kicker">THE IDEA BEHIND NA7N</p>
+          <h1 id="about-title">Health information should help you live, not just learn.</h1>
+          <p class="about-lead">A diagnosis may explain what you have. It doesn't always answer what to do on a difficult day, how to prepare for an appointment, or how to make sense of the choices ahead.</p>
+          <p class="about-lead">That's the gap <span class="about-emphasis">NA7N</span> aims to close. We are an Arabic patient education platform focused on making reliable health information easier to understand, more relevant to everyday life, and more useful for building self-management skills.</p>
+          <p class="about-slogan">Learning together. Growing together. Working toward a better quality of life.</p>
+          <div class="about-actions"><a class="button primary" href="#about-how">Our approach</a><a class="button secondary" href="tools-en.html">Explore patient tools</a></div>
+        </div>
+        <aside class="about-hero-visual" aria-label="Where our work begins">
+          <div class="about-badge"><img src="na7n-logo-mark.svg" alt=""></div>
+          <strong>Starting with lupus. Thinking beyond it.</strong>
+          <p>Lupus is our first focus. Over time, we hope to adapt what we learn to support people living with other chronic conditions across the Arab world.</p>
+        </aside>
+      </div>
+    </section>
+
+    <div class="about-wrap about-main">
+      <section class="about-section about-statement-grid" aria-label="Our vision and mission">
+        <article class="about-statement"><h2>Our vision</h2><p>A future in which people living with chronic conditions are better informed, better equipped to manage day-to-day challenges, and more confident partners in their healthcare.</p></article>
+        <article class="about-statement"><h2>Our mission</h2><p>To make trustworthy health education practical: clear explanations, useful tools, and self-management strategies shaped by evidence and the needs of the people who use them.</p></article>
+      </section>
+
+      <section class="about-section" id="about-how" aria-labelledby="about-how-title">
+        <h2 id="about-how-title">A better way to make health education useful</h2>
+        <p class="about-section-intro">Patient education is our purpose. Listening to patients, evaluating our resources, and learning from research are how we aim to keep improving.</p>
+        <div class="about-graphic" role="group" aria-label="Our four-stage improvement approach">
+          <ol>
+            <li><span class="about-step-num" aria-hidden="true">1</span><strong>Listen</strong><p>Understand the questions and challenges people face.</p></li>
+            <li><span class="about-step-num" aria-hidden="true">2</span><strong>Equip</strong><p>Offer clear information and practical tools.</p></li>
+            <li><span class="about-step-num" aria-hidden="true">3</span><strong>Learn</strong><p>Seek feedback and evaluate what is useful.</p></li>
+            <li><span class="about-step-num" aria-hidden="true">4</span><strong>Improve</strong><p>Use evidence and insight to make resources better.</p></li>
+          </ol>
+          <p class="about-graphic-caption">This is the approach we are building toward, not a claim that a complete research programme is already operating.</p>
+        </div>
+      </section>
+
+      <section class="about-section" id="about-details" aria-labelledby="about-details-title">
+        <div class="about-detail-heading">
+          <h2 id="about-details-title">Get to know NA7N</h2>
+          <p class="about-details-note">Select + to explore each topic; select again to close it.</p>
+        </div>
+        <div class="about-details">
+          <div class="about-details-column">
+            <details class="about-item" open>
+              <summary>What will I find here today?</summary>
+              <div class="about-answer">
+                <p>Patient-friendly education about lupus, its treatments, and the realities of everyday life with a chronic condition. We also offer resources to help you organise questions, prepare for medical appointments, and think through what matters most to you.</p>
+                <p>Our emphasis is on practical self-management skills—recognising changes, planning ahead, and communicating with your healthcare team. These resources inform and support; they do not make diagnoses or treatment decisions.</p>
+                <p><a href="about-lupus-en.html">Understand lupus</a> · <a href="appointment-en.html">Prepare for a visit</a> · <a href="tools-en.html">Patient tools</a></p>
+              </div>
+            </details>
+            <details class="about-item">
+              <summary>Why start with lupus?</summary>
+              <div class="about-answer">
+                <p>Lupus can affect energy, daily routines, relationships, and plans for the future. Symptoms and their impact vary, so living well with the condition involves far more than understanding test results or treatment names.</p>
+                <p>Beginning here helps us focus on real questions and develop educational approaches that may one day be adapted for other chronic conditions.</p>
+              </div>
+            </details>
+            <details class="about-item">
+              <summary>How can patients shape what we do?</summary>
+              <div class="about-answer">
+                <p>People living with a condition know which questions remain unanswered, which explanations are confusing, and which challenges matter in daily life. We want those perspectives to guide the topics, tools, and resources we develop.</p>
+                <p>Our aim is to involve patients in identifying priorities, giving feedback, and testing whether resources are understandable and useful. Personal experiences help identify needs; clinical claims still require scientific evidence.</p>
+              </div>
+            </details>
+          </div>
+          <div class="about-details-column">
+            <details class="about-item">
+              <summary>What role will research play?</summary>
+              <div class="about-answer">
+                <p>Research and development serve our educational mission—not the other way around. We hope to explore gaps in health literacy, understand what helps people manage chronic conditions, and evaluate educational tools and programmes, including their potential impact on knowledge, skills, participation in care, and quality of life.</p>
+                <p>Future studies will require the appropriate research methods, ethics review, permissions, and safeguards for participants' information.</p>
+                <p class="about-muted-note">Creating a NA7N account does not enrol anyone in a research study.</p>
+              </div>
+            </details>
+            <details class="about-item">
+              <summary>What are our longer-term ambitions?</summary>
+              <div class="about-answer">
+                <p>We hope to develop learning programmes for patients and families, training for healthcare professionals, and resources that help healthcare organisations strengthen patient education and self-management support.</p>
+                <p>With researchers and relevant institutions, we also aspire to contribute to evidence-informed approaches and quality standards for patient education across the Arab world—grounded in local needs, languages, and cultures.</p>
+                <p class="about-muted-note">These are future goals, not services or accreditations we claim to offer today.</p>
+              </div>
+            </details>
+            <details class="about-item">
+              <summary>How do we approach quality and trust?</summary>
+              <div class="about-answer">
+                <p>We are developing a multidisciplinary review process involving doctors, nurses, and other qualified healthcare professionals, each within their area of expertise. We aim to make sources, review status, and updates clear, and will never label content “medically reviewed” unless that review has actually been completed and documented.</p>
+                <p>Our principles are straightforward: put people first, respect evidence, support patient agency, value shared learning, improve through evaluation, and protect privacy.</p>
+                <p>NA7N provides education, not individual medical advice. Its materials cannot replace an assessment or treatment plan from a qualified healthcare professional.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="about-section about-pledge" aria-labelledby="about-closing-title">
+        <h2 id="about-closing-title">Better understanding. More confidence. Shared progress.</h2>
+        <p>We want people to leave NA7N with more than new facts. We want them to find something they can use: a clearer question, a practical skill, or a better starting point for a conversation with their care team. And we want to keep learning from what matters to them.</p>
+        <p><strong>Because progress in patient education should be shaped with patients, not simply delivered to them.</strong></p>
+        <div class="about-actions"><a class="button primary" href="newly-diagnosed-en.html">Start learning about lupus</a><a class="button secondary" href="index-en.html">Back to home</a></div>
+      </section>
+    </div>
+  </main>
+  <footer>
+    <div class="footer-brand"><strong>NA7N | Lupus</strong><span>Learning together. Working toward a better quality of life.</span></div>
+    <div class="footer-links"><a href="about-lupus-en.html">Understand lupus</a><a href="tools-en.html">Patient tools</a><a href="faq-en.html">FAQ</a><a href="about-en.html" aria-current="page">About NA7N</a><a href="about.html" lang="ar" dir="rtl">العربية</a></div>
+    <p>Educational resources support understanding and self-management; they are not a substitute for personalised medical care.</p>
+  </footer>
+  <script>
+    /* Mobile navigation on English pages. */
+    (() => {
+      const button=document.querySelector(".menu-toggle"),nav=document.getElementById("main-nav");
+      if(!button||!nav)return;
+      button.addEventListener("click",()=>{
+        const open=button.getAttribute("aria-expanded")==="true";
+        button.setAttribute("aria-expanded",String(!open));
+        nav.classList.toggle("open",!open);
+      });
+    })();
+  </script>
+</body>
+</html>
