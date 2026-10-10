@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta http-equiv="Cache-Control" content="no-store">
+<title>إدارة قصص المرضى | نَحْنُ</title>
+<meta name="description" content="بوابة إدارة داخلية مخوّلة لقصص المرضى في نَحْنُ.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css">
+<style>
+:root{--admin-purple:#523474;--admin-line:#e8dfee}
+body{background:#faf7fc;color:#30253b}
+.admin-shell{max-width:1180px;margin:0 auto;padding:24px 18px 90px}
+.admin-head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.admin-head a{color:var(--admin-purple)}
+.admin-label{font-size:.83rem;letter-spacing:.04em;font-weight:800;color:#815b9f}
+.admin-lead{font-size:1.06rem;color:#66576e;max-width:720px;line-height:1.9}
+.admin-card{background:#fff;border:1px solid var(--admin-line);border-radius:19px;padding:26px;margin:22px 0;box-shadow:0 8px 28px #34204e07}
+.admin-card h2{color:#4d306e;margin-top:0}
+.admin-warning{padding:17px 20px;border-radius:14px;background:#fff8e9;border:1px solid #ead7aa;line-height:1.9}
+.admin-status{padding:14px 0;color:#654d70;line-height:1.8;min-height:24px}
+.admin-hidden{display:none!important}
+.admin-actions{display:flex;gap:11px;flex-wrap:wrap;margin-top:18px}
+.admin-btn{font:inherit;border:1px solid #63418b;background:#63418b;color:#fff;border-radius:12px;padding:11px 19px;cursor:pointer;font-weight:700}
+.admin-btn.secondary{background:#fff;color:#513175}
+.admin-btn:disabled{opacity:.55;cursor:not-allowed}
+.admin-field{display:block;margin:16px 0;font-weight:700;color:#493759}
+.admin-field input,.admin-field textarea,.admin-field select{display:block;width:100%;max-width:600px;margin-top:8px;padding:12px 14px;border:1px solid #d5c4e1;border-radius:10px;background:#fff;color:#20172b;font:inherit;box-sizing:border-box}
+.admin-field textarea{min-height:160px;line-height:1.75;resize:vertical;max-width:none}
+.admin-field input[dir=ltr]{text-align:left}
+.admin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.admin-stat{border:1px solid var(--admin-line);border-radius:16px;padding:22px;background:#fdfbff}
+.admin-stat strong{display:block;font-size:1.8rem;color:#523474}
+.admin-table{width:100%;border-collapse:collapse;text-align:right;margin-top:15px}
+.admin-table td,.admin-table th{padding:15px 10px;border-bottom:1px solid var(--admin-line);vertical-align:middle}
+.admin-table th{color:#5e4a68;font-size:.92rem}
+.admin-empty{border:1px dashed #c4b1d6;border-radius:12px;padding:28px;text-align:center;color:#665974}
+.admin-grid-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.admin-note{background:#f6f0fa;border-radius:12px;padding:15px 18px;line-height:1.85}
+.admin-mfa-qr{max-width:200px;height:auto;padding:10px;border:1px solid #e9dfed;background:#fff}
+.admin-kicker{color:#76548d;font-weight:800}
+.admin-select-btn{border:1px solid #cbb8df;background:#fff;color:#543573;padding:8px 12px;border-radius:10px;cursor:pointer;font:inherit}
+.admin-card :focus-visible{outline:3px solid #8a61bb;outline-offset:2px}
+@media(max-width:750px){.admin-grid,.admin-grid-fields{grid-template-columns:1fr}.admin-table{font-size:.85rem}.admin-card{padding:18px}}
+</style></head>
+<body><main class="admin-shell" id="admin-main">
+<header class="admin-head"><a class="brand" href="index.html"><span class="brand-mark">✦</span><span><strong>نَحْنُ</strong><small>الذئبة</small></span></a><a href="stories.html">العودة إلى قصصنا</a></header>
+<section><p class="admin-label">منطقة إدارة محمية · NA7N STAFF ONLY</p><h1>إدارة قصص المرضى</h1><p class="admin-lead">واجهة العمل الخاصة بالخصوصية والتحرير والمراجعة التثقيفية. لا تكفي معرفة عنوان الصفحة للدخول؛ يُفرض التحقق والصلاحيات على مستوى قاعدة البيانات.</p></section>
+<section class="admin-card" id="admin-login">
+<h2>تسجيل دخول الفريق</h2><p>استخدم الحساب المخصص لك في «نَحْنُ». يتطلب الدخول تحققًا متعدد العوامل (MFA). لا تنشئ حسابًا إداريًا من نموذج التسجيل العام.</p>
+<form id="admin-login-form">
+<label class="admin-field" for="staff-email">البريد الإلكتروني<input dir="ltr" id="staff-email" type="email" required autocomplete="username"></label>
+<label class="admin-field" for="staff-password">كلمة المرور<input dir="ltr" id="staff-password" type="password" required autocomplete="current-password" minlength="8"></label>
+<button class="admin-btn" type="submit">تسجيل الدخول</button>
+</form><p id="login-message" class="admin-status" role="status" aria-live="polite"></p>
+</section>
+<section class="admin-card admin-hidden" id="admin-mfa">
+<h2>تأكيد الهوية بخطوتين</h2><p id="mfa-explanation"></p>
+<div id="mfa-setup" class="admin-hidden"><p>امسح رمز الاستجابة السريع بتطبيق مصادقة، مثل (Authenticator). لا تشارك الرمز السري مع أي شخص.</p><img id="mfa-qr" class="admin-mfa-qr" alt="رمز إضافة المصادقة إلى تطبيقك"><p id="mfa-secret" class="admin-status" dir="ltr"></p></div>
+<form id="mfa-form"><label class="admin-field" for="mfa-code">رمز التحقق المكون من 6 أرقام<input dir="ltr" id="mfa-code" type="text" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" inputmode="numeric" required></label>
+<button class="admin-btn" type="submit">التحقق والدخول</button></form>
+<button id="mfa-enroll" class="admin-btn secondary admin-hidden" type="button">تفعيل المصادقة متعددة العوامل</button>
+<p id="mfa-message" role="status" class="admin-status" aria-live="polite"></p></section>
+<section class="admin-card admin-hidden" id="admin-denied">
+<h2>ليس لديك إذن دخول</h2><p>حسابك موثق، لكنه ليس ضمن الفريق المخول. تعيين الدور يتم إداريًا بعد التحقق من هوية صاحب الحساب، ولا يمكن طلب الصلاحية من هذه الصفحة.</p><button id="denied-logout" class="admin-btn secondary" type="button">تسجيل الخروج</button></section>
+<section id="admin-board" class="admin-hidden">
+<div class="admin-card"><div class="admin-head"><div><p class="admin-kicker" id="admin-role"></p><h2>لوحة إدارة القصص</h2><p id="admin-person"></p></div><button id="admin-logout" class="admin-btn secondary" type="button">تسجيل الخروج</button></div>
+<div class="admin-warning" id="storage-gate"><strong>استلام القصص في لوحة الإدارة غير مفعّل بعد.</strong> قاعدة بيانات الحسابات الحالية خارج الإمارات. لا يُسمح بإرسال معلومات صحية إليها أو تحميل قصص مرضى قبل اعتماد الاستضافة والعقود وسياسة الاحتفاظ والتحكم بالوصول. ما زال مسار البريد المؤقت في الصفحة العامة منفصلًا.</div></div>
+<div class="admin-grid">
+<div class="admin-stat"><span>حالات واردة</span><strong id="stat-new">—</strong></div>
+<div class="admin-stat"><span>بانتظار المراجعة</span><strong id="stat-review">—</strong></div>
+<div class="admin-stat"><span>بانتظار موافقة الكاتب</span><strong id="stat-consent">—</strong></div>
+</div>
+<div class="admin-card"><div class="admin-head"><h2>سجل القصص الخاص</h2><button id="refresh-cases" class="admin-btn secondary admin-hidden" type="button">تحديث السجل</button></div>
+<p id="cases-status" class="admin-status" aria-live="polite">لا توجد قصص محملة من قاعدة بيانات معتمدة.</p><div id="cases-table" class="admin-hidden"><table class="admin-table"><thead><tr><th>عنوان القصة</th><th>المرحلة</th><th>التاريخ</th><th>إجراء</th></tr></thead><tbody id="cases-body"></tbody></table></div>
+<div id="cases-empty" class="admin-empty">لا توجد بيانات مرضى في هذه اللوحة. لا تُعرض أي قصص وهمية على أنها حقيقية.</div></div>
+<div id="case-detail" class="admin-card admin-hidden"><h2>تفاصيل الحالة المخوَّل لك بمراجعتها</h2><p class="admin-note" id="detail-guidance"></p>
+<p id="detail-title"></p><label class="admin-field">نص القصة المزال منه التعريف<textarea id="detail-story" readonly></textarea></label>
+<div id="owner-editor" class="admin-hidden">
+<label class="admin-field">النسخة المحررة للنشر<textarea id="detail-edited" maxlength="15000"></textarea></label>
+<label class="admin-field">تعيين المراجع التثقيفي<select id="detail-reviewer"><option value="">لم يُعيَّن</option></select></label>
+<label class="admin-field">المرحلة<select id="detail-status"><option value="new">جديدة</option><option value="privacy_review">مراجعة الخصوصية</option><option value="assigned">مُعيّنة لمراجع</option><option value="educational_review">مراجعة تثقيفية</option><option value="awaiting_author_consent">بانتظار موافقة الكاتب</option><option value="rejected">مرفوضة</option><option value="withdrawn">مسحوبة</option></select></label>
+<label><input id="detail-privacy-cleared" type="checkbox"> تأكيد مراجعة الخصوصية وإزالة المعلومات المعرِّفة للغير</label>
+<p class="admin-status">لا تتوفر الموافقة النهائية والنشر من هذه الصفحة حتى يعتمد نظام التحقق من موافقة الكاتب على نسخة محددة ويجتاز تدقيق الامتثال.</p>
+<div class="admin-actions"><button id="save-case" class="admin-btn" type="button">حفظ مراجعة آمنة</button></div></div>
+<div id="reviewer-editor" class="admin-hidden"><label class="admin-field">ملاحظات السلامة التثقيفية<textarea id="review-note" maxlength="4000" placeholder="لا تصدر تشخيصًا أو وصفة علاجية. أشر إلى الادعاءات التي تتطلب طبيبًا مختصًا."></textarea></label><button id="submit-review" class="admin-btn" type="button">حفظ المراجعة</button></div>
+<div id="review-history"><h3>سجل ملاحظات المراجعة</h3><div id="review-list"></div></div>
+<p id="detail-status-message" role="status" class="admin-status" aria-live="polite"></p></div>
+</section>
+<footer style="margin-top:40px"><p>بوابة داخلية — صلاحيات آمنة عودة نافع للمراجعة والتحرير والنشر، وصلاحيات علاء محمد أحمد للمراجعة التثقيفية للحالات المعيّنة فقط. المراجع التثقيفي لا يحل محل طبيب مرخّص عند الحاجة إلى مراجعة سريرية.</p></footer>
+</main>
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script defer src="na7n-auth.js"></script>
+<script defer src="na7n-stories-admin.js"></script>
+</body></html>
