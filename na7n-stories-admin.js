@@ -129,7 +129,7 @@
     if(!STORY_CONTENT_STORAGE_APPROVED || !staff)return;
     inform("cases-status","جارٍ تحميل الحالات المصرّح بها…");
     const response=await client.from("na7n_story_cases")
-      .select("id,title,redacted_story,edited_story,status,assigned_reviewer,clinical_review_required,privacy_cleared_at,created_at")
+      .select("id,title,redacted_story,edited_story,status,assigned_reviewer,educational_review_required,physician_review_required,privacy_cleared_at,created_at")
       .order("created_at",{ascending:false}).limit(100);
     if(response.error){ inform("cases-status","تعذر تحميل الحالات. تحقق من اعتماد التخزين وسياسات الصلاحيات.");return; }
     cases=response.data||[];
@@ -176,7 +176,8 @@
       list.value=record.assigned_reviewer||"";
       $("detail-status").value=["approved","published"].includes(record.status)?"awaiting_author_consent":record.status;
       $("detail-privacy-cleared").checked=!!record.privacy_cleared_at;
-      $("detail-clinical-required").checked=!!record.clinical_review_required;
+      $("detail-educational-required").checked=!!record.educational_review_required;
+      $("detail-physician-required").checked=!!record.physician_review_required;
       $("consent-evidence").value="";
       $("consent-attest").checked=false;
       await loadAuthorContact(id);
@@ -201,7 +202,8 @@
     if(!STORY_CONTENT_STORAGE_APPROVED || staff?.role!=="privacy_owner" || !selectedCase || busy)return;
     const edited=$("detail-edited").value.trim(),status=$("detail-status").value;
     const update={edited_story:edited||null,assigned_reviewer:$("detail-reviewer").value||null,
-      status,clinical_review_required:$("detail-clinical-required").checked,privacy_cleared_at:$("detail-privacy-cleared").checked
+      status,educational_review_required:$("detail-educational-required").checked,
+      physician_review_required:$("detail-physician-required").checked,privacy_cleared_at:$("detail-privacy-cleared").checked
         ? (selectedCase.privacy_cleared_at||new Date().toISOString()) : null};
     busy=true;
     try{
