@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="نَحْنُ | الذئبة: منصة عربية تساعدك على فهم الذئبة، إدارة الحياة اليومية معها، الاستعداد للرعاية الصحية، ومتابعة ما يهم جودة حياتك.">
+  <meta name="description" content="نَحْنُ منصة عربية للتثقيف الصحي تبدأ بالذئبة الحمراء. نفهم معك المرض، ونقدّم أدوات تساعدك على التعامل مع تحديات الحياة اليومية والاستعداد للحوار مع فريقك الطبي.">
   <link rel="canonical" href="https://na7nlupus.com/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="نَحْنُ | NA7N">
   <meta property="og:locale" content="ar_AR">
   <meta property="og:url" content="https://na7nlupus.com/">
-  <meta property="og:title" content="نَحْنُ | الذئبة — مَعًا نَمْضِي لِحَيَاةٍ أَفْضَل">
-  <meta property="og:description" content="منصة عربية تساعدك على فهم الذئبة، والتعامل مع أثرها على حياتك اليومية، والاستعداد للحوار مع فريقك الصحي. ابدأ التعلّم دون إنشاء حساب.">
+  <meta property="og:title" content="الذئبة جزء من حياتك، لكنها ليست كل حياتك. | undefined">
+  <meta property="og:description" content="نَحْنُ منصة عربية للتثقيف الصحي تبدأ بالذئبة الحمراء. نفهم معك المرض، ونقدّم أدوات تساعدك على التعامل مع تحديات الحياة اليومية والاستعداد للحوار مع فريقك الطبي.">
   <meta property="og:image" content="https://na7nlupus.com/na7n-whatsapp-preview.png">
   <meta property="og:image:secure_url" content="https://na7nlupus.com/na7n-whatsapp-preview.png">
   <meta property="og:image:type" content="image/png">
@@ -18,8 +18,8 @@
   <meta property="og:image:height" content="315">
   <meta property="og:image:alt" content="نَحْنُ | الذئبة: افهم الذئبة وركّز على ما يهمك في حياتك.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="نَحْنُ | الذئبة — مَعًا نَمْضِي لِحَيَاةٍ أَفْضَل">
-  <meta name="twitter:description" content="منصة عربية تساعدك على فهم الذئبة، والتعامل مع أثرها على حياتك اليومية، والاستعداد للحوار مع فريقك الصحي. ابدأ التعلّم دون إنشاء حساب.">
+  <meta name="twitter:title" content="undefined">
+  <meta name="twitter:description" content="نَحْنُ منصة عربية للتثقيف الصحي تبدأ بالذئبة الحمراء. نفهم معك المرض، ونقدّم أدوات تساعدك على التعامل مع تحديات الحياة اليومية والاستعداد للحوار مع فريقك الطبي.">
   <meta name="twitter:image" content="https://na7nlupus.com/na7n-whatsapp-preview.png">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <title>نَحْنُ | الذئبة — مَعًا نَمْضِي لِحَيَاةٍ أَفْضَل</title>
@@ -28,131 +28,90 @@
   <link rel="alternate" hreflang="en" href="https://na7nlupus.com/index-en.html">
   <link rel="alternate" hreflang="x-default" href="https://na7nlupus.com/">
 
-  <!-- Critical welcome layout is inlined so cached stylesheets cannot break the first screen. -->
   <style>
-/* NA7N welcome cover — quiet, bilingual first-screen experience. */
-.welcome-cover{
-  position:relative;isolation:isolate;overflow:hidden;
-  min-height:100vh;min-height:100svh;
-  width:100%;background:linear-gradient(148deg,#fffdfb 0%,#f8f4fc 47%,#eee6f6 100%);
-  color:#392751;
-}
-.welcome-cover::before,.welcome-cover::after{
-  content:"";position:absolute;z-index:-1;pointer-events:none;border-radius:50%;
-  border:1px solid rgba(109,74,162,.14);
-}
-.welcome-cover::before{width:clamp(250px,42vw,690px);aspect-ratio:1;top:-25%;inset-inline-end:-14%;box-shadow:0 0 0 58px rgba(109,74,162,.022),0 0 0 118px rgba(109,74,162,.013)}
-.welcome-cover::after{width:clamp(260px,43vw,710px);aspect-ratio:1;bottom:-39%;inset-inline-start:-15%;box-shadow:0 0 0 62px rgba(109,74,162,.025)}
-.welcome-frame{width:min(1100px,calc(100% - 48px));min-height:100vh;min-height:100svh;margin:auto;display:grid;grid-template-rows:auto 1fr auto;align-items:center;padding:24px 0 27px;gap:22px}
-.welcome-languages{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:nowrap;font-size:14px;font-weight:700;line-height:1.4}
-.welcome-languages>a,.welcome-languages>span{display:inline-flex;align-items:center;justify-content:center;padding:9px 16px;min-height:44px;min-width:82px;border-radius:999px;border:1px solid #d9cbe7}
-.welcome-languages>a{background:rgba(255,255,255,.65);color:#513977}
-.welcome-languages>a:hover{border-color:#8d69b5;background:#fff}
-.welcome-languages .welcome-lang-active{background:#4a2f73;border-color:#4a2f73;color:#fff}
-.welcome-languages a:focus-visible,.welcome-enter:focus-visible{outline:3px solid #8c68bb;outline-offset:4px}
-.welcome-center{text-align:center;justify-self:center;width:min(100%,750px);display:flex;flex-direction:column;align-items:center}
-.welcome-symbol{width:86px;height:auto;max-height:80px;object-fit:contain;margin:0 0 13px}
-.welcome-overline{color:#71568d;font-size:13px;font-weight:800;letter-spacing:.10em;margin:0 0 9px}
-.welcome-name{font-size:clamp(74px,14vw,142px);letter-spacing:-.055em;line-height:1.12;font-weight:900;color:#4a2f73;margin:0 0 10px;overflow-wrap:anywhere}
-html[lang="en"] .welcome-name{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;letter-spacing:-.085em}
-.welcome-tagline{color:#392751;font-size:clamp(21px,3.3vw,35px);font-weight:800;line-height:1.5;margin:0 auto 14px;max-width:730px;text-wrap:balance}
-.welcome-intro{color:#695b77;font-size:clamp(15px,1.8vw,18px);line-height:1.8;max-width:590px;margin:0 auto 27px;text-wrap:pretty}
-.welcome-enter{display:inline-flex;align-items:center;justify-content:center;gap:16px;min-height:53px;padding:13px 29px;border-radius:15px;background:#4a2f73;color:#fff;font-size:16px;font-weight:800;box-shadow:0 10px 30px rgba(74,47,115,.17);transition:background .16s,transform .16s}
-.welcome-enter:hover{background:#684799;transform:translateY(-2px);color:#fff}
-.welcome-enter span{font-size:21px;line-height:1;transform:translateY(-1px)}
-.welcome-footnote{justify-self:center;text-align:center;color:#786888;font-size:13px;line-height:1.6;margin:0}
-#site-content{scroll-margin-top:88px}
-html[lang="en"] .welcome-cover{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
-@media(max-width:600px){
-  .welcome-frame{width:calc(100% - 38px);padding-top:16px;padding-bottom:21px;gap:16px}
-  .welcome-languages{justify-content:center}
-  .welcome-languages>a,.welcome-languages>span{font-size:13px;min-height:42px}
-  .welcome-symbol{width:72px;margin-bottom:10px}
-  .welcome-overline{font-size:11px;letter-spacing:.05em}
-  .welcome-name{font-size:clamp(74px,17vw,104px);margin-bottom:12px}
-  .welcome-tagline{font-size:clamp(21px,5.3vw,29px);line-height:1.55}
-  .welcome-intro{font-size:15px;line-height:1.7;margin-bottom:23px}
-  .welcome-enter{width:min(100%,280px);min-height:53px}
-  .welcome-footnote{font-size:12px}
-}
-@media(max-height:600px) and (min-width:601px){
-  .welcome-frame{gap:10px;padding-top:12px;padding-bottom:12px}
-  .welcome-symbol{width:55px;margin-bottom:6px}
-  .welcome-name{font-size:clamp(64px,9vw,94px)}
-  .welcome-intro{margin-bottom:15px}
-}
-@media(prefers-reduced-motion:reduce){.welcome-enter{transition:none}.welcome-enter:hover{transform:none}}
-  </style>
+/* Homepage only: readable patient-first layout on desktop and mobile. */
+.home-page{scroll-margin-top:90px}
+.home-page .hero.compact-hero{padding:48px 0 32px;gap:35px}
+.home-page .home-hero h1{font-size:clamp(33px,4.5vw,52px);line-height:1.32;text-wrap:balance}
+.home-page .home-hero .hero-support{font-size:clamp(16px,1.65vw,18px);line-height:1.9;color:#4b3d55}
+.home-page .home-hero .hero-panel{padding:27px}
+.home-page .home-hero .hero-panel h2{line-height:1.5}
+.home-page .home-hero .hero-brand-lockup{margin-bottom:17px;padding-bottom:13px}
+.home-page .home-hero .hero-actions .button{min-height:48px;display:inline-flex;align-items:center;justify-content:center}
+.home-page .home-free{font-size:14px;color:#6c5b77;margin:14px 0 0;line-height:1.7}
+.home-page .home-trust{width:min(1140px,90vw);margin:0 auto;border:1px solid #e3d7eb;border-radius:18px;background:#faf7fd;padding:17px 22px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.home-page .home-trust p{color:#574a60;font-size:14px;line-height:1.8;margin:0;flex:1}
+.home-page .home-trust strong{color:#4a2f73}
+.home-page .home-trust a{color:#4a2f73;text-decoration:underline;font-weight:800;flex:0 0 auto}
+.home-page .section.tight{padding:44px 0}
+.home-page .section-heading{max-width:830px;margin-bottom:23px}
+.home-page .section-heading>p:last-child{font-size:16px;line-height:1.8}
+.home-page .home-need .journey-card{display:flex;flex-direction:column;min-height:190px}
+.home-page .home-need .journey-card h3{font-size:19px;line-height:1.45;margin:11px 0 8px}
+.home-page .home-need .journey-card p{flex:1;font-size:14px;line-height:1.75;margin-bottom:12px}
+.home-page .home-need .card-link{font-size:14px}
+.home-page .home-safety{padding-top:5px;padding-bottom:23px}
+.home-page .home-safety .safety-card{background:#fffdf8;border-color:#e9dac8}
+.home-page .home-safety .safety-card p{line-height:1.85}
+.home-page .home-tools .tool-card{display:flex;flex-direction:column;min-height:189px}
+.home-page .home-tools .tool-card h3{margin:11px 0}
+.home-page .home-tools .tool-card p{flex:1;line-height:1.8}
+.home-page .home-daily-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:16px}
+.home-page .home-daily-grid>*{border:1px solid #e6ddeb;border-radius:22px;background:#fff;padding:25px}
+.home-page .home-fatigue{background:linear-gradient(140deg,#f8f3fc,#fff)!important}
+.home-page .home-fatigue h3{font-size:24px}
+.home-page .home-daily-grid p,.home-page .home-daily-grid li{color:#5f5268;line-height:1.8}
+.home-page .home-daily-grid ul{padding-inline-start:21px}
+.home-page .home-daily-grid a:not(.button){color:#4a2f73;font-weight:800;text-decoration:underline}
+.home-page .home-voice{width:min(1140px,90vw);padding:30px;background:#f8f3fb;border:1px solid #e8dbed;border-radius:25px}
+.home-page .home-voice p{max-width:920px;color:#5e5067;line-height:1.9}
+.home-page a:focus-visible{outline:3px solid #906eb7;outline-offset:3px}
+.home-back-top{position:fixed;inset-inline-end:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:50;display:inline-flex;justify-content:center;align-items:center;gap:7px;min-height:50px;min-width:50px;padding:11px 15px;border:0;border-radius:99px;background:#4a2f73;color:#fff;font:700 14px/1.3 Tahoma,Arial,sans-serif;cursor:pointer;box-shadow:0 6px 23px rgba(50,30,73,.25)}
+.home-back-top[hidden]{display:none!important}
+.home-back-top .home-back-arrow{font-size:22px}
+.home-back-top:focus-visible{outline:3px solid #bb9ed5;outline-offset:3px}
+html[lang="en"] .home-page,html[lang="en"] .home-back-top{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+@media(max-width:900px){.home-page .home-daily-grid{grid-template-columns:1fr}}
+@media(max-width:760px){.home-page .hero.compact-hero{padding-top:29px;gap:19px}.home-page .home-trust{display:block}.home-page .home-trust a{display:inline-block;margin-top:8px}.home-page .home-voice{padding:21px}}
+@media(max-width:600px){.home-page .home-hero h1{font-size:clamp(30px,8vw,38px)!important;line-height:1.36}.home-page .home-hero .hero-support{font-size:16px}.home-page .home-trust{width:calc(100% - 40px);padding:15px}.home-page .home-need .journey-grid.six,.home-page .home-tools .tool-grid{grid-template-columns:1fr}.home-page .home-need .journey-card{min-height:0}.home-page .home-daily-grid>*{padding:19px}.home-page .home-voice{width:calc(100% - 40px)}.home-back-top{height:50px;width:50px;padding:0}.home-back-top .home-back-label{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.home-page .journey-card{transition:none!important}}
+</style>
 </head>
 <body>
 
-<section class="welcome-cover" aria-label="مرحبًا بك في نَحْنُ">
-  <div class="welcome-frame">
-    <nav class="welcome-languages" aria-label="اختيار اللغة">
-      <span class="welcome-lang-active" aria-current="true">العربية</span>
-      <a href="index-en.html" lang="en" dir="ltr">English</a>
-    </nav>
-    <div class="welcome-center">
-      <img class="welcome-symbol" src="na7n-logo-mark.svg" width="86" height="69" alt="">
-      <p class="welcome-overline">التثقيف الصحي · تمكين المريض</p>
-      <p class="welcome-name">نَحْنُ</p>
-      <p class="welcome-tagline">معًا نتعلّم، نتطوّر، ونرتقي بجودة حياتنا.</p>
-      <p class="welcome-intro">معرفة صحية واضحة، وأدوات عملية تساعدك على فهم صحتك والمشاركة في رعايتك.</p>
-      <a class="welcome-enter" href="#site-content">دخول الموقع <span aria-hidden="true">↓</span></a>
-    </div>
-    <p class="welcome-footnote">نبدأ بالذئبة الحمراء، ونتطلع إلى آفاق أوسع.</p>
-  </div>
-</section>
 <header class="site-header">
   <div class="brand-language"><a class="brand" href="index.html" aria-label="نَحْنُ | الذئبة - الرئيسية"><span class="brand-mark">✦</span><span><strong>نَحْنُ</strong><small>الذئبة</small></span></a><a class="language-switch" href="index-en.html" lang="en" dir="ltr" aria-label="English">English</a></div>
   <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="فتح القائمة"><span></span><span></span><span></span></button>
   <nav id="main-nav" aria-label="التنقل الرئيسي"><a class="active" aria-current="page" href="index.html">الصفحة الرئيسية</a><a href="about-lupus.html">افهم الذئبة</a><a href="treatment.html">العلاج</a><a href="living.html">الحياة مع الذئبة</a><a href="assessment.html">تابع صحتك</a><a href="articles.html">اسأل وتعلّم</a><a class="account-link" href="account.html">حسابي</a><a href="about.html">من نحن</a></nav>
 </header>
-<main id="site-content">
-  <section class="hero compact-hero">
-    <div class="hero-copy"><div class="hero-brand-lockup" aria-label="نَحْنُ | الذئبة"><img src="na7n-logo-mark.svg" alt="" width="108" height="86"><div><strong>نَحْنُ <span>|</span> الذئبة</strong><small>مَعًا نَمْضِي لِحَيَاةٍ أَفْضَل</small></div></div><h1>افهم ما يحدث. ركّز على ما يهمك. واستعد للخطوة التالية.</h1><p class="hero-support">معلومات موثوقة وأدوات عملية تساعدك على فهم الذئبة، ملاحظة ما تغيّر، تحديد ما يهمك في حياتك، والاستعداد للحوار مع فريقك الطبي.</p><div class="hero-actions"><a class="button primary" href="#needs">ماذا تحتاج اليوم؟</a><a class="button secondary" href="newly-diagnosed.html">تم تشخيصي حديثًا</a></div></div>
-    <aside class="hero-panel"><span class="panel-kicker">دور نَحْنُ</span><h2>المعرفة بداية، والخطوة التالية هي أن تستخدمها في حياتك.</h2><p>نساعدك على التنظيم والاستعداد والمتابعة. نَحْنُ لا تشخّص حالتك، ولا تغيّر علاجك، ولا تستبدل فريقك الطبي.</p></aside>
-  </section>
+<main class="home-page" id="site-content"><section class="hero compact-hero home-hero" aria-labelledby="home-title"><div class="hero-copy"><div class="hero-brand-lockup" aria-label="نَحْنُ | الذئبة"><img src="na7n-logo-mark.svg" alt="" width="108" height="86"><div><strong>نَحْنُ <span>|</span> الذئبة</strong><small>مَعًا نَمْضِي لِحَيَاةٍ أَفْضَل</small></div></div><h1 id="home-title">الذئبة جزء من حياتك، لكنها ليست كل حياتك.</h1><p class="hero-support">نَحْنُ منصة عربية للتثقيف الصحي تبدأ بالذئبة الحمراء. نفهم معك المرض، ونقدّم أدوات تساعدك على التعامل مع تحديات الحياة اليومية والاستعداد للحوار مع فريقك الطبي.</p><div class="hero-actions"><a class="button primary" href="#needs">ابدأ بما تحتاجه اليوم</a><a class="button secondary" href="newly-diagnosed.html">تم تشخيصي حديثًا</a></div><p class="home-free">القراءة والأدوات التعليمية متاحة دون إنشاء حساب.</p></div><aside class="hero-panel" aria-label="كيف يساعدك «نَحْنُ»؟"><span class="panel-kicker">كيف يساعدك «نَحْنُ»؟</span><h2>افهم الذئبة بلغة واضحة، ونظّم ما يهمك، واستعد لمناقشة أسئلتك وخياراتك مع الفريق الطبي.</h2></aside></section>
 
-  <section class="section tight" id="needs"><div class="section-heading"><p class="eyebrow">ابدأ من احتياجك</p><h2>ماذا تحتاج اليوم؟</h2><p>لا تحتاج إلى قراءة الموقع كله. اختر ما يشبه سؤالك أو أولويتك الآن.</p></div>
-    <div class="journey-grid six">
-      <a class="journey-card" href="newly-diagnosed.html"><span class="number">01</span><h3>أريد أن أفهم من أين أبدأ</h3><p>إذا كان التشخيص جديدًا، رتّب ما تحتاج إلى فهمه قبل الموعد التالي.</p><span class="card-link">ابدأ هنا ←</span></a>
-      <a class="journey-card" href="symptoms.html"><span class="number">02</span><h3>هناك شيء تغيّر في صحتي</h3><p>نظّم ما تلاحظه، ومدته وتأثيره، واستعد لوصفه بوضوح لفريقك الطبي.</p><span class="card-link">افهم وسجّل ←</span></a>
-      <a class="journey-card" href="treatment.html"><span class="number">03</span><h3>أريد أن أفهم علاجي</h3><p>اعرف هدف العلاج والمتابعة والأسئلة التي تساعدك على المشاركة في القرار.</p><span class="card-link">افهم العلاج ←</span></a>
-      <a class="journey-card" href="living.html"><span class="number">04</span><h3>أريد أن أعيش يومي بصورة أفضل</h3><p>الإرهاق، النوم، الحركة، العمل، الدراسة والصحة النفسية جزء من الرعاية أيضًا.</p><span class="card-link">الحياة اليومية ←</span></a>
-      <a class="journey-card" href="pregnancy.html"><span class="number">05</span><h3>أفكر في الحمل</h3><p>استعد مبكرًا لمناقشة التخطيط والأدوية والمتابعة مع فريقك الطبي.</p><span class="card-link">الحمل والذئبة ←</span></a>
-      <a class="journey-card" href="appointment.html"><span class="number">06</span><h3>لدي موعد طبي قريب</h3><p>رتّب ما تغيّر، وما يهمك، وأسئلتك، وما تريد أن تخرج به من الموعد.</p><span class="card-link">استعد لموعدك ←</span></a>
-    </div>
-  </section>
+<div class="home-trust" id="trust" role="note"><p><strong>مصادر واضحة ومراجعة بشفافية.</strong> نستند إلى مصادر طبية مناسبة، ونوضح حالة المراجعة حيث تتوفر. لا نصف محتوى بأنه «مراجَع طبيًا» قبل إتمام المراجعة وتوثيقها.</p><a href="about.html">كيف نعدّ المعلومات؟ ←</a></div>
 
-  <section class="section tight" id="daily-challenges"><div class="section-heading"><p class="eyebrow">ابدأ من المشكلة التي تعيشها</p><h2>ما الذي يؤثر على حياتك اليوم؟</h2><p>لا تحتاج إلى حساب لتبدأ. اختر تحديًا، واحصل على رحلة قصيرة تساعدك في تحديد الخطوة التالية.</p></div><div class="journey-grid"><a class="journey-card" href="fatigue.html"><span class="number">ابدأ الآن</span><h3>التعب والإرهاق</h3><p>كيف يؤثر التعب على يومك؟ اختر ما يهمك واحصل على خطوات تعليمية وأسئلة مناسبة لمناقشتها مع فريقك الطبي.</p><span class="card-link">ابدأ رحلة التعب ←</span></a><div class="journey-card"><span class="number">قريبًا</span><h3>الألم والنوم والعمل</h3><p>نعمل على تطوير مسارات مشابهة، بعد اختبار رحلة التعب والاستفادة من آراء المرضى.</p></div></div></section>
+<section class="section tight home-need" id="needs" aria-labelledby="needs-title"><div class="section-heading"><p class="eyebrow">ابدأ من احتياجك</p><h2 id="needs-title">ماذا تحتاج اليوم؟</h2><p>اختر ما يعبّر عن سؤالك أو أولويتك الآن؛ لا تحتاج إلى قراءة الموقع كله.</p></div><div class="journey-grid six"><a class="journey-card" href="newly-diagnosed.html"><span class="number" aria-hidden="true">01</span><h3>تم تشخيصي حديثًا</h3><p>الخطوات الأولى والاستعداد للزيارة المقبلة.</p><span class="card-link">ابدأ هنا ←</span></a><a class="journey-card" href="symptoms.html"><span class="number" aria-hidden="true">02</span><h3>حدث تغيير في صحتي</h3><p>كيف تلاحظ ما تغير وتصفه لفريقك الطبي؟</p><span class="card-link">افهم وسجّل ←</span></a><a class="journey-card" href="treatment.html"><span class="number" aria-hidden="true">03</span><h3>أريد أن أفهم علاجي</h3><p>أهداف العلاج والمتابعة والأسئلة المفيدة.</p><span class="card-link">افهم العلاج ←</span></a><a class="journey-card" href="living.html"><span class="number" aria-hidden="true">04</span><h3>أريد يومًا أفضل</h3><p>التعب والنوم والحركة والعمل وجودة الحياة.</p><span class="card-link">الحياة اليومية ←</span></a><a class="journey-card" href="pregnancy.html"><span class="number" aria-hidden="true">05</span><h3>أفكر في الحمل</h3><p>التخطيط المبكر بالتعاون مع فريقك الطبي.</p><span class="card-link">الحمل والذئبة ←</span></a><a class="journey-card" href="appointment.html"><span class="number" aria-hidden="true">06</span><h3>لدي موعد طبي قريب</h3><p>نظّم الأسئلة والملاحظات قبل الزيارة.</p><span class="card-link">استعد للموعد ←</span></a></div></section>
 
-  <section class="section action-section"><div class="section-heading"><p class="eyebrow">الإدارة الذاتية المدعومة</p><h2>من المعرفة إلى خطوة عملية</h2><p>إدارة المرض لا تعني أن تتولى الرعاية وحدك. تعني أن تعرف ما تلاحظه، وما يمكنك تنظيمه، وما الذي يستحق مناقشته مع فريقك الطبي.</p></div>
+<section class="section home-safety" id="safety" aria-labelledby="safety-title"><div class="safety-card"><div><p class="eyebrow">السلامة أولًا</p><h2 id="safety-title">هل ظهرت أعراض جديدة أو تفاقمت حالتك؟</h2><p>هذا الموقع للتثقيف ولا يشخّص الأعراض أو يحدد درجة الاستعجال. تواصل مع فريقك الطبي بشأن الأعراض الجديدة أو المقلقة، واطلب الرعاية العاجلة أو الطارئة إذا كانت الأعراض شديدة أو تتفاقم بسرعة. لا تنتظر نتيجة أداة في الموقع لطلب المساعدة.</p></div><a class="button secondary" href="symptoms.html">تعرّف إلى الأعراض</a></div></section>
+
+<section class="section tight home-tools" id="tools" aria-labelledby="tools-title"><div class="section-heading"><p class="eyebrow">أدوات متاحة الآن</p><h2 id="tools-title">ثلاثة أشياء يمكنك فعلها الآن</h2><p>ابدأ بخطوة عملية قبل موعدك القادم. يمكنك استخدام الموارد التعليمية دون حساب.</p></div><div class="tool-grid"><a class="tool-card featured" href="appointment.html"><span>01</span><h3>حضّر لموعد الطبيب</h3><p>رتّب أهم الأسئلة وما تغيّر في يومك.</p><strong>ابدأ التحضير ←</strong></a><a class="tool-card" href="tools.html#symptom-log"><span>02</span><h3>سجّل ما تلاحظه</h3><p>دوّن بداية التغيّر ومدته وتأثيره.</p><strong>سجل الملاحظات ←</strong></a><a class="tool-card" href="tools.html"><span>03</span><h3>رتّب أدويتك وفحوصك</h3><p>جهّز المعلومات التي تريد مناقشتها.</p><strong>أدوات المريض ←</strong></a></div></section>
+
+<section class="section tight home-daily" id="daily-life" aria-labelledby="daily-title"><div class="section-heading"><p class="eyebrow">الحياة مع الذئبة</p><h2 id="daily-title">ما الذي يؤثر في يومك؟</h2><p>ابدأ بتحدٍّ واقعي، ثم حدّد ما تريد مناقشته مع فريقك الطبي.</p></div><div class="home-daily-grid"><article class="home-fatigue"><span class="number">متاح الآن</span><h3>التعب والإرهاق</h3><p>رحلة تعليمية قصيرة لفهم تأثير التعب والاستعداد للحوار الطبي، وليست أداة تشخيص.</p><a class="button primary" href="fatigue.html">ابدأ رحلة التعب ←</a></article><div><h3>جوانب أخرى من الحياة</h3><ul><li>النوم والراحة</li><li>الحركة والنشاط</li><li>العمل والدراسة</li><li>الصحة النفسية والعلاقات</li></ul><p>استكشف الموارد المتاحة واختر أولوية تناقشها مع فريقك.</p><a href="living.html">الحياة اليومية ←</a></div></div></section>
+
+<section class="section action-section"><div class="section-heading"><p class="eyebrow">الإدارة الذاتية المدعومة</p><h2>من المعرفة إلى خطوة عملية</h2><p>إدارة المرض لا تعني أن تتولى الرعاية وحدك. تعني أن تعرف ما تلاحظه، وما يمكنك تنظيمه، وما الذي يستحق مناقشته مع فريقك الطبي.</p></div>
     <div class="self-flow"><div><b>1</b><strong>افهم</strong><span>اعرف ما تعنيه المعلومة لك.</span></div><div><b>2</b><strong>لاحظ</strong><span>سجّل التغير وتأثيره في يومك.</span></div><div><b>3</b><strong>حدّد أولويتك</strong><span>ما أكثر شيء تريد تحسينه الآن؟</span></div><div><b>4</b><strong>ناقش</strong><span>شارك ملاحظاتك وأسئلتك مع فريقك.</span></div><div><b>5</b><strong>راجع</strong><span>تابع ما تغيّر وما يحتاج خطوة أخرى.</span></div></div>
     <div class="section-actions"><a class="button primary" href="tools.html">استخدم أدوات نَحْنُ</a><a class="button secondary" href="appointment.html">حضّر للموعد</a></div>
   </section>
 
-  <section class="section soft quality-section"><div class="section-heading"><p class="eyebrow">جودة الحياة</p><h2>ما الذي يهمك في حياتك؟</h2><p>قد تكون أولويتك طاقة أفضل خلال اليوم، نومًا أفضل، الاستمرار في العمل أو الدراسة، وقتًا مع الأسرة، حركة تناسبك، أو الاستعداد لمرحلة جديدة. الهدف ليس مراقبة المرض طوال الوقت؛ بل مساعدتك على حماية ما يهمك في حياتك.</p></div>
-    <div class="priority-grid"><a href="fatigue.html">الطاقة والإرهاق</a><a href="tools.html#life-priority">النوم</a><a href="tools.html#life-priority">الحركة</a><a href="tools.html#life-priority">العمل والدراسة</a><a href="tools.html#life-priority">الصحة النفسية</a><a href="pregnancy.html">التخطيط للحمل</a></div>
-    <p class="microcopy">اختر أولوية واحدة لتبدأ بها، ثم حوّلها إلى سؤال أو هدف تناقشه في زيارتك القادمة.</p>
-  </section>
+<section class="section split-feature"><div><p class="eyebrow">شراكة في الرعاية</p><h2>اجعل موعدك الطبي أكثر فائدة.</h2><p class="lead small">قبل الموعد، رتّب ما تغيّر وما يهمك. أثناءه، اسأل وافهم الخيارات. قبل أن تغادر، تأكد من أنك تعرف الخطوة التالية.</p><a class="button primary" href="appointment.html">استعد لموعدك</a></div><ol class="step-list"><li><b>1</b><span><strong>ما الذي تغيّر؟</strong><small>الأعراض، القدرة على ممارسة يومك، أو أي أمر تريد مناقشته.</small></span></li><li><b>2</b><span><strong>ما الذي يهمك؟</strong><small>اذكر أولويتك وما الذي تريد أن تتمكن من فعله بصورة أفضل.</small></span></li><li><b>3</b><span><strong>ما الخطة التالية؟</strong><small>افهم العلاج والفحوص والمتابعة ومتى تحتاج إلى التواصل.</small></span></li></ol></section>
 
-  <section class="section split-feature"><div><p class="eyebrow">شراكة في الرعاية</p><h2>اجعل موعدك الطبي أكثر فائدة.</h2><p class="lead small">قبل الموعد، رتّب ما تغيّر وما يهمك. أثناءه، اسأل وافهم الخيارات. قبل أن تغادر، تأكد من أنك تعرف الخطوة التالية.</p><a class="button primary" href="appointment.html">استعد لموعدك</a></div><ol class="step-list"><li><b>1</b><span><strong>ما الذي تغيّر؟</strong><small>الأعراض، القدرة على ممارسة يومك، أو أي أمر تريد مناقشته.</small></span></li><li><b>2</b><span><strong>ما الذي يهمك؟</strong><small>اذكر أولويتك وما الذي تريد أن تتمكن من فعله بصورة أفضل.</small></span></li><li><b>3</b><span><strong>ما الخطة التالية؟</strong><small>افهم العلاج والفحوص والمتابعة ومتى تحتاج إلى التواصل.</small></span></li></ol></section>
+<section class="assessment"><div><span class="status">متاح الآن</span><p class="eyebrow light">المتابعة التي يبلّغ عنها المريض</p><h2>تابع صحتك وجودة حياتك بهدف واضح</h2><p>استخدم أدوات نَحْنُ البسيطة لتسجيل التغير المهم، وفهم أثره في حياتك، وتحديد أولويتك، والاستعداد لمناقشته مع فريقك الطبي. هذه الأدوات لا تشخّص نشاط الذئبة ولا تحدد العلاج.</p><a class="button light-button" href="assessment.html">كيف تعمل المتابعة؟</a></div><div class="assessment-flow"><span>لاحظ</span><b>←</b><span>افهم الأثر</span><b>←</b><span>حدّد الأولوية</span><b>←</b><span>ناقش</span><b>←</b><span>راجع</span></div></section>
 
-  <section class="assessment"><div><span class="status">متاح الآن</span><p class="eyebrow light">المتابعة التي يبلّغ عنها المريض</p><h2>تابع صحتك وجودة حياتك بهدف واضح</h2><p>استخدم أدوات نَحْنُ البسيطة لتسجيل التغير المهم، وفهم أثره في حياتك، وتحديد أولويتك، والاستعداد لمناقشته مع فريقك الطبي. هذه الأدوات لا تشخّص نشاط الذئبة ولا تحدد العلاج.</p><a class="button light-button" href="assessment.html">كيف تعمل المتابعة؟</a></div><div class="assessment-flow"><span>لاحظ</span><b>←</b><span>افهم الأثر</span><b>←</b><span>حدّد الأولوية</span><b>←</b><span>ناقش</span><b>←</b><span>راجع</span></div></section>
+<section class="section home-voice" id="patient-voice" aria-labelledby="voice-title"><p class="eyebrow">صوت المريض</p><h2 id="voice-title">نستمع إلى أسئلة المرضى لنطوّر ما نقدمه.</h2><p>تساعد تجارب المرضى في معرفة ما يحتاج إلى شرح أو أدوات أفضل. نتطلع إلى الاستفادة من آرائهم مع احترام الخصوصية والاعتماد على الأدلة العلمية. مجموعات دعم الأقران والبحوث من طموحاتنا المستقبلية، ولا يعني تسجيل حساب المشاركة في أي دراسة.</p><div class="section-actions"><a class="button primary" href="about.html">تعرّف إلى نَحْنُ ←</a></div></section>
 
-  <section class="section safety-section"><div class="safety-card"><div><p class="eyebrow">السلامة أولًا</p><h2>متى أطلب المساعدة الطبية؟</h2><p>إذا ظهرت أعراض جديدة أو تغيّر واضح في حالتك، لا تعتمد على الموقع لتحديد التشخيص أو درجة الاستعجال. استخدم إرشادات فريقك الطبي، وتواصل معه عند الحاجة، واطلب الرعاية العاجلة أو الطارئة عندما تستدعي الحالة ذلك.</p><p class="microcopy">نعمل على إعداد إرشادات أكثر تفصيلًا بعد المراجعة الطبية. لن نستخدم استبيانًا أو نتيجة ذاتية لتشخيص نشاط الذئبة.</p></div><a class="button secondary" href="symptoms.html">افهم الأعراض والاستعداد للتواصل</a></div></section>
-
-  <section class="section"><div class="section-heading"><p class="eyebrow">أدوات للمريض</p><h2>أدوات صغيرة تساعدك على القيام بالخطوة التالية.</h2><p>القراءة ورحلة التعب متاحتان دون حساب. إذا اخترت تسجيل متابعة صحية وحفظها بعد تسجيل الدخول، تُخزّن في حسابك بمشروع نَحْنُ المستقل على Supabase. لا تستخدم الأدوات لاتخاذ قرار علاجي بمفردك.</p></div><div class="tool-grid"><a class="tool-card featured" href="appointment.html"><span>متاح الآن</span><h3>استعد لموعدك</h3><p>رتّب أولويتك، ما تغيّر، وأسئلتك والخطوة التالية.</p><strong>ابدأ التحضير ←</strong></a><a class="tool-card" href="tools.html#symptom-log"><span>متاح الآن</span><h3>سجل ما تلاحظه</h3><p>البداية، المدة، النمط والتأثير في حياتك اليومية.</p><strong>استخدم السجل ←</strong></a><a class="tool-card" href="tools.html"><span>متاح الآن</span><h3>نظّم الأدوية والفحوص</h3><p>اجمع المعلومات والأسئلة التي تحتاجها قبل الزيارة.</p><strong>استكشف الأدوات ←</strong></a></div></section>
-
-  <section class="section soft"><div class="section-heading"><p class="eyebrow">لست وحدك</p><h2>نَحْنُ تعني أن التجربة لا يجب أن تكون فردية.</h2><p>نبني المنصة لتجمع المعرفة الموثوقة، خبرة المريض، وأدوات تساعد على الحوار مع فريق الرعاية. المجتمع ودعم الأقران جزء من رؤيتنا المستقبلية، وسنقدمه فقط عندما نستطيع توفيره بصورة واضحة وآمنة ومُدارة.</p></div><div class="section-actions"><a class="button secondary" href="about.html">عن نَحْنُ</a><a class="button secondary" href="articles.html">اسأل وتعلّم</a></div></section>
-
-  <section class="section soft tight"><div class="section-heading compact"><p class="eyebrow">تعلّم عند الحاجة</p><h2>انتقل مباشرة إلى سؤالك</h2></div><div class="quick-links"><a href="about-lupus.html">ما هي الذئبة؟</a><a href="symptoms.html">كيف أفهم الأعراض؟</a><a href="diagnosis-tests.html">كيف أفهم الفحوصات؟</a><a href="treatment.html">كيف أفهم أدويتي؟</a><a href="kidneys.html">ماذا عن الكلى؟</a><a href="skin-sun.html">الشمس والجلد</a><a href="pregnancy.html">الحمل والذئبة</a><a href="faq.html">المزيد من الأسئلة</a></div></section>
-
-  <section class="trust-band"><div><strong>مصادر واضحة</strong><span>مصادر طبية وإرشادات مناسبة لكل موضوع</span></div><div><strong>مراجعة بشفافية</strong><span>نوضح حالة المراجعة وتاريخ التحديث، ولا ندّعي مراجعة لم تحدث</span></div><div><strong>خصوصيتك الآن</strong><span>تُحفظ المتابعات التي ترسلها بعد تسجيل الدخول؛ ولا تُحفظ رحلة التعب تلقائيًا</span></div><a href="about.html">كيف نكتب ونراجع المحتوى؟ ←</a></section>
-</main>
+<section class="section soft tight"><div class="section-heading compact"><p class="eyebrow">تعلّم عند الحاجة</p><h2>انتقل مباشرة إلى سؤالك</h2></div><div class="quick-links"><a href="about-lupus.html">ما هي الذئبة؟</a><a href="symptoms.html">كيف أفهم الأعراض؟</a><a href="diagnosis-tests.html">كيف أفهم الفحوصات؟</a><a href="treatment.html">كيف أفهم أدويتي؟</a><a href="kidneys.html">ماذا عن الكلى؟</a><a href="skin-sun.html">الشمس والجلد</a><a href="pregnancy.html">الحمل والذئبة</a><a href="faq.html">المزيد من الأسئلة</a></div></section></main>
+<button type="button" class="home-back-top" aria-label="العودة إلى أعلى الصفحة" title="العودة إلى أعلى الصفحة" hidden><span class="home-back-arrow" aria-hidden="true">↑</span><span class="home-back-label">إلى الأعلى</span></button>
 <footer><div class="footer-brand"><strong>نَحْنُ | الذئبة</strong><span>مَعًا نَمْضِي لِحَيَاةٍ أَفْضَل</span></div><div class="footer-links"><a href="about-lupus.html">افهم الذئبة</a><a href="appointment.html">استعد لموعدك</a><a href="tools.html">أدوات للمريض</a><a href="faq.html">الأسئلة الشائعة</a><a href="about.html">عن نَحْنُ</a></div><p>محتوى تثقيفي لدعم الفهم والإدارة الذاتية والمشاركة في الرعاية، ولا يغني عن التقييم أو المشورة الطبية المباشرة.</p></footer>
 <script>
 const menuButton=document.querySelector('.menu-toggle');const mainNav=document.getElementById('main-nav');if(menuButton&&mainNav){menuButton.addEventListener('click',()=>{const open=menuButton.getAttribute('aria-expanded')==='true';menuButton.setAttribute('aria-expanded',String(!open));mainNav.classList.toggle('open',!open);});mainNav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{menuButton.setAttribute('aria-expanded','false');mainNav.classList.remove('open');}));}
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script><script src="na7n-auth.js?v=20261009-2"></script></body></html>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script><script src="na7n-auth.js?v=20261009-2"></script><script>(()=>{const b=document.querySelector(".home-back-top");if(!b)return;const update=()=>b.hidden=window.scrollY<520;window.addEventListener("scroll",update,{passive:true});window.addEventListener("pageshow",update);update();b.addEventListener("click",()=>window.scrollTo({top:0,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}));})();</script>
+</body></html>

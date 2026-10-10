@@ -2,14 +2,14 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="NA7N | Lupus supports people to understand lupus, manage everyday life, prepare for healthcare decisions, and focus on what matters to their quality of life.">
+<meta name="description" content="NA7N is an Arabic-first patient education platform, starting with lupus. Understand the condition, build practical skills for everyday life, and prepare to talk with your healthcare team.">
   <link rel="canonical" href="https://na7nlupus.com/index-en.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="نَحْنُ | NA7N">
   <meta property="og:locale" content="en_US">
   <meta property="og:url" content="https://na7nlupus.com/index-en.html">
-  <meta property="og:title" content="NA7N | Lupus — Together toward a better life">
-  <meta property="og:description" content="Learn about lupus, focus on what matters in everyday life, and prepare for conversations with your healthcare team. Explore without creating an account.">
+  <meta property="og:title" content="Lupus is part of your life. It is not all of who you are. | undefined">
+  <meta property="og:description" content="NA7N is an Arabic-first patient education platform, starting with lupus. Understand the condition, build practical skills for everyday life, and prepare to talk with your healthcare team.">
   <meta property="og:image" content="https://na7nlupus.com/na7n-whatsapp-preview.png">
   <meta property="og:image:secure_url" content="https://na7nlupus.com/na7n-whatsapp-preview.png">
   <meta property="og:image:type" content="image/png">
@@ -17,8 +17,8 @@
   <meta property="og:image:height" content="315">
   <meta property="og:image:alt" content="NA7N Lupus: understand lupus and focus on what matters to you.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="NA7N | Lupus — Together toward a better life">
-  <meta name="twitter:description" content="Learn about lupus, focus on what matters in everyday life, and prepare for conversations with your healthcare team. Explore without creating an account.">
+  <meta name="twitter:title" content="undefined">
+  <meta name="twitter:description" content="NA7N is an Arabic-first patient education platform, starting with lupus. Understand the condition, build practical skills for everyday life, and prepare to talk with your healthcare team.">
   <meta name="twitter:image" content="https://na7nlupus.com/na7n-whatsapp-preview.png">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <title>NA7N | Lupus — Together, we move toward a better life</title>
@@ -27,118 +27,87 @@
   <link rel="alternate" hreflang="en" href="https://na7nlupus.com/index-en.html">
   <link rel="alternate" hreflang="x-default" href="https://na7nlupus.com/">
 
-  <!-- Critical welcome layout is inlined so cached stylesheets cannot break the first screen. -->
   <style>
-/* NA7N welcome cover — quiet, bilingual first-screen experience. */
-.welcome-cover{
-  position:relative;isolation:isolate;overflow:hidden;
-  min-height:100vh;min-height:100svh;
-  width:100%;background:linear-gradient(148deg,#fffdfb 0%,#f8f4fc 47%,#eee6f6 100%);
-  color:#392751;
-}
-.welcome-cover::before,.welcome-cover::after{
-  content:"";position:absolute;z-index:-1;pointer-events:none;border-radius:50%;
-  border:1px solid rgba(109,74,162,.14);
-}
-.welcome-cover::before{width:clamp(250px,42vw,690px);aspect-ratio:1;top:-25%;inset-inline-end:-14%;box-shadow:0 0 0 58px rgba(109,74,162,.022),0 0 0 118px rgba(109,74,162,.013)}
-.welcome-cover::after{width:clamp(260px,43vw,710px);aspect-ratio:1;bottom:-39%;inset-inline-start:-15%;box-shadow:0 0 0 62px rgba(109,74,162,.025)}
-.welcome-frame{width:min(1100px,calc(100% - 48px));min-height:100vh;min-height:100svh;margin:auto;display:grid;grid-template-rows:auto 1fr auto;align-items:center;padding:24px 0 27px;gap:22px}
-.welcome-languages{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:nowrap;font-size:14px;font-weight:700;line-height:1.4}
-.welcome-languages>a,.welcome-languages>span{display:inline-flex;align-items:center;justify-content:center;padding:9px 16px;min-height:44px;min-width:82px;border-radius:999px;border:1px solid #d9cbe7}
-.welcome-languages>a{background:rgba(255,255,255,.65);color:#513977}
-.welcome-languages>a:hover{border-color:#8d69b5;background:#fff}
-.welcome-languages .welcome-lang-active{background:#4a2f73;border-color:#4a2f73;color:#fff}
-.welcome-languages a:focus-visible,.welcome-enter:focus-visible{outline:3px solid #8c68bb;outline-offset:4px}
-.welcome-center{text-align:center;justify-self:center;width:min(100%,750px);display:flex;flex-direction:column;align-items:center}
-.welcome-symbol{width:86px;height:auto;max-height:80px;object-fit:contain;margin:0 0 13px}
-.welcome-overline{color:#71568d;font-size:13px;font-weight:800;letter-spacing:.10em;margin:0 0 9px}
-.welcome-name{font-size:clamp(74px,14vw,142px);letter-spacing:-.055em;line-height:1.12;font-weight:900;color:#4a2f73;margin:0 0 10px;overflow-wrap:anywhere}
-html[lang="en"] .welcome-name{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;letter-spacing:-.085em}
-.welcome-tagline{color:#392751;font-size:clamp(21px,3.3vw,35px);font-weight:800;line-height:1.5;margin:0 auto 14px;max-width:730px;text-wrap:balance}
-.welcome-intro{color:#695b77;font-size:clamp(15px,1.8vw,18px);line-height:1.8;max-width:590px;margin:0 auto 27px;text-wrap:pretty}
-.welcome-enter{display:inline-flex;align-items:center;justify-content:center;gap:16px;min-height:53px;padding:13px 29px;border-radius:15px;background:#4a2f73;color:#fff;font-size:16px;font-weight:800;box-shadow:0 10px 30px rgba(74,47,115,.17);transition:background .16s,transform .16s}
-.welcome-enter:hover{background:#684799;transform:translateY(-2px);color:#fff}
-.welcome-enter span{font-size:21px;line-height:1;transform:translateY(-1px)}
-.welcome-footnote{justify-self:center;text-align:center;color:#786888;font-size:13px;line-height:1.6;margin:0}
-#site-content{scroll-margin-top:88px}
-html[lang="en"] .welcome-cover{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
-@media(max-width:600px){
-  .welcome-frame{width:calc(100% - 38px);padding-top:16px;padding-bottom:21px;gap:16px}
-  .welcome-languages{justify-content:center}
-  .welcome-languages>a,.welcome-languages>span{font-size:13px;min-height:42px}
-  .welcome-symbol{width:72px;margin-bottom:10px}
-  .welcome-overline{font-size:11px;letter-spacing:.05em}
-  .welcome-name{font-size:clamp(74px,17vw,104px);margin-bottom:12px}
-  .welcome-tagline{font-size:clamp(21px,5.3vw,29px);line-height:1.55}
-  .welcome-intro{font-size:15px;line-height:1.7;margin-bottom:23px}
-  .welcome-enter{width:min(100%,280px);min-height:53px}
-  .welcome-footnote{font-size:12px}
-}
-@media(max-height:600px) and (min-width:601px){
-  .welcome-frame{gap:10px;padding-top:12px;padding-bottom:12px}
-  .welcome-symbol{width:55px;margin-bottom:6px}
-  .welcome-name{font-size:clamp(64px,9vw,94px)}
-  .welcome-intro{margin-bottom:15px}
-}
-@media(prefers-reduced-motion:reduce){.welcome-enter{transition:none}.welcome-enter:hover{transform:none}}
-  </style>
+/* Homepage only: readable patient-first layout on desktop and mobile. */
+.home-page{scroll-margin-top:90px}
+.home-page .hero.compact-hero{padding:48px 0 32px;gap:35px}
+.home-page .home-hero h1{font-size:clamp(33px,4.5vw,52px);line-height:1.32;text-wrap:balance}
+.home-page .home-hero .hero-support{font-size:clamp(16px,1.65vw,18px);line-height:1.9;color:#4b3d55}
+.home-page .home-hero .hero-panel{padding:27px}
+.home-page .home-hero .hero-panel h2{line-height:1.5}
+.home-page .home-hero .hero-brand-lockup{margin-bottom:17px;padding-bottom:13px}
+.home-page .home-hero .hero-actions .button{min-height:48px;display:inline-flex;align-items:center;justify-content:center}
+.home-page .home-free{font-size:14px;color:#6c5b77;margin:14px 0 0;line-height:1.7}
+.home-page .home-trust{width:min(1140px,90vw);margin:0 auto;border:1px solid #e3d7eb;border-radius:18px;background:#faf7fd;padding:17px 22px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.home-page .home-trust p{color:#574a60;font-size:14px;line-height:1.8;margin:0;flex:1}
+.home-page .home-trust strong{color:#4a2f73}
+.home-page .home-trust a{color:#4a2f73;text-decoration:underline;font-weight:800;flex:0 0 auto}
+.home-page .section.tight{padding:44px 0}
+.home-page .section-heading{max-width:830px;margin-bottom:23px}
+.home-page .section-heading>p:last-child{font-size:16px;line-height:1.8}
+.home-page .home-need .journey-card{display:flex;flex-direction:column;min-height:190px}
+.home-page .home-need .journey-card h3{font-size:19px;line-height:1.45;margin:11px 0 8px}
+.home-page .home-need .journey-card p{flex:1;font-size:14px;line-height:1.75;margin-bottom:12px}
+.home-page .home-need .card-link{font-size:14px}
+.home-page .home-safety{padding-top:5px;padding-bottom:23px}
+.home-page .home-safety .safety-card{background:#fffdf8;border-color:#e9dac8}
+.home-page .home-safety .safety-card p{line-height:1.85}
+.home-page .home-tools .tool-card{display:flex;flex-direction:column;min-height:189px}
+.home-page .home-tools .tool-card h3{margin:11px 0}
+.home-page .home-tools .tool-card p{flex:1;line-height:1.8}
+.home-page .home-daily-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:16px}
+.home-page .home-daily-grid>*{border:1px solid #e6ddeb;border-radius:22px;background:#fff;padding:25px}
+.home-page .home-fatigue{background:linear-gradient(140deg,#f8f3fc,#fff)!important}
+.home-page .home-fatigue h3{font-size:24px}
+.home-page .home-daily-grid p,.home-page .home-daily-grid li{color:#5f5268;line-height:1.8}
+.home-page .home-daily-grid ul{padding-inline-start:21px}
+.home-page .home-daily-grid a:not(.button){color:#4a2f73;font-weight:800;text-decoration:underline}
+.home-page .home-voice{width:min(1140px,90vw);padding:30px;background:#f8f3fb;border:1px solid #e8dbed;border-radius:25px}
+.home-page .home-voice p{max-width:920px;color:#5e5067;line-height:1.9}
+.home-page a:focus-visible{outline:3px solid #906eb7;outline-offset:3px}
+.home-back-top{position:fixed;inset-inline-end:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:50;display:inline-flex;justify-content:center;align-items:center;gap:7px;min-height:50px;min-width:50px;padding:11px 15px;border:0;border-radius:99px;background:#4a2f73;color:#fff;font:700 14px/1.3 Tahoma,Arial,sans-serif;cursor:pointer;box-shadow:0 6px 23px rgba(50,30,73,.25)}
+.home-back-top[hidden]{display:none!important}
+.home-back-top .home-back-arrow{font-size:22px}
+.home-back-top:focus-visible{outline:3px solid #bb9ed5;outline-offset:3px}
+html[lang="en"] .home-page,html[lang="en"] .home-back-top{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+@media(max-width:900px){.home-page .home-daily-grid{grid-template-columns:1fr}}
+@media(max-width:760px){.home-page .hero.compact-hero{padding-top:29px;gap:19px}.home-page .home-trust{display:block}.home-page .home-trust a{display:inline-block;margin-top:8px}.home-page .home-voice{padding:21px}}
+@media(max-width:600px){.home-page .home-hero h1{font-size:clamp(30px,8vw,38px)!important;line-height:1.36}.home-page .home-hero .hero-support{font-size:16px}.home-page .home-trust{width:calc(100% - 40px);padding:15px}.home-page .home-need .journey-grid.six,.home-page .home-tools .tool-grid{grid-template-columns:1fr}.home-page .home-need .journey-card{min-height:0}.home-page .home-daily-grid>*{padding:19px}.home-page .home-voice{width:calc(100% - 40px)}.home-back-top{height:50px;width:50px;padding:0}.home-back-top .home-back-label{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.home-page .journey-card{transition:none!important}}
+</style>
 </head>
 <body>
 
-<section class="welcome-cover" aria-label="Welcome to NA7N">
-  <div class="welcome-frame">
-    <nav class="welcome-languages" aria-label="Choose language">
-      <a href="index.html" lang="ar" dir="rtl">العربية</a>
-      <span class="welcome-lang-active" aria-current="true">English</span>
-    </nav>
-    <div class="welcome-center">
-      <img class="welcome-symbol" src="na7n-logo-mark.svg" width="86" height="69" alt="">
-      <p class="welcome-overline">PATIENT EDUCATION · SELF-MANAGEMENT</p>
-      <p class="welcome-name">NA7N</p>
-      <p class="welcome-tagline">Together, we learn, grow, and work toward a better quality of life.</p>
-      <p class="welcome-intro">Clear health information. Practical tools. A more confident role in your care.</p>
-      <a class="welcome-enter" href="#site-content">Enter the website <span aria-hidden="true">↓</span></a>
-    </div>
-    <p class="welcome-footnote">Starting with lupus. Learning for the future.</p>
-  </div>
-</section>
 <header class="site-header">
 <div class="brand-language"><a class="brand" href="index-en.html" aria-label="NA7N | Lupus home"><span class="brand-mark">✦</span><span><strong>NA7N</strong><small>Lupus</small></span></a><a class="language-switch" href="index.html" lang="ar" dir="rtl" aria-label="العربية">العربية</a></div>
 <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu"><span></span><span></span><span></span></button>
 <nav id="main-nav" aria-label="Main navigation"><a class="active" aria-current="page" href="index-en.html">Home</a><a href="about-lupus-en.html">Understand lupus</a><a href="treatment-en.html">Treatment</a><a href="living-en.html">Living with lupus</a><a href="assessment-en.html">Track your health</a><a href="articles-en.html">Ask & learn</a><a href="about-en.html">About NA7N</a></nav>
 </header>
-<main id="site-content">
-<section class="hero compact-hero"><div class="hero-copy"><div class="hero-brand-lockup" aria-label="NA7N | Lupus"><img src="na7n-logo-mark.svg" alt="" width="108" height="86"><div><strong>NA7N <span>|</span> Lupus</strong><small>Together, we move toward a better life</small></div></div><h1>Understand what is happening. Focus on what matters. Prepare for what comes next.</h1><p class="hero-support">Trusted information and practical tools help you understand lupus, notice meaningful change, identify what matters in your life, and prepare for conversations with your healthcare team.</p><div class="hero-actions"><a class="button primary" href="#needs">What do you need today?</a><a class="button secondary" href="newly-diagnosed-en.html">I'm newly diagnosed</a></div></div><aside class="hero-panel"><span class="panel-kicker">What NA7N does</span><h2>Knowledge is the beginning. The next step is using it in your life.</h2><p>We help you organize, prepare and follow what matters. NA7N does not diagnose, change your treatment, or replace your healthcare team.</p></aside></section>
+<main class="home-page" id="site-content"><section class="hero compact-hero home-hero" aria-labelledby="home-title"><div class="hero-copy"><div class="hero-brand-lockup" aria-label="NA7N | Lupus"><img src="na7n-logo-mark.svg" alt="" width="108" height="86"><div><strong>NA7N <span>|</span> Lupus</strong><small>Together, we move toward a better life</small></div></div><h1 id="home-title">Lupus is part of your life. It is not all of who you are.</h1><p class="hero-support">NA7N is an Arabic-first patient education platform, starting with lupus. Understand the condition, build practical skills for everyday life, and prepare to talk with your healthcare team.</p><div class="hero-actions"><a class="button primary" href="#needs">Find what you need today</a><a class="button secondary" href="newly-diagnosed-en.html">Newly diagnosed?</a></div><p class="home-free">Explore educational resources and tools without creating an account.</p></div><aside class="hero-panel" aria-label="How can NA7N help?"><span class="panel-kicker">How can NA7N help?</span><h2>Understand lupus in plain language, organise what matters to you, and prepare questions for your healthcare team.</h2></aside></section>
 
-<section class="section tight" id="needs"><div class="section-heading"><p class="eyebrow">Start with your need</p><h2>What do you need today?</h2><p>You do not need to read the whole site. Choose the path closest to your question or priority right now.</p></div><div class="journey-grid six">
-<a class="journey-card" href="newly-diagnosed-en.html"><span class="number">01</span><h3>I need to know where to start</h3><p>If your diagnosis is new, organize what you need to understand before your next visit.</p><span class="card-link">Start here →</span></a>
-<a class="journey-card" href="symptoms-en.html"><span class="number">02</span><h3>Something has changed in my health</h3><p>Organize what you notice, how long it lasts and how it affects you, so you can describe it clearly.</p><span class="card-link">Understand & record →</span></a>
-<a class="journey-card" href="treatment-en.html"><span class="number">03</span><h3>I want to understand my treatment</h3><p>Understand treatment goals, monitoring and questions that support shared decisions.</p><span class="card-link">Understand treatment →</span></a>
-<a class="journey-card" href="living-en.html"><span class="number">04</span><h3>I want to manage everyday life better</h3><p>Fatigue, sleep, movement, work, study and emotional wellbeing are part of care too.</p><span class="card-link">Everyday life →</span></a>
-<a class="journey-card" href="pregnancy-en.html"><span class="number">05</span><h3>I'm thinking about pregnancy</h3><p>Prepare early to discuss planning, medicines and monitoring with your healthcare team.</p><span class="card-link">Pregnancy & lupus →</span></a>
-<a class="journey-card" href="appointment-en.html"><span class="number">06</span><h3>I have an appointment coming up</h3><p>Organize what changed, what matters to you, your questions and what you need from the visit.</p><span class="card-link">Prepare for your visit →</span></a>
-</div></section>
+<div class="home-trust" id="trust" role="note"><p><strong>Clear sources and transparent review.</strong> We use relevant medical sources and show review status where available. We never label content as medically reviewed unless the review has actually been completed and documented.</p><a href="about-en.html">Our editorial approach →</a></div>
+
+<section class="section tight home-need" id="needs" aria-labelledby="needs-title"><div class="section-heading"><p class="eyebrow">Start with your needs</p><h2 id="needs-title">What do you need today?</h2><p>Choose the question or priority that matters right now. You do not have to read everything.</p></div><div class="journey-grid six"><a class="journey-card" href="newly-diagnosed-en.html"><span class="number" aria-hidden="true">01</span><h3>I have just been diagnosed</h3><p>First steps and questions for your next visit.</p><span class="card-link">Start here →</span></a><a class="journey-card" href="symptoms-en.html"><span class="number" aria-hidden="true">02</span><h3>Something in my health has changed</h3><p>Note the change and describe it to your care team.</p><span class="card-link">Understand changes →</span></a><a class="journey-card" href="treatment-en.html"><span class="number" aria-hidden="true">03</span><h3>I want to understand treatment</h3><p>Treatment goals, monitoring, and useful questions.</p><span class="card-link">Learn about treatment →</span></a><a class="journey-card" href="living-en.html"><span class="number" aria-hidden="true">04</span><h3>I want a better everyday life</h3><p>Fatigue, sleep, movement, work, and wellbeing.</p><span class="card-link">Everyday life →</span></a><a class="journey-card" href="pregnancy-en.html"><span class="number" aria-hidden="true">05</span><h3>I am thinking about pregnancy</h3><p>Plan ahead with your specialist healthcare team.</p><span class="card-link">Pregnancy and lupus →</span></a><a class="journey-card" href="appointment-en.html"><span class="number" aria-hidden="true">06</span><h3>I have an appointment soon</h3><p>Organise questions and observations before your visit.</p><span class="card-link">Prepare for your visit →</span></a></div></section>
+
+<section class="section home-safety" id="safety" aria-labelledby="safety-title"><div class="safety-card"><div><p class="eyebrow">Safety first</p><h2 id="safety-title">Are you experiencing new or worsening symptoms?</h2><p>This website provides education and cannot diagnose symptoms or determine urgency. Contact your healthcare team about new or concerning changes, and seek urgent or emergency care for severe or rapidly worsening symptoms. Never wait for an online tool result before seeking help.</p></div><a class="button secondary" href="symptoms-en.html">Understand symptoms</a></div></section>
+
+<section class="section tight home-tools" id="tools" aria-labelledby="tools-title"><div class="section-heading"><p class="eyebrow">Available resources</p><h2 id="tools-title">Three things you can do right now</h2><p>Take a useful step before your next appointment. Educational resources are available without an account.</p></div><div class="tool-grid"><a class="tool-card featured" href="appointment-en.html"><span>01</span><h3>Prepare for your appointment</h3><p>Bring your main questions and what has changed.</p><strong>Get ready →</strong></a><a class="tool-card" href="tools-en.html#symptom-log"><span>02</span><h3>Record what you notice</h3><p>Note when a change started and its effect on your day.</p><strong>Use the symptom template →</strong></a><a class="tool-card" href="tools-en.html"><span>03</span><h3>Organise medicines and tests</h3><p>Prepare the details you want to discuss.</p><strong>Explore patient tools →</strong></a></div></section>
+
+<section class="section tight home-daily" id="daily-life" aria-labelledby="daily-title"><div class="section-heading"><p class="eyebrow">Living with lupus</p><h2 id="daily-title">What affects your everyday life?</h2><p>Start with a real challenge, then prepare a question or priority to discuss with your care team.</p></div><div class="home-daily-grid"><article class="home-fatigue"><span class="number">Available information</span><h3>Fatigue and low energy</h3><p>Explore existing educational resources about fatigue and daily life. An interactive English fatigue journey is not currently available.</p><a class="button primary" href="living-en.html">Explore living with lupus →</a></article><div><h3>Other everyday priorities</h3><ul><li>Sleep and rest</li><li>Movement and activity</li><li>Work or study</li><li>Mental wellbeing and relationships</li></ul><p>Explore the available resources and choose an issue that matters to you.</p><a href="tools-en.html#life-priority">Set a life priority →</a></div></div></section>
 
 <section class="section action-section"><div class="section-heading"><p class="eyebrow">Supported self-management</p><h2>From knowledge to a practical next step</h2><p>Self-management does not mean managing healthcare alone. It means understanding what you notice, what you can organize, and what needs discussion with your healthcare team.</p></div><div class="self-flow"><div><b>1</b><strong>Understand</strong><span>Know what the information means for you.</span></div><div><b>2</b><strong>Notice</strong><span>Record change and its effect on daily life.</span></div><div><b>3</b><strong>Set a priority</strong><span>What matters most to improve right now?</span></div><div><b>4</b><strong>Discuss</strong><span>Bring observations and questions to your team.</span></div><div><b>5</b><strong>Review</strong><span>See what changed and what needs another step.</span></div></div><div class="section-actions"><a class="button primary" href="tools-en.html">Use NA7N tools</a><a class="button secondary" href="appointment-en.html">Prepare for your visit</a></div></section>
-
-<section class="section soft quality-section"><div class="section-heading"><p class="eyebrow">Quality of life</p><h2>What matters to you in your life?</h2><p>Your priority might be having more usable energy, sleeping better, staying at work or study, spending time with family, moving in a way that suits you, or preparing for a new stage of life. The goal is not to monitor lupus all day; it is to protect what matters in your life.</p></div><div class="priority-grid"><a href="tools-en.html#life-priority">Energy & fatigue</a><a href="tools-en.html#life-priority">Sleep</a><a href="tools-en.html#life-priority">Movement</a><a href="tools-en.html#life-priority">Work & study</a><a href="tools-en.html#life-priority">Emotional wellbeing</a><a href="pregnancy-en.html">Pregnancy planning</a></div><p class="microcopy">Choose one priority to start with, then turn it into a question or goal to discuss at your next visit.</p></section>
 
 <section class="section split-feature"><div><p class="eyebrow">Partnership in care</p><h2>Make your healthcare visit more useful.</h2><p class="lead small">Before the visit, organize what changed and what matters. During it, ask questions and understand the options. Before you leave, make sure you know the next step.</p><a class="button primary" href="appointment-en.html">Prepare for your visit</a></div><ol class="step-list"><li><b>1</b><span><strong>What changed?</strong><small>Symptoms, daily function, or anything you want to discuss.</small></span></li><li><b>2</b><span><strong>What matters to you?</strong><small>Share your priority and what you want to be able to do better.</small></span></li><li><b>3</b><span><strong>What happens next?</strong><small>Understand treatment, tests, follow-up and when to contact your team.</small></span></li></ol></section>
 
 <section class="assessment"><div><span class="status">Available now</span><p class="eyebrow light">Patient-reported tracking</p><h2>Track your health and quality of life with a purpose</h2><p>Use simple NA7N prompts to record meaningful change, understand its impact on your life, identify a priority and prepare a healthcare conversation. These tools do not diagnose lupus activity or determine treatment.</p><a class="button light-button" href="assessment-en.html">How tracking works</a></div><div class="assessment-flow"><span>Notice</span><b>→</b><span>Impact</span><b>→</b><span>Prioritize</span><b>→</b><span>Discuss</span><b>→</b><span>Review</span></div></section>
 
-<section class="section safety-section"><div class="safety-card"><div><p class="eyebrow">Safety first</p><h2>When should I seek medical help?</h2><p>If you develop new symptoms or a clear change in your health, do not rely on this site to diagnose the problem or decide how urgent it is. Follow guidance from your healthcare team, contact them when needed, and seek urgent or emergency care when the situation requires it.</p><p class="microcopy">We are developing more detailed guidance for clinical review. We will not use a questionnaire or self-reported score to diagnose lupus activity.</p></div><a class="button secondary" href="symptoms-en.html">Understand symptoms & prepare to contact your team</a></div></section>
+<section class="section home-voice" id="patient-voice" aria-labelledby="voice-title"><p class="eyebrow">Patient perspectives</p><h2 id="voice-title">Patient questions help us make education more useful.</h2><p>Patient experience highlights gaps in explanations and everyday support. We aim to learn from these perspectives while grounding medical information in evidence. Moderated peer support and research studies are future ambitions; creating an account does not enrol anyone in research.</p><div class="section-actions"><a class="button primary" href="about-en.html">About NA7N →</a></div></section>
 
-<section class="section"><div class="section-heading"><p class="eyebrow">Patient tools</p><h2>Small tools for the next practical step.</h2><p>Educational content is available without an account. If you sign in and choose to save a health check-in, it is stored in your account in NA7N's separate Supabase project. These tools are not for making treatment decisions on your own.</p></div><div class="tool-grid"><a class="tool-card featured" href="appointment-en.html"><span>Available now</span><h3>Prepare for your visit</h3><p>Organize your priority, what changed, your questions and next steps.</p><strong>Start preparing →</strong></a><a class="tool-card" href="tools-en.html#symptom-log"><span>Available now</span><h3>Record what you notice</h3><p>Onset, duration, pattern and impact on daily life.</p><strong>Use the tracker →</strong></a><a class="tool-card" href="tools-en.html"><span>Available now</span><h3>Organize medicines & tests</h3><p>Collect information and questions you need before a visit.</p><strong>Explore tools →</strong></a></div></section>
-
-<section class="section soft"><div class="section-heading"><p class="eyebrow">You are not alone</p><h2>NA7N means the experience should not have to be solitary.</h2><p>We are building the platform around trusted knowledge, patient experience, and tools that support conversations with healthcare teams. Community and peer support are part of our future vision and will be introduced only when we can provide them clearly, safely and with appropriate moderation.</p></div><div class="section-actions"><a class="button secondary" href="about-en.html">About NA7N</a><a class="button secondary" href="articles-en.html">Ask & learn</a></div></section>
-
-<section class="section soft tight"><div class="section-heading compact"><p class="eyebrow">Learn when you need it</p><h2>Go directly to your question</h2></div><div class="quick-links"><a href="about-lupus-en.html">What is lupus?</a><a href="symptoms-en.html">How do I understand symptoms?</a><a href="diagnosis-tests-en.html">How do I understand tests?</a><a href="treatment-en.html">How do I understand medicines?</a><a href="kidneys-en.html">What about my kidneys?</a><a href="skin-sun-en.html">Sun & skin</a><a href="pregnancy-en.html">Pregnancy & lupus</a><a href="faq-en.html">More questions</a></div></section>
-
-<section class="trust-band"><div><strong>Clear sources</strong><span>Medical sources and guidelines appropriate to each topic</span></div><div><strong>Transparent review</strong><span>We show review status and update dates and do not claim review that has not happened</span></div><div><strong>Your privacy today</strong><span>Health check-ins you submit while signed in are saved to your account; educational content is open without registration</span></div><a href="about-en.html">How we write and review content →</a></section>
-</main>
+<section class="section soft tight"><div class="section-heading compact"><p class="eyebrow">Learn when you need it</p><h2>Go directly to your question</h2></div><div class="quick-links"><a href="about-lupus-en.html">What is lupus?</a><a href="symptoms-en.html">How do I understand symptoms?</a><a href="diagnosis-tests-en.html">How do I understand tests?</a><a href="treatment-en.html">How do I understand medicines?</a><a href="kidneys-en.html">What about my kidneys?</a><a href="skin-sun-en.html">Sun & skin</a><a href="pregnancy-en.html">Pregnancy & lupus</a><a href="faq-en.html">More questions</a></div></section></main>
+<button type="button" class="home-back-top" aria-label="Back to top" title="Back to top" hidden><span class="home-back-arrow" aria-hidden="true">↑</span><span class="home-back-label">Top</span></button>
 <footer><div class="footer-brand"><strong>NA7N | Lupus</strong><span>Together, we move toward a better life.</span></div><div class="footer-links"><a href="about-lupus-en.html">Understand lupus</a><a href="appointment-en.html">Prepare for your visit</a><a href="tools-en.html">Patient tools</a><a href="faq-en.html">FAQ</a><a href="about-en.html">About NA7N</a></div><p>Educational content supports understanding, self-management and participation in care. It does not replace direct medical assessment or advice.</p></footer>
 <script>
 const menuButton=document.querySelector('.menu-toggle');const mainNav=document.getElementById('main-nav');if(menuButton&&mainNav){menuButton.addEventListener('click',()=>{const open=menuButton.getAttribute('aria-expanded')==='true';menuButton.setAttribute('aria-expanded',String(!open));mainNav.classList.toggle('open',!open);});mainNav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{menuButton.setAttribute('aria-expanded','false');mainNav.classList.remove('open');}));}
 </script>
+<script>(()=>{const b=document.querySelector(".home-back-top");if(!b)return;const update=()=>b.hidden=window.scrollY<520;window.addEventListener("scroll",update,{passive:true});window.addEventListener("pageshow",update);update();b.addEventListener("click",()=>window.scrollTo({top:0,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}));})();</script>
 </body></html>
