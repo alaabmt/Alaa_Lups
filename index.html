@@ -28,6 +28,61 @@
   <link rel="alternate" hreflang="en" href="https://na7nlupus.com/index-en.html">
   <link rel="alternate" hreflang="x-default" href="https://na7nlupus.com/">
 
+  <!-- Critical welcome layout is inlined so cached stylesheets cannot break the first screen. -->
+  <style>
+/* NA7N welcome cover — quiet, bilingual first-screen experience. */
+.welcome-cover{
+  position:relative;isolation:isolate;overflow:hidden;
+  min-height:100vh;min-height:100svh;
+  width:100%;background:linear-gradient(148deg,#fffdfb 0%,#f8f4fc 47%,#eee6f6 100%);
+  color:#392751;
+}
+.welcome-cover::before,.welcome-cover::after{
+  content:"";position:absolute;z-index:-1;pointer-events:none;border-radius:50%;
+  border:1px solid rgba(109,74,162,.14);
+}
+.welcome-cover::before{width:clamp(250px,42vw,690px);aspect-ratio:1;top:-25%;inset-inline-end:-14%;box-shadow:0 0 0 58px rgba(109,74,162,.022),0 0 0 118px rgba(109,74,162,.013)}
+.welcome-cover::after{width:clamp(260px,43vw,710px);aspect-ratio:1;bottom:-39%;inset-inline-start:-15%;box-shadow:0 0 0 62px rgba(109,74,162,.025)}
+.welcome-frame{width:min(1100px,calc(100% - 48px));min-height:100vh;min-height:100svh;margin:auto;display:grid;grid-template-rows:auto 1fr auto;align-items:center;padding:24px 0 27px;gap:22px}
+.welcome-languages{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:nowrap;font-size:14px;font-weight:700;line-height:1.4}
+.welcome-languages>a,.welcome-languages>span{display:inline-flex;align-items:center;justify-content:center;padding:9px 16px;min-height:44px;min-width:82px;border-radius:999px;border:1px solid #d9cbe7}
+.welcome-languages>a{background:rgba(255,255,255,.65);color:#513977}
+.welcome-languages>a:hover{border-color:#8d69b5;background:#fff}
+.welcome-languages .welcome-lang-active{background:#4a2f73;border-color:#4a2f73;color:#fff}
+.welcome-languages a:focus-visible,.welcome-enter:focus-visible{outline:3px solid #8c68bb;outline-offset:4px}
+.welcome-center{text-align:center;justify-self:center;width:min(100%,750px);display:flex;flex-direction:column;align-items:center}
+.welcome-symbol{width:86px;height:auto;max-height:80px;object-fit:contain;margin:0 0 13px}
+.welcome-overline{color:#71568d;font-size:13px;font-weight:800;letter-spacing:.10em;margin:0 0 9px}
+.welcome-name{font-size:clamp(74px,14vw,142px);letter-spacing:-.055em;line-height:1.12;font-weight:900;color:#4a2f73;margin:0 0 10px;overflow-wrap:anywhere}
+html[lang="en"] .welcome-name{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;letter-spacing:-.085em}
+.welcome-tagline{color:#392751;font-size:clamp(21px,3.3vw,35px);font-weight:800;line-height:1.5;margin:0 auto 14px;max-width:730px;text-wrap:balance}
+.welcome-intro{color:#695b77;font-size:clamp(15px,1.8vw,18px);line-height:1.8;max-width:590px;margin:0 auto 27px;text-wrap:pretty}
+.welcome-enter{display:inline-flex;align-items:center;justify-content:center;gap:16px;min-height:53px;padding:13px 29px;border-radius:15px;background:#4a2f73;color:#fff;font-size:16px;font-weight:800;box-shadow:0 10px 30px rgba(74,47,115,.17);transition:background .16s,transform .16s}
+.welcome-enter:hover{background:#684799;transform:translateY(-2px);color:#fff}
+.welcome-enter span{font-size:21px;line-height:1;transform:translateY(-1px)}
+.welcome-footnote{justify-self:center;text-align:center;color:#786888;font-size:13px;line-height:1.6;margin:0}
+#site-content{scroll-margin-top:88px}
+html[lang="en"] .welcome-cover{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+@media(max-width:600px){
+  .welcome-frame{width:calc(100% - 38px);padding-top:16px;padding-bottom:21px;gap:16px}
+  .welcome-languages{justify-content:center}
+  .welcome-languages>a,.welcome-languages>span{font-size:13px;min-height:42px}
+  .welcome-symbol{width:72px;margin-bottom:10px}
+  .welcome-overline{font-size:11px;letter-spacing:.05em}
+  .welcome-name{font-size:clamp(74px,17vw,104px);margin-bottom:12px}
+  .welcome-tagline{font-size:clamp(21px,5.3vw,29px);line-height:1.55}
+  .welcome-intro{font-size:15px;line-height:1.7;margin-bottom:23px}
+  .welcome-enter{width:min(100%,280px);min-height:53px}
+  .welcome-footnote{font-size:12px}
+}
+@media(max-height:600px) and (min-width:601px){
+  .welcome-frame{gap:10px;padding-top:12px;padding-bottom:12px}
+  .welcome-symbol{width:55px;margin-bottom:6px}
+  .welcome-name{font-size:clamp(64px,9vw,94px)}
+  .welcome-intro{margin-bottom:15px}
+}
+@media(prefers-reduced-motion:reduce){.welcome-enter{transition:none}.welcome-enter:hover{transform:none}}
+  </style>
   <style>
 /* Homepage only: readable patient-first layout on desktop and mobile. */
 .home-page{scroll-margin-top:90px}
@@ -78,6 +133,25 @@ html[lang="en"] .home-page,html[lang="en"] .home-back-top{font-family:system-ui,
 </style>
 </head>
 <body>
+
+<section class="welcome-cover" aria-label="مرحبًا بك في نَحْنُ">
+  <div class="welcome-frame">
+    <nav class="welcome-languages" aria-label="اختيار اللغة">
+      <span class="welcome-lang-active" aria-current="true">العربية</span>
+      <a href="index-en.html" lang="en" dir="ltr">English</a>
+    </nav>
+    <div class="welcome-center">
+      <img class="welcome-symbol" src="na7n-logo-mark.svg" width="86" height="69" alt="">
+      <p class="welcome-overline">التثقيف الصحي · تمكين المريض</p>
+      <p class="welcome-name">نَحْنُ</p>
+      <p class="welcome-tagline">معًا نتعلّم، نتطوّر، ونرتقي بجودة حياتنا.</p>
+      <p class="welcome-intro">نبدأ بالذئبة الحمراء: معرفة صحية واضحة، وأدوات عملية تساعدك على فهم المرض والمشاركة في رعايتك.</p>
+      <a class="welcome-enter" href="#site-content">دخول الموقع <span aria-hidden="true">↓</span></a>
+    </div>
+    <p class="welcome-footnote">نبدأ بالذئبة الحمراء، ونتطلع إلى آفاق أوسع.</p>
+  </div>
+</section>
+
 
 <header class="site-header">
   <div class="brand-language"><a class="brand" href="index.html" aria-label="نَحْنُ | الذئبة - الرئيسية"><span class="brand-mark">✦</span><span><strong>نَحْنُ</strong><small>الذئبة</small></span></a><a class="language-switch" href="index-en.html" lang="en" dir="ltr" aria-label="English">English</a></div>
