@@ -176,6 +176,11 @@
       list.value=record.assigned_reviewer||"";
       $("detail-status").value=["approved","published"].includes(record.status)?"awaiting_author_consent":record.status;
       $("detail-privacy-cleared").checked=!!record.privacy_cleared_at;
+      $("detail-clinical-required").checked=!!record.clinical_review_required;
+      $("consent-evidence").value="";
+      $("consent-attest").checked=false;
+      await loadAuthorContact(id);
+      await loadConsents(id);
     }
     await loadReviews(id);
     $("case-detail").scrollIntoView({block:"start",behavior:"smooth"});
@@ -196,7 +201,7 @@
     if(!STORY_CONTENT_STORAGE_APPROVED || staff?.role!=="privacy_owner" || !selectedCase || busy)return;
     const edited=$("detail-edited").value.trim(),status=$("detail-status").value;
     const update={edited_story:edited||null,assigned_reviewer:$("detail-reviewer").value||null,
-      status,privacy_cleared_at:$("detail-privacy-cleared").checked
+      status,clinical_review_required:$("detail-clinical-required").checked,privacy_cleared_at:$("detail-privacy-cleared").checked
         ? (selectedCase.privacy_cleared_at||new Date().toISOString()) : null};
     busy=true;
     try{
@@ -223,6 +228,83 @@
     }catch{inform("detail-status-message","تعذر حفظ الملاحظة. تأكد من تعيين الحالة لك.");}
     finally{busy=false;}
   }
+  async function loadAuthorContact(id) {
+    if(!STORY_CONTENT_STORAGE_APPROVED || staff?.role!=="privacy_owner")return;
+    inform("detail-author-contact","جارٍ فحص قناة التواصل الخاصة بالكاتب…");
+    const q=await client.from("na7n_story_private").select("author_contact").eq("case_id",id).maybeSingle();
+    inform("detail-author-contact",q.error ? "تعذر فتح بيانات الكاتب الخاصة." :
+      q.data?.author_contact ? "عنوان التواصل المحمي مع الكاتب: "+q.data.author_contact :
+      "لا توجد قناة تواصل خاصة مسجلة لهذه الحالة.");
+  }
+  async function loadConsents(id) {
+    if(!STORY_CONTENT_STORAGE_APPROVED || staff?.role!=="privacy_owner")return;
+    const q=await client.from("na7n_story_consents")
+      .select("consent_type,final_text_sha256,evidence_reference,received_at,revoked_at")
+      .eq("case_id",id).order("received_at",{ascending:false});
+    if(q.error){inform("consent-history","تعذر تحميل أدلة الموافقة.");return;}
+    const docs=q.data||[];
+    inform("consent-history",docs.length ?
+      docs.map(c=>(c.revoked_at?"مسحوبة: ":"مسجلة: ")+
+        c.consent_type+" · "+new Date(c.received_at).toLocaleDateString("ar-AE")+
+        " · بصمة النسخة "+c.final_text_sha256.slice(0,12)+"…").join("\n"):
+      "لا يوجد إثبات موافقة مسجل على نسخة نهائية.");
+  }
+  async function currentSavedDraft() {
+    if(!selectedCase)return null;
+    const r=await client.from("na7n_story_cases").select("edited_story,status")
+      .eq("id",selectedCase.id).single();
+    if(r.error)throw r.error;
+    return r.data;
+  }
+  async function recordConsent() {
+    if(!STORY_CONTENT_STORAGE_APPROVED || staff?.role!=="privacy_owner" || !selectedCase || busy)return;
+    const reference=$("consent-evidence").value.trim();
+    const dateString=$("consent-received").value;
+    if(reference.length<8 || !dateString || !$("consent-attest").checked){
+      inform("detail-status-message","أدخل مرجع الدليل ووقت استلامه، وأقر بالتحقق من موافقة الكاتب على النسخة المحددة.");return;
+    }
+    busy=true;
+    try {
+      const saved=await currentSavedDraft(),final=saved?.edited_story||"";
+      if(!final || $("detail-edited").value.trim()!==final.trim()){
+        inform("detail-status-message","احفظ النسخة النهائية أولًا قبل تسجيل الموافقة عليها.");return;
+      }
+      const bytes=new TextEncoder().encode(final);
+      const digest=await crypto.subtle.digest("SHA-256",bytes);
+      const hash=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,"0")).join("");
+      const received=new Date(dateString);
+      if(!Number.isFinite(received.valueOf())||received>new Date()){
+        inform("detail-status-message","تحقق من وقت استلام موافقة الكاتب.");return;
+      }
+      const q=await client.from("na7n_story_consents").insert({
+        case_id:selectedCase.id,consent_type:"final_publication",final_text_sha256:hash,
+        evidence_reference:reference,recorded_by:user.id,received_at:received.toISOString()
+      });
+      if(q.error)throw q.error;
+      $("consent-attest").checked=false;$("consent-evidence").value="";
+      inform("detail-status-message","تم تسجيل مرجع موافقة النسخة المحددة. هذا سجل إداري وليس تحققًا مستقلًا من صحة الدليل.");
+      await loadConsents(selectedCase.id);
+    }catch{inform("detail-status-message","تعذر تسجيل الدليل. راجع الصلاحيات والمتطلبات.");}
+    finally{busy=false;}
+  }
+  async function approveCase() {
+    if(!STORY_CONTENT_STORAGE_APPROVED || staff?.role!=="privacy_owner" || !selectedCase || busy)return;
+    if(!window.confirm("هل راجعت أدلة موافقة الكاتب على النسخة النهائية، واكتملت مراجعة الخصوصية والملاحظات المستقلة اللازمة؟"))return;
+    busy=true;
+    try{
+      const saved=await currentSavedDraft();
+      if(!saved?.edited_story || $("detail-edited").value.trim()!==saved.edited_story.trim()){
+        inform("detail-status-message","احفظ التعديلات على النص قبل طلب الاعتماد.");return;
+      }
+      const q=await client.from("na7n_story_cases").update({
+        status:"approved",approved_by:user.id,approved_at:new Date().toISOString()
+      }).eq("id",selectedCase.id).select("id").single();
+      if(q.error)throw q.error;
+      inform("detail-status-message","اعتمدت النسخة في السجل. لم تُنشر على الموقع العام.");
+      await loadCases();
+    }catch{inform("detail-status-message","رفض نظام الحوكمة الاعتماد. تحقق من مراجعة الخصوصية ودليل موافقة نسخة النص ومراجعة السلامة اللازمة.");}
+    finally{busy=false;}
+  }
   $("admin-login-form").addEventListener("submit",login);
   $("mfa-form").addEventListener("submit",verifyMfa);
   $("mfa-enroll").addEventListener("click",enrollMfa);
@@ -231,5 +313,7 @@
   $("refresh-cases").addEventListener("click",loadCases);
   $("save-case").addEventListener("click",saveCase);
   $("submit-review").addEventListener("click",saveReview);
+  $("record-consent").addEventListener("click",recordConsent);
+  $("approve-case").addEventListener("click",approveCase);
   render();
 })();
