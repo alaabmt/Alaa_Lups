@@ -2,12 +2,15 @@
 
 **Date:** 2026-10-10  
 **Files:** `index.html`, `index-en.html`  
-**Change commit:** `c0897d4fb2b61ac87b7f5c4ff78e173754113033`  
+**Homepage redesign commit:** `c0897d4fb2b61ac87b7f5c4ff78e173754113033`  
+**Welcome cover restored:** `a0d8b3376b11cccfae14294849fda730400860ca`  
 **Scope:** Arabic and English home pages only. No changes to article-level medical guidance, patient accounts, database structures, or research consent.
 
 ## Implemented — verified in the GitHub source
 
-- [x] Replace the full-screen welcome gate with direct access to the primary home page.
+- [x] Restore the original full-screen bilingual welcome cover as the first screen, retaining its logo, visual design, language switcher and Enter button.
+- [x] Specify lupus as the starting focus in the Arabic and English welcome introductions.
+- [x] Keep the revised patient-first homepage accessible below the cover using the original Enter link.
 - [x] Use a lupus-specific, patient-centred opening headline and clear benefit statement in both languages.
 - [x] Keep NA7N branding, the language switcher, and primary navigation.
 - [x] Retain six clearly labelled patient pathways with shorter copy and real destinations.
@@ -28,7 +31,7 @@
 
 - [x] Re-fetched and verified both updated files in the repository.
 - [x] Checked one primary `h1` and one `main` in each page.
-- [x] Checked presence and relative order of hero, trust, needs, safety, tools, daily life and patient voice.
+- [x] Checked the welcome cover is the first screen, its Enter button targets `#site-content`, and the patient-first hero, trust, needs, safety, tools, daily life and patient voice appear below.
 - [x] Checked six patient pathways and three practical tool cards per language.
 - [x] Checked mobile navigation listener and back-to-top script wiring.
 - [x] Checked 12 link/asset/layout/safety assertions after resolving legitimate stylesheet query strings.
