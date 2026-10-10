@@ -11,7 +11,8 @@ create table public.na7n_story_cases (
  status text not null default 'new' check
   (status in ('new','privacy_review','assigned','educational_review','awaiting_author_consent','approved','published','rejected','withdrawn')),
  assigned_reviewer uuid references public.na7n_story_staff(user_id),
- clinical_review_required boolean not null default false,
+ educational_review_required boolean not null default false,
+ physician_review_required boolean not null default false,
  privacy_cleared_at timestamptz,
  approved_at timestamptz,
  approved_by uuid references public.na7n_story_staff(user_id),
@@ -118,7 +119,8 @@ begin
  if new.status in ('approved','published') then
   if new.privacy_cleared_at is null or nullif(btrim(new.edited_story),'') is null
   then raise exception 'privacy_review_and_final_text_required'; end if;
-  if new.clinical_review_required and not exists (
+  if new.physician_review_required then raise exception 'independent_physician_approval_flow_required'; end if;
+  if new.educational_review_required and not exists (
     select 1 from public.na7n_story_reviews r where r.case_id=new.id
       and r.reviewer_id=new.assigned_reviewer and r.review_type='educational_safety'
   ) then raise exception 'assigned_review_required'; end if;
