@@ -111,6 +111,10 @@ begin
  if new.assigned_reviewer is not null and not exists (
   select 1 from public.na7n_story_staff s where s.user_id=new.assigned_reviewer and s.role='educational_reviewer' and s.is_active
  ) then raise exception 'reviewer_not_authorized'; end if;
+ if new.assigned_reviewer is not null and new.privacy_cleared_at is null
+ then raise exception 'privacy_redaction_required_before_reviewer_access'; end if;
+ if new.status='educational_review' and new.assigned_reviewer is null
+ then raise exception 'assign_reviewer_first'; end if;
  if new.status in ('approved','published') then
   if new.privacy_cleared_at is null or nullif(btrim(new.edited_story),'') is null
   then raise exception 'privacy_review_and_final_text_required'; end if;
@@ -169,6 +173,27 @@ returns table(user_id uuid, display_name text) language sql stable security defi
 $$;
 revoke execute on function public.na7n_story_reviewers_for_owner() from public,anon;
 grant execute on function public.na7n_story_reviewers_for_owner() to authenticated;
+-- A consent withdrawal marks the case withdrawn and creates an immutable audit event.
+-- This is deliberately a separate privileged function; browser users cannot update consent rows.
+create or replace function public.na7n_revoke_story_consent(p_consent_id uuid)
+returns void language plpgsql security definer set search_path=public,pg_temp as $
+declare case_ref uuid;
+begin
+ if (auth.jwt()->>'aal') is distinct from 'aal2'
+ or not exists(select 1 from public.na7n_story_staff st
+   where st.user_id=auth.uid() and st.role='privacy_owner' and st.is_active)
+ then raise exception 'not_authorized'; end if;
+ select case_id into case_ref from public.na7n_story_consents
+ where id=p_consent_id and revoked_at is null for update;
+ if case_ref is null then raise exception 'consent_not_found'; end if;
+ update public.na7n_story_consents set revoked_at=now() where id=p_consent_id;
+ update public.na7n_story_cases set status='withdrawn'
+ where id=case_ref and status in ('approved','published');
+end;$;
+revoke all on function public.na7n_revoke_story_consent(uuid) from public,anon;
+grant execute on function public.na7n_revoke_story_consent(uuid) to authenticated;
+create trigger na7n_consent_withdrawal_audit after update on public.na7n_story_consents
+ for each row execute function public.na7n_story_audit_trigger();
 commit;
 -- No anon INSERT policy; secure patient intake must be built and tested separately.
 -- Evidence reference must point to a verified, access-controlled consent record;
