@@ -85,7 +85,18 @@ body.stories-gallery{background:#fffdfd;color:#3d2c48}
 @media(max-width:870px){.stories-gallery .story-hero-grid{grid-template-columns:1fr;padding:52px 0;gap:25px}.stories-gallery .story-hero-panel{min-height:200px}.stories-gallery .rs-card{grid-template-columns:1fr}.stories-gallery .rs-art{position:static;max-width:330px;margin:auto;width:100%;box-sizing:border-box}}
 @media(max-width:650px){.stories-gallery .story-inner{width:calc(100% - 34px)}.stories-gallery .story-hero-grid h1{font-size:38px}.stories-gallery .story-hero-panel strong{font-size:23px}.stories-gallery .story-main-new{padding-top:43px}.stories-gallery .rs-card{padding:19px;gap:23px}.stories-gallery .rs-glance{gap:7px}.stories-gallery .rs-glance div{padding:11px 5px}.stories-gallery .rs-glance b{font-size:23px}.stories-gallery .rs-glance span{font-size:11px}.stories-gallery .story-values-grid{grid-template-columns:1fr}.stories-gallery .story-values{padding:55px 0}.stories-gallery .story-soon{padding:32px 20px;border-radius:20px}}
 @media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
-</style></head>
+</style><style>
+/* Juzi story: vignette typography (loaded last so it wins ties with the page layout CSS) */
+.rs-card p.rs-open,.stories-gallery .rs-card p.rs-open{font-size:clamp(24px,3.6vw,36px);line-height:1.5;color:#442a68;font-weight:800;margin:6px 0 22px}
+.rs-card p.rs-open em,.stories-gallery .rs-card p.rs-open em{display:block;font-style:normal;color:#6d4aa2}
+.rs-card blockquote.rs-quote-big,.stories-gallery .rs-card blockquote.rs-quote-big{font-size:clamp(23px,3.2vw,32px);line-height:1.6;padding:22px 26px;margin:26px 0}
+.rs-card p.rs-reading,.stories-gallery .rs-card p.rs-reading{font-size:15px;color:#51485a;line-height:1.9}
+.rs-card p.rs-fine,.stories-gallery .rs-card p.rs-fine{font-size:13px;color:#72657a;line-height:1.9;margin:14px 0 0}
+.rs-details{border-top:1px solid #e7daef;margin-top:22px;padding-top:12px;font-size:13px;color:#55485f;line-height:1.8}
+.rs-details summary{cursor:pointer;font-weight:700;color:#503475}
+.rs-card .rs-details p{font-size:13px;line-height:1.9;margin:10px 0 0;overflow-wrap:anywhere}
+</style>
+</head>
 <body class="stories-gallery">
 <header class="site-header"><div class="brand-language"><a class="brand" href="index-en.html" aria-label="NA7N Home"><span class="brand-mark">✦</span><span><strong>NA7N</strong><small>Lupus</small></span></a><a class="language-switch" href="stories.html" lang="ar" dir="rtl">العربية</a></div><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu"><span></span><span></span><span></span></button><nav id="main-nav" aria-label="Main navigation"><a href="index-en.html">Home</a><a href="about-lupus-en.html">Understand lupus</a><a href="living-en.html">Living with lupus</a><a class="active" aria-current="page" href="stories-en.html">Patient stories</a><a href="articles-en.html">Ask & learn</a><a href="about-en.html">About</a></nav></header>
 
@@ -107,19 +118,15 @@ body.stories-gallery{background:#fffdfd;color:#3d2c48}
 <g transform="rotate(-24 262 190)"><rect x="236" y="182" width="64" height="16" rx="8" fill="#fff" stroke="#4a2f73" stroke-width="3"/><rect x="246" y="186" width="22" height="8" rx="4" fill="#9f80bb"/><rect x="300" y="187" width="16" height="6" rx="3" fill="#4a2f73"/></g>
 <text x="160" y="46" text-anchor="middle" font-size="26" fill="#6d4aa2" font-family="Tahoma,Arial,sans-serif" aria-hidden="true">&#10022;</text>
 </svg></div>
-<div><ul class="rs-chips"><li>Age 30</li><li>8 years with lupus</li><li>Photovoice study, 8 Chinese women</li></ul>
+<div class="rs-text"><ul class="rs-chips"><li>Age 30</li><li>8 years with lupus</li><li>Photovoice study, 8 Chinese women</li></ul>
 <h3 id="rs-juzi">Juzi: “My evidence”</h3>
-<p>Juzi is 30 years old and has lived with lupus for eight years. In a photography study, the women were asked to take pictures that show life with lupus. Juzi chose a collage of empty medicine boxes, bottles and injection materials.</p>
-<p>Many women in the study described treatment as repetitive, tiring and hard to explain to other people. Juzi looked at the same objects in a different way. She said she likes collecting the boxes, because they show that she has kept going and kept fighting lupus.</p>
-<blockquote class="rs-quote">“…proof that I’ve been persisting and fighting against lupus.”<cite>Juzi (a pseudonym), quoted in Xu, Xiang &amp; Hou, 2026</cite></blockquote>
-<p>The researchers describe this as a way of making the hidden work of treatment visible. Objects that could mean dependence or a damaged body became evidence of endurance.</p>
-<div class="rs-glance" aria-label="Story at a glance"><div><b>30</b><span>years old</span></div><div><b>8</b><span>years with lupus</span></div><div><b>1</b><span>collage of medicine boxes</span></div></div>
-<p class="rs-shift-label">How the meaning changed (the authors’ interpretation)</p>
-<div class="rs-shift"><span>Boxes as a sign of dependence</span><b aria-hidden="true">→</b><span>Boxes as proof of endurance</span></div>
-<h4>What this story shows</h4>
-<p>The same treatment routine can carry more than one meaning. This is one woman’s way of understanding her own treatment. It is not advice, and not everyone feels this way.</p>
+<p class="rs-open">Empty medicine boxes. Bottles. Injection materials.<br><em>Juzi did not throw them away.</em></p>
+<p>Juzi is 30 and has lived with lupus for eight years. Many women in the study described their treatment as repetitive, exhausting and hard to explain to others. Juzi gathered these leftovers into one picture and said she likes collecting the boxes.</p>
+<blockquote class="rs-quote rs-quote-big">“…proof that I’ve been persisting and fighting against lupus.”<cite>Juzi (a pseudonym), quoted in Xu, Xiang &amp; Hou, 2026</cite></blockquote>
+<p class="rs-reading"><strong>The researchers’ reading:</strong> she turned hidden effort into something visible. What could have meant dependence became evidence of endurance.</p>
 <div class="rs-ask"><p><strong>A question for you:</strong> When you look at your own treatment routine, what does it show about your effort? You can bring your answer to your next visit.</p><a href="appointment-en.html">Prepare for your visit →</a></div>
-<p class="rs-source"><strong>Source:</strong> Xu N, Xiang H, Hou Y. Picturing Illness, Making Meaning: A Virtual Photovoice Study of Systemic Lupus Erythematosus Narratives Among Chinese Women. <em>Behavioral Sciences</em>. 2026;16(7):1197. <a href="https://doi.org/10.3390/bs16071197" rel="noopener" target="_blank">doi:10.3390/bs16071197</a>. Open access under a CC BY (Creative Commons Attribution) license; see the article page for the exact terms. Adapted by NA7N: retold in plain language and shortened. The illustration is original. The authors have not reviewed or endorsed this version.</p></div></article>
+<details class="rs-details"><summary>About this source</summary><p>Xu N, Xiang H, Hou Y. Picturing Illness, Making Meaning: A Virtual Photovoice Study of Systemic Lupus Erythematosus Narratives Among Chinese Women. <em>Behavioral Sciences</em>. 2026;16(7):1197. <a href="https://doi.org/10.3390/bs16071197" rel="noopener" target="_blank">doi:10.3390/bs16071197</a>. Open access under a CC BY (Creative Commons Attribution) license; see the article page for the exact terms. Adapted by NA7N: retold in plain language and shortened. The illustration is original. The authors have not reviewed or endorsed this version.</p></details>
+<p class="rs-fine">Not everyone living with lupus feels this way, and that is okay. This is not medical advice.</p></div></article>
 <p class="story-source-note">This account comes from published research. The participant did not submit it to NA7N, and our team has not contacted her directly.</p>
 </section>
 <section class="story-values" aria-labelledby="story-values-title"><div class="story-values-heading"><h2 id="story-values-title">Every story has its own voice and context</h2><p>Our approach helps readers understand one person’s experience without treating it as universal or medical advice.</p></div><div class="story-values-grid"><article><span>01</span><h3>Honor the person’s voice</h3><p>We preserve the meaning of the participant’s words, distinguishing first-person experience from research and editorial interpretation.</p></article><article><span>02</span><h3>Make sources visible</h3><p>Research-based stories are clearly attributed; original first-person stories require appropriate publication consent.</p></article><article><span>03</span><h3>Avoid medical generalizations</h3><p>What helped one person may not help another. Treatment decisions should be discussed with a healthcare team.</p></article></div></section>
