@@ -65,10 +65,11 @@ body{background:#faf7fc;color:#30253b}
 </section>
 <section class="admin-card admin-hidden" id="admin-mfa">
 <h2>تأكيد الهوية بخطوتين</h2><p id="mfa-explanation"></p>
-<div id="mfa-setup" class="admin-hidden"><p>امسح رمز الاستجابة السريع بتطبيق مصادقة، مثل (Authenticator). لا تشارك الرمز السري مع أي شخص.</p><img id="mfa-qr" class="admin-mfa-qr" alt="رمز إضافة المصادقة إلى تطبيقك"><p id="mfa-secret" class="admin-status" dir="ltr"></p></div>
+<div id="mfa-setup" class="admin-hidden"><p>افتح تطبيق مصادقة مثل (Google Authenticator) أو (Microsoft Authenticator). امسح رمز الاستجابة السريع، أو على الهاتف نفسه اختر إضافة حساب باستخدام مفتاح إعداد يدوي.</p><img id="mfa-qr" class="admin-mfa-qr" alt="رمز إعداد المصادقة الثنائية"><p>مفتاح الإعداد اليدوي الخاص بك، لا تشاركه مع أحد:</p><p id="mfa-secret" class="admin-status" dir="ltr" style="overflow-wrap:anywhere;user-select:all;padding:10px;background:#f6f0fa;border-radius:8px"></p><p>استخدم تطبيق المصادقة للحصول على رمز من ستة أرقام. لا تُدخل مفتاح الإعداد نفسه في حقل رمز التحقق.</p></div>
 <form id="mfa-form"><label class="admin-field" for="mfa-code">رمز التحقق المكون من 6 أرقام<input dir="ltr" id="mfa-code" type="text" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" inputmode="numeric" required></label>
 <button class="admin-btn" type="submit">التحقق والدخول</button></form>
 <button id="mfa-enroll" class="admin-btn secondary admin-hidden" type="button">تفعيل المصادقة متعددة العوامل</button>
+<button id="mfa-resume" class="admin-btn secondary admin-hidden" type="button">لدي رمز من إعداد سابق — إكمال التفعيل</button>
 <p id="mfa-message" role="status" class="admin-status" aria-live="polite"></p></section>
 <section class="admin-card admin-hidden" id="admin-denied">
 <h2>ليس لديك إذن دخول</h2><p>حسابك موثق، لكنه ليس ضمن الفريق المخول. تعيين الدور يتم إداريًا بعد التحقق من هوية صاحب الحساب، ولا يمكن طلب الصلاحية من هذه الصفحة.</p><button id="denied-logout" class="admin-btn secondary" type="button">تسجيل الخروج</button></section>
