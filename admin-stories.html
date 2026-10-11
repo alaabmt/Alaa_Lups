@@ -55,7 +55,7 @@ body{background:#faf7fc;color:#30253b}
 </form>
 <div class="admin-actions"><button id="show-staff-register" class="admin-btn secondary" type="button" aria-expanded="false" aria-controls="staff-register-form">إنشاء حساب دخول للفريق</button></div>
 <form id="staff-register-form" class="admin-hidden" autocomplete="off">
-<p class="admin-note">إذا لم يكن لديك حساب «نحن»، يمكنك طلب إنشائه باستخدام بريدك الخاص وكلمة مرور قوية. بعد التحقق من ملكية البريد، تمنح الإدارة الدور يدويًا. لا تدخل اسم مريض أو بياناته أو معلومات صحية في هذه الخانات.</p>
+<p class="admin-note">إذا لم يكن لديك حساب «نحن»، يمكنك طلب إنشائه باستخدام بريدك الخاص وكلمة مرور قوية. بعد التحقق من ملكية البريد، تمنح الإدارة الدور يدويًا. تحفظ خدمة الهوية الحالية (Supabase Auth) بيانات الحساب في منطقة (ap-south-1) بالهند؛ لا تدخل اسم مريض أو بياناته أو معلومات صحية في هذه الخانات. لا تُرسل كلمة المرور إلى إدارة الموقع.</p>
 <label class="admin-field" for="staff-register-email">البريد الإلكتروني<input dir="ltr" id="staff-register-email" type="email" required autocomplete="email"></label>
 <label class="admin-field" for="staff-register-password">إنشاء كلمة مرور (12 حرفًا على الأقل)<input dir="ltr" id="staff-register-password" type="password" minlength="12" required autocomplete="new-password"></label>
 <label class="admin-field" for="staff-register-confirm">تأكيد كلمة المرور<input dir="ltr" id="staff-register-confirm" type="password" minlength="12" required autocomplete="new-password"></label>
