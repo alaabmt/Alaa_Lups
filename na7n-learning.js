@@ -53,7 +53,7 @@
   let outside=null;
   try { outside=document.getElementById(decodeURIComponent(hash.slice(1))); } catch (_) {}
   if(outside && outside.matches("details"))outside.open=true;
-  if(!hash || /^#step-[1-4]$/.test(hash))activate(0);
+  activate(0);
  }
  window.addEventListener("popstate",sync);
  window.addEventListener("hashchange",sync);
