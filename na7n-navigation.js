@@ -58,6 +58,7 @@
       [t("العلاج", "Treatment"), local("treatment"), slug === "treatment"],
       [t("الحياة اليومية", "Everyday life"), local("living"), slug === "living"],
       [t("الأدوات", "Tools"), local("tools"), slug === "tools"],
+      [t("تابع صحتك", "Track your health"), local("assessment"), slug === "assessment"],
       [t("قصصنا", "Stories"), local("stories"), slug === "stories"],
       [t("عن نحن", "About"), local("about"), slug === "about"]
     ];
