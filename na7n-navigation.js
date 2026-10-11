@@ -83,7 +83,7 @@
     const englishFallbacks = {
       fatigue: "living-en.html",
       "q-slaq": "assessment-en.html",
-      lupuspro: "tools-en.html",
+
       doctors: "about-en.html",
       "doctor-template": "about-en.html",
       "article-template": "articles-en.html",
