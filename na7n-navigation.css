@@ -83,3 +83,35 @@
   .home-page .home-about{width:calc(100% - 36px);padding:16px}
 }
 @media(prefers-reduced-motion:reduce){.na7n-menu-toggle,.na7n-global-menu{transition:none!important}}
+
+/* Mobile menu emergency containment: avoid oversized legacy nav layouts. */
+header.site-header.na7n-standard-header nav.na7n-global-menu[hidden]{display:none!important}
+@media(max-width:1050px){
+  header.site-header.na7n-standard-header{display:flex!important;grid-template-columns:none!important;align-items:center!important;justify-content:space-between!important;min-height:64px}
+  header.site-header.na7n-standard-header .na7n-menu-toggle{display:flex!important;align-items:center;justify-content:center;flex:0 0 44px;min-width:44px;min-height:44px;line-height:1!important}
+  header.site-header.na7n-standard-header nav.na7n-global-menu{
+    display:none!important;position:absolute!important;top:100%!important;
+    inset-inline-end:12px!important;inset-inline-start:auto!important;
+    width:min(320px,calc(100vw - 24px))!important;height:auto!important;min-width:0!important;
+    max-height:min(65vh,480px)!important;padding:8px!important;margin:0!important;
+    background:#fff!important;border:1px solid #e1d5e9!important;border-radius:0 0 14px 14px!important;
+    box-shadow:0 12px 28px rgba(46,28,66,.18)!important;
+    flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;
+    gap:0!important;overflow-y:auto!important;flex-wrap:nowrap!important;z-index:200!important;
+    box-sizing:border-box!important
+  }
+  header.site-header.na7n-standard-header nav.na7n-global-menu:not([hidden]){
+    display:flex!important
+  }
+  header.site-header.na7n-standard-header nav.na7n-global-menu a{
+    display:block!important;min-height:44px!important;height:auto!important;flex:0 0 auto!important;
+    width:100%!important;max-width:100%!important;margin:0!important;
+    padding:9px 12px!important;line-height:1.45!important;white-space:normal!important;
+    font-size:14px!important;text-align:start!important;border-bottom:1px solid #f0eaf4;
+    box-sizing:border-box!important
+  }
+  header.site-header.na7n-standard-header nav.na7n-global-menu a:last-child{border-bottom:0}
+}
+@media(max-width:760px){
+ header.site-header.na7n-standard-header{padding:8px 16px!important;gap:8px!important}
+}
