@@ -114,6 +114,58 @@
     }catch{inform("login-message",friendlyError());}
     finally{busy=false;}
   }
+  function toggleStaffRegister() {
+    const form=$("staff-register-form");
+    const open=form.classList.contains("admin-hidden");
+    visible("staff-register-form",open);
+    $("show-staff-register").setAttribute("aria-expanded",String(open));
+    $("show-staff-register").textContent=open?"إخفاء إنشاء الحساب":"إنشاء حساب دخول للفريق";
+    inform("login-message",open?
+      "إنشاء الحساب لا يتيح الوصول إلى لوحة الإدارة قبل التحقق من البريد وتخصيص الدور.":"");
+  }
+  async function registerStaff(event) {
+    event.preventDefault();if(busy||!client)return;
+    const email=$("staff-register-email").value.trim().toLowerCase();
+    const password=$("staff-register-password").value;
+    const confirm=$("staff-register-confirm").value;
+    if(!email||!$("staff-register-email").checkValidity()) {
+      inform("login-message","أدخل عنوان بريد إلكتروني صحيحًا.");return;
+    }
+    if(password.length<12){
+      inform("login-message","اختر كلمة مرور قوية لا تقل عن 12 حرفًا.");return;
+    }
+    if(password!==confirm){
+      inform("login-message","كلمتا المرور غير متطابقتين.");return;
+    }
+    busy=true;
+    inform("login-message","جارٍ طلب إنشاء حساب الفريق…");
+    $("staff-register-form").querySelector('button[type="submit"]').disabled=true;
+    try {
+      const result=await client.auth.signUp({email,password});
+      $("staff-register-password").value="";
+      $("staff-register-confirm").value="";
+      if(result.error){
+        inform("login-message","تعذر إكمال طلب التسجيل. تحقق من البريد أو جرّب لاحقًا، أو استخدم تسجيل الدخول إذا كان لديك حساب.");
+        return;
+      }
+      // If email confirmation is disabled, signUp may create an active session.
+      // Always sign out; staff roles must be assigned only after independent
+      // identity/email verification by an authorized administrator.
+      if(result.data?.session){
+        await client.auth.signOut();
+      }
+      user=null;staff=null;clearPrivate();
+      inform("login-message","تم استقبال طلب إنشاء الحساب. افحص بريدك بحثًا عن رسالة تأكيد إن وصلت. لا توجد صلاحية إدارة مفعّلة حتى تثبت ملكية البريد وتعيّن الإدارة دورك. بعد التحقق، عد إلى هذه الصفحة وسجّل الدخول لتفعيل المصادقة الثنائية.");
+      visible("staff-register-form",false);
+      $("show-staff-register").setAttribute("aria-expanded","false");
+      $("show-staff-register").textContent="إنشاء حساب دخول للفريق";
+    }catch{
+      inform("login-message",friendlyError());
+    }finally{
+      busy=false;
+      $("staff-register-form").querySelector('button[type="submit"]').disabled=false;
+    }
+  }
   async function logout() {
     if(!client)return;
     ++sequence;clearPrivate();staff=null;user=null;
@@ -308,6 +360,8 @@
     finally{busy=false;}
   }
   $("admin-login-form").addEventListener("submit",login);
+  $("show-staff-register").addEventListener("click",toggleStaffRegister);
+  $("staff-register-form").addEventListener("submit",registerStaff);
   $("mfa-form").addEventListener("submit",verifyMfa);
   $("mfa-enroll").addEventListener("click",enrollMfa);
   $("admin-logout").addEventListener("click",logout);
