@@ -75,6 +75,7 @@
     switcher.lang = en ? "ar" : "en";
     switcher.dir = en ? "rtl" : "ltr";
     switcher.setAttribute("aria-label", en ? "العربية" : "Switch to English");
+    if (slug === "fatigue" && !en) { switcher.textContent = "EN · Living"; switcher.setAttribute("aria-label", "English: living with lupus (not an English translation of this fatigue journey)"); }
     shell.append(switcher);
     const toggle = document.createElement("button");
     toggle.type = "button";
