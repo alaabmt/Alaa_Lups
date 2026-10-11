@@ -1,38 +1,178 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://na7nlupus.com/</loc></url>
-  <url><loc>https://na7nlupus.com/index-en.html</loc></url>
-  <url><loc>https://na7nlupus.com/about-en.html</loc></url>
-  <url><loc>https://na7nlupus.com/about-lupus-en.html</loc></url>
-  <url><loc>https://na7nlupus.com/about-lupus.html</loc></url>
-  <url><loc>https://na7nlupus.com/about.html</loc></url>
-  <url><loc>https://na7nlupus.com/appointment-en.html</loc></url>
-  <url><loc>https://na7nlupus.com/appointment.html</loc></url>
-  <url><loc>https://na7nlupus.com/articles-en.html</loc></url>
-  <url><loc>https://na7nlupus.com/articles.html</loc></url>
-  <url><loc>https://na7nlupus.com/assessment-en.html</loc></url>
-  <url><loc>https://na7nlupus.com/assessment.html</loc></url>
-  <url><loc>https://na7nlupus.com/diagnosis-tests-en.html</loc></url>
-  <url><loc>https://na7nlupus.com/diagnosis-tests.html</loc></url>
-  <url><loc>https://na7nlupus.com/faq-en.html</loc></url>
-  <url><loc>https://na7nlupus.com/faq.html</loc></url>
-  <url><loc>https://na7nlupus.com/fatigue.html</loc></url>
-  <url><loc>https://na7nlupus.com/kidneys-en.html</loc></url>
-  <url><loc>https://na7nlupus.com/kidneys.html</loc></url>
-  <url><loc>https://na7nlupus.com/living-en.html</loc></url>
-  <url><loc>https://na7nlupus.com/living.html</loc></url>
-  <url><loc>https://na7nlupus.com/newly-diagnosed-en.html</loc></url>
-  <url><loc>https://na7nlupus.com/newly-diagnosed.html</loc></url>
-  <url><loc>https://na7nlupus.com/pregnancy-en.html</loc></url>
-  <url><loc>https://na7nlupus.com/pregnancy.html</loc></url>
-  <url><loc>https://na7nlupus.com/skin-sun-en.html</loc></url>
-  <url><loc>https://na7nlupus.com/skin-sun.html</loc></url>
-  <url><loc>https://na7nlupus.com/stories.html</loc></url>
-  <url><loc>https://na7nlupus.com/stories-en.html</loc></url>
-  <url><loc>https://na7nlupus.com/symptoms-en.html</loc></url>
-  <url><loc>https://na7nlupus.com/symptoms.html</loc></url>
-  <url><loc>https://na7nlupus.com/tools-en.html</loc></url>
-  <url><loc>https://na7nlupus.com/tools.html</loc></url>
-  <url><loc>https://na7nlupus.com/treatment-en.html</loc></url>
-  <url><loc>https://na7nlupus.com/treatment.html</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://na7nlupus.com/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/index-en.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://na7nlupus.com/" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/index-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/index-en.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://na7nlupus.com/" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/about-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/about.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/about-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/about-lupus-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/about-lupus.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/about-lupus-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/about-lupus.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/about-lupus.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/about-lupus-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/about.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/about-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/appointment-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/appointment.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/appointment-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/appointment.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/appointment.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/appointment-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/articles-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/articles.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/articles-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/articles.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/articles.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/articles-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/assessment-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/assessment.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/assessment-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/assessment.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/assessment.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/assessment-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/diagnosis-tests-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/diagnosis-tests.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/diagnosis-tests-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/diagnosis-tests.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/diagnosis-tests.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/diagnosis-tests-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/faq-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/faq.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/faq-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/faq.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/faq.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/faq-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/fatigue.html</loc>
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/kidneys-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/kidneys.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/kidneys-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/kidneys.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/kidneys.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/kidneys-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/living-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/living.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/living-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/living.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/living.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/living-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/newly-diagnosed-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/newly-diagnosed.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/newly-diagnosed-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/newly-diagnosed.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/newly-diagnosed.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/newly-diagnosed-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/pregnancy-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/pregnancy.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/pregnancy-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/pregnancy.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/pregnancy.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/pregnancy-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/skin-sun-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/skin-sun.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/skin-sun-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/skin-sun.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/skin-sun.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/skin-sun-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/stories.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/stories.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/stories-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/stories-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/stories.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/stories-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/symptoms-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/symptoms.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/symptoms-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/symptoms.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/symptoms.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/symptoms-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/tools-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/tools.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/tools-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/tools.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/tools.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/tools-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/treatment-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/treatment.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/treatment-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/treatment.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/treatment.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/treatment-en.html" />
+  </url>
 </urlset>
