@@ -41,6 +41,16 @@
    txt.append(name,specialty,date);item.append(txt);list.append(item);
   }
   box.append(list);
+  // Keep the older editorial disclosure consistent with a verified, current-version approval.
+  const phrases=["بانتظار اعتماد طبيب مراجع","Pending documented clinician review","Pending clinician review"];
+  document.querySelectorAll("main p").forEach(p=>{
+   const walker=document.createTreeWalker(p,NodeFilter.SHOW_TEXT);
+   let node;while((node=walker.nextNode())){
+    if(phrases.some(x=>node.nodeValue.includes(x))){
+     for(const phrase of phrases)node.nodeValue=node.nodeValue.replace(phrase,L("اعتمد طبيبان مؤهلان النسخة الحالية.","Approved by two verified physicians for this version."));
+    }
+   }
+  });
   const note=document.createElement("p");note.className="na7n-medical-status-footer";note.textContent=L("المراجعة مرتبطة بالنسخة المحددة، والمعلومات للتثقيف ولا تحل محل المشورة الطبية الشخصية.","Approval applies to this specific revision. Education does not replace personal medical advice.");
   box.append(note);
  }
