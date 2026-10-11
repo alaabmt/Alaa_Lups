@@ -35,6 +35,8 @@
   $("skinGrid").innerHTML=skinItems.map(x=>binCard(...x)).join('');
   const form=$("qsForm"),results=$("results"),rating=$("global"),error=$("formError");
   let currentReport=null;
+  let syntheticGenerated=false;
+  let resultIsSynthetic=false;
   let detailsInitiallyOpen=false;
   function response(name){
     const input=form.querySelector('input[name="'+name+'"]:checked');
@@ -68,6 +70,11 @@
     results.classList.add("qs-hidden");
     document.body.classList.remove("qs-print-only");
     currentReport=null;
+    resultIsSynthetic=false;
+    $("qsSyntheticPrintMark").hidden=true;
+    $("qsSaveDemoCloud").disabled=true;
+    $("qsSyntheticConsent").checked=false;
+    setText("qsDemoCloudStatus","");
     $("qsVaultPassword").value="";
     setText("qsDeviceStatus","");
   }
@@ -193,7 +200,57 @@
       setText("qsDeviceStatus","تعذر الحفظ المشفّر. لم نُرسل الإجابات إلى خادم؛ يمكنك حفظ التقرير PDF.");
     }finally{button.disabled=false;$("qsVaultPassword").value="";}
   }
-  form.addEventListener("change",()=>{clearError();clearResult();progress();});
+
+  function generateSyntheticAnswers(){
+    // A generated test fixture, NOT user-reported clinical answers.
+    for(const name of allIds){
+      const max=skinItems.some(q=>q[0]===name)?1:3;
+      const value=Math.floor(Math.random()*(max+1));
+      const input=form.querySelector('input[name="'+name+'"][value="'+value+'"]');
+      if(input)input.checked=true;
+    }
+    rating.value=String(Math.floor(Math.random()*11));
+    syntheticGenerated=true;
+    clearError();clearResult();
+    progress();
+    setText("qsDemoGeneratorStatus","تم توليد 19 إجابة وهمية للتجربة. اضغط «احسب النتيجة» ثم اختر حفظ النتيجة الوهمية في حسابك.");
+    $("qsSaveDemoCloud").disabled=true;
+    $("qsSyntheticConsent").checked=false;
+  }
+  async function saveSyntheticCloud(){
+    const status=$("qsDemoCloudStatus");
+    status.textContent="";
+    if(!syntheticGenerated || !currentReport || results.classList.contains("qs-hidden")){
+      status.textContent="لا يمكن حفظ إدخالات يدوية أو حقيقية في التجربة. اختر «توليد إجابات وهمية تلقائيًا» ثم احسب نتيجتها.";
+      return;
+    }
+    if(!$("qsSyntheticConsent").checked){
+      status.textContent="يجب تأكيد أن الإجابات مولّدة آليًا وغير حقيقية قبل الحفظ.";
+      return;
+    }
+    const button=$("qsSaveDemoCloud"),demo=window.NA7NQslaQDemo;
+    if(!demo){status.textContent="خدمة التجربة غير متاحة الآن.";return;}
+    button.disabled=true;
+    try{
+      const saved=await demo.save(currentReport.answers,true);
+      status.textContent="تم حفظ النتيجة الوهمية في حسابك بتاريخ "+
+        new Date(saved.completed_at).toLocaleString("ar-AE")+
+        ". افتح «حسابي» من أي جهاز لعرضها ومقارنتها بالتجارب السابقة.";
+      // One deliberately generated set cannot accidentally create duplicates by
+      // tapping Save repeatedly; generate a new synthetic fixture to save again.
+      syntheticGenerated=false;
+      $("qsSyntheticConsent").checked=false;
+      setText("qsDemoGeneratorStatus","حُفظت تجربة وهمية واحدة. يمكنك توليد مجموعة وهمية جديدة لإجراء تجربة أخرى.");
+    }catch(_){
+      status.textContent="تعذر الحفظ. تأكد من تسجيل الدخول إلى «حسابي» بهذا المتصفح، ومن اتصال الإنترنت، ثم أعد المحاولة.";
+      button.disabled=false;
+    }
+  }
+  form.addEventListener("change",()=>{
+    syntheticGenerated=false;
+    setText("qsDemoGeneratorStatus","أي تعديل يدوي يلغي صلاحية الحفظ التجريبي؛ للحفظ في (Supabase) ولّد إجابات وهمية جديدة.");
+    clearError();clearResult();progress();
+  });
   form.addEventListener("submit",event=>{
     event.preventDefault();
     clearResult();
@@ -213,6 +270,9 @@
     report(weighted,symptoms,g);
     buildFullQuestions();
     currentReport=buildSnapshot(weighted,symptoms,g);
+    resultIsSynthetic=syntheticGenerated;
+    $("qsSyntheticPrintMark").hidden=!resultIsSynthetic;
+    $("qsSaveDemoCloud").disabled=!syntheticGenerated;
     $("qsSaveConsent").checked=false;
     $("qsVaultPassword").value="";
     $("qsDeviceStatus").textContent="";
@@ -220,9 +280,13 @@
     results.scrollIntoView({behavior:"smooth",block:"start"});
   });
   form.addEventListener("reset",()=>{
+    syntheticGenerated=false;
+    setText("qsDemoGeneratorStatus","تستخدم هذه الإجابات لاختبار حفظ النتائج وتكرارها في «حسابي» فقط.");
     clearResult();
     setTimeout(()=>{clearError();progress();},0);
   });
+  $("qsGenerateDemo").addEventListener("click",generateSyntheticAnswers);
+  $("qsSaveDemoCloud").addEventListener("click",saveSyntheticCloud);
   $("qsSaveToAccount").addEventListener("click",saveToThisDevice);
   $("printResult").addEventListener("click",()=>{
     if(results.classList.contains("qs-hidden"))return;
