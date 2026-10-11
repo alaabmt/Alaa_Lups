@@ -32,6 +32,7 @@
    }
  }
  function openTarget(target) {
+   if(target.tagName==="DETAILS")target.open=true;
    const stage=target.closest(".na7n-learning-stage");
    if(stage)activate(stages.indexOf(stage));
    let p=target.parentElement;
