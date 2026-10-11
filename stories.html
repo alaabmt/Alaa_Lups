@@ -94,8 +94,14 @@ body.stories-gallery{background:#fffdfd;color:#3d2c48}
 .rs-card .rs-lit p,.stories-gallery .rs-card .rs-lit p{font-size:18px;line-height:2.1;margin:0 0 1.1em}
 .rs-card p.rs-sep,.stories-gallery .rs-card p.rs-sep{text-align:center;color:#9f80bb;margin:6px 0 16px;font-size:18px;line-height:1}
 .rs-card blockquote.rs-quote-big,.stories-gallery .rs-card blockquote.rs-quote-big{font-size:clamp(23px,3.2vw,32px);line-height:1.6;padding:22px 26px;margin:26px 0}
-.rs-card .rs-facts,.stories-gallery .rs-card .rs-facts{background:#f6f0fa;border-radius:16px;padding:16px 20px;margin:26px 0 8px;font-size:14px;line-height:1.9;color:#463953}
-.rs-facts ul{margin:8px 0 0;padding-inline-start:20px}.rs-facts li{margin:4px 0;line-height:1.9}
+/* Facts box: collapsed by default, + when closed, − when open */
+.rs-details.rs-facts-details{margin-top:12px;padding-top:12px}
+.rs-details summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.rs-details summary::-webkit-details-marker{display:none}
+.rs-details summary::after{content:"+";font-size:22px;line-height:1;font-weight:700;color:#503475;flex:none}
+.rs-details[open] summary::after{content:"\2212"}
+.rs-facts-details ul{margin:10px 0 0;padding-inline-start:20px;background:#f6f0fa;border-radius:14px;padding-block:14px;padding-inline-end:18px;font-size:14px;line-height:1.9;color:#463953}
+.rs-facts-details li{margin:4px 0}
 .rs-card p.rs-fine,.stories-gallery .rs-card p.rs-fine{font-size:13px;color:#72657a;line-height:1.9;margin:14px 0 0}
 .rs-details{border-top:1px solid #e7daef;margin-top:22px;padding-top:12px;font-size:13px;color:#55485f;line-height:1.8}
 .rs-details summary{cursor:pointer;font-weight:700;color:#503475}
@@ -147,15 +153,15 @@ body.stories-gallery{background:#fffdfd;color:#3d2c48}
 <p>وربما لم تكن الصورة لها وحدها؛ ربما كانت رسالةً صامتة إلى من لا يرى، تقول من غير كلام: هذا ما يلزم كي نمضي.</p>
 <p class="rs-open"><em>ثماني سنوات، وعلبٌ فارغةٌ كثيرة، وامرأةٌ واحدة لم تَفرُغ.</em></p>
 </div>
-<aside class="rs-facts"><strong>من المقال نفسه</strong><ul>
+<div class="rs-ask"><p><strong>سؤال لك:</strong> حين تنظر إلى روتينك العلاجي، ماذا يُظهر عن جهدك؟ يمكنك أن تحمل إجابتك إلى موعدك القادم.</p><a href="appointment.html">جهّز لزيارتك ←</a></div>
+<details class="rs-details"><summary>عن المصدر</summary><p><span dir="ltr" lang="en">Xu N, Xiang H, Hou Y. Picturing Illness, Making Meaning: A Virtual Photovoice Study of Systemic Lupus Erythematosus Narratives Among Chinese Women. <em>Behavioral Sciences</em>. 2026;16(7):1197. <a href="https://doi.org/10.3390/bs16071197" rel="noopener" target="_blank">doi:10.3390/bs16071197</a></span>. المقال مفتوح الوصول برخصة CC BY (النسبة إلى المؤلف)؛ راجع صفحة المقال للاطلاع على الشروط. أعادت «نحن» صياغة القصة بأسلوب أدبي، والرسم أصلي من إعدادنا. لم يراجع المؤلفون هذه النسخة ولم يزكّوها.</p></details>
+<details class="rs-details rs-facts-details"><summary>من المقال نفسه</summary><ul>
 <li>جوزي (اسم مستعار)، 30 عامًا، تعيش مع الذئبة منذ 8 سنوات.</li>
 <li>أعدّت كولاجًا من علب أدوية فارغة وزجاجات ومستلزمات حقن.</li>
 <li>قالت إنها تحب جمع هذه العلب، وإنها دليل على أنها ثابرت وقاومت الذئبة.</li>
 <li>وصفت نساء كثيرات في الدراسة العلاج بأنه متكرر ومُنهِك ويصعب شرحه للآخرين.</li>
 <li>يقول الباحثون إن كولاجها جعل العمل الخفي للعلاج ملموسًا وقابلًا للعدّ.</li>
-<li>وما عدا ذلك، كالإيصالات والعكّاز والرسالة الصامتة، فمن صياغتنا وخيالنا.</li></ul></aside>
-<div class="rs-ask"><p><strong>سؤال لك:</strong> حين تنظر إلى روتينك العلاجي، ماذا يُظهر عن جهدك؟ يمكنك أن تحمل إجابتك إلى موعدك القادم.</p><a href="appointment.html">جهّز لزيارتك ←</a></div>
-<details class="rs-details"><summary>عن المصدر</summary><p><span dir="ltr" lang="en">Xu N, Xiang H, Hou Y. Picturing Illness, Making Meaning: A Virtual Photovoice Study of Systemic Lupus Erythematosus Narratives Among Chinese Women. <em>Behavioral Sciences</em>. 2026;16(7):1197. <a href="https://doi.org/10.3390/bs16071197" rel="noopener" target="_blank">doi:10.3390/bs16071197</a></span>. المقال مفتوح الوصول برخصة CC BY (النسبة إلى المؤلف)؛ راجع صفحة المقال للاطلاع على الشروط. أعادت «نحن» صياغة القصة بأسلوب أدبي، والرسم أصلي من إعدادنا. لم يراجع المؤلفون هذه النسخة ولم يزكّوها.</p></details>
+<li>وما عدا ذلك، كالإيصالات والعكّاز والرسالة الصامتة، فمن صياغتنا وخيالنا.</li></ul></details>
 <p class="rs-fine">ليس كل من يعيش مع الذئبة يشعر بهذا، وهذا طبيعي. وهذه ليست نصيحة طبية.</p></div></article>
 <p class="story-source-note">هذه القصة مستمدة من دراسة منشورة؛ لم تُرسلها صاحبتها إلى «نحن»، ولم يتواصل معها فريق الموقع مباشرة.</p>
 </section>
