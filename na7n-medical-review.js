@@ -201,7 +201,7 @@
   const {data,error}=await sb.from("na7n_medical_review_staff").select("*").eq("user_id",user.id).maybeSingle();
   if(error)throw error;staff=data;
   if(!staff?.is_active){show("mr-admin-work",false);say(T("هذا الحساب ليس منسقًا معتمدًا للمراجعات. أضف الدور من إدارة قاعدة البيانات بعد التحقق من الهوية.","This account is not a provisioned review coordinator."),"error");return;}
-  show("mr-admin-work");say(T("تأكد من تكليف طبيبين مستقلين والتحقق من ترخيص كل منهما.","Assign two distinct, verified physicians."),"success");
+  show("mr-admin-work");show("mr-publisher",staff.role==="publisher");say(T("تأكد من تكليف طبيبين مستقلين والتحقق من ترخيص كل منهما.","Assign two distinct, verified physicians."),"success");
   reviewers=await query("na7n_medical_reviewers");await refreshAdmin();
   const select=byId("mr-doctor");select.replaceChildren();
   for(const r of reviewers.filter(r=>r.is_active&&r.license_verified_at)){
