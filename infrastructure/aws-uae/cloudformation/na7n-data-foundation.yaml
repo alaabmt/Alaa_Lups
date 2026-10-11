@@ -1,0 +1,174 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'NA7N future UAE health-data foundation. DESIGN ONLY. Default: no resources.'
+Parameters:
+  DeployInfrastructure:
+    Type: String
+    Default: 'NO'
+    AllowedValues: ['NO', 'YES']
+    Description: 'Must remain NO until documented clinical/privacy, security, cost and AWS region approvals.'
+  EnvironmentName:
+    Type: String
+    Default: production
+    AllowedValues: [staging, production]
+  DatabaseClass:
+    Type: String
+    Default: db.t4g.small
+    Description: 'Confirm current UAE region availability and cost before deploying.'
+  BackupRetentionDays:
+    Type: Number
+    Default: 14
+    MinValue: 7
+    MaxValue: 35
+Conditions:
+  DeploymentApproved: !Equals [!Ref DeployInfrastructure, 'YES']
+  InUAE: !Equals [!Ref 'AWS::Region', 'me-central-1']
+  CreateUAEInfrastructure: !And
+    - !Condition DeploymentApproved
+    - !Condition InUAE
+Resources:
+  NA7NVpc:
+    Type: AWS::EC2::VPC
+    Condition: CreateUAEInfrastructure
+    Properties:
+      CidrBlock: 10.80.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: !Sub 'na7n-${EnvironmentName}-private-vpc'
+  PrivateSubnetA:
+    Type: AWS::EC2::Subnet
+    Condition: CreateUAEInfrastructure
+    Properties:
+      VpcId: !Ref NA7NVpc
+      AvailabilityZone: !Select [0, !GetAZs '']
+      CidrBlock: 10.80.10.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: Name
+          Value: !Sub 'na7n-${EnvironmentName}-private-a'
+  PrivateSubnetB:
+    Type: AWS::EC2::Subnet
+    Condition: CreateUAEInfrastructure
+    Properties:
+      VpcId: !Ref NA7NVpc
+      AvailabilityZone: !Select [1, !GetAZs '']
+      CidrBlock: 10.80.11.0/24
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: Name
+          Value: !Sub 'na7n-${EnvironmentName}-private-b'
+  AppSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Condition: CreateUAEInfrastructure
+    Properties:
+      GroupDescription: 'Reserved for a future privately connected NA7N API workload'
+      VpcId: !Ref NA7NVpc
+      Tags:
+        - Key: Name
+          Value: !Sub 'na7n-${EnvironmentName}-app-sg'
+  DatabaseSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Condition: CreateUAEInfrastructure
+    Properties:
+      GroupDescription: 'Private PostgreSQL access only from designated NA7N app SG'
+      VpcId: !Ref NA7NVpc
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 5432
+          ToPort: 5432
+          SourceSecurityGroupId: !Ref AppSecurityGroup
+      Tags:
+        - Key: Name
+          Value: !Sub 'na7n-${EnvironmentName}-database-sg'
+  DatabaseSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Condition: CreateUAEInfrastructure
+    Properties:
+      DBSubnetGroupDescription: 'NA7N private UAE subnets in two AZs'
+      SubnetIds: [!Ref PrivateSubnetA, !Ref PrivateSubnetB]
+  PrivatePostgres:
+    Type: AWS::RDS::DBInstance
+    Condition: CreateUAEInfrastructure
+    DeletionPolicy: Snapshot
+    UpdateReplacePolicy: Snapshot
+    Properties:
+      Engine: postgres
+      DBInstanceClass: !Ref DatabaseClass
+      DBName: na7n
+      AllocatedStorage: 20
+      MaxAllocatedStorage: 100
+      StorageType: gp3
+      StorageEncrypted: true
+      PubliclyAccessible: false
+      MultiAZ: true
+      BackupRetentionPeriod: !Ref BackupRetentionDays
+      CopyTagsToSnapshot: true
+      DeletionProtection: true
+      AutoMinorVersionUpgrade: true
+      MasterUsername: na7n_admin
+      ManageMasterUserPassword: true
+      DBSubnetGroupName: !Ref DatabaseSubnetGroup
+      VPCSecurityGroups: [!Ref DatabaseSecurityGroup]
+      Tags:
+        - Key: Project
+          Value: NA7N
+        - Key: DataClassification
+          Value: health-data-not-yet-authorized
+        - Key: Environment
+          Value: !Ref EnvironmentName
+  PrivateReportsBucket:
+    Type: AWS::S3::Bucket
+    Condition: CreateUAEInfrastructure
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      VersioningConfiguration:
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: aws:kms
+              KMSMasterKeyID: alias/aws/s3
+            BucketKeyEnabled: true
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
+      Tags:
+        - Key: Project
+          Value: NA7N
+        - Key: DataClassification
+          Value: health-data-not-yet-authorized
+  PrivateReportsTlsPolicy:
+    Type: AWS::S3::BucketPolicy
+    Condition: CreateUAEInfrastructure
+    Properties:
+      Bucket: !Ref PrivateReportsBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: DenyInsecureTransport
+            Effect: Deny
+            Principal: '*'
+            Action: s3:*
+            Resource:
+              - !GetAtt PrivateReportsBucket.Arn
+              - !Sub '${PrivateReportsBucket.Arn}/*'
+            Condition:
+              Bool:
+                aws:SecureTransport: 'false'
+Outputs:
+  Activation:
+    Description: 'NO=design only; YES+UAE region creates billable resources.'
+    Value: !Ref DeployInfrastructure
+  Region:
+    Value: !Ref 'AWS::Region'
+  DatabaseEndpoint:
+    Condition: CreateUAEInfrastructure
+    Description: 'PRIVATE endpoint only: no public connection.'
+    Value: !GetAtt PrivatePostgres.Endpoint.Address
+  ReportsBucket:
+    Condition: CreateUAEInfrastructure
+    Value: !Ref PrivateReportsBucket
