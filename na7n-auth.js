@@ -12,7 +12,7 @@
   let currentUser = null;
   function refreshLinks() {
     document.querySelectorAll('a[href="account.html"]').forEach(link => {
-      link.textContent = currentUser ? "متابعتي" : "حسابي";
+      link.textContent = "حسابي";
       link.classList.add("account-link");
       link.setAttribute("aria-label", currentUser ? "متابعتي الصحية وحسابي" : "حسابي");
     });
