@@ -78,12 +78,28 @@
     brand.append(name);
     shell.append(brand);
     const siblingFile = slug + (en ? ".html" : "-en.html");
-    const cross = slug === "fatigue" ? "living-en.html" : (isHome ? (en ? "index.html" : "index-en.html") : siblingFile);
+    // Pages without a one-to-one English translation must never link to a 404.
+    // These fallbacks are related pages, not claims of an exact translation.
+    const englishFallbacks = {
+      fatigue: "living-en.html",
+      "q-slaq": "assessment-en.html",
+      lupuspro: "tools-en.html",
+      doctors: "about-en.html",
+      "doctor-template": "about-en.html",
+      "article-template": "articles-en.html",
+      "admin-preview": "index-en.html"
+    };
+    const usingRelatedEnglish = !en && Object.prototype.hasOwnProperty.call(englishFallbacks, slug);
+    const cross = isHome ? (en ? "index.html" : "index-en.html") :
+      (usingRelatedEnglish ? englishFallbacks[slug] : siblingFile);
     const switcher = createLink(en ? "العربية" : "English", cross, "na7n-lang-switch");
     switcher.lang = en ? "ar" : "en";
     switcher.dir = en ? "rtl" : "ltr";
     switcher.setAttribute("aria-label", en ? "العربية" : "Switch to English");
-    if (slug === "fatigue" && !en) { switcher.textContent = "EN · Living"; switcher.setAttribute("aria-label", "English: living with lupus (not an English translation of this fatigue journey)"); }
+    if (usingRelatedEnglish) {
+      switcher.setAttribute("aria-label", "English: related information (not an exact translation of this page)");
+      switcher.title = "Related English page; this page has no direct English translation.";
+    }
     shell.append(switcher);
     const accountShortcut = createLink(t("حسابي", "My Account"), accountPage, "na7n-account-shortcut account-link");
     accountShortcut.setAttribute("aria-label", t("الذهاب إلى حسابي", "Open My Account"));
