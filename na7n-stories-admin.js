@@ -175,7 +175,7 @@
     event.preventDefault();
     if(busy||!factorId)return;
     const code=$("mfa-code").value.trim();
-    if(!/^\\d{6}$/.test(code))return;
+    if(!/^[0-9]{6}$/.test(code))return;
     busy=true;
     try {
       const challenge=await client.auth.mfa.challenge({factorId});
