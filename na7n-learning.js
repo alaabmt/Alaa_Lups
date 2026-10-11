@@ -39,11 +39,21 @@
  }
  selectors.forEach((btn,i)=>btn.addEventListener("click",()=>activate(i,{updateUrl:true,scroll:true})));
  root.querySelectorAll("[data-go-step]").forEach(btn=>btn.addEventListener("click",()=>activate(Number(btn.dataset.goStep)-1,{updateUrl:true,scroll:true})));
- root.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener("click",()=>{const t=revealDeepLink(a.hash);if(t)openTarget(t);}));
+ document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener("click",()=>{
+   let target=null;
+   try { target=document.getElementById(decodeURIComponent(a.hash.slice(1))); } catch (_) {}
+   if(!target)return;
+   if(root.contains(target))openTarget(target);
+   else if(target.matches("details"))target.open=true;
+ }));
  function sync(){
-  const target=revealDeepLink(location.hash);
+  const hash=location.hash;
+  const target=revealDeepLink(hash);
   if(target){openTarget(target);return;}
-  activate(0);
+  let outside=null;
+  try { outside=document.getElementById(decodeURIComponent(hash.slice(1))); } catch (_) {}
+  if(outside && outside.matches("details"))outside.open=true;
+  if(!hash || /^#step-[1-4]$/.test(hash))activate(0);
  }
  window.addEventListener("popstate",sync);
  window.addEventListener("hashchange",sync);
