@@ -141,7 +141,7 @@ async function refresh(){
   owner=auth.data.user.id;
   const list=await demo.history();
   if(current!==version)return;
-  rows=list;render();
+  rows=[...(list||[])].sort((a,b)=>new Date(b.completed_at)-new Date(a.completed_at));render();
  }catch(_){
   if(current===version){table.replaceChildren();detail.hidden=true;
     status.textContent=T("تعذر تحميل نتائج التجربة. تحقق من اتصالك ثم اضغط تحديث.",
