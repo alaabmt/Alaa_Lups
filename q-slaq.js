@@ -3,9 +3,17 @@
   "use strict";
   const allItems=severityItems.concat(skinItems);
   const allIds=allItems.map(x=>x[0]);
-  const questionLabels=new Map(allItems.map(x=>[x[0],x[1]]));
+  const questionLabels=new Map(allItems.map(x=>[x[0],x[2]]));
   const count=allIds.length+1;
   const levels=["لم يحدث","خفيفة","متوسطة","شديدة"];
+  const patientLabels={
+    weight:"نقص الوزن دون محاولة",fatigue:"الإرهاق",fever:"الحمّى",nodes:"تضخم غدد الرقبة",
+    alopecia:"تساقط الشعر على شكل بقع أو خصل",breath:"ضيق النفس",chest:"ألم الصدر عند التنفس بعمق",
+    abdomen:"ألم البطن",forget:"النسيان",depress:"الشعور بالاكتئاب",headache:"الصداع غير المعتاد",
+    muscleWeak:"ضعف العضلات",musclePain:"ألم العضلات",jointPain:"ألم المفاصل أو تيبسها",
+    jointSwelling:"تورم المفاصل",malar:"طفح الوجنتين بشكل فراشة",sun:"طفح أو توعك بعد الشمس",
+    sores:"تقرحات الفم أو الأنف"
+  };
   const $=id=>document.getElementById(id);
   function sevCard(id,en,ar){
     return '<article class="qs-card" data-question="'+id+'"><fieldset aria-required="true"><legend class="qs-en">'+en+
@@ -59,7 +67,7 @@
     error.hidden=false;
     const names=missing.slice(0,4).map(name=>name==="global"?"التقييم العام من 0 إلى 10":questionLabels.get(name));
     error.textContent="لا يمكن حساب النتيجة قبل الإجابة عن جميع الأسئلة. بقي "+missing.length+
-      " أسئلة دون إجابة، منها: "+names.join("، ")+(missing.length>4?"، وغيرها.":".")+
+      " "+(missing.length===1?"سؤال واحد دون إجابة":missing.length===2?"سؤالان دون إجابة":missing.length+" أسئلة دون إجابة")+"، منها: "+names.join("، ")+(missing.length>4?"، وغيرها.":".")+
       " اختر «لم يحدث» أو «لا» عندما لا يكون العرض موجودًا.";
     progress();
     const first=missing[0]==="global"?rating:form.querySelector('input[name="'+missing[0]+'"]');
@@ -80,16 +88,16 @@
     setText("symptomMeaning","أبلغت عن وجود "+symptoms+" من أصل 18 عرضًا مذكورًا في الاستبيان. يُحسب العرض مرة واحدة سواء كان خفيفًا أو متوسطًا أو شديدًا؛ لا يعني هذا العدد أن لديك "+symptoms+" مضاعفات أو أن الذئبة سبّبتها جميعًا.");
     setText("globalMeaning","اخترت "+g+" من 10 لتصف إحساسك العام بنشاط المرض خلال الشهر الماضي؛ 0 يعني أنك لا تشعر بنشاط، و10 أشد نشاط يمكنك تصوّره. وهو سؤال مستقل عن مجموع الشدة وعدد الأعراض."+
       (g===0&&symptoms>0?" اخترت الصفر رغم وجود أعراض في الإجابات الأخرى؛ هذا ليس خطأ حسابيًا ويمكن مناقشة الاختلاف مع طبيبك.":""));
-    const significant=severityItems.map(x=>({label:x[2].replace(/[؟?]$/,""),score:response(x[0]),binary:false}))
+    const significant=severityItems.map(x=>({label:patientLabels[x[0]],score:response(x[0]),binary:false}))
       .filter(x=>x.score>0)
-      .concat(skinItems.map(x=>({label:x[2].replace(/[؟?]$/,""),score:response(x[0]),binary:true})).filter(x=>x.score>0))
+      .concat(skinItems.map(x=>({label:patientLabels[x[0]],score:response(x[0]),binary:true})).filter(x=>x.score>0))
       .sort((a,b)=>b.score-a.score);
     const list=$("qsPriorityList");
     list.replaceChildren();
     if(!significant.length){
       const li=document.createElement("li");li.textContent="لم تذكر أعراضًا ضمن البنود التي يشملها هذا الاختبار.";list.append(li);
     }else{
-      for(const item of significant.slice(0,6)){
+      for(const item of significant){
         const li=document.createElement("li");
         li.textContent=item.label+" — "+(item.binary?"أبلغت عن وجوده":"الشدة التي وصفتها: "+levels[item.score]);
         list.append(li);
