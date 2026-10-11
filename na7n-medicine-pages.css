@@ -1,0 +1,53 @@
+/* NA7N patient medicine monographs: bilingual, progressive enhancement, no personal data */
+:root{--med-purple:#583877;--med-ink:#32243a;--med-muted:#64576c;--med-line:#e7dfea;--med-bg:#fcfaff}
+html{scroll-behavior:smooth}
+body.med-page{background:#fffdfd;color:var(--med-ink)}
+.med-page .med-shell{width:min(1040px,calc(100% - 40px));margin-inline:auto}
+.med-page .med-breadcrumb{font-size:13px;line-height:1.8;padding:18px 0;color:var(--med-muted)}
+.med-page .med-breadcrumb a{color:var(--med-purple)}
+.med-page .med-hero{background:linear-gradient(130deg,#f6eefb,#fefafd 55%,#fff7f1);border-block:1px solid #e9deed}
+.med-page .med-hero-inner{padding:47px 0 54px;display:grid;grid-template-columns:1.4fr .6fr;gap:24px;align-items:center}
+.med-page .med-kicker{font-size:13px;font-weight:850;color:#754b95;margin:0 0 8px}
+.med-page .med-hero h1{font-size:clamp(34px,4.5vw,53px);line-height:1.34;color:#422957;margin:5px 0 15px;text-wrap:balance}
+.med-page .med-lead{font-size:clamp(17px,1.9vw,20px);line-height:1.85;margin:0;max-width:690px;color:#4c3c58}
+.med-page .med-hero-aside{background:#fff;border:1px solid #e5d8eb;border-radius:21px;padding:23px;text-align:center}
+.med-page .med-hero-aside span{font-size:40px;color:#a18ab3;font-weight:800;display:block;line-height:1.4}
+.med-page .med-hero-aside strong{display:block;font-size:16px;color:#4a3263;line-height:1.7}
+.med-page .med-hero-aside p{font-size:12px;line-height:1.75;color:#66596f}
+.med-page .med-guide{padding:36px 0 90px}
+.med-page .med-overview{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0 0 22px}
+.med-page .med-overview-item{background:#fff;border:1px solid var(--med-line);border-radius:16px;padding:20px}
+.med-page .med-overview-item h2{font-size:18px;line-height:1.5;margin:0 0 9px;color:#4c2f68}
+.med-page .med-overview-item p{font-size:15px;line-height:1.9;margin:0;color:#564b5e}
+.med-page .med-alert{background:#fffbf3;border:1px solid #e9d9b5;border-inline-start:5px solid #9c7e44;border-radius:14px;padding:17px 20px;margin:15px 0 25px;font-size:14px;line-height:1.9}
+.med-page .med-alert strong{display:block;font-size:16px;color:#64462a;margin:0 0 6px}
+.med-page .med-section-heading{font-size:clamp(22px,2.5vw,29px);line-height:1.4;color:#482d64;margin:36px 0 17px}
+.med-page .med-accordion{border:1px solid #e3daea;background:#fff;border-radius:17px;margin:12px 0;overflow:hidden}
+.med-page .med-accordion>summary{position:relative;list-style:none;cursor:pointer;display:flex;gap:13px;align-items:center;justify-content:space-between;padding:19px 21px;color:#483263;font-weight:850;font-size:17px;line-height:1.6;min-height:62px;box-sizing:border-box}
+.med-page .med-accordion>summary::-webkit-details-marker{display:none}
+.med-page .med-accordion>summary:after{content:"+";order:2;flex:none;display:flex;align-items:center;justify-content:center;font-size:23px;font-weight:500;border-radius:50%;width:33px;height:33px;background:#f1e9f7;color:#5e397b}
+.med-page .med-accordion[open]>summary:after{content:"−"}
+.med-page .med-accordion[open]>summary{background:#f8f3fb;border-bottom:1px solid #e9dfed}
+.med-page .med-accordion-body{padding:18px 22px;color:#4c4054;font-size:15px;line-height:2}
+.med-page .med-accordion-body p{margin:0 0 13px}
+.med-page .med-accordion-body p:last-child{margin-bottom:0}
+.med-page .med-analogy{background:#f7f1fa;border-radius:12px;padding:15px 17px;border-inline-start:4px solid #9973b6;margin:0 0 14px}
+.med-page .med-comparison{background:#faf8fc;border:1px solid #e7dcec;border-radius:12px;padding:15px 17px}
+.med-page .med-accordion-body a,.med-page .med-reference-list a,.med-page .med-nav-next a{color:#543278;text-decoration:underline;text-underline-offset:3px;font-weight:750}
+.med-page .med-check{border:1px solid #d8c8e7;border-radius:20px;padding:24px;background:#f9f6fc;margin:32px 0}
+.med-page .med-check h2{margin:0 0 12px;color:#4a2f67;font-size:24px}
+.med-page .med-check p{line-height:1.9}
+.med-page .med-check details{margin:14px 0 0;border:1px solid #e2d6eb;border-radius:11px;background:#fff;padding:13px 16px;line-height:1.9}
+.med-page .med-check summary{cursor:pointer;color:#573577;font-weight:800}
+.med-page .med-reference{border-top:1px solid #e9dfed;margin-top:44px;padding-top:22px}
+.med-page .med-reference h2{font-size:23px;color:#472f60;margin:0 0 15px}
+.med-page .med-reference-list{line-height:1.9;padding-inline-start:24px;margin:0 0 20px;font-size:14px}
+.med-page .med-reference-list li{margin:0 0 13px}
+.med-page .med-review{border:1px solid #e4dbe9;background:#faf8fc;padding:15px;border-radius:12px;font-size:13px;line-height:1.95;color:#5f5268}
+.med-page .med-review p{margin:7px 0}
+.med-page .med-nav-next{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:28px 0;padding:17px;border-radius:14px;background:#f7f3fa;font-size:14px}
+.med-page .med-nav-next a{margin-inline-end:15px}
+.med-page :focus-visible{outline:3px solid #8056a3;outline-offset:3px}
+.med-page .med-nojs{font-size:13px;color:#64566d}
+@media(max-width:760px){.med-page .med-shell{width:calc(100% - 34px)}.med-page .med-hero-inner{grid-template-columns:1fr;padding:32px 0}.med-page .med-hero-aside{padding:14px}.med-page .med-hero-aside span{font-size:25px}.med-page .med-overview{grid-template-columns:1fr}.med-page .med-accordion>summary{padding:15px;font-size:16px}.med-page .med-accordion-body{padding:15px}.med-page .med-guide{padding:23px 0 60px}.med-page .med-check{padding:18px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
