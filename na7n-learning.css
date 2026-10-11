@@ -1,0 +1,55 @@
+/* NA7N — four-step newly diagnosed learning path; scoped, bilingual. */
+.na7n-newly .na7n-learning-hero,.na7n-newly .na7n-safety-note,.na7n-newly .na7n-learning-shell,.na7n-newly .na7n-reading-end{width:min(940px,calc(100% - 36px));margin-inline:auto;box-sizing:border-box}
+.na7n-newly .na7n-learning-hero{padding:28px 0 16px}
+.na7n-newly .na7n-learning-hero h1{font-size:clamp(29px,4vw,42px);line-height:1.32;color:#30203f;margin:5px 0 12px}
+.na7n-newly .na7n-learning-hero p{color:#554a60;line-height:1.8;font-size:16px;margin:0}
+.na7n-newly .na7n-learning-eyebrow{color:#704ba0!important;font-weight:800;font-size:13px!important}
+.na7n-newly .na7n-safety-note{margin-block:6px 22px}
+.na7n-newly .na7n-safety-note a{font-weight:800;color:#4a2f73}
+.na7n-newly .na7n-learning-shell{border:1px solid #e3d9eb;border-radius:22px;padding:24px;background:linear-gradient(155deg,#fbf8fe,#fff 42%);margin-bottom:26px}
+.na7n-newly .na7n-learning-shell>h2{font-size:clamp(23px,3vw,30px);color:#342443;margin:0 0 7px;line-height:1.4}
+.na7n-newly .na7n-learning-shell>.na7n-learning-lead{font-size:15px;line-height:1.75;color:#65596e;margin:0 0 19px}
+.na7n-newly .na7n-learning-switches{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:0 0 20px}
+.na7n-newly .na7n-step-btn{appearance:none;background:#fff;color:#49395c;border:1px solid #ded3e8;border-radius:12px;min-height:82px;padding:10px 8px;cursor:pointer;font:750 13px/1.5 Tahoma,Arial,sans-serif;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+html[lang="en"] .na7n-newly .na7n-step-btn{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+.na7n-newly .na7n-step-btn[aria-current="step"]{border:2px solid #704ba0;background:#eee7f7;color:#392251}
+.na7n-newly .na7n-step-no{background:#f1e9f9;color:#704ba0;border-radius:99px;width:25px;height:25px;display:grid;place-items:center;font-size:13px}
+.na7n-newly .na7n-step-btn[aria-current="step"] .na7n-step-no{background:#704ba0;color:#fff}
+.na7n-newly .na7n-learning-progress{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:0 0 22px}
+.na7n-newly .na7n-learning-progress span{height:6px;background:#e7dfee;border-radius:6px}
+.na7n-newly .na7n-learning-progress span.is-active{background:#704ba0}
+.na7n-newly .na7n-learning-stage[hidden]{display:none!important}
+.na7n-newly .na7n-learning-stage{scroll-margin-top:92px;min-width:0}
+.na7n-newly .na7n-learning-stage h3{color:#30203f;font-size:clamp(22px,3vw,28px);line-height:1.4;margin:0 0 11px}
+.na7n-newly .na7n-learning-stage .na7n-stage-summary{font-size:16px;line-height:1.8;color:#53485e;margin:0 0 17px}
+.na7n-newly .na7n-learning-stage .na7n-stage-helper{color:#6a5f72;font-size:13px;line-height:1.6;margin:0 0 10px}
+.na7n-newly details.na7n-learning-detail{border:1px solid #e1d6e9;border-radius:14px;background:#fff;margin:0 0 10px;overflow:hidden}
+.na7n-newly details.na7n-learning-detail[open]{border-color:#c5adda}
+.na7n-newly details.na7n-learning-detail>summary{list-style:none;cursor:pointer;padding:16px;min-height:58px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:16px;line-height:1.5;color:#352341;font-weight:800}
+.na7n-newly details.na7n-learning-detail>summary::-webkit-details-marker{display:none}
+.na7n-newly details.na7n-learning-detail>summary::marker{content:""}
+.na7n-newly details.na7n-learning-detail>summary::after{content:"+";display:grid;place-items:center;width:32px;height:32px;flex:0 0 32px;border-radius:9px;background:#f1e9f9;color:#603f84;font:700 25px/1 system-ui}
+.na7n-newly details.na7n-learning-detail[open]>summary::after{content:"−"}
+.na7n-newly .na7n-learning-detail-body{padding:4px 17px 18px;border-top:1px solid #eee8f3;font-size:15px;line-height:1.82;color:#493d55}
+.na7n-newly .na7n-learning-detail-body p{margin:10px 0}
+.na7n-newly .na7n-learning-detail-body ul{padding-inline-start:24px;margin:8px 0}
+.na7n-newly .na7n-learning-detail-body li{margin-bottom:7px}
+.na7n-newly .na7n-learning-detail-body .content-card{padding:15px!important;margin:12px 0 0!important;box-shadow:none;border:1px solid #eae2f0;background:#fefcff;border-radius:12px}
+.na7n-newly .na7n-learning-detail-body .content-card h2{font-size:20px;line-height:1.45}
+.na7n-newly .na7n-learning-detail-body .content-card p{font-size:15px;line-height:1.8}
+.na7n-newly .na7n-stage-takeaway{padding:14px 17px;background:#f2ebf9;border-inline-start:4px solid #704ba0;border-radius:10px;line-height:1.8;font-size:14px;margin-top:15px}
+.na7n-newly .na7n-stage-takeaway strong{display:block;margin-bottom:5px}
+.na7n-newly .na7n-step-actions{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
+.na7n-newly .na7n-step-actions button,.na7n-newly .na7n-step-actions a{border:1px solid #d6c7e0;border-radius:12px;background:#fff;color:#4b3370;min-height:48px;padding:10px 17px;cursor:pointer;font-size:14px;font-weight:800;text-align:center;display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
+.na7n-newly .na7n-step-actions .na7n-next{background:#704ba0;border-color:#704ba0;color:#fff}
+.na7n-newly .na7n-step-actions button[disabled]{opacity:.42;cursor:not-allowed}
+.na7n-newly .na7n-reading-end{margin-top:0;margin-bottom:35px}
+.na7n-newly .na7n-reading-end details{border:1px solid #e3d9eb;border-radius:14px;background:#fff;padding:0 14px}
+.na7n-newly .na7n-reading-end>details>summary{min-height:48px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-weight:800;font-size:14px;list-style:none}
+.na7n-newly .na7n-reading-end>details>summary::-webkit-details-marker{display:none}
+.na7n-newly .na7n-reading-end>details>summary::after{content:"+";font-size:22px;color:#704ba0}
+.na7n-newly .na7n-reading-end>details[open]>summary::after{content:"−"}
+.na7n-newly .na7n-reading-end .content-card{box-shadow:none;margin-bottom:13px;padding:12px}
+.na7n-newly .na7n-reading-end .na7n-back-home{display:inline-block;margin:16px 0;color:#4a2f73;font-weight:700;text-decoration:underline}
+.na7n-newly button:focus-visible,.na7n-newly summary:focus-visible,.na7n-newly a:focus-visible{outline:3px solid #9972c2;outline-offset:2px}
+@media(max-width:640px){.na7n-newly .na7n-learning-shell{padding:15px}.na7n-newly .na7n-learning-switches{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.na7n-newly .na7n-step-btn{min-height:70px;padding:8px 4px;font-size:13px}.na7n-newly .na7n-learning-detail-body{padding:6px 12px 14px}.na7n-newly .na7n-step-actions button,.na7n-newly .na7n-step-actions a{padding:8px 11px;font-size:13px}.na7n-newly .na7n-learning-hero{padding-top:18px}}
