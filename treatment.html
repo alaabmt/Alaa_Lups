@@ -8,7 +8,19 @@
 <link rel="stylesheet" href="styles.css">
 <style>
 .treatment-map{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}.treatment-map>div,.decision-tool{padding:18px;border:1px solid var(--line);border-radius:16px;background:#fff}.tag{display:inline-block;padding:5px 10px;margin:0 0 10px 6px;border-radius:999px;background:var(--purple-soft);color:var(--purple-dark);font-size:.88rem;font-weight:700}.medicine-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.medicine-card{padding:18px;border:1px solid var(--line);border-radius:16px;background:#fff}.medicine-card h3{margin-top:4px}.steps{margin:10px 0;padding-right:22px}.steps li{margin:9px 0}.question-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.question-grid>span{display:block;padding:14px;border:1px solid var(--line);border-radius:14px;background:#fff}.key-message{font-size:1.08rem}.safety-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.safety-row>div{padding:16px;border:1px solid var(--line);border-radius:14px;background:#fff}.mini-title{font-size:1rem;margin:18px 0 7px}@media(max-width:760px){.treatment-map,.medicine-grid,.question-grid,.safety-row{grid-template-columns:1fr}}
-.medicine-learning .med-key{font-size:1.06rem;line-height:1.85}.medicine-learning .med-analogy{padding:16px;background:#f8f3fc;border:1px solid #e8d9ee;border-radius:13px;margin:16px 0}.medicine-learning .med-analogy>strong{color:#513671}.medicine-learning .med-analogy p{line-height:1.85;margin:10px 0}.medicine-learning .med-limit{font-size:.88rem;line-height:1.8;color:#605368}.medicine-learning .med-quick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0}.medicine-learning .med-quick>div{padding:13px;border:1px solid #e7dfeb;border-radius:11px}.medicine-learning dt{color:#4c2f6a;font-weight:800;margin-bottom:6px}.medicine-learning dd{margin:0;line-height:1.75;font-size:.93rem}.medicine-learning details{border:1px solid #e3d8e7;border-radius:10px;padding:4px 12px;margin-top:9px}.medicine-learning details>summary{padding:9px 2px;cursor:pointer;color:#513671;font-weight:700}.medicine-learning details p{line-height:1.8}.medicine-learning .med-action{background:#f8f3fc;padding:14px;border-radius:11px;line-height:1.8}.medicine-learning .med-sources{font-size:.83rem;line-height:1.8;color:#695c70}.medicine-learning a{color:#58377f}@media(max-width:760px){.medicine-learning .med-quick{grid-template-columns:1fr}}</style>
+.medicine-learning .med-key{font-size:1.06rem;line-height:1.85}.medicine-learning .med-analogy{padding:16px;background:#f8f3fc;border:1px solid #e8d9ee;border-radius:13px;margin:16px 0}.medicine-learning .med-analogy>strong{color:#513671}.medicine-learning .med-analogy p{line-height:1.85;margin:10px 0}.medicine-learning .med-limit{font-size:.88rem;line-height:1.8;color:#605368}.medicine-learning .med-quick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0}.medicine-learning .med-quick>div{padding:13px;border:1px solid #e7dfeb;border-radius:11px}.medicine-learning dt{color:#4c2f6a;font-weight:800;margin-bottom:6px}.medicine-learning dd{margin:0;line-height:1.75;font-size:.93rem}.medicine-learning details{border:1px solid #e3d8e7;border-radius:10px;padding:4px 12px;margin-top:9px}.medicine-learning details>summary{padding:9px 2px;cursor:pointer;color:#513671;font-weight:700}.medicine-learning details p{line-height:1.8}.medicine-learning .med-action{background:#f8f3fc;padding:14px;border-radius:11px;line-height:1.8}.medicine-learning .med-sources{font-size:.83rem;line-height:1.8;color:#695c70}.medicine-learning a{color:#58377f}@media(max-width:760px){.medicine-learning .med-quick{grid-template-columns:1fr}}/* Readable full-width medicine explanations and live checks */
+.na7n-newly .medicine-grid{grid-template-columns:minmax(0,1fr)!important}
+.na7n-newly .med-catalog{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;margin:20px 0}
+.na7n-newly .med-full-card{grid-column:1/-1;min-width:0;overflow-wrap:anywhere}
+.na7n-newly .medicine-learning .med-quick>div.med-safety-wide{grid-column:1/-1;background:#fff9f2;border-color:#e9d9c6}
+.na7n-newly .med-group-intro{padding:17px;border-radius:14px;background:#f8f3fc;border:1px solid #e7d9ed;line-height:1.85;margin:14px 0}
+.na7n-newly .med-group-intro h3{font-size:20px;margin:0 0 8px;color:#523671}
+.na7n-newly .med-group-intro p{margin:0}
+.na7n-newly .med-directory{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.na7n-newly .med-directory a{font-size:13px;font-weight:750;padding:8px 12px;background:white;border:1px solid #d9c8e7;border-radius:100px;color:#533575;text-decoration:none}
+.na7n-newly .med-safety-wide{margin-top:0}
+@media(max-width:720px){.na7n-newly .medicine-learning .med-quick{grid-template-columns:minmax(0,1fr)}}
+</style>
   <link rel="canonical" href="https://na7nlupus.com/treatment.html">
   <link rel="alternate" hreflang="ar" href="https://na7nlupus.com/treatment.html">
   <link rel="alternate" hreflang="en" href="https://na7nlupus.com/treatment-en.html">
@@ -95,48 +107,86 @@
 <p class="med-sources"><strong>المراجع:</strong> <a href="https://www.nhs.uk/medicines/hydroxychloroquine/" target="_blank" rel="noopener noreferrer">NHS</a> · <a href="https://rheumatology.org.au/For-Patients/Adult-Medication-Information/H-M/Hydroxychloroquine" target="_blank" rel="noopener noreferrer">الجمعية الأسترالية للروماتيزم</a> · <a href="https://medlineplus.gov/druginfo/meds/a601240.html" target="_blank" rel="noopener noreferrer">MedlinePlus</a>. المحتوى التثقيفي بانتظار المراجعة الطبية الداخلية الموثقة.</p>
 </article>
 
-<article class="medicine-card">
-<span class="tag">للسيطرة السريعة على الالتهاب</span>
-<h3>الكورتيزون</h3>
-<p><strong>لماذا يستخدم؟</strong> يمكن أن يعمل بسرعة عندما يكون الالتهاب نشطًا أو عندما تتأثر أعضاء مهمة.</p>
-<p><strong>لماذا يحاول الطبيب تقليله؟</strong> لأن الاستخدام الطويل قد يزيد مخاطر مثل هشاشة العظام وارتفاع الضغط والسكري والعدوى وزيادة الوزن ومشكلات العين.</p>
-<p><strong>ماذا لا أفعل؟</strong> لا توقف الكورتيزون فجأة من نفسك؛ قد يحتاج إلى خفض تدريجي تحت إشراف الطبيب.</p>
-<p><strong>اسأل طبيبك:</strong> هل الخطة هي استخدامه لفترة قصيرة؟ وكيف سنعرف أن الوقت مناسب لتقليله؟</p>
-</article>
-
-<article class="medicine-card">
-<span class="tag">بحسب الأعراض والحالة</span>
-<h3>مسكنات ومضادات الالتهاب</h3>
-<p><strong>لماذا قد تستخدم؟</strong> قد تساعد في الألم والالتهاب والحرارة لدى بعض المرضى.</p>
-<p><strong>ماذا يجب أن أعرف؟</strong> هذه الأدوية ليست مناسبة للجميع؛ قد تؤثر في المعدة أو الكلى أو القلب، ويزداد الحذر إذا كانت الكلى متأثرة.</p>
-<p><strong>قاعدة عملية:</strong> كون الدواء متاحًا دون وصفة لا يعني أنه آمن تلقائيًا مع الذئبة أو مع بقية أدويتك.</p>
-<p><strong>اسأل طبيبك أو الصيدلي:</strong> ما المسكن الآمن لي مع أدويتي ووظائف الكلى؟</p>
-</article>
-
-<article class="medicine-card">
-<span class="tag">لتقليل فرط نشاط المناعة</span>
-<h3>الأدوية المنظمة أو المثبطة للمناعة</h3>
-<p><strong>لماذا تستخدم؟</strong> قد يحتاجها المريض عندما يكون المرض أكثر نشاطًا، أو يؤثر في عضو مهم، أو لا تكفي الخطة الأبسط، أو نحتاج إلى تقليل الاعتماد على الكورتيزون.</p>
-<p><strong>أسماء قد تراها:</strong> أزاثيوبرين، ميثوتريكسات، ميكوفينولات، سيكلوفوسفاميد وأدوية أخرى.</p>
-<p><strong>ما المتابعة؟</strong> تختلف حسب الدواء وقد تشمل تعداد الدم ووظائف الكبد والكلى ومراقبة العدوى.</p>
-<p><strong>اسأل طبيبك:</strong> لماذا اخترت هذا الدواء تحديدًا؟ وما الفحوص التي أحتاجها أثناء استخدامه؟</p>
-</article>
-
-<article class="medicine-card">
-<span class="tag">علاجات موجهة أو بيولوجية</span>
-<h3>العلاجات البيولوجية والموجهة</h3>
-<p><strong>ما الفكرة؟</strong> تستهدف أجزاء محددة من جهاز المناعة بدل تثبيطه بصورة عامة فقط.</p>
-<p><strong>أسماء قد تسمعها:</strong> بليموماب وأنيفرولوماب، كما توجد علاجات موجهة أخرى لبعض حالات الذئبة أو التهاب الكلى.</p>
-<p><strong>ماذا يعني ذلك لي؟</strong> قد تُستخدم عندما لا تكون السيطرة كافية بالعلاجات الأخرى أو عندما يناسب نمط المرض علاجًا موجهًا.</p>
-<p><strong>اسأل طبيبك:</strong> ما الفائدة المتوقعة؟ وكيف سنقيس الاستجابة؟ وما أهم مخاطر العدوى أو الآثار الجانبية؟</p>
-</article>
-
-<article class="medicine-card">
-<span class="tag">حسب العضو المصاب</span>
-<h3>علاج إصابة عضو محدد</h3>
-<p>التهاب الكلى أو إصابة عصبية أو دموية أو قلبية رئوية قد تحتاج إلى خطة أكثر تخصصًا من علاج الجلد والمفاصل. لذلك لا يمكن مقارنة أسماء الأدوية بين مريضين من دون معرفة العضو المتأثر وشدة الحالة.</p>
-<p><a class="card-link" href="kidneys.html">اقرأ عن الكلى والذئبة ←</a></p>
-</article>
+<div class="med-group-intro"><h3>أدوية مختلفة، وشرح خاص لكل دواء</h3><p>تابع التشبيه والفائدة والسلامة، ثم جرّب سؤال الفهم. لا تبدأ أو تغيّر دواءً اعتمادًا على هذه الصفحة. تشمل الأمثلة الأدوية المستخدمة في الذئبة، وليست قائمة حصرية لكل علاج ممكن.</p></div><article class="medicine-card medicine-learning med-full-card" id="med-steroids-ar">
+ <span class="tag">فهم الدواء خطوة بخطوة</span>
+ <h3>الكورتيزون (مثل البريدنيزون)</h3><p class="med-key"><strong>ما الذي يفعله؟:</strong> يسيطر على الالتهاب بسرعة أثناء النوبات، وقد يحتاج المريض إليه مؤقتًا.</p>
+ <div class="med-analogy"><strong>تشبيه من الحياة</strong><p>تخيّله فرامل طوارئ لسيارة مسرعة؛ يساعد على إبطاء الالتهاب سريعًا، لكن لا نرفع أقدامنا عن الفرامل أو نغيّرها دون خطة آمنة.</p></div>
+ <p class="med-limit"><strong>حدود التشبيه:</strong> التشبيه لا يوضح أثر الكورتيزون على هرمونات الجسم.</p>
+ <dl class="med-quick"><div><dt>كيف يعمل؟</dt><dd>يقلل الإشارات والخلايا التي تسبب الالتهاب بطرق متعددة.</dd></div>
+ <div><dt>متى أتوقع الفائدة؟</dt><dd>قد تبدأ فائدته سريعًا، وتختلف الجرعة ومدة الاستخدام بحسب الحالة.</dd></div>
+ <div class="med-safety-wide"><dt>ما الأمان والمتابعة؟</dt><dd>لا توقفه فجأة من نفسك؛ اسأل عن خفض الجرعة ومراقبة الضغط والسكر والعظام والعدوى.</dd></div></dl>
+ <section class="med-quiz" id="med-steroids-ar-quiz" data-correct="1" data-correct-feedback="صحيح؛ الإيقاف المفاجئ قد يكون خطرًا ويحتاج خفض الجرعة إلى إشراف طبي." data-incorrect-feedback="لا توقف الكورتيزون أو تغير جرعته بنفسك؛ ناقش الخطة مع الطبيب."><span class="med-quiz-kicker">اختبر فهمك — اختر إجابة</span><fieldset><legend>بعد تحسن الأعراض على الكورتيزون، ما التصرف الأفضل؟</legend><label class="med-quiz-option"><input type="radio" name="med-steroids-ar-choice" value="0"><span>أوقفه فورًا</span></label><label class="med-quiz-option"><input type="radio" name="med-steroids-ar-choice" value="1"><span>ألتزم بخطة الطبيب وأناقش خفضه تدريجيًا عند المناسبة</span></label><label class="med-quiz-option"><input type="radio" name="med-steroids-ar-choice" value="2"><span>أزيد الجرعة</span></label></fieldset><p class="med-quiz-result" role="status" aria-live="polite" aria-atomic="true" hidden></p></section>
+ <p class="med-sources"><strong>المصدر:</strong> <a href="https://ard.bmj.com/content/83/1/15" target="_blank" rel="noopener noreferrer">مرجع طبي متخصص</a>. المحتوى التثقيفي بانتظار مراجعة سريرية موثقة.</p></article>
+<article class="medicine-card medicine-learning med-full-card" id="med-nsaids-ar">
+ <span class="tag">فهم الدواء خطوة بخطوة</span>
+ <h3>مضادات الالتهاب غير الستيرويدية (إيبوبروفين، نابروكسين)</h3><p class="med-key"><strong>ما الذي يفعله؟:</strong> قد تخفف الألم والتورم، لكنها ليست علاجًا كافيًا لنشاط الذئبة المناعي.</p>
+ <div class="med-analogy"><strong>تشبيه من الحياة</strong><p>مثل خفض صوت جرس الألم: قد يقل الإزعاج، لكن مصدر المشكلة المناعية لم يختف بالضرورة.</p></div>
+ <p class="med-limit"><strong>حدود التشبيه:</strong> خفض صوت الجرس ليس دليلًا على انتهاء التهاب الأعضاء.</p>
+ <dl class="med-quick"><div><dt>كيف يعمل؟</dt><dd>تحدّ من صنع مواد تسمى البروستاغلاندينات تسهم في الألم والالتهاب.</dd></div>
+ <div><dt>متى أتوقع الفائدة؟</dt><dd>قد يبدأ تسكين الألم خلال ساعات؛ تختلف الاستجابة من شخص لآخر.</dd></div>
+ <div class="med-safety-wide"><dt>ما الأمان والمتابعة؟</dt><dd>قد تؤثر في المعدة والكلى والضغط والقلب. لا تجمع نوعين دون استشارة؛ تأكد من أمانها إذا كانت الكلى متأثرة.</dd></div></dl>
+ <section class="med-quiz" id="med-nsaids-ar-quiz" data-correct="2" data-correct-feedback="صحيح؛ توافر الدواء دون وصفة لا يجعله مناسبًا لجميع المرضى." data-incorrect-feedback="قد تؤذي مضادات الالتهاب الكلى أو تتداخل مع أدوية أخرى؛ اسأل المختص أولًا."><span class="med-quiz-kicker">اختبر فهمك — اختر إجابة</span><fieldset><legend>مريض ذئبة لديه التهاب كلى يريد إيبوبروفين من الصيدلية، ما الأفضل؟</legend><label class="med-quiz-option"><input type="radio" name="med-nsaids-ar-choice" value="0"><span>يتناوله لأنه دون وصفة</span></label><label class="med-quiz-option"><input type="radio" name="med-nsaids-ar-choice" value="1"><span>يضاعف الجرعة</span></label><label class="med-quiz-option"><input type="radio" name="med-nsaids-ar-choice" value="2"><span>يسأل الطبيب أو الصيدلي عن أمانه لكليتيه وأدويته</span></label></fieldset><p class="med-quiz-result" role="status" aria-live="polite" aria-atomic="true" hidden></p></section>
+ <p class="med-sources"><strong>المصدر:</strong> <a href="https://www.lupus.org/northeast/resources/medications-used-to-treat-lupus" target="_blank" rel="noopener noreferrer">مرجع طبي متخصص</a>. المحتوى التثقيفي بانتظار مراجعة سريرية موثقة.</p></article>
+<article class="medicine-card medicine-learning med-full-card" id="med-azathioprine-ar">
+ <span class="tag">فهم الدواء خطوة بخطوة</span>
+ <h3>أزاثيوبرين</h3><p class="med-key"><strong>ما الذي يفعله؟:</strong> قد ينظم نشاط المناعة ويساعد في تقليل الحاجة للكورتيزون لدى بعض المرضى.</p>
+ <div class="med-analogy"><strong>تشبيه من الحياة</strong><p>كأنك تبطئ مصنعًا يفرز عددًا زائدًا من العاملين استجابةً لإنذار خاطئ.</p></div>
+ <p class="med-limit"><strong>حدود التشبيه:</strong> لا يقتصر التأثير على الخلايا المناعية الضارة؛ لذا تلزم المتابعة.</p>
+ <dl class="med-quick"><div><dt>كيف يعمل؟</dt><dd>يقلل قدرة بعض خلايا المناعة على التكاثر عبر التأثير في مكونات بناء الخلايا.</dd></div>
+ <div><dt>متى أتوقع الفائدة؟</dt><dd>تظهر فائدته تدريجيًا خلال أسابيع أو أشهر، حسب الهدف العلاجي.</dd></div>
+ <div class="med-safety-wide"><dt>ما الأمان والمتابعة؟</dt><dd>تلزم تحاليل الدم والكبد، وقد يُفحص إنزيم TPMT. أخبر الطبيب عن أدوية النقرس مثل ألوبورينول وفيبوكسوستات وعن الحمى أو الكدمات.</dd></div></dl>
+ <section class="med-quiz" id="med-azathioprine-ar-quiz" data-correct="1" data-correct-feedback="صحيح؛ تحاليل الدم والكبد ومراجعة التداخلات الدوائية ضرورية." data-incorrect-feedback="لا تتجاهل التحاليل أو الأعراض الجديدة أثناء أزاثيوبرين."><span class="med-quiz-kicker">اختبر فهمك — اختر إجابة</span><fieldset><legend>ما الذي يجب الالتزام به أثناء أزاثيوبرين؟</legend><label class="med-quiz-option"><input type="radio" name="med-azathioprine-ar-choice" value="0"><span>إلغاء التحاليل إذا شعرت بتحسن</span></label><label class="med-quiz-option"><input type="radio" name="med-azathioprine-ar-choice" value="1"><span>إجراء التحاليل والإبلاغ عن الحمى والكدمات</span></label><label class="med-quiz-option"><input type="radio" name="med-azathioprine-ar-choice" value="2"><span>إضافة علاج النقرس دون إخبار الطبيب</span></label></fieldset><p class="med-quiz-result" role="status" aria-live="polite" aria-atomic="true" hidden></p></section>
+ <p class="med-sources"><strong>المصدر:</strong> <a href="https://rheumatology.org/I-Am-A/Patient-Caregiver/Treatments/Azathioprine-Imuran" target="_blank" rel="noopener noreferrer">مرجع طبي متخصص</a>. المحتوى التثقيفي بانتظار مراجعة سريرية موثقة.</p></article>
+<article class="medicine-card medicine-learning med-full-card" id="med-methotrexate-ar">
+ <span class="tag">فهم الدواء خطوة بخطوة</span>
+ <h3>ميثوتريكسات</h3><p class="med-key"><strong>ما الذي يفعله؟:</strong> قد يساعد على السيطرة على بعض مظاهر الذئبة، ومنها المفاصل والجلد، في حالات مختارة.</p>
+ <div class="med-analogy"><strong>تشبيه من الحياة</strong><p>يشبه خفض سرعة خطوط إنتاج تسهم في استمرار الالتهاب؛ لا يحدث الأثر دفعة واحدة.</p></div>
+ <p class="med-limit"><strong>حدود التشبيه:</strong> جدول الروماتيزم مختلف عن جداول استعمالات أخرى للدواء.</p>
+ <dl class="med-quick"><div><dt>كيف يعمل؟</dt><dd>يؤثر بجرعات الروماتيزم في عدة مسارات خلوية وإشارات التهابية.</dd></div>
+ <div><dt>متى أتوقع الفائدة؟</dt><dd>قد يبدأ التحسن بعد أسابيع، وتُراجع الاستجابة مع الطبيب.</dd></div>
+ <div class="med-safety-wide"><dt>ما الأمان والمتابعة؟</dt><dd>في أمراض الروماتيزم يُؤخذ عادةً مرة واحدة كل أسبوع، وليس يوميًا. يتطلب تحاليل الدم والكبد؛ ولا يناسب الحمل، وقد يُوصف حمض الفوليك.</dd></div></dl>
+ <section class="med-quiz" id="med-methotrexate-ar-quiz" data-correct="0" data-correct-feedback="صحيح؛ استخدام الجرعة الأسبوعية يوميًا خطأ خطير قد يسبب تسممًا." data-incorrect-feedback="الميثوتريكسات للروماتيزم يُؤخذ عادة أسبوعيًا؛ تأكد من الجدول مع الصيدلي."><span class="med-quiz-kicker">اختبر فهمك — اختر إجابة</span><fieldset><legend>كم مرة يؤخذ ميثوتريكسات عادةً في أمراض الروماتيزم؟</legend><label class="med-quiz-option"><input type="radio" name="med-methotrexate-ar-choice" value="0"><span>مرة أسبوعيًا حسب الوصفة</span></label><label class="med-quiz-option"><input type="radio" name="med-methotrexate-ar-choice" value="1"><span>كل يوم دون توجيه</span></label><label class="med-quiz-option"><input type="radio" name="med-methotrexate-ar-choice" value="2"><span>عند شعور الألم فقط</span></label></fieldset><p class="med-quiz-result" role="status" aria-live="polite" aria-atomic="true" hidden></p></section>
+ <p class="med-sources"><strong>المصدر:</strong> <a href="https://rheumatology.org/patients/methotrexate-rheumatrex-trexall-otrexup-rasuvo" target="_blank" rel="noopener noreferrer">مرجع طبي متخصص</a>. المحتوى التثقيفي بانتظار مراجعة سريرية موثقة.</p></article>
+<article class="medicine-card medicine-learning med-full-card" id="med-mycophenolate-ar">
+ <span class="tag">فهم الدواء خطوة بخطوة</span>
+ <h3>ميكوفينولات (ميكوفينوليت)</h3><p class="med-key"><strong>ما الذي يفعله؟:</strong> قد يساعد في علاج بعض مظاهر الذئبة، ومنها التهاب الكلى، بتقليل نشاط خلايا مناعية.</p>
+ <div class="med-analogy"><strong>تشبيه من الحياة</strong><p>تخيّل تقليل تكرار أوامر استدعاء مزيد من الخلايا المناعية بدل استمرار الزيادة بلا توقف.</p></div>
+ <p class="med-limit"><strong>حدود التشبيه:</strong> قد يتأثر أكثر من نوع من الخلايا؛ لا تفترض أنه بلا آثار جانبية.</p>
+ <dl class="med-quick"><div><dt>كيف يعمل؟</dt><dd>يحد من مسار تستخدمه بعض الخلايا المناعية لصنع مكونات تحتاجها للتكاثر.</dd></div>
+ <div><dt>متى أتوقع الفائدة؟</dt><dd>يقيس الطبيب الاستجابة بالأعراض والتحاليل، بما فيها البول ووظائف الكلى عند الحاجة.</dd></div>
+ <div class="med-safety-wide"><dt>ما الأمان والمتابعة؟</dt><dd>يحتاج متابعة الدم والعدوى. يحمل خطرًا مرتفعًا للإجهاض وتشوهات الجنين؛ يجب التخطيط للحمل مع الطبيب وإبلاغه فورًا إذا حدث حمل.</dd></div></dl>
+ <section class="med-quiz" id="med-mycophenolate-ar-quiz" data-correct="2" data-correct-feedback="صحيح؛ يجب معالجة مخاطر الحمل قبل محاولة الإنجاب، دون تغيير الدواء منفردًا." data-incorrect-feedback="الميكوفينولات قد يضر الحمل ضررًا كبيرًا؛ تواصل مع الطبيب قبل الحمل وبشكل عاجل عند الاشتباه به."><span class="med-quiz-kicker">اختبر فهمك — اختر إجابة</span><fieldset><legend>شخص يتناول ميكوفينولات ويخطط للحمل، ما التصرف الصحيح؟</legend><label class="med-quiz-option"><input type="radio" name="med-mycophenolate-ar-choice" value="0"><span>يبدأ الحمل دون مراجعة</span></label><label class="med-quiz-option"><input type="radio" name="med-mycophenolate-ar-choice" value="1"><span>يزيد الجرعة</span></label><label class="med-quiz-option"><input type="radio" name="med-mycophenolate-ar-choice" value="2"><span>يضع مع الطبيب مسبقًا خطة حمل وعلاج آمنة</span></label></fieldset><p class="med-quiz-result" role="status" aria-live="polite" aria-atomic="true" hidden></p></section>
+ <p class="med-sources"><strong>المصدر:</strong> <a href="https://medlineplus.gov/druginfo/meds/a601081.html" target="_blank" rel="noopener noreferrer">مرجع طبي متخصص</a>. المحتوى التثقيفي بانتظار مراجعة سريرية موثقة.</p></article>
+<article class="medicine-card medicine-learning med-full-card" id="med-cyclophosphamide-ar">
+ <span class="tag">فهم الدواء خطوة بخطوة</span>
+ <h3>سيكلوفوسفاميد</h3><p class="med-key"><strong>ما الذي يفعله؟:</strong> يستخدمه الأطباء في حالات معينة من الذئبة الشديدة التي تهدد الأعضاء.</p>
+ <div class="med-analogy"><strong>تشبيه من الحياة</strong><p>كأن فريقًا متخصصًا يتدخل بقوة أكبر للسيطرة على حالة طارئة، مع مراقبة دقيقة لما قد يتأثر أثناء التدخل.</p></div>
+ <p class="med-limit"><strong>حدود التشبيه:</strong> قوة العلاج لا تعني أنه الخيار الأفضل لكل شخص.</p>
+ <dl class="med-quick"><div><dt>كيف يعمل؟</dt><dd>يؤثر في المادة الوراثية لبعض الخلايا المنقسمة، ومنها خلايا مناعية.</dd></div>
+ <div><dt>متى أتوقع الفائدة؟</dt><dd>له خطط علاجية خاصة ويحدد الطبيب مدة الاستعمال وكيفية متابعة الاستجابة.</dd></div>
+ <div class="med-safety-wide"><dt>ما الأمان والمتابعة؟</dt><dd>قد يؤثر في الدم والمثانة والخصوبة، ويزيد العدوى وله مخاطر على الحمل. اسأل عن الخصوبة قبل البدء وأبلغ عاجلًا عن الحمى أو دم في البول.</dd></div></dl>
+ <section class="med-quiz" id="med-cyclophosphamide-ar-quiz" data-correct="1" data-correct-feedback="صحيح؛ ظهور دم في البول أثناء هذا العلاج يستلزم تقييمًا سريعًا." data-incorrect-feedback="لا تتجاهل الدم في البول خلال العلاج؛ اطلب تقييمًا طبيًا سريعًا."><span class="med-quiz-kicker">اختبر فهمك — اختر إجابة</span><fieldset><legend>لاحظت دمًا في البول أثناء استخدام سيكلوفوسفاميد، ماذا تفعل؟</legend><label class="med-quiz-option"><input type="radio" name="med-cyclophosphamide-ar-choice" value="0"><span>تنتظر دون إبلاغ</span></label><label class="med-quiz-option"><input type="radio" name="med-cyclophosphamide-ar-choice" value="1"><span>تطلب تقييمًا طبيًا عاجلًا</span></label><label class="med-quiz-option"><input type="radio" name="med-cyclophosphamide-ar-choice" value="2"><span>تزيد جرعة الدواء</span></label></fieldset><p class="med-quiz-result" role="status" aria-live="polite" aria-atomic="true" hidden></p></section>
+ <p class="med-sources"><strong>المصدر:</strong> <a href="https://rheumatology.org/I-Am-A/Patient-Caregiver/Treatments/Cyclophosphamide-Cytoxan" target="_blank" rel="noopener noreferrer">مرجع طبي متخصص</a>. المحتوى التثقيفي بانتظار مراجعة سريرية موثقة.</p></article>
+<article class="medicine-card medicine-learning med-full-card" id="med-belimumab-ar">
+ <span class="tag">فهم الدواء خطوة بخطوة</span>
+ <h3>بليموماب</h3><p class="med-key"><strong>ما الذي يفعله؟:</strong> علاج بيولوجي قد يضاف في حالات مختارة من الذئبة وبعض حالات التهاب الكلى.</p>
+ <div class="med-analogy"><strong>تشبيه من الحياة</strong><p>تخيّل خفض إشارة الدعم التي تسمح لبعض خلايا المناعة بالاستمرار في نشاطها الزائد.</p></div>
+ <p class="med-limit"><strong>حدود التشبيه:</strong> لا يزيل كل الخلايا البائية ولا يعمل فورًا لدى الجميع.</p>
+ <dl class="med-quick"><div><dt>كيف يعمل؟</dt><dd>يستهدف بروتين BLyS/BAFF الذي يساعد خلايا بائية معينة على البقاء.</dd></div>
+ <div><dt>متى أتوقع الفائدة؟</dt><dd>قد يحتاج أشهرًا قبل أن تظهر الفائدة، وتقاس الاستجابة بأهداف محددة.</dd></div>
+ <div class="med-safety-wide"><dt>ما الأمان والمتابعة؟</dt><dd>قد يسبب عدوى أو تفاعلات مع الحقن أو التسريب. أبلغ عن تغيرات مزاجية مهمة أو أفكار إيذاء النفس بصورة عاجلة.</dd></div></dl>
+ <section class="med-quiz" id="med-belimumab-ar-quiz" data-correct="0" data-correct-feedback="صحيح؛ حتى العلاج الموجه يحتاج متابعة العدوى والتغيرات المزاجية." data-incorrect-feedback="أعراض العدوى أو التغيرات المزاجية المهمة تحتاج تقييمًا طبيًا."><span class="med-quiz-kicker">اختبر فهمك — اختر إجابة</span><fieldset><legend>ظهرت حمى أو تغيرات مزاجية مهمة أثناء بليموماب، ما الأفضل؟</legend><label class="med-quiz-option"><input type="radio" name="med-belimumab-ar-choice" value="0"><span>إخبار الفريق المعالج دون تأخير</span></label><label class="med-quiz-option"><input type="radio" name="med-belimumab-ar-choice" value="1"><span>مضاعفة الجرعة</span></label><label class="med-quiz-option"><input type="radio" name="med-belimumab-ar-choice" value="2"><span>تجاهل الأعراض لأنه علاج موجه</span></label></fieldset><p class="med-quiz-result" role="status" aria-live="polite" aria-atomic="true" hidden></p></section>
+ <p class="med-sources"><strong>المصدر:</strong> <a href="https://rheumatology.org/patients/belimumab-benlysta-espanol" target="_blank" rel="noopener noreferrer">مرجع طبي متخصص</a>. المحتوى التثقيفي بانتظار مراجعة سريرية موثقة.</p></article>
+<article class="medicine-card medicine-learning med-full-card" id="med-anifrolumab-ar">
+ <span class="tag">فهم الدواء خطوة بخطوة</span>
+ <h3>أنيفرولوماب</h3><p class="med-key"><strong>ما الذي يفعله؟:</strong> علاج بيولوجي قد يناسب بعض البالغين المصابين بنشاط الذئبة ضمن خطة متخصصة.</p>
+ <div class="med-analogy"><strong>تشبيه من الحياة</strong><p>مثل حجب استقبال نوع معين من رسائل الإنذار المتكررة، لا قطع جميع الاتصالات داخل المناعة.</p></div>
+ <p class="med-limit"><strong>حدود التشبيه:</strong> لا يغلق كل مسارات المناعة ولا يناسب جميع أنماط المرض.</p>
+ <dl class="med-quick"><div><dt>كيف يعمل؟</dt><dd>يمنع عمل مستقبل الإنترفيرون من النوع الأول المرتبط ببعض إشارات الذئبة.</dd></div>
+ <div><dt>متى أتوقع الفائدة؟</dt><dd>تُراجع فائدته خلال المتابعة حسب الأعضاء والأعراض المستهدفة.</dd></div>
+ <div class="med-safety-wide"><dt>ما الأمان والمتابعة؟</dt><dd>قد يزيد خطر العدوى، ومنها الهربس النطاقي (الحزام الناري). ناقش اللقاحات وبلّغ عن الحمى أو طفح مؤلم ذي بثور.</dd></div></dl>
+ <section class="med-quiz" id="med-anifrolumab-ar-quiz" data-correct="1" data-correct-feedback="صحيح؛ الطفح المؤلم أو الحمى قد يحتاجان تقييمًا سريعًا لاحتمال عدوى." data-incorrect-feedback="أبلغ الفريق المعالج عن أعراض العدوى أو الطفح المؤلم دون تأخير."><span class="med-quiz-kicker">اختبر فهمك — اختر إجابة</span><fieldset><legend>ظهر طفح مؤلم ببثور خلال أنيفرولوماب، ماذا تفعل؟</legend><label class="med-quiz-option"><input type="radio" name="med-anifrolumab-ar-choice" value="0"><span>تنتظر للجرعة القادمة</span></label><label class="med-quiz-option"><input type="radio" name="med-anifrolumab-ar-choice" value="1"><span>تطلب مشورة طبية سريعة لاحتمال عدوى</span></label><label class="med-quiz-option"><input type="radio" name="med-anifrolumab-ar-choice" value="2"><span>تأخذ جرعة إضافية</span></label></fieldset><p class="med-quiz-result" role="status" aria-live="polite" aria-atomic="true" hidden></p></section>
+ <p class="med-sources"><strong>المصدر:</strong> <a href="https://rheumatology.org/patients/anifrolumab-fnia-saphnelo-espanol" target="_blank" rel="noopener noreferrer">مرجع طبي متخصص</a>. المحتوى التثقيفي بانتظار مراجعة سريرية موثقة.</p></article><article class="medicine-card medicine-learning med-full-card"><h3>ماذا لو تأثر عضو محدد؟</h3><p>تخيّل فريق إصلاح يختار الأداة بحسب الجزء المتأثر. علاج الكلى أو الدم أو الجهاز العصبي يحدده مختص بعد التشخيص؛ ولا توجد وصفة واحدة لجميع الحالات. <a href="kidneys.html">تعرّف إلى الكلى والذئبة</a>.</p></article>
 </div>
 </section></div></details><div class="na7n-stage-takeaway"><strong>ما الخطوة العملية؟</strong> اختر سؤالًا واحدًا يهمك لمناقشته مع فريقك الطبي.</div><div class="na7n-step-actions"><button type="button" data-go-step="1">السابق</button><button type="button" class="na7n-next" data-go-step="3">التالي ←</button></div></section>
 <section class="na7n-learning-stage" id="step-3" aria-labelledby="stage-heading-3" hidden><p class="na7n-learning-eyebrow">الخطوة 3 من 4</p><h3 id="stage-heading-3" tabindex="-1">كيف أتابع العلاج بأمان؟</h3><p class="na7n-stage-summary">افهم أهمية المتابعة والآثار الجانبية وما ينبغي عدم تغييره بنفسك.</p><p class="na7n-stage-helper">اضغط (+) لقراءة التفاصيل، أو انتقل إلى أي خطوة أخرى.</p><details class="na7n-learning-detail" id="lesson-3-1" open><summary><span>الشعور أفضل مهم، لكنه ليس المؤشر الوحيد.</span></summary><div class="na7n-learning-detail-body"><section class="section soft">
