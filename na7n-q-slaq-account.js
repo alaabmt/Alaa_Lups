@@ -155,6 +155,17 @@
         "Unable to unlock records. Check the passphrase and use the same device and browser.");
     }finally{busy=false;$("qsDeviceUnlock").disabled=false;$("qsAccountPassphrase").value="";}
   }
+  if(client){
+    client.auth.onAuthStateChange((_event,session)=>{
+      // Callback must not call the auth API: only synchronously clear
+      // previously decrypted data if the signed-in identity changed.
+      if(ownerId && session?.user?.id!==ownerId){
+        clear();
+        statusText("تغيّر الحساب أو انتهت الجلسة. أعد تسجيل الدخول لفك السجلات الخاصة بهذا الحساب.",
+          "The account changed or the session ended. Sign in again to unlock your own device records.");
+      }
+    });
+  }
   $("qsDeviceUnlock").addEventListener("click",unlock);
   $("qsAccountPassphrase").addEventListener("keydown",event=>{
     if(event.key==="Enter"){event.preventDefault();unlock();}
