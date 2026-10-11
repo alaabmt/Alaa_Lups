@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="{{LANG}}" dir="{{DIR}}">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{TITLE}}</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="{{CANONICAL}}">
+<link rel="alternate" hreflang="ar" href="{{AR_URL}}">
+<link rel="alternate" hreflang="en" href="{{EN_URL}}">
+<link rel="alternate" hreflang="x-default" href="{{AR_URL}}">
+<meta property="og:type" content="article"><meta property="og:site_name" content="نَحْنُ | NA7N">
+<meta property="og:locale" content="{{LOCALE}}">
+<meta property="og:url" content="{{CANONICAL}}"><meta property="og:title" content="{{TITLE}}">
+<meta property="og:description" content="{{DESCRIPTION}}">
+<link rel="stylesheet" href="styles.css?v=20261011-medicine">
+<link rel="stylesheet" href="na7n-navigation.css?v=20261011-7">
+<link rel="stylesheet" href="na7n-medicine-pages.css?v=20261011-1">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body class="med-page">
+<header class="site-header">
+<div class="brand-language"><a class="brand" href="{{HOME}}" aria-label="{{HOME_LABEL}}"><span class="brand-mark" aria-hidden="true">✦</span><span><strong>{{BRAND}}</strong><small>{{LUPUS}}</small></span></a><a class="language-switch" href="{{SWITCH_URL}}" lang="{{OTHER_LANG}}">{{SWITCH_TEXT}}</a></div>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="{{MENU_LABEL}}"><span></span><span></span><span></span></button>
+<nav id="main-nav" aria-label="{{NAV_LABEL}}"><a href="{{HOME}}">{{HOME_TEXT}}</a><a href="{{TREATMENT}}">{{TREATMENT_TEXT}}</a><a href="{{STORIES}}">{{STORIES_TEXT}}</a><a href="{{ACCOUNT}}">{{ACCOUNT_TEXT}}</a></nav>
+</header>
+<main id="main-content">
+<div class="med-shell med-breadcrumb"><a href="{{HOME}}">{{HOME_TEXT}}</a> / <a href="{{TREATMENT}}">{{TREATMENT_TEXT}}</a> / <span aria-current="page">{{MED_NAME}}</span></div>
+<section class="med-hero" aria-labelledby="med-name-heading"><div class="med-shell med-hero-inner">
+<div><p class="med-kicker">{{MED_CATEGORY}}</p><h1 id="med-name-heading">{{MED_NAME}}</h1><p class="med-lead">{{MED_ONE}}</p></div>
+<div class="med-hero-aside"><span aria-hidden="true">＋ / −</span><strong>{{HOW_TO_TITLE}}</strong><p>{{HOW_TO_SUBTITLE}}</p></div>
+</div></section>
+<div class="med-shell med-guide">
+<div class="med-overview">
+<div class="med-overview-item"><h2>{{WHY_TITLE}}</h2><p>{{WHY}}</p></div>
+<div class="med-overview-item"><h2>{{DIFFERENCE_TITLE}}</h2><p>{{DIFFERENCE}}</p></div>
+</div>
+<div class="med-alert"><strong>{{SAFETY_HEADING}}</strong>{{INTERACTIONS_SHORT}}</div>
+<h2 class="med-section-heading">{{EXPLORE_TITLE}}</h2>
+<details class="med-accordion" open><summary>{{ANALOGY_TITLE}}</summary><div class="med-accordion-body"><div class="med-analogy">{{ANALOGY}}</div><p>{{MECHANISM}}</p><p class="med-nojs">{{ANALOGY_LIMIT}}</p></div></details>
+<details class="med-accordion"><summary>{{WHEN_TITLE}}</summary><div class="med-accordion-body"><p>{{WHEN}}</p><p>{{MISSED_DOSE}}</p></div></details>
+<details class="med-accordion"><summary>{{SIDE_EFFECTS_TITLE}}</summary><div class="med-accordion-body"><p>{{EFFECTS}}</p><p>{{SAFETY}}</p></div></details>
+<details class="med-accordion"><summary>{{INTERACTIONS_TITLE}}</summary><div class="med-accordion-body"><p>{{INTERACTIONS}}</p><p>{{INTERACTIONS_GENERAL}}</p></div></details>
+<details class="med-accordion"><summary>{{PREGNANCY_TITLE}}</summary><div class="med-accordion-body"><p>{{PREGNANCY}}</p></div></details>
+<details class="med-accordion"><summary>{{URGENT_TITLE}}</summary><div class="med-accordion-body"><p>{{URGENT}}</p></div></details>
+<details class="med-accordion"><summary>{{COMPARE_TITLE}}</summary><div class="med-accordion-body"><div class="med-comparison">{{COMPARE}}</div><p><a href="{{TREATMENT}}#med-family-{{FAMILY}}">{{BACK_COMPARE}}</a></p></div></details>
+<section class="med-check" aria-labelledby="teach-heading"><h2 id="teach-heading">{{TEACH_TITLE}}</h2><p>{{TEACH_INTRO}}</p><p><strong>{{TEACH}}</strong></p><details><summary>{{REVEAL}}</summary><p>{{TEACH_ANSWER}}</p></details></section>
+<section class="med-reference" aria-labelledby="reference-heading"><h2 id="reference-heading">{{REFERENCES_TITLE}}</h2><ol class="med-reference-list">
+<li>{{REFERENCE_1}} <a href="{{MEDLINE_URL}}" target="_blank" rel="noopener noreferrer">{{OPEN_MEDLINE}}</a></li>
+<li>{{REFERENCE_2}} <a href="https://rheumatology.org/api/asset/bltec93920aad624e33" target="_blank" rel="noopener noreferrer">{{OPEN_ACR}}</a></li>
+<li>{{REFERENCE_3}} <a href="{{THIRD_URL}}" target="_blank" rel="noopener noreferrer">{{OPEN_THIRD}}</a></li>
+</ol><div class="med-review"><p><strong>{{DATE_LABEL}}</strong> 11 {{OCTOBER}} 2026.</p>
+<p><strong>{{REVIEW_LABEL}}</strong> {{REVIEW_STATE}}</p>
+<p><strong>{{METHOD_LABEL}}</strong> {{METHOD}}</p>
+<p>{{REFERENCES_NOTE}}</p></div></section>
+<nav class="med-nav-next" aria-label="{{MORE_LABEL}}"><a href="{{TREATMENT}}#med-family-{{FAMILY}}">{{BACK_COMPARE}}</a><a href="{{PREV_URL}}">{{PREV_TEXT}}</a><a href="{{NEXT_URL}}">{{NEXT_TEXT}}</a></nav>
+</div></main>
+<footer><div class="footer-brand"><strong>{{BRAND}} | {{LUPUS}}</strong><span>{{FOOTER_TAG}}</span></div><div class="footer-links"><a href="{{HOME}}">{{HOME_TEXT}}</a><a href="{{TREATMENT}}">{{TREATMENT_TEXT}}</a><a href="{{SWITCH_URL}}">{{SWITCH_TEXT}}</a></div><p>{{FOOTER_DISCLAIMER}}</p></footer>
+<script>(()=>{const b=document.querySelector('.menu-toggle'),n=document.getElementById('main-nav');if(b&&n)b.addEventListener('click',()=>{const o=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!o));n.classList.toggle('open',!o)})})();</script>
+<script src="na7n-navigation.js?v=20261011-7"></script>
+</body></html>
