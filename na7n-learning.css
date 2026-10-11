@@ -6,7 +6,7 @@
 .na7n-newly .na7n-learning-eyebrow{color:#704ba0!important;font-weight:800;font-size:13px!important}
 .na7n-newly .na7n-safety-note{margin-block:6px 22px}
 .na7n-newly .na7n-safety-note a{font-weight:800;color:#4a2f73}
-.na7n-newly .na7n-learning-shell{border:1px solid #e3d9eb;border-radius:22px;padding:24px;background:linear-gradient(155deg,#fbf8fe,#fff 42%);margin-bottom:26px}
+.na7n-newly .na7n-learning-shell{scroll-margin-top:90px;border:1px solid #e3d9eb;border-radius:22px;padding:24px;background:linear-gradient(155deg,#fbf8fe,#fff 42%);margin-bottom:26px}
 .na7n-newly .na7n-learning-shell>h2{font-size:clamp(23px,3vw,30px);color:#342443;margin:0 0 7px;line-height:1.4}
 .na7n-newly .na7n-learning-shell>.na7n-learning-lead{font-size:15px;line-height:1.75;color:#65596e;margin:0 0 19px}
 .na7n-newly .na7n-learning-switches{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:0 0 20px}
