@@ -1,0 +1,82 @@
+/* NA7N public navigation - bilingual, responsive, accessible. */
+.na7n-standard-header.site-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:14px;padding:12px max(20px,5vw);min-height:64px;box-sizing:border-box}
+.na7n-header-brand{display:flex;align-items:center;gap:12px;min-width:0;flex:0 0 auto}
+.na7n-header-logo{display:flex;align-items:center;gap:8px;color:#4a2f73;font-weight:800;font-size:clamp(15px,1.7vw,20px);white-space:nowrap}
+.na7n-header-logo img{width:42px;height:42px;object-fit:contain;flex-shrink:0}
+.na7n-lang-switch{border:1px solid #e0d6e8;border-radius:30px;padding:7px 10px;font-size:12px;white-space:nowrap;color:#4a2f73;font-weight:700;background:#fff}
+.na7n-global-menu{display:flex;align-items:center;justify-content:flex-end;gap:clamp(9px,1.4vw,21px);flex-wrap:wrap;min-width:0}
+.na7n-global-menu a{font-size:13px;font-weight:650;white-space:nowrap;color:#473954}
+.na7n-global-menu a.active,.na7n-global-menu a[aria-current=page]{color:#704ba0}
+.na7n-menu-toggle{display:none;background:transparent;color:#4a2f73;border:1px solid #e0d6e8;border-radius:10px;min-height:44px;min-width:44px;font:700 25px/1 system-ui;cursor:pointer}
+.na7n-breadcrumb{display:flex;align-items:center;gap:9px;flex-wrap:wrap;width:min(1140px,90vw);margin:16px auto 0;color:#675875;font-size:13px;line-height:1.7}
+.na7n-breadcrumb a{color:#4a2f73;text-decoration:underline;text-underline-offset:3px}
+.na7n-breadcrumb [aria-current=page]{font-weight:700;color:#372b44}
+.na7n-context{width:min(1140px,90vw);margin:28px auto 56px;padding:24px;border:1px solid #e5d9ec;border-radius:22px;background:#faf7fd;box-sizing:border-box}
+.na7n-context h2{margin:0 0 10px;font-size:clamp(20px,2.3vw,27px);color:#392751}
+.na7n-context>p{margin:0 0 18px;line-height:1.75;color:#5f5268;font-size:15px}
+.na7n-context-actions,.na7n-path-actions{display:flex;flex-wrap:wrap;gap:10px}
+.na7n-context-actions a,.na7n-path-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 15px;border-radius:12px;border:1px solid #d5c7e2;background:#fff;font-size:14px;font-weight:700;color:#4a2f73;box-sizing:border-box}
+.na7n-context-actions .na7n-return-link,.na7n-path-actions .na7n-path-next{background:#4a2f73;color:#fff;border-color:#4a2f73}
+.na7n-guided-path{background:#fff;border:1px solid #e0d6e9;border-radius:16px;padding:15px;margin-bottom:18px}
+.na7n-guided-label{font-weight:800;color:#493369;margin:0 0 12px;font-size:14px}
+.na7n-guided-meter{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-bottom:14px}
+.na7n-guided-meter span{height:6px;border-radius:5px;background:#e6ddef}
+.na7n-guided-meter span.complete{background:#704ba0}
+.na7n-bottom-nav{display:none}
+.na7n-breadcrumb a:focus-visible,.na7n-context a:focus-visible,.na7n-global-menu a:focus-visible,.na7n-header-logo:focus-visible,.na7n-menu-toggle:focus-visible,.na7n-bottom-nav a:focus-visible{outline:3px solid #aa83d2;outline-offset:3px}
+@media(max-width:1050px){
+  .na7n-menu-toggle{display:block;flex:0 0 auto}
+  .na7n-standard-header.site-header{position:sticky;top:0;z-index:120}
+  .na7n-global-menu{display:none;position:absolute;top:100%;inset-inline:0;background:#fff;border-bottom:1px solid #e2d8eb;padding:13px 18px 18px;box-shadow:0 14px 20px rgba(47,25,70,.1);flex-direction:column;align-items:stretch;max-height:70vh;overflow-y:auto}
+  .na7n-global-menu.open{display:flex}
+  .na7n-global-menu a{min-height:42px;display:flex;align-items:center;font-size:15px;padding:7px 12px}
+}
+@media(max-width:760px){
+  .na7n-standard-header.site-header{padding:8px 16px!important;gap:8px!important;min-height:62px}
+  .na7n-header-brand{gap:6px}
+  .na7n-header-logo{font-size:15px;gap:5px}
+  .na7n-header-logo img{width:36px;height:36px}
+  .na7n-lang-switch{font-size:11px;padding:6px 7px}
+  .na7n-menu-toggle{min-width:44px;min-height:44px}
+  .na7n-breadcrumb{width:calc(100% - 36px);margin-top:12px;font-size:12px}
+  .na7n-context{width:calc(100% - 34px);margin:26px auto 28px;padding:16px}
+  .na7n-context-actions a,.na7n-path-actions a{width:100%}
+  body{padding-bottom:calc(70px + env(safe-area-inset-bottom,0px))}
+  .na7n-bottom-nav{position:fixed;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));left:0;right:0;bottom:0;z-index:150;min-height:64px;padding:5px 5px calc(5px + env(safe-area-inset-bottom,0px));background:#fff;border-top:1px solid #e2d8eb;box-shadow:0 -6px 18px rgba(39,17,62,.09);box-sizing:border-box}
+  .na7n-bottom-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;color:#493369;font-weight:750;font-size:11px;padding:3px;text-align:center;border-radius:8px;min-height:48px}
+  .na7n-bottom-nav a[aria-current=page]{background:#f0e8f8}
+  .na7n-bottom-symbol{font-size:22px;line-height:1.15}
+  .home-back-top{bottom:calc(80px + env(safe-area-inset-bottom,0px))!important}
+}
+/* Homepage is a navigation hub: the patient choices are the first meaningful action. */
+.home-page .home-hero{display:block!important;padding:24px 0 22px!important}
+.home-page .home-hero .hero-copy{max-width:1100px}
+.home-page .home-hero h1{font-size:clamp(29px,4.1vw,47px);line-height:1.32}
+.home-page .home-hero .hero-support{max-width:780px;margin:12px 0 0;line-height:1.7}
+.home-page .home-hero .home-need{width:100%;padding:0!important;margin:22px 0 0;max-width:none}
+.home-page .home-hero .home-need .section-heading{margin:0 0 16px}
+.home-page .home-hero .home-need .section-heading h2{font-size:clamp(22px,2.9vw,30px)}
+.home-page .home-hero .home-need .section-heading>p:last-child{font-size:14px;line-height:1.65;margin:5px 0 0}
+.home-page .home-hero .home-need .journey-grid.six{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.home-page .home-hero .home-need .journey-card{min-height:0;padding:17px 18px;border-radius:17px}
+.home-page .home-hero .home-need .journey-card h3{font-size:18px;margin:5px 0 7px}
+.home-page .home-hero .home-need .journey-card p{font-size:13px;margin-bottom:12px;line-height:1.55}
+.home-page .home-hero .home-need .journey-card .number{font-size:11px}
+.home-page .home-hero .home-need .card-link{margin-top:auto;font-size:13px}
+.home-page .home-about{width:min(1140px,90vw);margin:10px auto 22px;padding:22px 24px;border:1px solid #e4d6ec;border-radius:19px;background:linear-gradient(120deg,#faf6fe,#fff);box-sizing:border-box}
+.home-page .home-about h2{font-size:clamp(20px,2.6vw,27px);margin:0 0 7px}
+.home-page .home-about p{font-size:15px;line-height:1.7;color:#594d61;margin:0}
+.home-page #needs,.home-page #topics,.home-page #tools{scroll-margin-top:92px}
+@media(max-width:600px){
+  .home-page .home-hero{padding-top:17px!important}
+  .home-page .home-hero h1{font-size:clamp(27px,7vw,36px)!important}
+  .home-page .home-hero .hero-support{font-size:14px;line-height:1.65}
+  .home-page .home-hero .home-need{margin-top:17px}
+  .home-page .home-hero .home-need .journey-grid.six{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px}
+  .home-page .home-hero .home-need .journey-card{padding:12px!important;min-width:0}
+  .home-page .home-hero .home-need .journey-card h3{font-size:15px;line-height:1.35;margin:5px 0}
+  .home-page .home-hero .home-need .journey-card p{font-size:12px;line-height:1.45;margin-bottom:7px}
+  .home-page .home-hero .home-need .journey-card .card-link{font-size:12px}
+  .home-page .home-about{width:calc(100% - 36px);padding:16px}
+}
+@media(prefers-reduced-motion:reduce){.na7n-menu-toggle,.na7n-global-menu{transition:none!important}}
