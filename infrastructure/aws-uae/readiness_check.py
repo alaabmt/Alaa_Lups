@@ -14,14 +14,17 @@ readme = (folder / "README.md").read_text(encoding="utf-8")
 inventory = (folder / "migration-inventory.md").read_text(encoding="utf-8")
 runbook = (folder / "cutover-checklist.md").read_text(encoding="utf-8")
 
+# Do not count Outputs as resources when checking CloudFormation gating.
+resources_section = template.split("\nResources:\n", 1)[1].split("\nOutputs:\n", 1)[0]
+
 checks = {
     "no deploy is default": bool(re.search(r"DeployInfrastructure:\s*\n\s*Type: String\s*\n\s*Default: 'NO'", template)),
     "approval + UAE region conditions": all(x in template for x in [
         "DeploymentApproved", "InUAE", "CreateUAEInfrastructure", "me-central-1"
     ]),
     "every resource gated": (
-        len(re.findall(r"^    Type: AWS::", template, re.M)) ==
-        len(re.findall(r"^    Condition: CreateUAEInfrastructure$", template, re.M))
+        len(re.findall(r"^    Type: AWS::", resources_section, re.M)) ==
+        len(re.findall(r"^    Condition: CreateUAEInfrastructure$", resources_section, re.M))
     ),
     "database private and encrypted": all(x in template for x in [
         "PubliclyAccessible: false", "StorageEncrypted: true",
