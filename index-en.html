@@ -83,7 +83,7 @@ html[lang="en"] .home-page,html[lang="en"] .home-back-top{font-family:system-ui,
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.home-page .journey-card{transition:none!important}}
 </style>
-<link rel="stylesheet" href="na7n-navigation.css?v=20261011-1">
+<link rel="stylesheet" href="na7n-navigation.css?v=20261011-2">
 </head>
 <body>
 
@@ -121,5 +121,5 @@ html[lang="en"] .home-page,html[lang="en"] .home-back-top{font-family:system-ui,
 const menuButton=document.querySelector('.menu-toggle');const mainNav=document.getElementById('main-nav');if(menuButton&&mainNav){menuButton.addEventListener('click',()=>{const open=menuButton.getAttribute('aria-expanded')==='true';menuButton.setAttribute('aria-expanded',String(!open));mainNav.classList.toggle('open',!open);});mainNav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{menuButton.setAttribute('aria-expanded','false');mainNav.classList.remove('open');}));}
 </script>
 <script>(()=>{const b=document.querySelector(".home-back-top");if(!b)return;const update=()=>b.hidden=window.scrollY<520;window.addEventListener("scroll",update,{passive:true});window.addEventListener("pageshow",update);update();b.addEventListener("click",()=>window.scrollTo({top:0,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}));})();</script>
-<script src="na7n-navigation.js?v=20261011-1"></script>
+<script src="na7n-navigation.js?v=20261011-2"></script>
 </body></html>
