@@ -84,7 +84,7 @@ html[lang="en"] .home-page,html[lang="en"] .home-back-top{font-family:system-ui,
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.home-page .journey-card{transition:none!important}}
 </style>
-<link rel="stylesheet" href="na7n-navigation.css?v=20261011-2">
+<link rel="stylesheet" href="na7n-navigation.css?v=20261011-6">
 <!-- Critical welcome layout is inlined so cached stylesheets cannot break the first screen. -->
   <style>
 /* NA7N welcome cover — quiet, bilingual first-screen experience. */
@@ -206,7 +206,7 @@ html[lang="en"] .welcome-cover{font-family:system-ui,-apple-system,"Segoe UI",Ar
 const menuButton=document.querySelector('.menu-toggle');const mainNav=document.getElementById('main-nav');if(menuButton&&mainNav){menuButton.addEventListener('click',()=>{const open=menuButton.getAttribute('aria-expanded')==='true';menuButton.setAttribute('aria-expanded',String(!open));mainNav.classList.toggle('open',!open);});mainNav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{menuButton.setAttribute('aria-expanded','false');mainNav.classList.remove('open');}));}
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script><script src="na7n-auth.js?v=20261009-2"></script><script>(()=>{const b=document.querySelector(".home-back-top");if(!b)return;const update=()=>b.hidden=window.scrollY<520;window.addEventListener("scroll",update,{passive:true});window.addEventListener("pageshow",update);update();b.addEventListener("click",()=>window.scrollTo({top:0,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}));})();</script>
-<script src="na7n-navigation.js?v=20261011-2"></script>
+<script src="na7n-navigation.js?v=20261011-6"></script>
 <script>
 /* The welcome screen is an entrance, not a replacement for the navigation hub. */
 (() => {
