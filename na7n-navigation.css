@@ -1,3 +1,6 @@
+.na7n-journey-intro{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;width:min(1140px,90vw);margin:8px auto 12px;padding:11px 14px;background:#f5effa;border:1px solid #e1d5eb;border-radius:12px;color:#493369;font-size:13px;font-weight:700;box-sizing:border-box}
+.na7n-journey-intro a{color:#4a2f73;text-decoration:underline;text-underline-offset:3px}
+#na7n-guided-path{scroll-margin-top:100px}
 /* NA7N public navigation - bilingual, responsive, accessible. */
 .na7n-standard-header.site-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:14px;padding:12px max(20px,5vw);min-height:64px;box-sizing:border-box}
 .na7n-header-brand{display:flex;align-items:center;gap:12px;min-width:0;flex:0 0 auto}
