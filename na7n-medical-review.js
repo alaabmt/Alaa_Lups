@@ -104,14 +104,16 @@
   text(byId("mr-user"),user.email||"");
   try{
    const roleTable=mode==="doctor"?"na7n_medical_reviewers":"na7n_medical_review_staff";
-   const authz=await sb.from(roleTable).select(mode==="doctor"?"user_id,is_active,license_verified_at":"user_id,is_active").eq("user_id",user.id).maybeSingle();
+   const authz=await sb.from(roleTable).select(mode==="doctor"?"user_id,is_active,license_verified_at":"user_id,is_active,role").eq("user_id",user.id).maybeSingle();
    if(authz.error)throw authz.error;
    if(!authz.data?.is_active || (mode==="doctor"&&!authz.data?.license_verified_at)){
     say(T("هذا الحساب غير مكلّف بهذا الدور. لا تُمنح الصلاحية إلا بعد التحقق والتكليف الإداري.","This account has no verified assignment for this role."),"error");return;
    }
-   if(!(await ensureMfa()))return;
+   const needsMfa = mode==="doctor" || authz.data.role==="publisher";
+   if(needsMfa && !(await ensureMfa()))return;
+   if(!needsMfa){const mfa=byId("mr-mfa-card");if(mfa)mfa.hidden=true;}
    show("mr-panel",true);
-   say(T("تم التحقق من تسجيل الدخول والمصادقة الثنائية.","Sign-in and MFA verified."),"success");
+   say(needsMfa ? T("تم التحقق من تسجيل الدخول والمصادقة الثنائية.","Sign-in and MFA verified.") : T("تم تسجيل الدخول إلى تنسيق المراجعات.","Signed in to review coordination."),"success");
    if(mode==="doctor")await doctorHome();else await coordinatorHome();
   }catch(ex){say(msg(ex),"error");}
  }
