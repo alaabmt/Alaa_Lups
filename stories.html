@@ -86,11 +86,16 @@ body.stories-gallery{background:#fffdfd;color:#3d2c48}
 @media(max-width:650px){.stories-gallery .story-inner{width:calc(100% - 34px)}.stories-gallery .story-hero-grid h1{font-size:38px}.stories-gallery .story-hero-panel strong{font-size:23px}.stories-gallery .story-main-new{padding-top:43px}.stories-gallery .rs-card{padding:19px;gap:23px}.stories-gallery .rs-glance{gap:7px}.stories-gallery .rs-glance div{padding:11px 5px}.stories-gallery .rs-glance b{font-size:23px}.stories-gallery .rs-glance span{font-size:11px}.stories-gallery .story-values-grid{grid-template-columns:1fr}.stories-gallery .story-values{padding:55px 0}.stories-gallery .story-soon{padding:32px 20px;border-radius:20px}}
 @media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 </style><style>
-/* Juzi story: vignette typography (loaded last so it wins ties with the page layout CSS) */
-.rs-card p.rs-open,.stories-gallery .rs-card p.rs-open{font-size:clamp(24px,3.6vw,36px);line-height:1.5;color:#442a68;font-weight:800;margin:6px 0 22px}
+/* Juzi story: literary typography (loaded last so it wins ties with the page layout CSS) */
+.rs-card p.rs-open,.rs-card .rs-lit p.rs-open,.stories-gallery .rs-card .rs-lit p.rs-open{font-size:clamp(24px,3.6vw,36px);line-height:1.5;color:#442a68;font-weight:800;margin:6px 0 14px}
 .rs-card p.rs-open em,.stories-gallery .rs-card p.rs-open em{display:block;font-style:normal;color:#6d4aa2}
+.rs-card p.rs-sub,.stories-gallery .rs-card p.rs-sub{color:#765296;font-weight:700;margin:-4px 0 14px;font-size:15px;line-height:1.8}
+.rs-card p.rs-method,.stories-gallery .rs-card p.rs-method{background:#faf7fd;border-inline-start:4px solid #9f80bb;border-radius:8px;padding:12px 16px;font-size:14px;line-height:1.9;color:#463953;margin:0 0 26px}
+.rs-card .rs-lit p,.stories-gallery .rs-card .rs-lit p{font-size:18px;line-height:2.1;margin:0 0 1.1em}
+.rs-card p.rs-sep,.stories-gallery .rs-card p.rs-sep{text-align:center;color:#9f80bb;margin:6px 0 16px;font-size:18px;line-height:1}
 .rs-card blockquote.rs-quote-big,.stories-gallery .rs-card blockquote.rs-quote-big{font-size:clamp(23px,3.2vw,32px);line-height:1.6;padding:22px 26px;margin:26px 0}
-.rs-card p.rs-reading,.stories-gallery .rs-card p.rs-reading{font-size:15px;color:#51485a;line-height:1.9}
+.rs-card .rs-facts,.stories-gallery .rs-card .rs-facts{background:#f6f0fa;border-radius:16px;padding:16px 20px;margin:26px 0 8px;font-size:14px;line-height:1.9;color:#463953}
+.rs-facts ul{margin:8px 0 0;padding-inline-start:20px}.rs-facts li{margin:4px 0;line-height:1.9}
 .rs-card p.rs-fine,.stories-gallery .rs-card p.rs-fine{font-size:13px;color:#72657a;line-height:1.9;margin:14px 0 0}
 .rs-details{border-top:1px solid #e7daef;margin-top:22px;padding-top:12px;font-size:13px;color:#55485f;line-height:1.8}
 .rs-details summary{cursor:pointer;font-weight:700;color:#503475}
@@ -119,13 +124,38 @@ body.stories-gallery{background:#fffdfd;color:#3d2c48}
 <text x="160" y="46" text-anchor="middle" font-size="26" fill="#6d4aa2" font-family="Tahoma,Arial,sans-serif" aria-hidden="true">&#10022;</text>
 </svg></div>
 <div class="rs-text"><ul class="rs-chips"><li>العمر: 30 سنة</li><li>8 سنوات مع الذئبة</li><li>دراسة بالتصوير التشاركي (Photovoice) على 8 نساء صينيات</li></ul>
-<h3 id="rs-juzi">جوزي (Juzi): «دليلي»</h3>
-<p class="rs-open">علبُ دواءٍ فارغة، وزجاجات، وأدوات حقن.<br><em>جوزي لم ترمِها.</em></p>
-<p>جوزي في الثلاثين من عمرها، وتعيش مع الذئبة منذ ثماني سنوات. وصفت نساء كثيرات في الدراسة علاجهن بأنه متكرر ومُنهِك ويصعب شرحه للآخرين. أما جوزي فجمعت هذه البقايا في صورة واحدة، وقالت إنها تحب جمع هذه العلب.</p>
+<h3 id="rs-juzi">جوزي (Juzi): ما تقوله العلب الفارغة</h3>
+<p class="rs-sub">نصٌّ أدبي مستوحى من صورة جوزي في دراسة منشورة</p>
+<p class="rs-method"><strong>كيف كُتبت هذه القصة؟</strong> أعدنا صياغة القصة الأصلية بأسلوب أدبي. فهي ليست نقلًا حرفيًا لما ورد في المقال، لكنها تحافظ على وقائعه الأساسية ومعناه، وتهدف إلى الفائدة والتأمل. وقد ميّزنا في آخر النص ما ورد في المقال نفسه عمّا أضفناه من صياغتنا.</p>
+<div class="rs-lit">
+<p class="rs-open">لا أحدَ يحتفظ بالعلب الفارغة.</p>
+<p>تُفرَغ من الدواء فتُفرَغ من المعنى، ثم تُلقى في آخر الطريق، كما يُلقى كلُّ ما انقضت حاجتنا إليه.</p>
+<p class="rs-open"><em>إلا أنّ جوزي فعلت ما لا يفعله أحد: جمعتها.</em></p>
+<p class="rs-sep" aria-hidden="true">✦</p>
+<p>في الثلاثين من عمرها، وفي السنة الثامنة من صحبةٍ لم تخترها مع الذئبة، نظرت إلى ما خلّفه العلاجُ وراءه: علبٌ فارغة، وزجاجاتٌ أدّت ما عليها، وأدواتُ حقنٍ انتهى دورُها. وبدل أن تُلقيَ بها، ضمّتها بعضَها إلى بعض، وجعلتها صورةً واحدة.</p>
+<p class="rs-sep" aria-hidden="true">✦</p>
+<p>وقد قالت نساءٌ كثيرات في تلك الدراسة إنّ العلاج عملٌ يتكرر ولا يكاد ينتهي، يُنهِك صاحبَه، ويعزّ عليه أن يشرحه لمن حوله. جهدٌ بلا شهود؛ لا يصفّق له أحد، ولا يراه أحد.</p>
+<p>والجهدُ الذي لا يُرى يشبه ثمنًا يُدفَع كلَّ يومٍ بلا إيصال: يُؤدّى، ثم لا يبقى منه ما يشهد عليه.</p>
+<p class="rs-sep" aria-hidden="true">✦</p>
+<p>وكان يمكن للعلب أن تكون شاهدَ ضعف. كان يمكن أن تقول لها كلَّ يومٍ إنّ الجسد لا يمضي إلا مستندًا إلى غيره، وإنّ الدواء عكّازٌ لا يفارقها.</p>
+<p>لكنّ جوزي قرأتها قراءةً أخرى. قالت إنها تحب جمعها. ثم سمّتها باسمها:</p>
 <blockquote class="rs-quote rs-quote-big">«دليلٌ على أنني ثابرتُ وقاومتُ الذئبة.»<cite>جوزي (اسم مستعار)، كما ورد عند Xu وXiang وHou، 2026 (ترجمة عن الإنجليزية)</cite></blockquote>
-<p class="rs-reading"><strong>قراءة الباحثين:</strong> حوّلت جهدًا خفيًّا إلى شيء يُرى. فما كان يمكن أن يعني الاعتماد على الدواء صار دليلًا على الصمود.</p>
+<p class="rs-sep" aria-hidden="true">✦</p>
+<p>هنا تتغير الحكاية. فالثمن الذي كان يُدفَع بلا إيصال صار له إيصالاتٌ تملأ الصورة: كلُّ علبةٍ إيصال، وكلُّ زجاجةٍ إيصال، وكلُّ أداةِ حقنٍ إيصالٌ عن يومٍ أُدّي ولم يُنسَ. وقد رأى الباحثون أنّ كولاجها جعل العملَ الخفيّ للعلاج ملموسًا، وقابلًا للعدّ.</p>
+<p>والمرضُ الذي لا يُرى كثيرًا ما يُطالَب صاحبُه ببرهان. وكأنّ جوزي لم تنتظر أن يُطلب منها، فجمعت براهينها بيدها.</p>
+<p class="rs-sep" aria-hidden="true">✦</p>
+<p>وربما لم تكن الصورة لها وحدها؛ ربما كانت رسالةً صامتة إلى من لا يرى، تقول من غير كلام: هذا ما يلزم كي نمضي.</p>
+<p class="rs-open"><em>ثماني سنوات، وعلبٌ فارغةٌ كثيرة، وامرأةٌ واحدة لم تَفرُغ.</em></p>
+</div>
+<aside class="rs-facts"><strong>من المقال نفسه</strong><ul>
+<li>جوزي (اسم مستعار)، 30 عامًا، تعيش مع الذئبة منذ 8 سنوات.</li>
+<li>أعدّت كولاجًا من علب أدوية فارغة وزجاجات ومستلزمات حقن.</li>
+<li>قالت إنها تحب جمع هذه العلب، وإنها دليل على أنها ثابرت وقاومت الذئبة.</li>
+<li>وصفت نساء كثيرات في الدراسة العلاج بأنه متكرر ومُنهِك ويصعب شرحه للآخرين.</li>
+<li>يقول الباحثون إن كولاجها جعل العمل الخفي للعلاج ملموسًا وقابلًا للعدّ.</li>
+<li>وما عدا ذلك، كالإيصالات والعكّاز والرسالة الصامتة، فمن صياغتنا وخيالنا.</li></ul></aside>
 <div class="rs-ask"><p><strong>سؤال لك:</strong> حين تنظر إلى روتينك العلاجي، ماذا يُظهر عن جهدك؟ يمكنك أن تحمل إجابتك إلى موعدك القادم.</p><a href="appointment.html">جهّز لزيارتك ←</a></div>
-<details class="rs-details"><summary>عن المصدر</summary><p><span dir="ltr" lang="en">Xu N, Xiang H, Hou Y. Picturing Illness, Making Meaning: A Virtual Photovoice Study of Systemic Lupus Erythematosus Narratives Among Chinese Women. <em>Behavioral Sciences</em>. 2026;16(7):1197. <a href="https://doi.org/10.3390/bs16071197" rel="noopener" target="_blank">doi:10.3390/bs16071197</a></span>. المقال مفتوح الوصول برخصة CC BY (النسبة إلى المؤلف)؛ راجع صفحة المقال للاطلاع على الشروط. أعادت «نحن» سرد القصة بلغة مبسّطة وباختصار، والرسم أصلي من إعدادنا. لم يراجع المؤلفون هذه النسخة ولم يزكّوها.</p></details>
+<details class="rs-details"><summary>عن المصدر</summary><p><span dir="ltr" lang="en">Xu N, Xiang H, Hou Y. Picturing Illness, Making Meaning: A Virtual Photovoice Study of Systemic Lupus Erythematosus Narratives Among Chinese Women. <em>Behavioral Sciences</em>. 2026;16(7):1197. <a href="https://doi.org/10.3390/bs16071197" rel="noopener" target="_blank">doi:10.3390/bs16071197</a></span>. المقال مفتوح الوصول برخصة CC BY (النسبة إلى المؤلف)؛ راجع صفحة المقال للاطلاع على الشروط. أعادت «نحن» صياغة القصة بأسلوب أدبي، والرسم أصلي من إعدادنا. لم يراجع المؤلفون هذه النسخة ولم يزكّوها.</p></details>
 <p class="rs-fine">ليس كل من يعيش مع الذئبة يشعر بهذا، وهذا طبيعي. وهذه ليست نصيحة طبية.</p></div></article>
 <p class="story-source-note">هذه القصة مستمدة من دراسة منشورة؛ لم تُرسلها صاحبتها إلى «نحن»، ولم يتواصل معها فريق الموقع مباشرة.</p>
 </section>
