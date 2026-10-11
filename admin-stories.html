@@ -46,12 +46,22 @@ body{background:#faf7fc;color:#30253b}
 <header class="admin-head"><a class="brand" href="index.html"><span class="brand-mark">✦</span><span><strong>نَحْنُ</strong><small>الذئبة</small></span></a><a href="stories.html">العودة إلى قصصنا</a></header>
 <section><p class="admin-label">منطقة إدارة محمية · NA7N STAFF ONLY</p><h1>إدارة قصص المرضى</h1><p class="admin-lead">واجهة العمل الخاصة بالخصوصية والتحرير والمراجعة التثقيفية. لا تكفي معرفة عنوان الصفحة للدخول؛ يُفرض التحقق والصلاحيات على مستوى قاعدة البيانات.</p></section>
 <section class="admin-card" id="admin-login">
-<h2>تسجيل دخول الفريق</h2><p>استخدم الحساب المخصص لك في «نَحْنُ». يتطلب الدخول تحققًا متعدد العوامل (MFA). لا تنشئ حسابًا إداريًا من نموذج التسجيل العام.</p>
+<h2>دخول فريق قصص المرضى</h2>
+<p>يُخصص الوصول الإداري لصاحبي الأدوار المعتمدين فقط، بعد التحقق من البريد وتفعيل المصادقة متعددة العوامل (MFA). لا يمنح إنشاء الحساب أي صلاحية إدارية بحد ذاته.</p>
 <form id="admin-login-form">
-<label class="admin-field" for="staff-email">البريد الإلكتروني<input dir="ltr" id="staff-email" type="email" required autocomplete="username"></label>
+<label class="admin-field" for="staff-email">البريد الإلكتروني لحسابك<input dir="ltr" id="staff-email" type="email" required autocomplete="username"></label>
 <label class="admin-field" for="staff-password">كلمة المرور<input dir="ltr" id="staff-password" type="password" required autocomplete="current-password" minlength="8"></label>
 <button class="admin-btn" type="submit">تسجيل الدخول</button>
-</form><p id="login-message" class="admin-status" role="status" aria-live="polite"></p>
+</form>
+<div class="admin-actions"><button id="show-staff-register" class="admin-btn secondary" type="button" aria-expanded="false" aria-controls="staff-register-form">إنشاء حساب دخول للفريق</button></div>
+<form id="staff-register-form" class="admin-hidden" autocomplete="off">
+<p class="admin-note">إذا لم يكن لديك حساب «نحن»، يمكنك طلب إنشائه باستخدام بريدك الخاص وكلمة مرور قوية. بعد التحقق من ملكية البريد، تمنح الإدارة الدور يدويًا. لا تدخل اسم مريض أو بياناته أو معلومات صحية في هذه الخانات.</p>
+<label class="admin-field" for="staff-register-email">البريد الإلكتروني<input dir="ltr" id="staff-register-email" type="email" required autocomplete="email"></label>
+<label class="admin-field" for="staff-register-password">إنشاء كلمة مرور (12 حرفًا على الأقل)<input dir="ltr" id="staff-register-password" type="password" minlength="12" required autocomplete="new-password"></label>
+<label class="admin-field" for="staff-register-confirm">تأكيد كلمة المرور<input dir="ltr" id="staff-register-confirm" type="password" minlength="12" required autocomplete="new-password"></label>
+<button type="submit" class="admin-btn">طلب إنشاء الحساب</button>
+</form>
+<p id="login-message" class="admin-status" role="status" aria-live="polite"></p>
 </section>
 <section class="admin-card admin-hidden" id="admin-mfa">
 <h2>تأكيد الهوية بخطوتين</h2><p id="mfa-explanation"></p>
