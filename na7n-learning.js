@@ -45,7 +45,7 @@
    try { target=document.getElementById(decodeURIComponent(a.hash.slice(1))); } catch (_) {}
    if(!target)return;
    if(root.contains(target))openTarget(target);
-   else if(target.matches("details"))target.open=true;
+   else openTarget(target);
  }));
  function sync(){
   const hash=location.hash;
@@ -53,7 +53,7 @@
   if(target){openTarget(target);return;}
   let outside=null;
   try { outside=document.getElementById(decodeURIComponent(hash.slice(1))); } catch (_) {}
-  if(outside && outside.matches("details"))outside.open=true;
+  if(outside)openTarget(outside);
   activate(0);
  }
  window.addEventListener("popstate",sync);
