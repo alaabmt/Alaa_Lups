@@ -66,8 +66,9 @@
   function showMissing(missing){
     error.hidden=false;
     const names=missing.slice(0,4).map(name=>name==="global"?"التقييم العام من 0 إلى 10":questionLabels.get(name));
-    error.textContent="لا يمكن حساب النتيجة قبل الإجابة عن جميع الأسئلة. بقي "+missing.length+
-      " "+(missing.length===1?"سؤال واحد دون إجابة":missing.length===2?"سؤالان دون إجابة":missing.length+" أسئلة دون إجابة")+"، منها: "+names.join("، ")+(missing.length>4?"، وغيرها.":".")+
+    error.textContent="لا يمكن حساب النتيجة قبل الإجابة عن جميع الأسئلة. بقي "+
+      (missing.length===1?"سؤال واحد":missing.length===2?"سؤالان":missing.length+" أسئلة")+
+      " دون إجابة، منها: "+names.join("، ")+(missing.length>4?"، وغيرها.":".")+
       " اختر «لم يحدث» أو «لا» عندما لا يكون العرض موجودًا.";
     progress();
     const first=missing[0]==="global"?rating:form.querySelector('input[name="'+missing[0]+'"]');
