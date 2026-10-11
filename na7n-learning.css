@@ -53,3 +53,35 @@ html[lang="en"] .na7n-newly .na7n-step-btn{font-family:system-ui,-apple-system,"
 .na7n-newly .na7n-reading-end .na7n-back-home{display:inline-block;margin:16px 0;color:#4a2f73;font-weight:700;text-decoration:underline}
 .na7n-newly button:focus-visible,.na7n-newly summary:focus-visible,.na7n-newly a:focus-visible{outline:3px solid #9972c2;outline-offset:2px}
 @media(max-width:640px){.na7n-newly .na7n-learning-shell{padding:15px}.na7n-newly .na7n-learning-switches{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.na7n-newly .na7n-step-btn{min-height:70px;padding:8px 4px;font-size:13px}.na7n-newly .na7n-learning-detail-body{padding:6px 12px 14px}.na7n-newly .na7n-step-actions button,.na7n-newly .na7n-step-actions a{padding:8px 11px;font-size:13px}.na7n-newly .na7n-learning-hero{padding-top:18px}}
+
+/* Shared category lessons: preserve original medical sections within disclosures. */
+.na7n-newly .na7n-learning-detail-body>.section,
+.na7n-newly .na7n-learning-detail-body>section.section{
+  width:100%!important;max-width:100%!important;margin:12px 0!important;
+  padding:0!important;background:transparent!important;box-sizing:border-box
+}
+.na7n-newly .na7n-learning-detail-body>.notice{width:100%!important;margin:12px 0!important}
+.na7n-newly .na7n-learning-detail-body .section-heading{max-width:100%;margin:10px 0 16px}
+.na7n-newly .na7n-learning-detail-body .section-heading h2{font-size:clamp(18px,2.7vw,23px);line-height:1.5}
+.na7n-newly .na7n-learning-detail-body .content-card,
+.na7n-newly .na7n-learning-detail-body .symptom-map,
+.na7n-newly .na7n-learning-detail-body .treatment-map,
+.na7n-newly .na7n-learning-detail-body .life-map,
+.na7n-newly .na7n-learning-detail-body .pregnancy-map{max-width:100%;min-width:0}
+.na7n-newly .na7n-learning-detail-body .content-layout{display:block!important}
+.na7n-newly .na7n-learning-detail-body .content-stack{max-width:100%}
+.na7n-newly .na7n-learning-detail-body .side-nav{display:none!important}
+.na7n-newly .na7n-original-message{width:min(940px,calc(100% - 36px));margin:0 auto 14px}
+.na7n-newly .na7n-original-message>.notice{width:100%;max-width:100%;margin:0!important;padding:15px!important}
+.na7n-newly .na7n-original-message>.notice p{font-size:15px;line-height:1.7;margin:6px 0 0}
+.na7n-newly .na7n-reading-end>details{margin-bottom:10px}
+.na7n-newly .na7n-reading-end>details .section{width:100%!important;margin:10px 0!important;padding:0!important}
+.na7n-newly .na7n-reading-end>details .content-card{padding:15px!important;box-shadow:none}
+.na7n-newly .na7n-learning-detail-body :is(img,svg,table){max-width:100%}
+.na7n-newly .na7n-learning-detail-body table{display:block;overflow-x:auto}
+@media(max-width:640px){
+ .na7n-newly .na7n-learning-detail-body .section-heading{margin:6px 0 12px}
+ .na7n-newly .na7n-learning-detail-body .section-heading h2{font-size:19px}
+ .na7n-newly .na7n-learning-detail-body .content-card{padding:12px!important}
+ .na7n-newly .na7n-learning-detail-body :is(.symptom-map,.treatment-map,.life-map,.pregnancy-map){grid-template-columns:1fr!important}
+}
