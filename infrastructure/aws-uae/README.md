@@ -34,6 +34,8 @@
 - [قالب CloudFormation غير مفعل](cloudformation/na7n-data-foundation.yaml): شبكة افتراضية خاصة، شبكتان فرعيتان خاصتان، قاعدة PostgreSQL مشفّرة متعددة مناطق الإتاحة، نسخ احتياطي، مستودع S3 خاص. **إن تشغيله مستقبلاً قد يترتب عليه تكاليف.**
 - [الجرد ونقاط نقل الهوية والبيانات](migration-inventory.md).
 - [خطة الانتقال والتراجع وشروط السماح](cutover-checklist.md).
+- [فحص استعداد محلي بلا تشغيل](readiness_check.py): شغّله بـ `python3 infrastructure/aws-uae/readiness_check.py` لفحص نقاط ضبط آمنة، وليس للتحقق من صيغة AWS رسميًا. تأكيد صحة CloudFormation النهائي يحتاج `aws cloudformation validate-template` ومراجعة هندسية قبل أي نشر.
+
 
 ## خط الأمان داخل القالب
 `DeployInfrastructure=NO` هي القيمة الافتراضية. جميع الموارد مربوطة بشرط **تفعيل صريح** وبأن تكون منطقة AWS `me-central-1`. لا يكفي رفع الملف إلى GitHub لبدء إنشاء موارد. **لا تضبط YES الآن.** تأكد من أن اعتماد التكاليف ووقت الاستقرار واضحان قبل تطبيق أي Stack.
