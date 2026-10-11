@@ -46,6 +46,10 @@
     ensure();
     if(typeof userId!=="string"||!userId||typeof passphrase!=="string"||
        passphrase.length<12)throw new Error("A signed-in account and a 12-character passphrase are required.");
+    // Reuse the same passphrase for all records in an account's device vault.
+    // Otherwise older records could appear present but become undecryptable.
+    const existing=await listEncrypted(userId);
+    if(existing.length)await load(userId,passphrase);
     if(!report||report.tool!=="Q-SLAQ"||report.schema!==1||
        !report.answers||!Number.isInteger(report.scores?.severity)||
        !Number.isInteger(report.scores?.symptoms)||
