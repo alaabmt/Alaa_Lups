@@ -15,6 +15,11 @@
     ["admin-login","admin-mfa","admin-denied","admin-board","case-detail"].forEach(id => visible(id,false));
     visible("mfa-setup",false);
     visible("mfa-enroll",false);
+    visible("mfa-resume",false);
+    visible("mfa-form",false);
+    // Never retain a TOTP setup secret or QR in the page after leaving its flow.
+    inform("mfa-secret","");
+    $("mfa-qr")?.removeAttribute("src");
     inform("login-message","");
     inform("mfa-message","");
     inform("detail-status-message","");
