@@ -5,7 +5,7 @@
 .na7n-newly .na7n-eyebrow{font-size:13px;font-weight:800;color:#704ba0;margin:0 0 7px}
 .na7n-newly .na7n-intro h1{font-size:clamp(27px,4.1vw,39px);line-height:1.38;max-width:800px;color:#2c1c3b;margin:0 0 12px}
 .na7n-newly .na7n-intro p:last-child{font-size:clamp(15px,1.65vw,17px);line-height:1.85;color:#51475b;max-width:780px;margin:0}
-.na7n-newly .na7n-quick-links{padding:12px 0 18px}
+.na7n-newly nav.na7n-quick-links{display:block!important;flex-wrap:initial!important;padding:12px 0 18px}
 .na7n-newly .na7n-quick-links>p{font-size:14px;font-weight:800;color:#3d3051;margin:0 0 9px}
 .na7n-newly .na7n-quick-grid{display:flex;flex-wrap:wrap;gap:9px}
 .na7n-newly .na7n-quick-grid a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border:1px solid #d6c9e2;border-radius:12px;background:#fff;color:#49316d;padding:9px 13px;font-weight:700;font-size:14px;text-align:center}
