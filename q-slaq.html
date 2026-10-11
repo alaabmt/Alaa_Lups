@@ -40,6 +40,35 @@
   body.qs-print-only .qs-result-explainer,.qs-conversation{break-inside:avoid}
   body.qs-print-only h2,body.qs-print-only h3{page-break-after:avoid}
 }
+
+.qs-full-questions{margin:24px 0;border:1px solid #d7c5e7;border-radius:16px;padding:18px;background:#fff}
+.qs-full-questions summary{font-weight:800;color:#543476;cursor:pointer;padding:6px 2px}
+.qs-report-intro{margin:18px 0;padding:14px 18px;background:#f8f3fb;border-radius:12px;line-height:1.8}
+.qs-printed-question{border:1px solid #e1d7e9;border-radius:12px;padding:12px 16px;margin:10px 0;break-inside:avoid;page-break-inside:avoid}
+.qs-printed-question h4{font-size:15px;margin:0 0 5px;direction:ltr;text-align:left}
+.qs-printed-question .ar{margin:4px 0;line-height:1.6}
+.qs-printed-choice{font-weight:800;color:#4b3070;margin:8px 0 0}
+.qs-printed-choice span{font-weight:400}
+.qs-printed-question small{display:block;color:#60506f;margin-top:4px}
+.qs-report-group{break-before:auto;color:#483061;margin:18px 0 10px}
+.qs-device-card{margin:24px 0 14px;padding:20px;background:#fbf7ff;border:1px solid #d5c3e7;border-radius:17px}
+.qs-device-card label{display:block;margin:12px 0;line-height:1.65}
+.qs-device-card input[type=password]{display:block;max-width:420px;width:100%;box-sizing:border-box;padding:11px;border:1px solid #baa3d2;border-radius:10px;font:inherit}
+.qs-device-card .qs-status{min-height:20px;color:#523775}
+.qs-report-identity{padding:8px 0;border-bottom:1px solid #d8cce1;line-height:1.8}
+.qs-report-identity span{display:inline-block;margin-inline-end:22px}
+@page{size:A4;margin:14mm}
+@media print{
+ body.qs-print-only #qsDeviceSave{display:none!important}
+ body.qs-print-only #qsFullQuestionnaire{display:block!important;overflow:visible!important}
+ body.qs-print-only #qsFullQuestionnaire > div{display:block!important}
+ body.qs-print-only .qs-printed-question{break-inside:avoid!important;page-break-inside:avoid!important}
+ body.qs-print-only .qs-full-questions summary{display:none!important}
+ body.qs-print-only .qs-report-intro{background:#fff!important;border:1px solid #aaa}
+ body.qs-print-only .qs-report-group{break-after:avoid;page-break-after:avoid}
+ body.qs-print-only .qs-result-explainer{break-inside:auto!important}
+ body.qs-print-only .qs-conversation{break-inside:auto!important}
+}
 </style>  <link rel="canonical" href="https://na7nlupus.com/q-slaq.html">
   <meta name="robots" content="noindex, follow">
 </head><body><header class="site-header"><a class="brand" href="index.html"><span class="brand-mark">✦</span><span><strong>نَحْنُ</strong><small>الذئبة</small></span></a><nav><a href="index.html">الصفحة الرئيسية</a><a href="about-lupus.html">افهم الذئبة</a><a href="treatment.html">العلاج</a><a href="living.html">حياتك مع الذئبة</a><a class="active" href="assessment.html">تابع صحتك</a><a href="articles.html">اسأل وتعلّم</a></nav></header><main><section class="assessment-hero"><span class="status">جاهز للاختبار</span><p class="eyebrow light">Q-SLAQ</p><h1>Q-SLAQ</h1><p class="lead">أداة قصيرة تساعدك على وصف أعراضك خلال الشهر الماضي. يظهر كل بند بالإنجليزية أولًا، وتحته ترجمة عربية للتوضيح فقط. وتقدير الشدة (خفيف أو متوسط أو شديد) يعود إليك أنت، ولا نضع له حدودًا رقمية من عندنا.</p></section><section class="section"><div class="qs-wrap"><div class="qs-note"><strong>مهم قبل البدء</strong><p>وُضعت هذه الأداة أصلًا بالسويدية. نعرض هنا الصياغة الإنجليزية كما وردت في المواد المنشورة المتاحة، وتحتها ترجمة عربية كتبناها للتوضيح فقط. هذه الترجمة ليست نسخة عربية معتمدة ولم تُراجَع بعد من مختص، فإذا بدا لك بند غير واضح فاعتمد النص الإنجليزي أو اسأل طبيبك.</p><p>النتيجة تعبّر عن ما تشعر به أنت، ولا تُستخدم للتشخيص ولا لتغيير العلاج. ولا تُحفظ إجاباتك ولا تُرسل إلى أي خادم في النسخة الحالية.</p></div><form id="qsForm" novalidate>
@@ -75,5 +104,23 @@
 <p id="qsSafety" class="qs-safety" hidden></p>
 <p class="qs-small">يمكنك حفظ هذا الملخص بتاريخ اليوم ومقارنته باستبيان لاحق <strong>بالطريقة نفسها</strong> ثم مناقشة التغيّر مع فريقك الطبي. لا تقارن الأرقام وحدها بمعزل عن الأعراض والفحص.</p>
 </div>
-<div class="qs-actions"><button class="button secondary" type="button" id="printResult">طباعة / حفظ ملخص النتيجة PDF</button><a class="button secondary" href="appointment.html">حضّر أسئلتك للموعد</a></div>
-</section><section class="content-card" style="margin-top:28px"><h2>طريقة الحساب</h2><p><strong>Total Q-SLAQ severity score (0–34):</strong> نستخدم خوارزمية Swedish Rheumatology Quality Register الحالية، بما فيها تجميع بعض البنود بدل جمع كل بند منفردًا.</p><p><strong>Symptom Score (0–18):</strong> وجود العرض يُحسب بغض النظر عن اختيار Mild أو Moderate أو Severe.</p><p><strong>Patient's Global Disease Activity (0–10):</strong> تقييم المريض الشخصي لنشاط المرض خلال الشهر الماضي.</p><p class="qs-small">لا نعرّف Mild أو Moderate أو Severe بحدود رقمية من عندنا. إذا لم يحدد المصدر تعريفًا إضافيًا، تبقى الكلمات كما هي.</p></section><section class="content-card" style="margin-top:28px"><h2>المصدر والحالة التحريرية</h2><p class="qs-source">Q-SLAQ طُوّر أصلًا باللغة السويدية. تعتمد هذه الصفحة على دراسة Q-SLAQ المنشورة وخوارزمية Swedish Rheumatology Quality Register الحالية. النص العربي ترجمة توضيحية للموقع وليس نسخة عربية validated.</p><p class="qs-source">آخر تحديث لتجربة الإجابة وشرح النتائج: أكتوبر 2026. الترجمة العربية والقراءة التثقيفية للدرجات ليست بديلًا عن مراجعة سريرية أو نسخة عربية معتمدة. <a href="https://srq.nu/wp-content/uploads/2022/02/Supplement_Q_SLAQ_algorithm-003.pdf" rel="noopener noreferrer" target="_blank">وثيقة الخوارزمية من السجل السويدي (SRQ)</a>، و<a href="https://lupus.bmj.com/content/8/1/e000471" target="_blank" rel="noopener noreferrer">دراسة الأداة المنشورة</a>.</p></section></div></section></main><footer><div class="footer-brand"><strong>نَحْنُ | الذئبة</strong><span>مَعًا نَمْضِي لِحَيَاةٍ أَفْضَل</span></div><div class="footer-links"><a href="assessment.html">تابع صحتك</a><a href="tools.html">أدوات المريض</a><a href="about.html">عن نَحْنُ</a></div><p>Q-SLAQ أداة يبلّغ فيها المريض عن الأعراض والنشاط المتصوَّر، وليست بديلًا عن التقييم الطبي.</p></footer><script src="q-slaq.js?v=20261011-required-results-1"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script><script src="na7n-auth.js?v=20261009-2"></script><script src="na7n-navigation.js?v=20261011-8"></script></body></html>
+<div class="qs-report-intro">
+<strong>بيانات التقرير للطبيب أو مقدم الرعاية:</strong>
+<div class="qs-report-identity"><span>اسم المريض (يُكتب يدويًا): ___________________________</span><span>تاريخ الموعد: __________________</span></div>
+<p>النسخة المطبوعة تشمل شرح الدرجات وقائمة الأعراض وجميع الأسئلة وإجاباتك عنها. هذه إجاباتك الذاتية خلال الشهر الماضي ولا تُثبت تشخيصًا أو نشاطًا سريريًا للمرض. الترجمة العربية إرشادية وغير معتمدة رسميًا.</p>
+</div>
+<details class="qs-full-questions" id="qsFullQuestionnaire">
+<summary>عرض جميع الأسئلة الـ19 وإجاباتك بالتفصيل</summary>
+<div id="qsPrintedQuestions" aria-label="نسخة كاملة من جميع الأسئلة والإجابات"></div>
+</details>
+<div class="qs-device-card" id="qsDeviceSave">
+<h3>حفظ اختياري في «حسابي» على هذا الجهاز</h3>
+<p>يمكنك حفظ هذا التقييم <strong>مشفّرًا على جهازك الحالي فقط</strong> وربطه بحسابك المسجّل. لا تُرسل إجاباتك إلى قاعدة بيانات الموقع، ولا تظهر على جهاز آخر أو بعد مسح بيانات المتصفح. لا تستخدم هذه الميزة على جهاز مشترك، واحتفظ بنسخة (PDF) لنفسك.</p>
+<label><input type="checkbox" id="qsSaveConsent"> أوافق على حفظ بيانات هذا الاستبيان الصحية بصورة مشفّرة على هذا الجهاز، وأفهم أنها ليست نسخة سحابية.</label>
+<label for="qsVaultPassword">عبارة سرية مستقلة لفك الحفظ (12 حرفًا على الأقل، لا تستخدم كلمة مرور حسابك)</label>
+<input id="qsVaultPassword" type="password" minlength="12" autocomplete="new-password" placeholder="عبارة سرية للحفظ المحلي">
+<div class="qs-actions"><button type="button" class="button secondary" id="qsSaveToAccount">حفظ النتيجة محليًا لحسابي</button><a class="button secondary" href="account.html">فتح حسابي</a></div>
+<p id="qsDeviceStatus" class="qs-status" role="status" aria-live="polite"></p>
+</div>
+<div class="qs-actions"><button class="button primary" type="button" id="printResult">طباعة / حفظ التقرير الكامل مع الأسئلة PDF</button><a class="button secondary" href="appointment.html">حضّر أسئلتك للموعد</a></div>
+</section><section class="content-card" style="margin-top:28px"><h2>طريقة الحساب</h2><p><strong>Total Q-SLAQ severity score (0–34):</strong> نستخدم خوارزمية Swedish Rheumatology Quality Register الحالية، بما فيها تجميع بعض البنود بدل جمع كل بند منفردًا.</p><p><strong>Symptom Score (0–18):</strong> وجود العرض يُحسب بغض النظر عن اختيار Mild أو Moderate أو Severe.</p><p><strong>Patient's Global Disease Activity (0–10):</strong> تقييم المريض الشخصي لنشاط المرض خلال الشهر الماضي.</p><p class="qs-small">لا نعرّف Mild أو Moderate أو Severe بحدود رقمية من عندنا. إذا لم يحدد المصدر تعريفًا إضافيًا، تبقى الكلمات كما هي.</p></section><section class="content-card" style="margin-top:28px"><h2>المصدر والحالة التحريرية</h2><p class="qs-source">Q-SLAQ طُوّر أصلًا باللغة السويدية. تعتمد هذه الصفحة على دراسة Q-SLAQ المنشورة وخوارزمية Swedish Rheumatology Quality Register الحالية. النص العربي ترجمة توضيحية للموقع وليس نسخة عربية validated.</p><p class="qs-source">آخر تحديث لتجربة الإجابة وشرح النتائج: أكتوبر 2026. الترجمة العربية والقراءة التثقيفية للدرجات ليست بديلًا عن مراجعة سريرية أو نسخة عربية معتمدة. <a href="https://srq.nu/wp-content/uploads/2022/02/Supplement_Q_SLAQ_algorithm-003.pdf" rel="noopener noreferrer" target="_blank">وثيقة الخوارزمية من السجل السويدي (SRQ)</a>، و<a href="https://lupus.bmj.com/content/8/1/e000471" target="_blank" rel="noopener noreferrer">دراسة الأداة المنشورة</a>.</p></section></div></section></main><footer><div class="footer-brand"><strong>نَحْنُ | الذئبة</strong><span>مَعًا نَمْضِي لِحَيَاةٍ أَفْضَل</span></div><div class="footer-links"><a href="assessment.html">تابع صحتك</a><a href="tools.html">أدوات المريض</a><a href="about.html">عن نَحْنُ</a></div><p>Q-SLAQ أداة يبلّغ فيها المريض عن الأعراض والنشاط المتصوَّر، وليست بديلًا عن التقييم الطبي.</p></footer><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script><script src="na7n-auth.js?v=20261009-2"></script><script src="na7n-q-slaq-device-vault.js?v=20261011-1"></script><script src="q-slaq.js?v=20261011-full-print-1"></script><script src="na7n-navigation.js?v=20261011-8"></script></body></html>
