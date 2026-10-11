@@ -34,6 +34,8 @@
   $("severityGrid").innerHTML=severityItems.map(x=>sevCard(...x)).join('');
   $("skinGrid").innerHTML=skinItems.map(x=>binCard(...x)).join('');
   const form=$("qsForm"),results=$("results"),rating=$("global"),error=$("formError");
+  let currentReport=null;
+  let detailsInitiallyOpen=false;
   function response(name){
     const input=form.querySelector('input[name="'+name+'"]:checked');
     return input?Number(input.value):null;
@@ -62,7 +64,13 @@
     return missing;
   }
   function clearError(){error.hidden=true;error.textContent="";progress();}
-  function clearResult(){results.classList.add("qs-hidden");document.body.classList.remove("qs-print-only");}
+  function clearResult(){
+    results.classList.add("qs-hidden");
+    document.body.classList.remove("qs-print-only");
+    currentReport=null;
+    $("qsVaultPassword").value="";
+    setText("qsDeviceStatus","");
+  }
   function showMissing(missing){
     error.hidden=false;
     const names=missing.slice(0,4).map(name=>name==="global"?"التقييم العام من 0 إلى 10":questionLabels.get(name));
@@ -113,6 +121,79 @@
       "ذكرت ضيق النفس أو ألم الصدر. ناقش ذلك مع فريقك الصحي، وإذا كان العرض جديدًا أو شديدًا أو موجودًا حاليًا فاطلب تقييمًا عاجلًا ولا تنتظر نتيجة الاستبيان.":
       "إذا ظهر ألم صدر جديد أو ضيق نفس شديد أو أعراض حادة، فاطلب مساعدة طبية عاجلة دون انتظار نتيجة Q-SLAQ.");
   }
+  function buildFullQuestions(){
+    const container=$("qsPrintedQuestions");
+    container.replaceChildren();
+    const addHeading=text=>{
+      const h=document.createElement("h3");h.className="qs-report-group";h.textContent=text;container.append(h);
+    };
+    const item=(number,en,ar,answer,extra)=>{
+      const article=document.createElement("article");article.className="qs-printed-question";
+      const title=document.createElement("h4");title.textContent=number+". "+en;
+      const arabic=document.createElement("p");arabic.className="ar";arabic.textContent="خلال الشهر الماضي، "+ar;
+      const choice=document.createElement("p");choice.className="qs-printed-choice";choice.textContent="إجابة المريض: "+answer;
+      const note=document.createElement("small");note.textContent=extra;
+      article.append(title,arabic,choice,note);container.append(article);
+    };
+    addHeading("الجزء الأول — شدّة الأعراض (15 سؤالًا)");
+    severityItems.forEach((q,index)=>{
+      const v=response(q[0]);
+      const selected=v===0?"None — لم يحدث":v===1?"Mild — بدرجة خفيفة":
+        v===2?"Moderate — بدرجة متوسطة":"Severe — بدرجة شديدة";
+      item(index+1,q[1],q[2],selected,"الخيارات المعروضة: None / Mild / Moderate / Severe");
+    });
+    addHeading("الجزء الثاني — أعراض الجلد والأغشية المخاطية (3 أسئلة)");
+    skinItems.forEach((q,index)=>item(severityItems.length+index+1,q[1],q[2],
+      response(q[0])===1?"Yes — نعم":"No — لا","الخيارات المعروضة: Yes / No"));
+    addHeading("الجزء الثالث — التقييم الشخصي العام (سؤال واحد)");
+    item(19,"Patient's Global Disease Activity during the past month",
+      "ما تقييمك العام لنشاط الذئبة كما تشعر به؟",rating.value+" / 10",
+      "0 = لا نشاط بحسب تقييمك، 10 = أشد نشاط يمكنك تخيّله.");
+  }
+  function buildSnapshot(weighted,symptoms,g){
+    const questions=allItems.map((q,index)=>({
+      id:q[0],en:q[1],ar:q[2],value:response(q[0]),
+      type:index<severityItems.length?"severity":"binary"
+    }));
+    questions.push({id:"global",en:"Patient's Global Disease Activity during the past month",
+      ar:"ما تقييمك العام لنشاط الذئبة خلال الشهر الماضي كما تشعر به؟",
+      value:g,type:"global"});
+    return {tool:"Q-SLAQ",schema:1,
+      completedAt:new Date().toISOString(),period:"الشهر الماضي",
+      algorithm:"SRQ Q-SLAQ / 0-34 severity / 0-18 symptom / 0-10 global",
+      scores:{severity:weighted,symptoms,global:g},
+      answers:Object.fromEntries(questions.map(q=>[q.id,q.value])),questions};
+  }
+  async function saveToThisDevice(){
+    setText("qsDeviceStatus","");
+    if(!currentReport||results.classList.contains("qs-hidden")){
+      setText("qsDeviceStatus","احسب النتيجة كاملة أولًا.");return;
+    }
+    if(!$("qsSaveConsent").checked){
+      setText("qsDeviceStatus","يرجى الموافقة صراحةً على التخزين المشفّر المحلي قبل الحفظ.");return;
+    }
+    const pass=$("qsVaultPassword").value;
+    if(pass.length<12){
+      setText("qsDeviceStatus","استخدم عبارة سرية مستقلة من 12 حرفًا على الأقل، ولا تكتب كلمة مرور حسابك.");return;
+    }
+    const vault=window.NA7NQslaQVault;
+    if(!vault||!vault.available()){
+      setText("qsDeviceStatus","لا يدعم هذا المتصفح التخزين المشفّر المطلوب. استخدم طباعة أو حفظ التقرير PDF.");return;
+    }
+    const button=$("qsSaveToAccount");button.disabled=true;
+    try{
+      const supabase=window.na7nSupabase;
+      if(!supabase)throw new Error("auth_unavailable");
+      const {data,error}=await supabase.auth.getUser();
+      if(error||!data?.user||data.user.is_anonymous){
+        setText("qsDeviceStatus","سجّل الدخول إلى «حسابي» أولًا من هذا المتصفح ثم عُد إلى هذه الصفحة. التقرير لم يُحفَظ.");return;
+      }
+      await vault.save(data.user.id,pass,currentReport);
+      setText("qsDeviceStatus","حُفظت النتيجة بصورة مشفّرة محليًا لهذا الحساب على هذا الجهاز فقط. افتح «حسابي» هنا وأدخل العبارة السرية نفسها لعرضها. لا توجد مزامنة بين الأجهزة.");
+    }catch(_){
+      setText("qsDeviceStatus","تعذر الحفظ المشفّر. لم نُرسل الإجابات إلى خادم؛ يمكنك حفظ التقرير PDF.");
+    }finally{button.disabled=false;$("qsVaultPassword").value="";}
+  }
   form.addEventListener("change",()=>{clearError();clearResult();progress();});
   form.addEventListener("submit",event=>{
     event.preventDefault();
@@ -129,7 +210,13 @@
     const weighted=response("weight")+response("fatigue")+response("fever")+response("nodes")+
       skin+response("alopecia")+pulmonary+response("abdomen")+cognitive+response("headache")+muscle+joint;
     const symptoms=allIds.reduce((sum,name)=>sum+positive(name),0);
-    report(weighted,symptoms,Number(rating.value));
+    const g=Number(rating.value);
+    report(weighted,symptoms,g);
+    buildFullQuestions();
+    currentReport=buildSnapshot(weighted,symptoms,g);
+    $("qsSaveConsent").checked=false;
+    $("qsVaultPassword").value="";
+    $("qsDeviceStatus").textContent="";
     results.classList.remove("qs-hidden");
     results.scrollIntoView({behavior:"smooth",block:"start"});
   });
@@ -137,11 +224,18 @@
     clearResult();
     setTimeout(()=>{clearError();progress();},0);
   });
+  $("qsSaveToAccount").addEventListener("click",saveToThisDevice);
   $("printResult").addEventListener("click",()=>{
     if(results.classList.contains("qs-hidden"))return;
+    const details=$("qsFullQuestionnaire");
+    detailsInitiallyOpen=details.open;
+    details.open=true;
     document.body.classList.add("qs-print-only");
     window.print();
   });
-  window.addEventListener("afterprint",()=>document.body.classList.remove("qs-print-only"));
+  window.addEventListener("afterprint",()=>{
+    document.body.classList.remove("qs-print-only");
+    $("qsFullQuestionnaire").open=detailsInitiallyOpen;
+  });
   progress();
 })();
