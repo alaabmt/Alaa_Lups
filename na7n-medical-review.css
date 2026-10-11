@@ -31,3 +31,11 @@ body.medical-review-page{margin:0;background:#faf9fc;font:16px/1.7 system-ui,"Se
 .mr-hidden,[hidden]{display:none!important}
 .mr-btn:focus-visible,.mr-review-link:focus-visible,.mr-field :focus-visible{outline:3px solid #aa83ce;outline-offset:2px}
 @media(max-width:720px){.mr-grid,.mr-review-columns{grid-template-columns:1fr}.mr-header{padding:10px 15px}.mr-frame{height:480px}.mr-card{padding:14px}.mr-wrap{margin-top:15px}}
+
+/* Registration invitation is an actionable first-use state, not a validation error. */
+.mr-onboarding{margin:15px 0 3px;padding:15px;border:1px solid #d8c5ea;border-radius:14px;background:#f8f3fd}
+.mr-onboarding h3{margin:0 0 8px;color:#493267}
+.mr-onboarding p{margin:0 0 12px;font-size:14px}
+.mr-onboarding .mr-review-link{max-width:440px;background:#fff}
+.mr-onboarding .mr-btn{margin-top:10px}
+#mr-pending-applications .mr-note{background:#faf8fc}
