@@ -128,7 +128,7 @@ function render(){
 }
 async function refresh(){
  const current=++version;
- if(busy)return;
+ // New login and refresh requests supersede older requests safely.
  busy=true;$("qsDemoRefresh").disabled=true;
  status.textContent=T("جارٍ تحميل التجارب الوهمية المحفوظة…","Loading saved fictitious tests…");
  try{
