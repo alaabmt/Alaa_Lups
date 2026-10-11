@@ -187,7 +187,7 @@
     // Optional four-step route, enabled on the starting page or by an explicit URL parameter.
     const steps = ["newly-diagnosed", "about-lupus", "treatment", "appointment"];
     const stepIndex = steps.indexOf(slug);
-    const inJourney = stepIndex === 0 || (stepIndex >= 0 && new URLSearchParams(location.search).get("journey") === "start");
+    const inJourney = slug !== "newly-diagnosed" && (stepIndex === 0 || (stepIndex >= 0 && new URLSearchParams(location.search).get("journey") === "start"));
     if (inJourney) {
       const route = document.createElement("nav");
       route.className = "na7n-guided-path";
@@ -221,7 +221,7 @@
       route.append(nav);
       section.prepend(route);
     }
-    main.append(section);
+    if (slug !== "newly-diagnosed") main.append(section);
   }
 
   // Always-available mobile hub; no account, tracking or local storage required.
