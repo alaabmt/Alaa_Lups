@@ -115,3 +115,33 @@ header.site-header.na7n-standard-header nav.na7n-global-menu[hidden]{display:non
 @media(max-width:760px){
  header.site-header.na7n-standard-header{padding:8px 16px!important;gap:8px!important}
 }
+
+
+/* Visible bilingual account shortcut on every page, including the account page. */
+.na7n-standard-header .na7n-account-shortcut{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:42px;padding:8px 12px;border:1px solid #cfc0dc;
+  border-radius:12px;background:#f7f2fc;color:#4a2f73!important;
+  font-weight:800;font-size:13px;white-space:nowrap;text-decoration:none;
+  box-sizing:border-box;
+}
+.na7n-standard-header .na7n-account-shortcut[aria-current="page"]{background:#eae0f4;border-color:#9472b4}
+.na7n-standard-header .na7n-account-shortcut:focus-visible{outline:3px solid #9c73c7;outline-offset:3px}
+@media(max-width:760px){
+  .na7n-standard-header.site-header{min-width:0!important}
+  .na7n-standard-header .na7n-header-brand{display:flex;flex:1 1 auto;min-width:0;justify-content:flex-end}
+  .na7n-standard-header .na7n-header-logo{min-width:0;font-size:13px}
+  .na7n-standard-header .na7n-header-logo img{width:31px;height:31px}
+  .na7n-standard-header .na7n-lang-switch{font-size:11px;min-height:38px;display:inline-flex;align-items:center}
+  .na7n-standard-header .na7n-account-shortcut{min-height:38px;font-size:11px;padding:6px 9px}
+}
+@media(max-width:400px){
+  .na7n-standard-header.site-header{padding-inline:9px!important;gap:5px!important}
+  .na7n-standard-header .na7n-header-brand{gap:4px}
+  .na7n-standard-header .na7n-header-logo{font-size:0!important;gap:4px}
+  .na7n-standard-header .na7n-header-logo span{font-size:0!important}
+  html[lang="ar"] .na7n-standard-header .na7n-header-logo span::after{content:"نَحْنُ";font-size:13px}
+  html[lang="en"] .na7n-standard-header .na7n-header-logo span::after{content:"NA7N";font-size:13px}
+  .na7n-standard-header .na7n-menu-toggle{min-width:40px;min-height:44px}
+  .na7n-standard-header .na7n-account-shortcut{padding-inline:6px}
+}
