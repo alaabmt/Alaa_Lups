@@ -241,7 +241,10 @@
    panel.append(h,message,link,invite);
    const form=byId("mr-assign-form");form.after(panel);
   }
-  panel.hidden=!empty;
+  panel.hidden=false;
+  panel.querySelector("h3").textContent=empty
+   ? T("إضافة أول طبيب مراجع","Invite your first physician")
+   : T("دعوة طبيب مراجع إضافي","Invite another physician");
  }
  async function showPendingApplicants(){
   let section=byId("mr-pending-applications");
@@ -253,7 +256,8 @@
    section.append(title,lead,list);
    byId("mr-admin-work").after(section);
   }
-  const pending=await query("na7n_medical_review_applications");
+  const {data:pending,error:applicationError}=await sb.from("na7n_medical_review_applications").select("*").eq("status","pending").order("submitted_at",{ascending:false});
+  if(applicationError)throw applicationError;
   const list=byId("mr-pending-list");list.replaceChildren();
   if(!pending.length){const p=document.createElement("p");p.textContent=T("لا توجد طلبات تسجيل مهني حتى الآن.","No professional applications have been submitted.");list.append(p);return;}
   for(const p of pending){
