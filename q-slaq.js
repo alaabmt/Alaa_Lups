@@ -36,6 +36,7 @@
   const form=$("qsForm"),results=$("results"),rating=$("global"),error=$("formError");
   let currentReport=null;
   let syntheticGenerated=false;
+  let resultIsSynthetic=false;
   let detailsInitiallyOpen=false;
   function response(name){
     const input=form.querySelector('input[name="'+name+'"]:checked');
@@ -69,6 +70,8 @@
     results.classList.add("qs-hidden");
     document.body.classList.remove("qs-print-only");
     currentReport=null;
+    resultIsSynthetic=false;
+    $("qsSyntheticPrintMark").hidden=true;
     $("qsSaveDemoCloud").disabled=true;
     $("qsSyntheticConsent").checked=false;
     setText("qsDemoCloudStatus","");
@@ -267,6 +270,8 @@
     report(weighted,symptoms,g);
     buildFullQuestions();
     currentReport=buildSnapshot(weighted,symptoms,g);
+    resultIsSynthetic=syntheticGenerated;
+    $("qsSyntheticPrintMark").hidden=!resultIsSynthetic;
     $("qsSaveDemoCloud").disabled=!syntheticGenerated;
     $("qsSaveConsent").checked=false;
     $("qsVaultPassword").value="";
