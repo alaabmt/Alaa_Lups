@@ -179,7 +179,15 @@
     if (inJourney) {
       const route = document.createElement("nav");
       route.className = "na7n-guided-path";
+      route.id = "na7n-guided-path";
       route.setAttribute("aria-label", t("مسار تعليمي اختياري", "Optional learning path"));
+      const pathIntro = document.createElement("aside");
+      pathIntro.className = "na7n-journey-intro";
+      const pathText = document.createElement("span");
+      pathText.textContent = t("مسار تعليمي اختياري", "Optional learning path") + " · " + t("الخطوة ", "Step ") + (stepIndex + 1) + t(" من 4", " of 4");
+      pathIntro.append(pathText);
+      pathIntro.append(createLink(t("السابق والتالي ↓", "Previous / Next ↓"), "#na7n-guided-path"));
+      main.before(pathIntro);
       const label = document.createElement("p");
       label.className = "na7n-guided-label";
       label.textContent = t("مسار تعليمي اختياري", "Optional learning path") + " · " + t("الخطوة ", "Step ") + (stepIndex + 1) + t(" من 4", " of 4");
