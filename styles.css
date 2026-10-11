@@ -185,3 +185,8 @@ html[lang="en"] .welcome-cover{font-family:system-ui,-apple-system,"Segoe UI",Ar
   .welcome-intro{margin-bottom:15px}
 }
 @media(prefers-reduced-motion:reduce){.welcome-enter{transition:none}.welcome-enter:hover{transform:none}}
+
+/* Home: compact self-management flow */
+.flow-line{list-style:none;display:flex;flex-wrap:wrap;gap:10px;padding:0;margin:22px 0 0;counter-reset:flow}
+.flow-line li{counter-increment:flow;display:flex;align-items:center;gap:10px;padding:10px 18px;border:1px solid var(--line);border-radius:999px;background:#fff;font-weight:600}
+.flow-line li::before{content:counter(flow);display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--purple-soft);color:var(--purple);font-size:13px;font-weight:700}
