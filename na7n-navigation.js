@@ -4,6 +4,7 @@
   const lang = document.documentElement.lang === "en" ? "en" : "ar";
   const en = lang === "en";
   const home = en ? "index-en.html" : "index.html";
+  const accountPage = en ? "account-en.html" : "account.html";
   const file = (location.pathname.split("/").pop() || "index.html").toLowerCase();
   const slug = file.replace(/-en\.html$|\.html$/g, "");
   const isHome = file === "index.html" || file === "index-en.html" || file === "";
@@ -43,6 +44,12 @@
   };
 
   // Standard header on every public page. The original HTML is still a no-JS fallback.
+  // Account pages previously had no global header, so create one for consistent wayfinding.
+  if (slug === "account" && !document.querySelector("header.site-header")) {
+    const accountHeader = document.createElement("header");
+    accountHeader.className = "site-header";
+    document.body.prepend(accountHeader);
+  }
   const header = document.querySelector("header.site-header");
   if (header) {
     const links = [
@@ -77,6 +84,10 @@
     switcher.setAttribute("aria-label", en ? "العربية" : "Switch to English");
     if (slug === "fatigue" && !en) { switcher.textContent = "EN · Living"; switcher.setAttribute("aria-label", "English: living with lupus (not an English translation of this fatigue journey)"); }
     shell.append(switcher);
+    const accountShortcut = createLink(t("حسابي", "My Account"), accountPage, "na7n-account-shortcut account-link");
+    accountShortcut.setAttribute("aria-label", t("الذهاب إلى حسابي", "Open My Account"));
+    if (slug === "account") accountShortcut.setAttribute("aria-current", "page");
+    shell.append(accountShortcut);
     const toggle = document.createElement("button");
     toggle.type = "button";
     toggle.className = "na7n-menu-toggle";
@@ -94,9 +105,9 @@
       if (current) { a.setAttribute("aria-current", "page"); a.classList.add("active"); }
       menu.append(a);
     });
-    if (!en && document.querySelector('.site-header a[href="account.html"]')) {
-      menu.append(createLink(t("حسابي", "My account"), "account.html", "account-link"));
-    }
+    const accountMenuLink = createLink(t("حسابي", "My Account"), accountPage, "account-link");
+    if (slug === "account") accountMenuLink.setAttribute("aria-current", "page");
+    menu.append(accountMenuLink);
     toggle.addEventListener("click", () => {
       const open = toggle.getAttribute("aria-expanded") === "true";
       toggle.setAttribute("aria-expanded", String(!open));
