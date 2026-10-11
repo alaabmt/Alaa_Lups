@@ -19,6 +19,9 @@
     visible("mfa-form",false);
     // Never retain a TOTP setup secret or QR in the page after leaving its flow.
     inform("mfa-secret","");
+    $("mfa-secret").hidden=true;
+    $("mfa-show-secret").setAttribute("aria-expanded","false");
+    $("mfa-show-secret").textContent="إظهار مفتاح الإعداد اليدوي عند الحاجة فقط";
     $("mfa-qr")?.removeAttribute("src");
     inform("login-message","");
     inform("mfa-message","");
@@ -121,6 +124,15 @@
     busy=true;
     $("mfa-enroll").disabled=true;
     inform("mfa-message","جارٍ تجهيز المصادقة الجديدة…");
+    // Discard old displayed QR and setup secret before rotating a compromised factor.
+    $("mfa-qr").removeAttribute("src");
+    inform("mfa-secret","");
+    $("mfa-secret").hidden=true;
+    $("mfa-show-secret").setAttribute("aria-expanded","false");
+    $("mfa-show-secret").textContent="إظهار مفتاح الإعداد اليدوي عند الحاجة فقط";
+    $("mfa-code").value="";
+    visible("mfa-setup",false);
+    visible("mfa-form",false);
     try {
       // An interrupted enrollment leaves an unverified factor with the same
       // friendly name. Never remove verified factors, nor any other device.
@@ -156,6 +168,8 @@
       // in the site, browser storage, analytics, logs or repository.
       $("mfa-qr").src=data.totp.qr_code;
       inform("mfa-secret",data.totp.secret||"");
+      $("mfa-secret").hidden=true;
+      $("mfa-show-secret").setAttribute("aria-expanded","false");
       visible("mfa-setup",true);
       visible("mfa-form",true);
       visible("mfa-resume",false);
@@ -455,6 +469,15 @@
   $("mfa-form").addEventListener("submit",verifyMfa);
   $("mfa-enroll").addEventListener("click",enrollMfa);
   $("mfa-resume").addEventListener("click",resumeMfa);
+  $("mfa-reset-key").addEventListener("click",enrollMfa);
+  $("mfa-show-secret").addEventListener("click",()=>{
+    const secret=$("mfa-secret");
+    secret.hidden=!secret.hidden;
+    const shown=!secret.hidden;
+    $("mfa-show-secret").setAttribute("aria-expanded",String(shown));
+    $("mfa-show-secret").textContent=shown?
+      "إخفاء مفتاح الإعداد اليدوي":"إظهار مفتاح الإعداد اليدوي عند الحاجة فقط";
+  });
   $("admin-logout").addEventListener("click",logout);
   $("denied-logout").addEventListener("click",logout);
   $("refresh-cases").addEventListener("click",loadCases);
