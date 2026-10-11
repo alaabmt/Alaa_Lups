@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="هيكل رقمي مستقبلي لتطبيق LupusPRO باللغة العربية مع حساب المجالات وتتبع التغير، بعد استكمال الترخيص والنسخة المعتمدة.">
 <title>LupusPRO | تابع صحتك</title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="na7n-navigation.css?v=20261011-8">
 <style>
 .pro-shell{display:grid;gap:16px}.status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.status-card,.score-card,.engine-card{border:1px solid var(--line);border-radius:18px;padding:18px;background:#fff}.status-card strong,.score-card strong{display:block;margin-bottom:6px}.status-ok{background:#f7f3fb}.status-pending{border-right:4px solid var(--purple)}.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.score-placeholder{font-size:1.8rem;font-weight:800;color:var(--purple-dark)}.score-card p,.status-card p,.engine-card p{color:var(--muted)}.code-state{font-family:monospace;direction:ltr;text-align:left;background:#24192f;color:#fff;padding:14px;border-radius:13px;overflow:auto}.gate-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.gate-list span{padding:13px;border-radius:13px;background:var(--purple-soft)}@media(max-width:800px){.status-grid,.score-grid,.gate-list{grid-template-columns:1fr}}
 </style>
@@ -47,5 +47,5 @@
   out.textContent=JSON.stringify({status:result.status,reason:result.reason,instrument:result.instrument,version:result.version,language:result.language},null,2);
 })();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script><script src="na7n-auth.js?v=20261009-2"></script></body>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script><script src="na7n-auth.js?v=20261009-2"></script><script src="na7n-navigation.js?v=20261011-8"></script></body>
 </html>
