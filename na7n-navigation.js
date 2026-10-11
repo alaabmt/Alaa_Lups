@@ -87,6 +87,7 @@
     const menu = document.createElement("nav");
     menu.id = "na7n-global-menu";
     menu.className = "na7n-global-menu";
+    menu.hidden = true;
     menu.setAttribute("aria-label", t("القائمة الرئيسية", "Main navigation"));
     links.forEach(([title, href, current]) => {
       const a = createLink(title, href);
@@ -101,18 +102,29 @@
       toggle.setAttribute("aria-expanded", String(!open));
       toggle.setAttribute("aria-label", open ? t("فتح قائمة التنقل", "Open navigation menu") : t("إغلاق قائمة التنقل", "Close navigation menu"));
       toggle.textContent = open ? "☰" : "×";
+      menu.hidden = open;
       menu.classList.toggle("open", !open);
     });
     menu.addEventListener("click", event => {
       if (event.target.closest("a")) {
         toggle.setAttribute("aria-expanded", "false");
         menu.classList.remove("open");
+        menu.hidden = true;
       }
     });
     document.addEventListener("keydown", event => {
       if (event.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
         toggle.click();
         toggle.focus();
+      }
+    });
+    document.addEventListener("pointerdown", event => {
+      if (!menu.hidden && !header.contains(event.target)) {
+        menu.hidden = true;
+        menu.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", t("فتح قائمة التنقل", "Open navigation menu"));
+        toggle.textContent = "☰";
       }
     });
     header.replaceChildren(shell, toggle, menu);
