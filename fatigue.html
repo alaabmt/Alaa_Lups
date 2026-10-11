@@ -69,5 +69,5 @@ $('copy-plan').addEventListener('click',async()=>{try{await navigator.clipboard.
 $('print-plan').addEventListener('click',()=>window.print());$('reset-plan').addEventListener('click',()=>{selected.impacts.clear();selected.priority=null;selected.goal=null;document.querySelectorAll('[aria-pressed]').forEach(b=>b.setAttribute('aria-pressed','false'));$('priority-wrap').style.display='none';$('priority-options').replaceChildren();$('build-plan').disabled=true;$('results').classList.remove('visible');$('deep-plan').style.display='none';$('selection-hint').textContent='اختر ما ينطبق عليك وهدفك اليوم.';$('journey').scrollIntoView({behavior:'smooth'})});
 })();
 </script><script src="na7n-navigation.js?v=20261011-7"></script>
-<script src="na7n-medical-badge.js?v=1" defer></script>
+<script src="na7n-medical-badge.js?v=2" defer></script>
 </body></html>
