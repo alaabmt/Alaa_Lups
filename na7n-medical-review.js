@@ -206,12 +206,64 @@
   show("mr-admin-work");show("mr-publisher",staff.role==="publisher");say(T("تأكد من تكليف طبيبين مستقلين والتحقق من ترخيص كل منهما.","Assign two distinct, verified physicians."),"success");
   reviewers=await query("na7n_medical_reviewers");await refreshAdmin();
   const select=byId("mr-doctor");select.replaceChildren();
-  for(const r of reviewers.filter(r=>r.is_active&&r.license_verified_at)){
+  const eligible=reviewers.filter(r=>r.is_active&&r.license_verified_at);
+  if(!eligible.length){
+   const opt=document.createElement("option");opt.value="";opt.textContent=T("لا يوجد طبيب معتمد للتكليف بعد","No verified doctors available yet");opt.disabled=true;opt.selected=true;select.append(opt);
+  }
+  for(const r of eligible){
    const opt=document.createElement("option");opt.value=r.user_id;opt.textContent=(en?r.display_name_en||r.display_name_ar:r.display_name_ar)+" — "+(en?r.specialty_en||r.specialty_ar:r.specialty_ar);
    select.append(opt);
   }
+  select.disabled=!eligible.length;
+  const assignButton=byId("mr-assign-form").querySelector('button[type="submit"]');
+  if(assignButton)assignButton.disabled=!eligible.length;
+  showInviteHelp(eligible.length===0);
+  await showPendingApplicants();
   const page=byId("mr-page");ALLOWED.forEach(path=>{let opt=document.createElement("option");opt.value=path;opt.textContent=path;page.append(opt);});
   page.value="treatment.html";await preparePage();
+  if(!eligible.length)say(T("لا يوجد أطباء مفعّلون بعد. استخدم دعوة التسجيل أدناه؛ لن تتمكن من التكليف قبل التحقق من الترخيص.","No verified doctors yet. Invite a physician below; assignments unlock after credential checks."));
+ }
+ function showInviteHelp(empty){
+  let panel=byId("mr-doctor-onboarding");
+  if(!panel){
+   panel=document.createElement("div");panel.id="mr-doctor-onboarding";panel.className="mr-onboarding";
+   const h=document.createElement("h3");h.textContent=T("إضافة الطبيب الأول","Invite your first physician");
+   const message=document.createElement("p");message.textContent=T("أرسل رابط التسجيل المهني إلى الطبيب. سيُنشئ حسابًا ويقدم بيانات تخصصه وترخيصه. سيبقى الطلب معلّقًا حتى تتحقق الإدارة من الترخيص وتفعّل الحساب؛ لا يُمنح أي اعتماد طبي تلقائي.","Send the professional registration link. The physician signs up and submits specialty and license details. Approval remains pending until credentials are verified and the account is activated.");
+   const link=document.createElement("a");link.href=en?"doctor-register-en.html":"doctor-register.html";link.textContent=T("فتح تسجيل الطبيب","Open physician registration");link.className="mr-review-link";
+   const invite=document.createElement("button");invite.type="button";invite.className="mr-btn secondary";
+   invite.textContent=T("دعوة طبيب عبر واتساب","Invite physician via WhatsApp");
+   invite.addEventListener("click",()=>{
+    const url=location.origin+"/"+(en?"doctor-register-en.html":"doctor-register.html");
+    const msg=T("دكتورنا الكريم، ندعوك للمشاركة في مراجعة محتوى التثقيف الصحي بموقع نَحْنُ. الرجاء إنشاء حساب مهني وتقديم الاسم والتخصص وجهة الترخيص عبر الرابط التالي. تقديم الطلب لا يعني تفعيل الاعتماد، ولا تشارك أي معلومات تخص المرضى:\n",
+     "Dear Doctor, NA7N invites you to apply as a medical education reviewer. Register with your professional name, specialty and license authority. Submission does not grant review privileges. Do not share patient data:\n")+url;
+    window.open("https://wa.me/?text="+encodeURIComponent(msg),"_blank","noopener,noreferrer");
+   });
+   panel.append(h,message,link,invite);
+   const form=byId("mr-assign-form");form.after(panel);
+  }
+  panel.hidden=!empty;
+ }
+ async function showPendingApplicants(){
+  let section=byId("mr-pending-applications");
+  if(!section){
+   section=document.createElement("section");section.className="mr-card";section.id="mr-pending-applications";
+   const title=document.createElement("h2");title.textContent=T("طلبات انضمام الأطباء بانتظار التحقق","Pending physician applications");
+   const lead=document.createElement("p");lead.textContent=T("هذه بيانات يقدمها المتقدمون بأنفسهم، وليست إثباتًا لصحة الترخيص. التفعيل يحتاج تحققًا مستقلًا من الإدارة المخولة.","Self-reported applications are not proof of licensure. Verification and activation require authorized review.");
+   const list=document.createElement("div");list.id="mr-pending-list";list.className="mr-review-list";
+   section.append(title,lead,list);
+   byId("mr-admin-work").after(section);
+  }
+  const pending=await query("na7n_medical_review_applications");
+  const list=byId("mr-pending-list");list.replaceChildren();
+  if(!pending.length){const p=document.createElement("p");p.textContent=T("لا توجد طلبات تسجيل مهني حتى الآن.","No professional applications have been submitted.");list.append(p);return;}
+  for(const p of pending){
+   const card=document.createElement("div");card.className="mr-note";
+   const name=document.createElement("strong");name.textContent=en?(p.full_name_en||p.full_name_ar):p.full_name_ar;
+   const desc=document.createElement("div");
+   desc.textContent=(en?(p.specialty_en||p.specialty_ar):p.specialty_ar)+" · "+p.licensing_authority+" · "+T("الحالة: ","Status: ")+(p.status==="pending"?T("بانتظار التحقق","Pending verification"):p.status);
+   const ref=document.createElement("small");ref.className="mr-meta";ref.textContent=T("المرجع الخاص للتحقق: ","Private verification reference: ")+p.license_reference;
+   card.append(name,desc,ref);list.append(card);
+  }
  }
  async function refreshAdmin(){
   assignments=await query("na7n_medical_review_assignments");decisions=await query("na7n_medical_review_decisions");
@@ -231,7 +283,9 @@
   catch(e){say(msg(e),"error");}
  }
  async function assign(e){
-  e.preventDefault();const page=byId("mr-page").value,doctor=byId("mr-doctor").value;if(!currentSha||!doctor)return;
+  e.preventDefault();const page=byId("mr-page").value,doctor=byId("mr-doctor").value;
+  if(!doctor){say(T("لا يوجد طبيب متحقق من ترخيصه بعد. استخدم دعوة التسجيل أولًا.","No verified physician is available. Use the registration invitation first."),"error");return;}
+  if(!currentSha){say(T("تعذر حساب نسخة الصفحة؛ أعد اختيارها.","Could not verify page version. Select it again."),"error");return;}
   const {data,error}=await sb.rpc("na7n_medical_assign",{p_page_path:page,p_sha256:currentSha,p_reviewer_id:doctor,p_due_at:null});
   if(error){say(msg(error),"error");return;}
   lastAssignment=data;await refreshAdmin();const url=location.origin+"/doctor-review.html?assignment="+encodeURIComponent(data);
