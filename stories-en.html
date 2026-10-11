@@ -94,8 +94,14 @@ body.stories-gallery{background:#fffdfd;color:#3d2c48}
 .rs-card .rs-lit p,.stories-gallery .rs-card .rs-lit p{font-size:18px;line-height:2.1;margin:0 0 1.1em}
 .rs-card p.rs-sep,.stories-gallery .rs-card p.rs-sep{text-align:center;color:#9f80bb;margin:6px 0 16px;font-size:18px;line-height:1}
 .rs-card blockquote.rs-quote-big,.stories-gallery .rs-card blockquote.rs-quote-big{font-size:clamp(23px,3.2vw,32px);line-height:1.6;padding:22px 26px;margin:26px 0}
-.rs-card .rs-facts,.stories-gallery .rs-card .rs-facts{background:#f6f0fa;border-radius:16px;padding:16px 20px;margin:26px 0 8px;font-size:14px;line-height:1.9;color:#463953}
-.rs-facts ul{margin:8px 0 0;padding-inline-start:20px}.rs-facts li{margin:4px 0;line-height:1.9}
+/* Facts box: collapsed by default, + when closed, − when open */
+.rs-details.rs-facts-details{margin-top:12px;padding-top:12px}
+.rs-details summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.rs-details summary::-webkit-details-marker{display:none}
+.rs-details summary::after{content:"+";font-size:22px;line-height:1;font-weight:700;color:#503475;flex:none}
+.rs-details[open] summary::after{content:"\2212"}
+.rs-facts-details ul{margin:10px 0 0;padding-inline-start:20px;background:#f6f0fa;border-radius:14px;padding-block:14px;padding-inline-end:18px;font-size:14px;line-height:1.9;color:#463953}
+.rs-facts-details li{margin:4px 0}
 .rs-card p.rs-fine,.stories-gallery .rs-card p.rs-fine{font-size:13px;color:#72657a;line-height:1.9;margin:14px 0 0}
 .rs-details{border-top:1px solid #e7daef;margin-top:22px;padding-top:12px;font-size:13px;color:#55485f;line-height:1.8}
 .rs-details summary{cursor:pointer;font-weight:700;color:#503475}
@@ -147,15 +153,15 @@ body.stories-gallery{background:#fffdfd;color:#3d2c48}
 <p>Maybe the picture was not only for her. Maybe it was a silent message to people who cannot see: this is what it takes to keep going.</p>
 <p class="rs-open"><em>Eight years. Many empty boxes. And one woman who was not emptied.</em></p>
 </div>
-<aside class="rs-facts"><strong>From the article itself</strong><ul>
+<div class="rs-ask"><p><strong>A question for you:</strong> When you look at your own treatment routine, what does it show about your effort? You can bring your answer to your next visit.</p><a href="appointment-en.html">Prepare for your visit →</a></div>
+<details class="rs-details"><summary>About this source</summary><p>Xu N, Xiang H, Hou Y. Picturing Illness, Making Meaning: A Virtual Photovoice Study of Systemic Lupus Erythematosus Narratives Among Chinese Women. <em>Behavioral Sciences</em>. 2026;16(7):1197. <a href="https://doi.org/10.3390/bs16071197" rel="noopener" target="_blank">doi:10.3390/bs16071197</a>. Open access under a CC BY (Creative Commons Attribution) license; see the article page for the exact terms. Adapted by NA7N: retold in a literary form. The illustration is original. The authors have not reviewed or endorsed this version.</p></details>
+<details class="rs-details rs-facts-details"><summary>From the article itself</summary><ul>
 <li>Juzi (a pseudonym) is 30 and has lived with lupus for 8 years.</li>
 <li>She made a collage of empty medicine boxes, bottles and injection materials.</li>
 <li>She said she likes collecting the boxes, as proof that she has been persisting and fighting against lupus.</li>
 <li>Many women in the study described treatment as repetitive, exhausting and hard to explain to others.</li>
 <li>The researchers say her collage made the hidden work of treatment tangible and countable.</li>
-<li>Everything else, such as the receipts, the crutch and the silent message, is our own wording and imagination.</li></ul></aside>
-<div class="rs-ask"><p><strong>A question for you:</strong> When you look at your own treatment routine, what does it show about your effort? You can bring your answer to your next visit.</p><a href="appointment-en.html">Prepare for your visit →</a></div>
-<details class="rs-details"><summary>About this source</summary><p>Xu N, Xiang H, Hou Y. Picturing Illness, Making Meaning: A Virtual Photovoice Study of Systemic Lupus Erythematosus Narratives Among Chinese Women. <em>Behavioral Sciences</em>. 2026;16(7):1197. <a href="https://doi.org/10.3390/bs16071197" rel="noopener" target="_blank">doi:10.3390/bs16071197</a>. Open access under a CC BY (Creative Commons Attribution) license; see the article page for the exact terms. Adapted by NA7N: retold in a literary form. The illustration is original. The authors have not reviewed or endorsed this version.</p></details>
+<li>Everything else, such as the receipts, the crutch and the silent message, is our own wording and imagination.</li></ul></details>
 <p class="rs-fine">Not everyone living with lupus feels this way, and that is okay. This is not medical advice.</p></div></article>
 <p class="story-source-note">This account comes from published research. The participant did not submit it to NA7N, and our team has not contacted her directly.</p>
 </section>
