@@ -68,11 +68,11 @@
   event.preventDefault();
   if(!activeCase||!actor||activeCase.user_id===actor.id)return;
   const decision=get("lv-outcome").value;
-  const url=get("lv-source").value.trim(),note=get("lv-notes").value.trim();
+  const note=get("lv-notes").value.trim();
   const physician=get("lv-physician").checked,attestation=get("lv-attest").checked;
   if(!["verified","declined"].includes(decision)){status(tr("اختر اعتماد الترخيص أو رفض التحقق.","Select verified or declined."),"error");return;}
-  if(!/^https:\/\/[^\s]{8,990}$/.test(url)||note.length<20){
-   status(tr("أدخل رابط المصدر الرسمي وشرحًا لا يقل عن 20 حرفًا.","Enter the official source URL and at least 20 characters of evidence."),"error");return;
+  if(note.length<20){
+   status(tr("اكتب تفاصيل التحقق من الترخيص في الملاحظات (20 حرفًا على الأقل).","Document the licence check in the notes (at least 20 characters)."),"error");return;
   }
   if(decision==="verified"&&!physician){
    status(tr("لا يمكن تفعيل الصلاحية إلا بعد إثبات ترخيص طبيب ساري المفعول (لا ترخيص تمريض أو مهنة مساندة).","Only a currently licensed physician, not a nurse or allied-health professional, can be activated."),"error");return;
@@ -86,7 +86,7 @@
   status(tr("جارٍ حفظ نتيجة التحقق...","Saving verification decision..."));
   const {error}=await db.rpc("na7n_medical_check_license",{
    p_applicant_id:activeCase.user_id,p_outcome:decision,
-   p_official_source_url:url,p_verification_note:note,
+   p_verification_note:note,
    p_physician_license_confirmed:decision==="verified"&&physician
   });
   if(error){get("lv-submit").disabled=false;status(errorMessage(error),"error");return;}
