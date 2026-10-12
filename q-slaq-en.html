@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" dir="ltr"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="English Q-SLAQ pilot for understanding patient-reported lupus symptoms and perceived activity over the previous month. Fictitious data testing only.">
+<meta name="robots" content="noindex,follow">
+<title>Q-SLAQ | Track Your Health | NA7N</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://na7nlupus.com/q-slaq-en.html">
+<link rel="alternate" hreflang="ar" href="https://na7nlupus.com/q-slaq.html">
+<link rel="alternate" hreflang="en" href="https://na7nlupus.com/q-slaq-en.html">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="english.css">
+<link rel="stylesheet" href="na7n-navigation.css?v=20261011-8">
+<link rel="stylesheet" href="na7n-q-slaq-en.css?v=20261012-1">
+</head>
+<body class="qs-english">
+<header class="site-header"><div class="brand-language">
+<a class="brand" href="index-en.html"><span class="brand-mark" aria-hidden="true">✦</span><span><strong>NA7N</strong><small>Lupus</small></span></a>
+<a class="language-switch" href="q-slaq.html" lang="ar" dir="rtl">العربية</a></div>
+<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu"><span></span><span></span><span></span></button>
+<nav id="main-nav" aria-label="Main navigation">
+<a href="index-en.html">Home</a><a href="about-lupus-en.html">Understand lupus</a><a href="treatment-en.html">Treatment</a><a href="living-en.html">Everyday life</a><a class="active" href="assessment-en.html">Track your health</a><a href="account-en.html">My Account</a></nav></header>
+<main><section class="assessment-hero"><span class="status">Pilot · Testing only</span><p class="eyebrow light">Patient-reported lupus symptoms</p><h1>Q-SLAQ</h1><p class="lead">Answer 19 questions about your experiences during the past month. The three resulting scores describe your reported symptoms and your own assessment of lupus activity; they do not diagnose a flare or assess quality of life directly.</p></section>
+<section class="section"><div class="qs-wrap">
+<div class="qs-notice"><strong>Fictitious test responses only</strong><p>This digital pilot must not be used with real patient data while permissions, clinical review and approved UAE data arrangements are pending. The questionnaire is based on published Q-SLAQ materials and Swedish Rheumatology Quality Register scoring guidance. An English-language display is not proof of independent clinical validation of this implementation.</p></div>
+<form id="qsForm" novalidate>
+<div class="qs-progress" aria-live="polite"><p><strong id="qsProgressText">0 of 19</strong> questions answered</p>
+<progress id="qsProgressBar" max="19" value="0" aria-label="Questionnaire completion">0</progress>
+<div class="qs-actions"><button type="button" class="button secondary" id="qsGenerateDemo">Generate 19 fictitious answers</button><span id="qsDemoGeneratorStatus" role="status" aria-live="polite">Only test responses should be used here.</span></div>
+<p>All 19 answers are required. Choosing “None” or “No” is a valid response; no response is preselected.</p></div>
+<h2>Part 1 — Symptom severity</h2><p>During the past month, how severe was each of the following symptoms? Choose None, Mild, Moderate or Severe, based on your own experience.</p>
+<div class="qs-grid" id="severityGrid"></div>
+<h2>Part 2 — Skin and mucosal symptoms</h2><p>Answer Yes if you experienced the symptom during the past month, otherwise No.</p>
+<div class="qs-grid" id="skinGrid"></div>
+<div class="qs-global"><h2>Part 3 — Your overall perception of disease activity</h2>
+<label for="global">During the past month, how active did your lupus feel to you? <strong>(Required)</strong></label>
+<select id="global" name="global" required aria-describedby="global-scale">
+<option value="" selected disabled>Choose one number from 0 to 10</option>
+<option value="0">0 — No activity</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10 — Most activity imaginable</option>
+</select><p id="global-scale">0 = no activity · 10 = most activity imaginable. This is your own perception, not a medical activity score.</p></div>
+<p class="qs-error" id="formError" role="alert" aria-live="assertive" tabindex="-1" hidden></p>
+<div class="qs-actions"><button type="submit" class="button primary">Calculate my test results</button><button type="reset" class="button secondary">Start over</button></div>
+</form>
+<section class="qs-results" id="results" aria-labelledby="result-title" hidden>
+<p class="qs-notice" id="qsSyntheticPrintMark" hidden><strong>Automatically generated fictitious test data — not a real patient assessment.</strong></p>
+<h2 id="result-title">Understanding your Q-SLAQ scores</h2>
+<p id="resultDate" class="qs-small"></p><p id="resultLead">Your answers describe your symptoms, not a diagnosis.</p>
+<div class="qs-scores">
+<div class="qs-score"><span>Total symptom severity</span><strong id="weightedScore">— / 34</strong><small>Severity score from the SRQ scoring algorithm; not a disease-risk percentage</small></div>
+<div class="qs-score"><span>Number of symptoms</span><strong id="symptomScore">— / 18</strong><small>Number of symptoms reported, irrespective of their severity</small></div>
+<div class="qs-score"><span>Patient global activity</span><strong id="globalScore">— / 10</strong><small>Your own perception of disease activity over the past month</small></div>
+</div>
+<div class="qs-interpretation"><h3>What do the numbers mean?</h3><p id="severityMeaning"></p><p id="symptomMeaning"></p><p id="globalMeaning"></p>
+<p><strong>There are no validated mild/moderate/severe cutoffs on this page.</strong> Symptoms may have other causes, and a clinician needs clinical context, examination and tests.</p></div>
+<div class="qs-interpretation"><h3>What should I discuss with my care team?</h3><ul id="qsPriorityList"></ul><p id="qsDiscussion"></p><p id="qsSafety" class="qs-alert" hidden></p></div>
+<details id="qsFullQuestionnaire" class="qs-full"><summary>Show all 19 questions and selected answers</summary><div id="qsPrintedQuestions"></div></details>
+<div class="qs-storage" id="qsDemoSave"><h3>Save a fictitious test result to the demo account</h3><p><strong>Demo only:</strong> the cloud database is outside the UAE. Only automatically generated, entirely fictitious responses can be submitted here. Real answers must never be uploaded.</p>
+<label class="qs-check"><input type="checkbox" id="qsSyntheticConsent"> I confirm that these responses were generated by the site and contain no real health information, and agree to saving them to the test cloud database.</label>
+<div class="qs-actions"><button type="button" class="button primary" id="qsSaveDemoCloud" disabled>Save fictitious result</button><a class="button secondary" href="account-en.html#qs-demo-dashboard">See demonstration history</a></div>
+<p id="qsDemoCloudStatus" role="status" aria-live="polite"></p></div>
+<div class="qs-storage" id="qsDeviceSave"><h3>Optional encrypted storage on this device</h3><p>Store this test report encrypted in this browser after signing into your account. It is not uploaded as a health assessment, does not sync between devices and may be lost if browser data is cleared.</p>
+<label class="qs-check"><input type="checkbox" id="qsSaveConsent"> I explicitly agree to storing this questionnaire result encrypted on this device, and understand it is not cloud-backed.</label>
+<label for="qsVaultPassword">Independent passphrase (at least 12 characters; NOT your account password)</label>
+<input id="qsVaultPassword" type="password" minlength="12" autocomplete="new-password" placeholder="Enter a separate passphrase">
+<div class="qs-actions"><button type="button" class="button secondary" id="qsSaveToAccount">Save locally for my account</button><a class="button secondary" href="account-en.html">Open My Account</a></div>
+<p id="qsDeviceStatus" role="status" aria-live="polite"></p></div>
+<div class="qs-actions"><button type="button" class="button primary" id="printResult">Print / save full test report as PDF</button><a class="button secondary" href="appointment-en.html">Prepare for an appointment</a></div>
+</section>
+<section class="qs-reference"><h2>How the three scores are calculated</h2><p><strong>Severity (0–34):</strong> computed using the Swedish Rheumatology Quality Register Q-SLAQ grouping rules. Certain related symptoms are grouped, not simply added as 18 independent severity items.</p>
+<p><strong>Symptom count (0–18):</strong> each symptom present is counted once, irrespective of how severe it was.</p>
+<p><strong>Patient global activity (0–10):</strong> an independent rating of how active the disease felt to you during the previous month.</p>
+<h2>Scientific sources and review status</h2><p><a href="https://lupus.bmj.com/content/8/1/e000471" target="_blank" rel="noopener noreferrer">Published Q-SLAQ study</a> · <a href="https://srq.nu/wp-content/uploads/2022/02/Supplement_Q_SLAQ_algorithm-003.pdf" target="_blank" rel="noopener noreferrer">SRQ scoring algorithm document</a>.</p><p>Last editorial update: October 2026. Digital-use permissions and documented clinical review remain pending. This is a testing implementation, not a validated clinical tool.</p></section>
+</div></section></main>
+<footer><div class="footer-brand"><strong>NA7N | Lupus</strong><span>Together toward a better life</span></div><div class="footer-links"><a href="assessment-en.html">Track your health</a><a href="tools-en.html">Patient tools</a><a href="about-en.html">About NA7N</a></div><p>Patient reports can support clinical conversations. They do not diagnose a flare or determine treatment.</p></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script>
+<script src="na7n-auth.js?v=20261011-1"></script>
+<script src="na7n-q-slaq-device-vault.js?v=20261011-1"></script>
+<script src="na7n-q-slaq-demo.js?v=20261011-pilot-1"></script>
+<script src="q-slaq-en.js?v=20261012-1"></script>
+<script src="na7n-navigation.js?v=20261011-8"></script>
+</body></html>
