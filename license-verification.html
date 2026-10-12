@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>التحقق من تراخيص الأطباء | NA7N</title>
+<link rel="stylesheet" href="na7n-medical-review.css?v=2">
+<style>
+.lv-case-button{width:100%;text-align:start;font:inherit;cursor:pointer;background:#fff;color:#463161}
+.lv-separate{padding:14px;background:#f6f1fb;border-radius:12px;border:1px solid #d8c5e9}
+.lv-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.lv-meta div{padding:10px;border:1px solid #e4ddea;border-radius:11px;word-break:break-word}
+.lv-meta strong{display:block;color:#4b3a62;font-size:13px}
+.lv-sensitive{direction:ltr;text-align:start;font-family:ui-monospace,monospace;overflow-wrap:anywhere}
+#lv-self-warning{color:#872f3e;font-weight:700}
+@media(max-width:560px){.lv-meta{grid-template-columns:1fr}}
+</style>
+</head>
+<body class="medical-review-page">
+<header class="mr-header"><strong>نَحْنُ | التحقق المهني</strong>
+<nav><a href="index.html">الرئيسية</a> ·
+<a href="license-verification-en.html">English</a></nav></header>
+<main class="mr-wrap">
+<h1 class="mr-title">التحقق المستقل من تراخيص الأطباء</h1>
+<p class="mr-lead">بوابة مستقلة للتحقق من هوية الطبيب والترخيص المهني والتخصص قبل إدراجه ضمن المراجعين. لا تتيح اعتماد صفحات الموقع أو النشر.</p>
+<div id="lv-status" class="mr-status" role="status" aria-live="polite">جارٍ التحقق من الحساب...</div>
+<section class="mr-card" id="lv-login"><h2>دخول مسؤول التحقق</h2>
+<form id="lv-signin">
+<div class="mr-field"><label for="lv-email">البريد الإلكتروني</label><input id="lv-email" type="email" autocomplete="username" required></div>
+<div class="mr-field"><label for="lv-password">كلمة المرور</label><input id="lv-password" type="password" autocomplete="current-password" required></div>
+<button class="mr-btn" type="submit">تسجيل الدخول</button>
+</form></section>
+<section class="mr-card" id="lv-profile" hidden><strong id="lv-identity"></strong>
+<button class="mr-btn secondary" id="lv-signout" type="button">تسجيل الخروج</button></section>
+<div id="lv-work" hidden>
+<section class="mr-card"><h2>طلبات الأطباء بانتظار التحقق <span id="lv-count">0</span></h2>
+<p>البيانات أدخلها مقدم الطلب بنفسه، ولا تعتبر إثباتًا لصحة المؤهل أو الترخيص. اختر طلبًا بعد التحقق من أن الشخص لا يراجع ترخيصه بنفسه.</p>
+<div id="lv-list" class="mr-review-list"></div></section>
+<section class="mr-card" id="lv-case" hidden>
+<h2>التحقق من الطلب المختار</h2>
+<div class="lv-meta">
+<div><strong>اسم المتقدم</strong><span id="lv-name"></span></div>
+<div><strong>التخصص المدَّعى</strong><span id="lv-specialty"></span></div>
+<div><strong>جهة الترخيص</strong><span id="lv-authority"></span></div>
+<div><strong>مرجع الترخيص — خاص</strong><span id="lv-license" class="lv-sensitive"></span></div>
+<div><strong>تاريخ تقديم الطلب</strong><span id="lv-submit-date"></span></div>
+<div><strong>الموافقة على نشر الاسم لاحقًا</strong><span id="lv-consent"></span></div>
+</div>
+<p class="mr-status" id="lv-self-warning" hidden>لا يمكنك التحقق من طلبك بنفسك. يتطلب الأمر مسؤولًا مختلفًا.</p>
+<form id="lv-form">
+<div class="mr-field"><label for="lv-outcome">قرار التحقق المهني</label>
+<select id="lv-outcome" required><option value="" selected disabled>اختر القرار</option>
+<option value="verified">ترخيص طبيب ساري ومتحقق منه</option>
+<option value="declined">رفض / لم يثبت الترخيص</option></select></div>
+<div class="mr-field"><label for="lv-source">رابط المصدر الرسمي الذي تم فحصه</label>
+<input id="lv-source" required type="url" placeholder="https://..." pattern="https://.*">
+<small>مثل الموقع الرسمي لجهة الترخيص، لا رابط ملف الشخص أو بحث عام.</small></div>
+<div class="mr-field"><label for="lv-notes">دليل التحقق وملاحظات التخصص والنتيجة</label>
+<textarea id="lv-notes" required minlength="20" maxlength="2000" placeholder="اذكر تاريخ التحقق، حالة الترخيص، جهة الإصدار، وطريقة التأكد من أن الشخص هو صاحب الترخيص."></textarea></div>
+<div class="mr-field"><label><input type="checkbox" id="lv-physician">
+أؤكد بعد الفحص الرسمي أن الترخيص الساري هو لطبيب (وليس تمريضًا أو مهنة طبية مساندة). مطلوب فقط عند القبول.</label></div>
+<div class="mr-field"><label><input type="checkbox" id="lv-attest" required>
+أؤكد أنني تحققت بنفسي من المصدر الرسمي، وأن المتقدم شخص آخر، وأن التفاصيل أعلاه دقيقة.</label></div>
+<p class="lv-separate">هذا القرار يخص إثبات الترخيص فقط. تسجيل موافقة على النص الطبي وإظهار العلامة الخضراء يحتاجان مراجعتين طبيتين مستقلتين وقرار نشر منفصلًا.</p>
+<button id="lv-submit" class="mr-btn" type="submit">حفظ نتيجة التحقق</button>
+</form>
+</section>
+</div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script>
+<script src="na7n-auth.js?v=20261011-1"></script>
+<script src="na7n-license-verification.js?v=1"></script>
+</body></html>
