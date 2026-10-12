@@ -32,3 +32,15 @@
 @media(max-width:980px){.sm-home-section .sm-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){.home-page .sm-home-section{padding:38px 0}.sm-home-section .sm-steps{grid-template-columns:minmax(0,1fr);gap:10px}.sm-home-section .sm-step{padding:15px;gap:7px}.sm-home-section .sm-step p{font-size:14px}.sm-home-section .sm-example{padding:16px}.sm-context{padding:15px}.sm-context .sm-context-links{align-items:stretch}.sm-context a.sm-next{width:100%;text-align:center}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+
+/* Consistent four-step navigation in relevant educational and patient-tool pages. */
+.sm-context .sm-mini-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:14px}
+.sm-context .sm-mini-nav a{display:flex;gap:7px;align-items:center;justify-content:center;background:#fff;border:1px solid #dcd0e7;border-radius:12px;padding:9px 7px;min-height:51px;box-sizing:border-box;text-decoration:none;color:#4e346b;line-height:1.5;text-align:center;font-size:12px}
+.sm-context .sm-mini-nav a .sm-mini-num{display:inline-grid;place-items:center;min-width:23px;height:23px;border-radius:50%;background:#efe8f6;color:#66448a;font-size:12px;font-weight:800}
+.sm-context .sm-mini-nav a[aria-current="step"]{background:#ede3f6;border-color:#a688c1}
+.sm-context .sm-mini-nav a:hover{background:#f1e9f7}
+.sm-context .sm-use-case{padding:11px 14px;border-radius:12px;background:#fff;border:1px solid #e5dceb}
+.sm-context .sm-use-case strong{color:#50326d}
+@media(max-width:700px){.sm-context .sm-mini-nav{grid-template-columns:repeat(2,minmax(0,1fr))}.sm-context .sm-mini-nav a{min-height:48px}}
+@media print{.sm-context,.sm-home-section .sm-step a{display:none!important}}
