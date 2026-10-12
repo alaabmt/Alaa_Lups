@@ -266,7 +266,15 @@
    const desc=document.createElement("div");
    desc.textContent=(en?(p.specialty_en||p.specialty_ar):p.specialty_ar)+" · "+p.licensing_authority+" · "+T("الحالة: ","Status: ")+(p.status==="pending"?T("بانتظار التحقق","Pending verification"):p.status);
    const ref=document.createElement("small");ref.className="mr-meta";ref.textContent=T("المرجع الخاص للتحقق: ","Private verification reference: ")+p.license_reference;
-   card.append(name,desc,ref);list.append(card);
+   card.append(name,desc,ref);
+   if(p.user_id===user.id){
+    const warning=document.createElement("p");warning.className="mr-status";warning.dataset.kind="info";
+    warning.textContent=T(
+      "هذا طلبك المهني المرتبط بحساب المنسق. لا يمكن اعتماد ترخيصك بنفسك؛ يجب أن يتحقق منه مسؤول آخر مخوّل من مصدر رسمي قبل تفعيلك طبيبًا مراجعًا.",
+      "This professional application belongs to your coordinator account. An independent authorized verifier must validate your license against an official source before reviewer activation.");
+    card.append(warning);
+   }
+   list.append(card);
   }
  }
  async function refreshAdmin(){
