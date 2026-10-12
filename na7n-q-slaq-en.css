@@ -1,0 +1,50 @@
+/* English Q-SLAQ pilot: responsive, accessible patient-language layout. */
+.qs-english .qs-wrap{max-width:1010px;margin:auto;padding:20px 0 70px}
+.qs-english .qs-notice{border:1px solid #e6cda4;border-left:5px solid #936c39;padding:19px 21px;border-radius:14px;background:#fffaef;margin:20px 0;line-height:1.85}
+.qs-english .qs-notice p{margin:6px 0}
+.qs-english .qs-progress,.qs-english .qs-results,.qs-english .qs-reference{background:#fff;border:1px solid #e7dced;padding:22px;border-radius:18px;margin:20px 0}
+.qs-english .qs-progress progress{width:100%;height:15px;accent-color:#64478b}
+.qs-english .qs-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin:20px 0 32px}
+.qs-english .qs-card{min-width:0;padding:19px;background:#fff;border:1px solid #e6dce9;border-radius:16px}
+.qs-english .qs-card fieldset{border:0;margin:0;padding:0;min-width:0}
+.qs-english .qs-card legend{width:100%;font-weight:800;color:#45305d;font-size:17px;line-height:1.6}
+.qs-english .qs-card .qs-required{font-size:12px;background:#f2eaf9;border-radius:8px;padding:3px 7px;color:#594077}
+.qs-english .qs-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:13px}
+.qs-english .qs-options label{border:1px solid #e1d6e9;border-radius:11px;background:#fff;min-height:50px;padding:10px;display:flex;align-items:center;gap:8px;cursor:pointer;line-height:1.45}
+.qs-english .qs-options label:has(input:checked){background:#f2eaf9;border-color:#8060a3}
+.qs-english .qs-options input{accent-color:#6c4491;min-width:18px;height:18px}
+.qs-english .qs-card.qs-unanswered,.qs-english .qs-global.qs-unanswered{outline:2px solid #ab3e51}
+.qs-english .qs-global{border:1px solid #e4d8eb;background:#faf7fc;padding:21px;border-radius:15px;margin:26px 0}
+.qs-english .qs-global label{display:block;font-weight:700;margin:11px 0}
+.qs-english .qs-global select{font:inherit;border:1px solid #c8b6d7;border-radius:12px;background:#fff;padding:12px 14px;width:min(100%,440px)}
+.qs-english .qs-global p{font-size:13px;color:#63566e}
+.qs-english .qs-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:16px 0}
+.qs-english .qs-actions .button{max-width:100%;white-space:normal;text-align:center}
+.qs-english .qs-actions span{font-size:14px;color:#5d5167}
+.qs-english .qs-error{padding:12px 15px;background:#fff0f1;color:#992d47;border-radius:11px;font-weight:700;scroll-margin-top:110px}
+.qs-english .qs-error[hidden],.qs-english .qs-results[hidden],.qs-english [hidden]{display:none!important}
+.qs-english .qs-scores{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0}
+.qs-english .qs-score{background:#faf6fd;border:1px solid #e5d9ea;border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.qs-english .qs-score strong{font-size:28px;font-weight:850;color:#5b3a83;white-space:nowrap}
+.qs-english .qs-score small{line-height:1.6;color:#5f526a}
+.qs-english .qs-interpretation{border:1px solid #e9e0ed;border-radius:14px;padding:19px;margin:16px 0;background:#fff}
+.qs-english .qs-interpretation h3{font-size:19px;color:#4c3267;margin:0 0 12px}
+.qs-english .qs-interpretation p{line-height:1.85}
+.qs-english .qs-alert{padding:12px;background:#fff5e8;border-radius:10px}
+.qs-english .qs-full{border:1px solid #ded1e7;border-radius:14px;padding:14px 18px;margin:15px 0}
+.qs-english .qs-full summary{cursor:pointer;color:#563779;font-weight:800}
+.qs-english .qs-printed{padding:12px 15px;border:1px solid #e8dfe9;border-radius:11px;margin:10px 0;break-inside:avoid}
+.qs-english .qs-storage{border:1px solid #d9c9e7;border-radius:14px;padding:19px;margin:17px 0;background:#faf7fc}
+.qs-english .qs-storage h3{font-size:19px;margin:0 0 10px}
+.qs-english .qs-storage label:not(.qs-check){display:block;margin:12px 0 6px}
+.qs-english .qs-check{display:flex;align-items:flex-start;gap:10px}
+.qs-english .qs-check input{flex:none;margin-top:6px}
+.qs-english .qs-storage input[type=password]{border:1px solid #c5b4d7;border-radius:11px;padding:11px;font:inherit;width:min(100%,420px);max-width:100%;display:block;box-sizing:border-box}
+.qs-english .qs-reference{line-height:1.85}
+.qs-english .qs-reference h2{color:#4b3069;font-size:23px}
+.qs-english .qs-reference a{color:#57397b;text-decoration:underline}
+.qs-english .qs-small{font-size:13px;color:#665a70}
+.qs-english :focus-visible{outline:3px solid #936bb7;outline-offset:3px}
+@media(max-width:850px){.qs-english .qs-scores{grid-template-columns:1fr}.qs-english .qs-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.qs-english .qs-wrap{padding:14px 0 65px}.qs-english .qs-card{padding:15px}.qs-english .qs-options{grid-template-columns:minmax(0,1fr)}.qs-english .qs-options label{min-height:45px}.qs-english .qs-progress,.qs-english .qs-results,.qs-english .qs-reference{padding:16px}.qs-english .qs-global{padding:15px}}
+@media print{.qs-english.qs-print-only > header,.qs-english.qs-print-only footer,.qs-english.qs-print-only main > .assessment-hero,.qs-english.qs-print-only #qsForm,.qs-english.qs-print-only .qs-reference,.qs-english.qs-print-only #qsDemoSave,.qs-english.qs-print-only #qsDeviceSave,.qs-english.qs-print-only .qs-actions,.qs-english.qs-print-only .na7n-bottom-nav,.qs-english.qs-print-only main .qs-wrap > .qs-notice{display:none!important}.qs-english.qs-print-only #results,.qs-english.qs-print-only #qsFullQuestionnaire{display:block!important;border:0;padding:0;margin:0}.qs-english.qs-print-only #qsFullQuestionnaire summary{display:none}.qs-english.qs-print-only .qs-results{border:0;padding:0}.qs-english.qs-print-only .qs-score{break-inside:avoid}.qs-english.qs-print-only .qs-printed{break-inside:avoid}.qs-english.qs-print-only .qs-scores{grid-template-columns:repeat(3,minmax(0,1fr))}}
