@@ -1,0 +1,34 @@
+/* NA7N: the same supported self-management pathway throughout relevant pages. */
+:root{--sm-purple:#5b3a81;--sm-line:#ded3e8;--sm-muted:#5f5269}
+#self-management,#symptom-log,#life-priority,#review,#na7n-checkin,.sm-context{scroll-margin-top:104px}
+.home-page .sm-home-section{width:min(1120px,calc(100% - 36px));max-width:1120px;margin-inline:auto;padding:58px 0;border-top:1px solid #e8e0eb;border-bottom:1px solid #e8e0eb}
+.sm-home-section .sm-intro{max-width:850px;margin:0 auto 25px;text-align:center}
+.sm-home-section .sm-eyebrow,.sm-context .sm-eyebrow{display:block;color:#70479a;font-size:13px;font-weight:850;letter-spacing:.012em}
+.sm-home-section .sm-intro h2{font-size:clamp(26px,3.3vw,40px);color:#3d2854;line-height:1.36;margin:8px 0 13px}
+.sm-home-section .sm-intro p{color:#594d61;font-size:clamp(15px,1.7vw,17px);line-height:1.85;margin:0 auto}
+.sm-home-section .sm-steps{list-style:none;counter-reset:step;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;padding:0;margin:0}
+.sm-home-section .sm-step{min-width:0;counter-increment:step;background:#fff;border:1px solid var(--sm-line);border-radius:19px;padding:20px;display:flex;flex-direction:column;align-items:stretch;gap:10px;box-shadow:0 7px 28px rgba(54,35,75,.035)}
+.sm-home-section .sm-step-head{display:flex;align-items:center;gap:10px}
+.sm-home-section .sm-number{display:inline-grid;place-items:center;border-radius:50%;width:36px;height:36px;min-width:36px;font-size:16px;font-weight:850;background:#eee5f6;color:var(--sm-purple)}
+.sm-home-section .sm-step h3{font-size:clamp(17px,1.7vw,21px);color:#452b62;line-height:1.55;margin:0}
+.sm-home-section .sm-step p{color:#4f4458;font-size:14px;line-height:1.8;margin:0;flex:1}
+.sm-home-section .sm-step .sm-step-example{border-top:1px solid #eee8f2;padding-top:9px;color:#67566e;font-size:13px;flex:none}
+.sm-home-section .sm-step a{display:block;border-radius:11px;text-align:center;padding:10px 9px;text-decoration:none;background:#573779;color:white;font-size:13px;font-weight:800;line-height:1.65}
+.sm-home-section .sm-step a:hover{background:#402859}
+.sm-home-section .sm-example{margin:23px 0 0;background:linear-gradient(110deg,#f3eafa,#fff9f6);border:1px solid #e7d9ec;border-radius:17px;padding:20px 23px}
+.sm-home-section .sm-example h3{font-size:18px;margin:0 0 8px;color:#48305f}
+.sm-home-section .sm-example p{font-size:15px;color:#4d4058;line-height:1.9;margin:0}
+.sm-home-section .sm-disclaimer{font-size:13px;color:#64566c;line-height:1.8;margin:18px auto 0;max-width:940px;text-align:center}
+.sm-context{box-sizing:border-box;width:min(940px,calc(100% - 36px));margin:23px auto 25px!important;background:#faf7fc;border:1px solid #e2d7eb;border-radius:17px;padding:18px 22px;clear:both}
+.sm-context .sm-context-heading{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:5px 0}
+.sm-context .sm-context-num{background:#ede3f5;color:#58387c;border-radius:50px;padding:4px 10px;font-weight:850;font-size:13px}
+.sm-context h2{font-size:clamp(17px,2.3vw,23px)!important;line-height:1.5;color:#483064;margin:0!important}
+.sm-context p{font-size:14px!important;line-height:1.85!important;color:#54475d!important;margin:8px 0 12px!important}
+.sm-context .sm-context-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.sm-context a{font-size:13px;line-height:1.6;border-radius:10px;font-weight:800;text-decoration:underline;text-underline-offset:3px;color:#543375}
+.sm-context a.sm-next{color:#fff;background:#5d3d7b;padding:9px 14px;text-decoration:none}
+.sm-context a.sm-next:hover{background:#452c5e}
+.sm-context :focus-visible,.sm-home-section :focus-visible{outline:3px solid #805bb0;outline-offset:3px}
+@media(max-width:980px){.sm-home-section .sm-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.home-page .sm-home-section{padding:38px 0}.sm-home-section .sm-steps{grid-template-columns:minmax(0,1fr);gap:10px}.sm-home-section .sm-step{padding:15px;gap:7px}.sm-home-section .sm-step p{font-size:14px}.sm-home-section .sm-example{padding:16px}.sm-context{padding:15px}.sm-context .sm-context-links{align-items:stretch}.sm-context a.sm-next{width:100%;text-align:center}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
