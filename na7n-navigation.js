@@ -42,6 +42,20 @@
     if (className) a.className = className;
     return a;
   };
+  const doctorPortalHref = en ? "doctor-review-en.html" : "doctor-review.html";
+  const doctorPortalLabel = t("مراجعة الأطباء", "Doctor review");
+  const isDoctorOrAdmin = async (user) => {
+    if (!user || !window.na7nSupabase) return false;
+    const [staff, reviewer] = await Promise.all([
+      window.na7nSupabase.from("na7n_medical_review_staff").select("user_id,is_active").eq("user_id", user.id).maybeSingle(),
+      window.na7nSupabase.from("na7n_medical_reviewers").select("user_id,is_active,nomination_approved_at").eq("user_id", user.id).maybeSingle()
+    ]);
+    return !!staff.data?.is_active || !!(reviewer.data?.is_active && reviewer.data?.nomination_approved_at);
+  };
+  const syncDoctorPortal = async (user) => {
+    const visible = await isDoctorOrAdmin(user);
+    document.querySelectorAll(".na7n-doctor-portal").forEach(link => { link.hidden = !visible; });
+  };
 
   // Standard header on every public page. The original HTML is still a no-JS fallback.
   // Account pages previously had no global header, so create one for consistent wayfinding.
@@ -105,6 +119,10 @@
     accountShortcut.setAttribute("aria-label", t("الذهاب إلى حسابي", "Open My Account"));
     if (slug === "account") accountShortcut.setAttribute("aria-current", "page");
     shell.append(accountShortcut);
+    const portalShortcut = createLink(doctorPortalLabel, doctorPortalHref, "na7n-doctor-portal");
+    portalShortcut.hidden = true;
+    portalShortcut.setAttribute("aria-label", t("بوابة مراجعة الأطباء", "Doctor review portal"));
+    shell.append(portalShortcut);
     const toggle = document.createElement("button");
     toggle.type = "button";
     toggle.className = "na7n-menu-toggle";
@@ -125,6 +143,9 @@
     const accountMenuLink = createLink(t("حسابي", "My Account"), accountPage, "account-link");
     if (slug === "account") accountMenuLink.setAttribute("aria-current", "page");
     menu.append(accountMenuLink);
+    const portalMenuLink = createLink(doctorPortalLabel, doctorPortalHref, "na7n-doctor-portal");
+    portalMenuLink.hidden = true;
+    menu.append(portalMenuLink);
     toggle.addEventListener("click", () => {
       const open = toggle.getAttribute("aria-expanded") === "true";
       toggle.setAttribute("aria-expanded", String(!open));
@@ -156,6 +177,11 @@
       }
     });
     header.replaceChildren(shell, toggle, menu);
+    const authClient = window.na7nSupabase;
+    if (authClient) {
+      authClient.auth.getSession().then(({ data }) => syncDoctorPortal(data?.session?.user || null));
+      authClient.auth.onAuthStateChange((_event, session) => syncDoctorPortal(session?.user || null));
+    }
   }
 
   // Breadcrumb is a stable location cue even on a page opened from an external link.
