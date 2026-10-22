@@ -72,7 +72,9 @@
   newList.replaceChildren();completedList.replaceChildren();
   const pendingAssignments=assignments.filter(a=>a.is_active&&!decisions.some(d=>d.assignment_id===a.id));
   const completedAssignments=assignments.filter(a=>decisions.some(d=>d.assignment_id===a.id));
-  text(byId("mr-total-count"),ALLOWED.length);\n  text(byId("mr-assigned-count"),assignments.length);\n  text(byId("mr-unassigned-count"),Math.max(0,ALLOWED.length-assignments.length));
+  text(byId("mr-total-count"),ALLOWED.length);
+  text(byId("mr-assigned-count"),assignments.length);
+  text(byId("mr-unassigned-count"),Math.max(0,ALLOWED.length-assignments.length));
   text(byId("mr-completed-count"),completedAssignments.length);
   text(byId("mr-remaining-count"),pendingAssignments.length);
   const addAssignmentLink=(list,a,done)=>{
