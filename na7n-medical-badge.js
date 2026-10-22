@@ -1,4 +1,4 @@
-/* Verified physician badge: NEVER green solely because a page contains a hardcoded flag. */
+/* Documented physician-review badge: NEVER green solely because a page contains a hardcoded flag. */
 (() => {
  "use strict";
  const file=decodeURIComponent(location.pathname.split("/").pop()||"");
@@ -28,7 +28,7 @@
   }
   box.dataset.approved="true";
   heading.textContent=L("✓ مراجعة طبية موثقة","✓ Verified physician review");
-  message.textContent=L("راجع طبيبان مؤهلان على الأقل هذا الإصدار من المحتوى، وسُجل قرار اعتماد النشر.","At least two verified physicians approved this exact content version, and publication release was recorded.");
+  message.textContent=L("راجع طبيبان مؤهلان على الأقل هذا الإصدار من المحتوى، وسُجل قرار اعتماد النشر.","At least two staff-approved physicians reviewed and approved this exact content version, and publication release was recorded.");
   const list=document.createElement("div");list.className="na7n-medical-physicians";
   for(const p of data.physicians){
    const item=document.createElement("div");item.className="na7n-medical-physician";
@@ -47,7 +47,7 @@
    const walker=document.createTreeWalker(p,NodeFilter.SHOW_TEXT);
    let node;while((node=walker.nextNode())){
     if(phrases.some(x=>node.nodeValue.includes(x))){
-     for(const phrase of phrases)node.nodeValue=node.nodeValue.replace(phrase,L("اعتمد طبيبان مؤهلان النسخة الحالية.","Approved by two verified physicians for this version."));
+     for(const phrase of phrases)node.nodeValue=node.nodeValue.replace(phrase,L("اعتمد طبيبان مؤهلان النسخة الحالية.","Approved by two staff-approved physicians for this version."));
     }
    }
   });
@@ -56,3 +56,4 @@
  }
  run().catch(()=>{message.textContent=L("تعذر التحقق من حالة المراجعة الطبية حاليًا؛ لا يعني ذلك أن الصفحة معتمدة.","Review status could not be verified. Approval is not being asserted.");});
 })();
+

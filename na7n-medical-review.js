@@ -104,9 +104,9 @@
   text(byId("mr-user"),user.email||"");
   try{
    const roleTable=mode==="doctor"?"na7n_medical_reviewers":"na7n_medical_review_staff";
-   const authz=await sb.from(roleTable).select(mode==="doctor"?"user_id,is_active,license_verified_at":"user_id,is_active,role").eq("user_id",user.id).maybeSingle();
+   const authz=await sb.from(roleTable).select(mode==="doctor"?"user_id,is_active,nomination_approved_at":"user_id,is_active,role").eq("user_id",user.id).maybeSingle();
    if(authz.error)throw authz.error;
-   if(!authz.data?.is_active || (mode==="doctor"&&!authz.data?.license_verified_at)){
+   if(!authz.data?.is_active || (mode==="doctor"&&!authz.data?.nomination_approved_at)){
     say(T("هذا الحساب غير مكلّف بهذا الدور. لا تُمنح الصلاحية إلا بعد التحقق والتكليف الإداري.","This account has no verified assignment for this role."),"error");return;
    }
    const needsMfa = mode==="doctor" || authz.data.role==="publisher";
@@ -124,7 +124,7 @@
   const d=await sb.from("na7n_medical_review_decisions").select("*");
   if(d.error)throw d.error;decisions=d.data||[];
   const list=byId("mr-assignment-list");list.replaceChildren();
-  if(!assignments.length)text(list,T("لم تُكلّف بأي صفحة بعد. يجب أن تتحقق الإدارة من ترخيصك وتخصصك أولًا.","You have no assigned pages yet. Your credentials and specialty must first be verified by the team."));
+  if(!assignments.length)text(list,T("لم تُكلّف بأي صفحة بعد. يجب أن توافق الإدارة على انضمامك وتكلّفك بالصفحة أولًا.","You have no assigned pages yet. Staff must first approve your application and assign a page."));
   assignments.forEach(a=>{
    const done=decisions.find(d=>d.assignment_id===a.id);
    const link=document.createElement("a");link.className="mr-review-link";link.href="?assignment="+encodeURIComponent(a.id);
@@ -196,6 +196,11 @@
   const statement=byId("mr-statement").value.trim();
   if(!decision||statement.length<10||!byId("mr-attest").checked){say(T("اختر القرار، واكتب سببًا من 10 أحرف على الأقل، وأكد مراجعة الصفحة كاملة.","Choose a decision, enter at least 10 characters and attest full-page review."),"error");return;}
   if(!confirm(T("سيسجل قرارك النهائي على هذه النسخة. هل تؤكد؟","Record your final decision on this exact content version?")))return;
+  if(decision==="approved"){
+   if(!byId("mr-name-consent").checked){say(T("وافق على عرض اسمك وتخصصك مع المراجعة المعتمدة.","Consent to display your name and specialty with the approved review."),"error");return;}
+   const consent=await sb.rpc("na7n_medical_name_consent");
+   if(consent.error){say(msg(consent.error),"error");return;}
+  }
   const {error}=await sb.from("na7n_medical_review_decisions").insert({assignment_id:current.id,decision,statement});
   if(error){say(msg(error),"error");return;}say(T("حُفظ قرارك. لا تظهر العلامة الخضراء إلا بعد موافقة طبيبين واستكمال اعتماد النشر.","Decision saved. Green status requires two physician approvals and publisher release."),"success");await doctorHome();
  }
@@ -203,15 +208,16 @@
   const {data,error}=await sb.from("na7n_medical_review_staff").select("*").eq("user_id",user.id).maybeSingle();
   if(error)throw error;staff=data;
   if(!staff?.is_active){show("mr-admin-work",false);say(T("هذا الحساب ليس منسقًا معتمدًا للمراجعات. أضف الدور من إدارة قاعدة البيانات بعد التحقق من الهوية.","This account is not a provisioned review coordinator."),"error");return;}
-  show("mr-admin-work");show("mr-publisher",staff.role==="publisher");say(T("تأكد من تكليف طبيبين مستقلين والتحقق من ترخيص كل منهما.","Assign two distinct, verified physicians."),"success");
+  show("mr-admin-work");show("mr-publisher",staff.role==="publisher");say(T("كلّف طبيبين مختلفين وافقت الإدارة على انضمامهما.","Assign two distinct physicians approved by staff."),"success");
+  showDirectReviewerForm();
   reviewers=await query("na7n_medical_reviewers");await refreshAdmin();
   const select=byId("mr-doctor");select.replaceChildren();
-  const eligible=reviewers.filter(r=>r.is_active&&r.license_verified_at);
+  const eligible=reviewers.filter(r=>r.is_active&&r.nomination_approved_at);
   if(!eligible.length){
-   const opt=document.createElement("option");opt.value="";opt.textContent=T("لا يوجد طبيب معتمد للتكليف بعد","No verified doctors available yet");opt.disabled=true;opt.selected=true;select.append(opt);
+   const opt=document.createElement("option");opt.value="";opt.textContent=T("لا يوجد طبيب معتمد للتكليف بعد","No staff-approved physicians available yet");opt.disabled=true;opt.selected=true;select.append(opt);
   }
   for(const r of eligible){
-   const opt=document.createElement("option");opt.value=r.user_id;opt.textContent=(en?r.display_name_en||r.display_name_ar:r.display_name_ar)+" — "+(en?r.specialty_en||r.specialty_ar:r.specialty_ar);
+   const opt=document.createElement("option");opt.value=r.user_id;opt.textContent=(en?r.display_name_en||r.display_name_ar:r.display_name_ar)+" — "+(en?r.specialty_en||r.specialty_ar||"Specialty not added":r.specialty_ar||"لم يُضف التخصص");
    select.append(opt);
   }
   select.disabled=!eligible.length;
@@ -219,23 +225,75 @@
   if(assignButton)assignButton.disabled=!eligible.length;
   showInviteHelp(eligible.length===0);
   await showPendingApplicants();
-  const page=byId("mr-page");ALLOWED.forEach(path=>{let opt=document.createElement("option");opt.value=path;opt.textContent=path;page.append(opt);});
+  const page=byId("mr-page");page.replaceChildren();ALLOWED.forEach(path=>{let opt=document.createElement("option");opt.value=path;opt.textContent=path;page.append(opt);});
   page.value="treatment.html";await preparePage();
-  if(!eligible.length)say(T("لا يوجد أطباء مفعّلون بعد. استخدم دعوة التسجيل أدناه؛ لن تتمكن من التكليف قبل التحقق من الترخيص.","No verified doctors yet. Invite a physician below; assignments unlock after credential checks."));
+  if(!eligible.length)say(T("لا يوجد أطباء مفعّلون بعد. استخدم دعوة التسجيل أدناه؛ يمكن التكليف بعد موافقة الإدارة على الانضمام.","No active physicians yet. Invite a physician below; assignments unlock after administrative approval."));
+ }
+ function showDirectReviewerForm(){
+  if(byId("mr-direct-reviewer"))return;
+  const section=document.createElement("section");section.className="mr-card";section.id="mr-direct-reviewer";
+  const title=document.createElement("h2");title.textContent=T("إضافة طبيب والموافقة عليه مباشرة","Add and approve a physician");
+  const lead=document.createElement("p");lead.textContent=T("أدخل الاسم والبريد وكلمة مرور للحساب الجديد. إذا كان البريد مسجلًا، نستخدم الحساب الحالي وتبقى كلمة مروره كما هي. التخصص اختياري، ولا تُطلب بيانات ترخيص.","Enter a name, email and password for a new account. Existing accounts keep their password. Specialty is optional; no license details are required.");
+  const form=document.createElement("form");form.id="mr-add-reviewer-form";
+  const grid=document.createElement("div");grid.className="mr-grid";
+  const fields=[
+   ["mr-add-name-ar",T("الاسم بالعربية أو الاسم المتاح","Name in Arabic or available name"),"text",true],
+   ["mr-add-name-en",T("الاسم بالإنجليزية (اختياري)","English name (optional)"),"text",false],
+   ["mr-add-email",T("البريد الإلكتروني","Email"),"email",true],
+   ["mr-add-password",T("كلمة مرور للحساب الجديد (8 أحرف على الأقل)","Password for a new account (at least 8 characters)"),"password",false],
+   ["mr-add-specialty-ar",T("التخصص بالعربية (اختياري)","Arabic specialty (optional)"),"text",false],
+   ["mr-add-specialty-en",T("التخصص بالإنجليزية (اختياري)","English specialty (optional)"),"text",false]
+  ];
+  for(const [id,label,type,required] of fields){
+   const field=document.createElement("div");field.className="mr-field";
+   const caption=document.createElement("label");caption.htmlFor=id;caption.textContent=label;
+   const input=document.createElement("input");input.id=id;input.type=type;input.required=required;
+   input.autocomplete=type==="password"?"new-password":"off";
+   input.maxLength=type==="email"?254:type==="password"?72:120;
+   if(type==="text")input.minLength=3;
+   if(type==="password")input.minLength=8;
+   field.append(caption,input);grid.append(field);
+  }
+  const button=document.createElement("button");button.type="submit";button.className="mr-btn";
+  button.textContent=T("إضافة الحساب وتفعيل المراجعة","Add account and activate reviewer");
+  const result=document.createElement("p");result.className="mr-status";result.setAttribute("role","status");
+  form.append(grid,button,result);section.append(title,lead,form);byId("mr-admin-work").before(section);
+  form.addEventListener("submit",async e=>{
+   e.preventDefault();button.disabled=true;result.dataset.kind="info";
+   result.textContent=T("جارٍ إضافة الحساب وتفعيل المراجعة...","Creating account and activating reviewer...");
+   const value=id=>byId(id).value.trim();
+   const password=byId("mr-add-password").value;byId("mr-add-password").value="";
+   try{
+    const {data,error}=await sb.functions.invoke("na7n-medical-create-reviewer",{body:{
+     name_ar:value("mr-add-name-ar"),name_en:value("mr-add-name-en"),email:value("mr-add-email"),
+     specialty_ar:value("mr-add-specialty-ar"),specialty_en:value("mr-add-specialty-en"),password
+    }});
+    if(error){
+     let detail="";try{detail=(await error.context?.json())?.error||""}catch{}
+     throw new Error(detail||msg(error));
+    }
+    if(data?.reviewer_active!==true)throw new Error(T("لم يكتمل تفعيل المراجع.","Reviewer activation did not complete."));
+    result.dataset.kind="success";result.textContent=data.account_created
+     ?T("أُنشئ الحساب وفُعّل الطبيب للمراجعة. يمكنك تكليفه بصفحة الآن.","Account created and reviewer activated. You can assign a page now.")
+     :T("فُعّل الطبيب على حسابه الحالي دون تغيير كلمة مروره. يمكنك تكليفه بصفحة الآن.","Reviewer activated on the existing account; password unchanged. You can assign a page now.");
+    form.reset();await coordinatorHome();
+   }catch(error){result.dataset.kind="error";result.textContent=msg(error);}
+   finally{button.disabled=false;}
+  });
  }
  function showInviteHelp(empty){
   let panel=byId("mr-doctor-onboarding");
   if(!panel){
    panel=document.createElement("div");panel.id="mr-doctor-onboarding";panel.className="mr-onboarding";
    const h=document.createElement("h3");h.textContent=T("إضافة الطبيب الأول","Invite your first physician");
-   const message=document.createElement("p");message.textContent=T("أرسل رابط التسجيل المهني إلى الطبيب. سيُنشئ حسابًا ويقدم بيانات تخصصه وترخيصه. سيبقى الطلب معلّقًا حتى تتحقق الإدارة من الترخيص وتفعّل الحساب؛ لا يُمنح أي اعتماد طبي تلقائي.","Send the professional registration link. The physician signs up and submits specialty and license details. Approval remains pending until credentials are verified and the account is activated.");
+   const message=document.createElement("p");message.textContent=T("أرسل رابط التسجيل المهني إلى الطبيب. سيُنشئ حسابًا ويقدم اسمه وتخصصه. سيبقى الطلب معلّقًا حتى توافق الإدارة على انضمامه وتفعّل الحساب؛ لا يُمنح أي اعتماد طبي تلقائي.","Send the professional registration link. The physician signs up and submits a name and specialty. The request stays pending until staff approve and activate the account.");
    const link=document.createElement("a");link.href=en?"doctor-register-en.html":"doctor-register.html";link.textContent=T("فتح تسجيل الطبيب","Open physician registration");link.className="mr-review-link";
    const invite=document.createElement("button");invite.type="button";invite.className="mr-btn secondary";
    invite.textContent=T("دعوة طبيب عبر واتساب","Invite physician via WhatsApp");
    invite.addEventListener("click",()=>{
     const url=location.origin+"/"+(en?"doctor-register-en.html":"doctor-register.html");
-    const msg=T("دكتورنا الكريم، ندعوك للمشاركة في مراجعة محتوى التثقيف الصحي بموقع نَحْنُ. الرجاء إنشاء حساب مهني وتقديم الاسم والتخصص وجهة الترخيص عبر الرابط التالي. تقديم الطلب لا يعني تفعيل الاعتماد، ولا تشارك أي معلومات تخص المرضى:\n",
-     "Dear Doctor, NA7N invites you to apply as a medical education reviewer. Register with your professional name, specialty and license authority. Submission does not grant review privileges. Do not share patient data:\n")+url;
+    const msg=T("دكتورنا الكريم، ندعوك للمشاركة في مراجعة محتوى التثقيف الصحي بموقع نَحْنُ. الرجاء إنشاء حساب مهني وتقديم الاسم والتخصص عبر الرابط التالي. تقديم الطلب لا يعني تفعيل الاعتماد، ولا تشارك أي معلومات تخص المرضى:\n",
+     "Dear Doctor, NA7N invites you to apply as a medical education reviewer. Register with your professional name and specialty. Submission does not grant review privileges. Do not share patient data:\n")+url;
     window.open("https://wa.me/?text="+encodeURIComponent(msg),"_blank","noopener,noreferrer");
    });
    panel.append(h,message,link,invite);
@@ -250,8 +308,8 @@
   let section=byId("mr-pending-applications");
   if(!section){
    section=document.createElement("section");section.className="mr-card";section.id="mr-pending-applications";
-   const title=document.createElement("h2");title.textContent=T("طلبات انضمام الأطباء بانتظار التحقق","Pending physician applications");
-   const lead=document.createElement("p");lead.textContent=T("هذه بيانات يقدمها المتقدمون بأنفسهم، وليست إثباتًا لصحة الترخيص. التفعيل يحتاج تحققًا مستقلًا من الإدارة المخولة.","Self-reported applications are not proof of licensure. Verification and activation require authorized review.");
+   const title=document.createElement("h2");title.textContent=T("طلبات انضمام الأطباء بانتظار موافقة الإدارة","Pending physician applications");
+   const lead=document.createElement("p");lead.textContent=T("توافق الإدارة على انضمام الطبيب بالاسم والتخصص، دون طلب رقم ترخيص أو التحقق منه.","Staff approve physician participation by name and specialty. No license number or license check is required.");
    const list=document.createElement("div");list.id="mr-pending-list";list.className="mr-review-list";
    section.append(title,lead,list);
    byId("mr-admin-work").after(section);
@@ -264,15 +322,26 @@
    const card=document.createElement("div");card.className="mr-note";
    const name=document.createElement("strong");name.textContent=en?(p.full_name_en||p.full_name_ar):p.full_name_ar;
    const desc=document.createElement("div");
-   desc.textContent=(en?(p.specialty_en||p.specialty_ar):p.specialty_ar)+" · "+p.licensing_authority+" · "+T("الحالة: ","Status: ")+(p.status==="pending"?T("بانتظار التحقق","Pending verification"):p.status);
-   const ref=document.createElement("small");ref.className="mr-meta";ref.textContent=T("المرجع الخاص للتحقق: ","Private verification reference: ")+p.license_reference;
-   card.append(name,desc,ref);
+   desc.textContent=(en?(p.specialty_en||p.specialty_ar):p.specialty_ar)+" · "+T("الحالة: ","Status: ")+(p.status==="pending"?T("بانتظار موافقة الإدارة","Pending staff approval"):p.status);
+   card.append(name,desc);
    if(p.user_id===user.id){
     const warning=document.createElement("p");warning.className="mr-status";warning.dataset.kind="info";
     warning.textContent=T(
-      "هذا طلبك المهني المرتبط بحساب المنسق. لا يمكن اعتماد ترخيصك بنفسك؛ يجب أن يتحقق منه مسؤول آخر مخوّل من مصدر رسمي قبل تفعيلك طبيبًا مراجعًا.",
-      "This professional application belongs to your coordinator account. An independent authorized verifier must validate your license against an official source before reviewer activation.");
+      "هذا طلبك المهني. يجب أن يوافق مسؤول آخر مخوّل على تفعيلك، ولا يمكنك تكليف نفسك بمراجعة صفحة.",
+      "This is your own application. Another authorized staff member must approve activation, and you cannot assign yourself to a page.");
     card.append(warning);
+   }
+   if(p.user_id!==user.id){
+    for(const outcome of ["approved","declined"]){
+     const button=document.createElement("button");button.type="button";button.className="mr-btn secondary";
+     button.textContent=outcome==="approved"?T("الموافقة وتفعيل الطبيب","Approve and activate"):T("رفض الطلب","Decline application");
+     button.addEventListener("click",async()=>{
+      card.querySelectorAll("button").forEach(b=>b.disabled=true);
+      const {error}=await sb.rpc("na7n_medical_approve_application",{p_applicant_id:p.user_id,p_outcome:outcome});
+      if(error){say(msg(error),"error");card.querySelectorAll("button").forEach(b=>b.disabled=false);return;}
+      await coordinatorHome();
+     });card.append(button);
+    }
    }
    list.append(card);
   }
@@ -296,7 +365,7 @@
  }
  async function assign(e){
   e.preventDefault();const page=byId("mr-page").value,doctor=byId("mr-doctor").value;
-  if(!doctor){say(T("لا يوجد طبيب متحقق من ترخيصه بعد. استخدم دعوة التسجيل أولًا.","No verified physician is available. Use the registration invitation first."),"error");return;}
+  if(!doctor){say(T("لا يوجد طبيب مفعّل بموافقة الإدارة بعد. استخدم دعوة التسجيل أولًا.","No staff-approved physician is available. Use the registration invitation first."),"error");return;}
   if(!currentSha){say(T("تعذر حساب نسخة الصفحة؛ أعد اختيارها.","Could not verify page version. Select it again."),"error");return;}
   const {data,error}=await sb.rpc("na7n_medical_assign",{p_page_path:page,p_sha256:currentSha,p_reviewer_id:doctor,p_due_at:null});
   if(error){say(msg(error),"error");return;}
@@ -326,3 +395,4 @@
  byId("mr-publish-form")?.addEventListener("submit",publish);
  initSession().catch(e=>say(msg(e),"error"));
 })();
+

@@ -19,12 +19,12 @@
   if(existing){
    hidden("dr-apply-form",true);hidden("dr-applied",false);
    $("dr-application-state").textContent=existing.status==="pending"
-    ?T("تم استلام طلبك. لم تتحقق الإدارة من الترخيص بعد، ولن يظهر اسمك ضمن الأطباء القابلين للتكليف قبل المراجعة.","Application received. License verification is pending. You cannot receive reviews until verified.")
-    :existing.status==="verified"
+    ?T("تم استلام طلبك وهو بانتظار موافقة الإدارة وتفعيل حسابك للمراجعة.","Application received. Administrative approval and reviewer activation are pending.")
+    :["approved","verified"].includes(existing.status)
     ?T("تم تسجيل مراجعة طلبك. تابع مع منسق الموقع لتأكيد تفعيل التكليفات.","Your application has been reviewed. Contact the coordinator about your activation.")
     :T("تم إغلاق الطلب. تواصل مع إدارة نَحْنُ للمزيد من المعلومات.","Application closed. Contact the NA7N coordinator for details.");
    say(T("يمكنك متابعة حالة طلبك هنا.","Your request status is available here."),"success");
-  }else{hidden("dr-applied",true);hidden("dr-apply-form",false);say(T("أدخل معلوماتك المهنية. التسجيل لا يعني الاعتماد كطبيب مراجع.","Enter your professional details. Registration does not verify your clinical credentials."));}
+  }else{hidden("dr-applied",true);hidden("dr-apply-form",false);say(T("أدخل معلوماتك المهنية. التسجيل لا يعني الاعتماد كطبيب مراجع.","Enter your professional details. Registration does not activate reviewer permissions."));}
  }
  $("dr-login-form").addEventListener("submit",async e=>{
   e.preventDefault();say(T("جارٍ تسجيل الدخول...","Signing in..."));
@@ -50,7 +50,6 @@
    user_id:activeUser.id,
    full_name_ar:v("dr-name-ar"),full_name_en:v("dr-name-en")||null,
    specialty_ar:v("dr-specialty-ar"),specialty_en:v("dr-specialty-en")||null,
-   licensing_authority:v("dr-license-authority"),license_reference:v("dr-license-reference"),
    consent_to_professional_contact:true,consent_to_publish_name:$("dr-public-name").checked,
    consent_to_publish_photo:false
   };
@@ -61,3 +60,4 @@
  $("dr-signout").addEventListener("click",async()=>{await sb.auth.signOut();await state();});
  if(sb)state().catch(e=>say(err(e),"error"));
 })();
+
