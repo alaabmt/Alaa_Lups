@@ -106,6 +106,8 @@
   if(d.error)throw d.error;decisions=d.data||[];
   const newList=byId("mr-new-assignment-list"),completedList=byId("mr-completed-assignment-list");
   newList.replaceChildren();completedList.replaceChildren();
+  let commentCounts={};
+  try{const comments=await sb.from("na7n_medical_review_comments").select("assignment_id");if(!comments.error)(comments.data||[]).forEach(c=>{commentCounts[c.assignment_id]=(commentCounts[c.assignment_id]||0)+1;});}catch(_e){}
   const pendingAssignments=assignments.filter(a=>a.is_active&&!decisions.some(d=>d.assignment_id===a.id));
   const completedAssignments=assignments.filter(a=>decisions.some(d=>d.assignment_id===a.id));
   text(byId("mr-total-count"),ALLOWED.length);text(byId("mr-assigned-count"),assignments.length);text(byId("mr-unassigned-count"),Math.max(0,ALLOWED.length-assignments.length));
@@ -115,9 +117,10 @@
    const link=document.createElement("a");link.className="mr-review-link "+(done?"mr-link-complete":"mr-link-pending");link.href="?assignment="+encodeURIComponent(a.id);
    const title=document.createElement("strong");title.textContent=pageLabel(a.page_path);
    const badge=document.createElement("span");badge.className="mr-status-badge";badge.textContent=done?T("مكتملة","Completed"):(a.is_active?T("غير مكتملة","Incomplete"):T("غير نشطة","Inactive"));
-   const detail=document.createElement("small");detail.textContent=done?T("قرار محفوظ: ","Recorded: ")+done.decision:(a.is_active?T("اضغط لبدء المراجعة","Tap to start review"):T("تحتاج تكليفًا جديدًا","Needs a new assignment"));
+   const detail=document.createElement("small");detail.className="mr-card-meta";detail.textContent=T("مكلّفة: ","Assigned: ")+refDate(a.assigned_at)+T(" · الإصدار: "," · Version: ")+(a.content_sha256||"").slice(0,8)+T(" · الملاحظات: "," · Comments: ")+(commentCounts[a.id]||0)+T(" · الوقت المتوقع: 10–15 دقيقة"," · Estimated time: 10–15 min");
+   const action=document.createElement("small");action.className="mr-action-label";action.textContent=done?T("آخر إجراء: قرار محفوظ — اضغط لعرض المراجعة","Last action: decision saved — tap to view"):T("آخر إجراء: لم تبدأ المراجعة — اضغط للبدء","Last action: not started — tap to begin");
    const annual=document.createElement("small");annual.className="mr-annual "+annualReviewInfo(done).className;annual.textContent=annualReviewInfo(done).label;
-   link.append(title,badge,detail,annual);list.append(link);
+   link.append(title,badge,detail,action,annual);list.append(link);
   };
   pendingAssignments.forEach(a=>addAssignmentLink(newList,a,null));
   completedAssignments.forEach(a=>addAssignmentLink(completedList,a,decisions.find(d=>d.assignment_id===a.id)));
