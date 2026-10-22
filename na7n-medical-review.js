@@ -103,9 +103,11 @@
   text(byId("mr-completed-count"),completedAssignments.length);
   text(byId("mr-remaining-count"),pendingAssignments.length);
   const addAssignmentLink=(list,a,done)=>{
-   const link=document.createElement("a");link.className="mr-review-link";link.href="?assignment="+encodeURIComponent(a.id);
-   link.textContent=pageLabel(a.page_path)+" · "+(done?T("قرار محفوظ: ","Recorded: ")+done.decision:(a.is_active?T("بانتظار المراجعة","Awaiting review"):T("تكليف مُلغى","Assignment inactive")));
-   list.append(link);
+   const link=document.createElement("a");link.className="mr-review-link "+(done?"mr-link-complete":"mr-link-pending");link.href="?assignment="+encodeURIComponent(a.id);
+   const title=document.createElement("strong");title.textContent=pageLabel(a.page_path);
+   const badge=document.createElement("span");badge.className="mr-status-badge";badge.textContent=done?T("مكتملة","Completed"):(a.is_active?T("غير مكتملة","Incomplete"):T("غير نشطة","Inactive"));
+   const detail=document.createElement("small");detail.textContent=done?T("قرار محفوظ: ","Recorded: ")+done.decision:(a.is_active?T("اضغط لبدء المراجعة","Tap to start review"):T("تحتاج تكليفًا جديدًا","Needs a new assignment"));
+   link.append(title,badge,detail);list.append(link);
   };
   pendingAssignments.forEach(a=>addAssignmentLink(newList,a,null));
   completedAssignments.forEach(a=>addAssignmentLink(completedList,a,decisions.find(d=>d.assignment_id===a.id)));
@@ -120,9 +122,10 @@
   const tbody=document.createElement("tbody");
   ordered.forEach(a=>{
    const done=a.unassigned?null:decisions.find(d=>d.assignment_id===a.id),tr=document.createElement("tr");
+   tr.className=a.unassigned||!done?"is-pending":"is-complete";
    const pageCell=document.createElement("td");
    if(a.unassigned){pageCell.textContent=pageLabel(a.page_path);}
-   else{const link=document.createElement("a");link.href="?assignment="+encodeURIComponent(a.id);link.textContent=pageLabel(a.page_path);pageCell.append(link);}
+   else{const link=document.createElement("a");link.className=done?"mr-link-complete":"mr-link-pending";link.href="?assignment="+encodeURIComponent(a.id);link.textContent=pageLabel(a.page_path);pageCell.append(link);}
    const statusCell=document.createElement("td");statusCell.textContent=a.unassigned?T("بانتظار التكليف","Awaiting assignment"):pageStatus(a,done);
    const decisionCell=document.createElement("td");decisionCell.textContent=a.unassigned?T("—","—"):(done?.decision||T("لم يُسجل بعد","Not recorded"));
    const dateCell=document.createElement("td");dateCell.textContent=a.unassigned?T("—","—"):refDate(a.assigned_at);
