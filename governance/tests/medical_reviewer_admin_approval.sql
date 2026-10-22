@@ -27,7 +27,7 @@ do $$ declare v record; begin
  if not exists(select 1 from public.na7n_medical_reviewers where user_id=v.candidate and display_name_en='Test Reviewer')
   then raise exception 'Duplicate changed existing reviewer'; end if;
 end; $$;
--- Ordinary reviewers cannot nominate anyone or give consent without MFA.
+-- Ordinary reviewers cannot nominate anyone; name consent needs only their own signed-in account.
 select set_config('request.jwt.claims',json_build_object('sub',candidate,'role','authenticated','aal','aal1')::text,true) from review_test_ids;
 do $$ declare v record; begin
  select * into v from review_test_ids;
@@ -36,16 +36,14 @@ do $$ declare v record; begin
   perform public.na7n_medical_nominate(v.candidate2,'Unauthorized Test',null,null,null);
   raise exception 'TEST_UNAUTHORIZED_WAS_ALLOWED';
  exception when others then if sqlerrm='TEST_UNAUTHORIZED_WAS_ALLOWED' then raise; end if; end;
- begin
-  perform public.na7n_medical_name_consent();
-  raise exception 'TEST_MFA_BYPASS';
- exception when others then if sqlerrm='TEST_MFA_BYPASS' then raise; end if; end;
+ perform public.na7n_medical_name_consent();
+ if not exists(select 1 from public.na7n_medical_reviewers where user_id=v.candidate and consent_to_publish_name) then raise exception 'Password-only name consent failed'; end if;
  begin
   update public.na7n_medical_reviewers set is_active=true,nomination_approved_at=now() where user_id=v.candidate;
   raise exception 'TEST_DIRECT_WRITE_WAS_ALLOWED';
  exception when insufficient_privilege then null; end;
 end; $$;
-select set_config('request.jwt.claims',json_build_object('sub',candidate,'role','authenticated','aal','aal2')::text,true) from review_test_ids;
+select set_config('request.jwt.claims',json_build_object('sub',candidate,'role','authenticated','aal','aal1')::text,true) from review_test_ids;
 select public.na7n_medical_name_consent();
 reset role;
 -- Isolated fixture approvals verify that two approvals and exact versions are still required.
@@ -55,10 +53,32 @@ union all select 'review-test.html',repeat('a',64),candidate2,actor from review_
 do $$ begin
  if public.na7n_medical_review_ready('review-test.html',repeat('a',64)) then raise exception 'Empty decisions accepted'; end if;
 end; $$;
+create temporary table review_assignment_ids as select id,reviewer_id from public.na7n_medical_review_assignments where page_path='review-test.html';
+grant select on review_assignment_ids to authenticated;
+select set_config('request.jwt.claims',json_build_object('sub',candidate,'role','authenticated','aal','aal1')::text,true) from review_test_ids;
+set local role authenticated;
+do $$ begin
+ if (select count(*) from public.na7n_medical_review_assignments)<>1 then raise exception 'Assignment ownership failed'; end if;
+end; $$;
+insert into public.na7n_medical_review_comments(assignment_id,paragraph_key,comment_text)
+select a.id,'paragraph-1','Password-only fixture comment' from review_assignment_ids a
+join review_test_ids t on t.candidate=a.reviewer_id;
+insert into public.na7n_medical_review_decisions(assignment_id,decision,statement)
+select a.id,'approved','Password-only fixture approval, rolled back' from review_assignment_ids a
+join review_test_ids t on t.candidate=a.reviewer_id;
+do $$ begin
+ begin
+  insert into public.na7n_medical_review_decisions(assignment_id,decision,statement)
+  select a.id,'approved','Unauthorized fixture approval, rolled back' from review_assignment_ids a
+  join review_test_ids t on t.candidate2=a.reviewer_id;
+  raise exception 'TEST_CROSS_REVIEWER_DECISION_ALLOWED';
+ exception when insufficient_privilege then null; end;
+end; $$;
+reset role;
 update public.na7n_medical_reviewers set consent_to_publish_name=true where user_id=(select candidate2 from review_test_ids);
 insert into public.na7n_medical_review_decisions(assignment_id,decision,statement)
 select id,'approved','Synthetic test decision, rolled back' from public.na7n_medical_review_assignments
-where page_path='review-test.html';
+where page_path='review-test.html' and not exists(select 1 from public.na7n_medical_review_decisions d where d.assignment_id=public.na7n_medical_review_assignments.id);
 do $$ begin
  if not public.na7n_medical_review_ready('review-test.html',repeat('a',64)) then raise exception 'Two approvals not accepted'; end if;
  if public.na7n_medical_review_ready('review-test.html',repeat('b',64)) then raise exception 'Changed version accepted'; end if;
@@ -68,5 +88,14 @@ do $$ begin
  if has_function_privilege('authenticated','public.na7n_medical_account_id(text)','EXECUTE') then raise exception 'Account enumeration allowed'; end if;
  if has_function_privilege('authenticated','public.na7n_medical_check_license(uuid,text,text,boolean)','EXECUTE') then raise exception 'Legacy activation still enabled'; end if;
 end; $$;
-select 'PASS: owner activation, no license evidence, own-row access, no self approval, no overwrite, no unprivileged activation, MFA, exact-version approvals, publisher gate' as verification;
+-- A publisher can release an eligible fixture with the same email/password assurance level.
+update public.na7n_medical_review_staff set role='publisher' where user_id=(select actor from review_test_ids);
+select set_config('request.jwt.claims',json_build_object('sub',actor,'role','authenticated','aal','aal1')::text,true) from review_test_ids;
+set local role authenticated;
+do $$ begin
+ if not public.na7n_medical_staff_ok('publisher') then raise exception 'Password-only publisher access failed'; end if;
+end; $$;
+select public.na7n_medical_publish('review-test.html',repeat('a',64),'https://example.invalid/fixture-qa');
+reset role;
+select 'PASS: password-only reviewer read/comment/decision/consent and publisher release; ownership, roles, two approvals, version and release checks retained' as verification;
 rollback;

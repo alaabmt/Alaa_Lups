@@ -36,7 +36,6 @@ body{background:#faf7fc;color:#30253b}
 .admin-empty{border:1px dashed #c4b1d6;border-radius:12px;padding:28px;text-align:center;color:#665974}
 .admin-grid-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
 .admin-note{background:#f6f0fa;border-radius:12px;padding:15px 18px;line-height:1.85}
-.admin-mfa-qr{max-width:200px;height:auto;padding:10px;border:1px solid #e9dfed;background:#fff}
 .admin-kicker{color:#76548d;font-weight:800}
 .admin-select-btn{border:1px solid #cbb8df;background:#fff;color:#543573;padding:8px 12px;border-radius:10px;cursor:pointer;font:inherit}
 .admin-card :focus-visible{outline:3px solid #8a61bb;outline-offset:2px}
@@ -47,7 +46,7 @@ body{background:#faf7fc;color:#30253b}
 <section><p class="admin-label">منطقة إدارة محمية · NA7N STAFF ONLY</p><h1>إدارة قصص المرضى</h1><p class="admin-lead">واجهة العمل الخاصة بالخصوصية والتحرير والمراجعة التثقيفية. لا تكفي معرفة عنوان الصفحة للدخول؛ يُفرض التحقق والصلاحيات على مستوى قاعدة البيانات.</p></section>
 <section class="admin-card" id="admin-login">
 <h2>دخول فريق قصص المرضى</h2>
-<p>يُخصص الوصول الإداري لصاحبي الأدوار المعتمدين فقط، بعد التحقق من البريد وتفعيل المصادقة متعددة العوامل (MFA). لا يمنح إنشاء الحساب أي صلاحية إدارية بحد ذاته.</p>
+<p>يُخصص الوصول الإداري لصاحبي الأدوار المعتمدين فقط، بعد تسجيل الدخول بالبريد وكلمة المرور. لا يمنح إنشاء الحساب أي صلاحية إدارية بحد ذاته.</p>
 <form id="admin-login-form">
 <label class="admin-field" for="staff-email">البريد الإلكتروني لحسابك<input dir="ltr" id="staff-email" type="email" required autocomplete="username"></label>
 <label class="admin-field" for="staff-password">كلمة المرور<input dir="ltr" id="staff-password" type="password" required autocomplete="current-password" minlength="8"></label>
@@ -63,14 +62,6 @@ body{background:#faf7fc;color:#30253b}
 </form>
 <p id="login-message" class="admin-status" role="status" aria-live="polite"></p>
 </section>
-<section class="admin-card admin-hidden" id="admin-mfa">
-<h2>تأكيد الهوية بخطوتين</h2><p id="mfa-explanation"></p>
-<div id="mfa-setup" class="admin-hidden"><p>افتح تطبيق مصادقة مثل (Google Authenticator) أو (Microsoft Authenticator). امسح رمز الاستجابة السريع، أو على الهاتف نفسه اختر إضافة حساب باستخدام مفتاح إعداد يدوي.</p><img id="mfa-qr" class="admin-mfa-qr" alt="رمز إعداد المصادقة الثنائية"><p>مفتاح الإعداد اليدوي الخاص بك، لا تشاركه مع أحد:</p><button type="button" id="mfa-show-secret" class="admin-btn secondary" aria-controls="mfa-secret" aria-expanded="false">إظهار مفتاح الإعداد اليدوي عند الحاجة فقط</button><p id="mfa-secret" class="admin-status" dir="ltr" hidden style="overflow-wrap:anywhere;user-select:all;padding:10px;background:#f6f0fa;border-radius:8px"></p><p><strong>تنبيه:</strong> مفتاح الإعداد يحتوي أحرفًا وقد يكون طويلًا، أما رمز التحقق فهو <strong>ستة أرقام فقط</strong> من تطبيق المصادقة ويتغير كل فترة قصيرة. لا تُدخل مفتاح الإعداد في حقل رمز التحقق، ولا تلتقط صورة للمفتاح أو تشاركها.</p><button type="button" id="mfa-reset-key" class="admin-btn secondary">إلغاء مفتاح الإعداد الحالي وإصدار مفتاح جديد</button><p>استخدم الزر أعلاه إذا ظهر المفتاح في صورة أو شاركته مع أي شخص. سيصبح المفتاح القديم غير صالح بعد نجاح الإصدار الجديد.</p></div>
-<form id="mfa-form"><label class="admin-field" for="mfa-code">أدخل هنا رمز تطبيق المصادقة: ستة أرقام فقط، دون أحرف<input dir="ltr" id="mfa-code" type="text" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" inputmode="numeric" placeholder="••••••" required aria-describedby="mfa-code-hint"></label><p id="mfa-code-hint">الرمز يُولّده تطبيق (Authenticator)، ولا يكون أحرفًا من مفتاح الإعداد الطويل.</p>
-<button class="admin-btn" type="submit">التحقق والدخول</button></form>
-<button id="mfa-enroll" class="admin-btn secondary admin-hidden" type="button">تفعيل المصادقة متعددة العوامل</button>
-<button id="mfa-resume" class="admin-btn secondary admin-hidden" type="button">لدي رمز من إعداد سابق — إكمال التفعيل</button>
-<p id="mfa-message" role="status" class="admin-status" aria-live="polite"></p></section>
 <section class="admin-card admin-hidden" id="admin-denied">
 <h2>ليس لديك إذن دخول</h2><p>حسابك موثق، لكنه ليس ضمن الفريق المخول. تعيين الدور يتم إداريًا بعد التحقق من هوية صاحب الحساب، ولا يمكن طلب الصلاحية من هذه الصفحة.</p><button id="denied-logout" class="admin-btn secondary" type="button">تسجيل الخروج</button></section>
 <section id="admin-board" class="admin-hidden">
@@ -110,5 +101,5 @@ body{background:#faf7fc;color:#30253b}
 </main>
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script defer src="na7n-auth.js"></script>
-<script defer src="na7n-stories-admin.js?v=20261011-mfa-key-rotation"></script>
+<script defer src="na7n-stories-admin.js?v=20261022-password-only"></script>
 </body></html>

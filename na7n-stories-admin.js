@@ -6,25 +6,14 @@
   const STORY_CONTENT_STORAGE_APPROVED = false;
   const $ = id => document.getElementById(id);
   const client = window.na7nSupabase;
-  let user = null, staff = null, factorId = null, selectedCase = null, cases = [];
+  let user = null, staff = null, selectedCase = null, cases = [];
   let reviewers = [], busy = false, sequence = 0;
   const visible = (id, yes) => $(id)?.classList.toggle("admin-hidden", !yes);
   const inform = (id, message) => { if ($(id)) $(id).textContent = message; };
   const friendlyError = () => "تعذر إكمال الإجراء. تحقق من اتصالك وصلاحياتك، ثم حاول مجددًا.";
   function resetViews() {
-    ["admin-login","admin-mfa","admin-denied","admin-board","case-detail"].forEach(id => visible(id,false));
-    visible("mfa-setup",false);
-    visible("mfa-enroll",false);
-    visible("mfa-resume",false);
-    visible("mfa-form",false);
-    // Never retain a TOTP setup secret or QR in the page after leaving its flow.
-    inform("mfa-secret","");
-    $("mfa-secret").hidden=true;
-    $("mfa-show-secret").setAttribute("aria-expanded","false");
-    $("mfa-show-secret").textContent="إظهار مفتاح الإعداد اليدوي عند الحاجة فقط";
-    $("mfa-qr")?.removeAttribute("src");
+    ["admin-login","admin-denied","admin-board","case-detail"].forEach(id => visible(id,false));
     inform("login-message","");
-    inform("mfa-message","");
     inform("detail-status-message","");
   }
   function clearPrivate() {
@@ -47,9 +36,6 @@
     user = current?.data?.user || null;
     if (!user) { staff = null; clearPrivate(); visible("admin-login",true); return; }
     try {
-      const aal = await client.auth.mfa.getAuthenticatorAssuranceLevel();
-      if(version!==sequence)return;
-      if(aal.error || aal.data?.currentLevel!=="aal2") { await showMfa(); return; }
       const response = await client.from("na7n_story_staff")
         .select("user_id,role,display_name,is_active")
         .eq("user_id",user.id).maybeSingle();
@@ -71,139 +57,6 @@
     } catch {
       if(version===sequence){ clearPrivate(); visible("admin-denied",true); }
     }
-  }
-  let pendingFactorId = null;
-  const mfaFactorList = data => Array.isArray(data?.all) ? data.all : (data?.totp || []);
-  function isTotp(f) { return (f.factor_type || f.type) === "totp"; }
-  async function showMfa() {
-    visible("admin-mfa",true);
-    factorId=null;
-    pendingFactorId=null;
-    visible("mfa-setup",false);
-    visible("mfa-resume",false);
-    visible("mfa-enroll",false);
-    visible("mfa-form",false);
-    inform("mfa-message","");
-    const {data,error}=await client.auth.mfa.listFactors();
-    if(error){
-      inform("mfa-explanation","تعذر تحميل إعدادات المصادقة. تحقق من اتصالك ثم أعد فتح الصفحة.");
-      return;
-    }
-    const factors=mfaFactorList(data);
-    const verified=(data?.totp||[]).find(f=>f.status==="verified") ||
-      factors.find(f=>isTotp(f) && f.status==="verified");
-    if(verified){
-      factorId=verified.id;
-      visible("mfa-form",true);
-      inform("mfa-explanation","أدخل الرمز الحالي المكوّن من ستة أرقام من تطبيق المصادقة المرتبط بحسابك.");
-      return;
-    }
-    const pending=factors.find(f=>isTotp(f) && f.status==="unverified" &&
-      f.friendly_name==="NA7N staff stories");
-    if(pending){
-      pendingFactorId=pending.id;
-      visible("mfa-resume",true);
-      visible("mfa-enroll",true);
-      $("mfa-enroll").textContent="إعادة الإعداد وإصدار رمز جديد";
-      inform("mfa-explanation",
-        "بدأ إعداد المصادقة سابقًا ولم يكتمل. إذا حفظت المفتاح في تطبيق المصادقة، يمكنك إتمامه بالرمز الحالي. وإلا اختر «إعادة الإعداد وإصدار رمز جديد» لاستبدال المحاولة غير المكتملة فقط.");
-      return;
-    }
-    $("mfa-enroll").textContent="تفعيل المصادقة متعددة العوامل";
-    visible("mfa-enroll",true);
-    inform("mfa-explanation","هذه أول مرة تستخدم فيها التحقق بخطوتين. فعّل تطبيق المصادقة لبدء الدخول.");
-  }
-  function resumeMfa() {
-    if(!pendingFactorId)return;
-    factorId=pendingFactorId;
-    visible("mfa-form",true);
-    inform("mfa-message","افتح تطبيق المصادقة الذي استخدمته سابقًا، ثم أدخل الرمز الحالي. إن لم تحفظ مفتاح الإعداد السابق، اختر إعادة الإعداد لإصدار مفتاح جديد.");
-  }
-  async function enrollMfa() {
-    if(busy)return;
-    busy=true;
-    $("mfa-enroll").disabled=true;
-    inform("mfa-message","جارٍ تجهيز المصادقة الجديدة…");
-    // Discard old displayed QR and setup secret before rotating a compromised factor.
-    $("mfa-qr").removeAttribute("src");
-    inform("mfa-secret","");
-    $("mfa-secret").hidden=true;
-    $("mfa-show-secret").setAttribute("aria-expanded","false");
-    $("mfa-show-secret").textContent="إظهار مفتاح الإعداد اليدوي عند الحاجة فقط";
-    $("mfa-code").value="";
-    visible("mfa-setup",false);
-    visible("mfa-form",false);
-    try {
-      // An interrupted enrollment leaves an unverified factor with the same
-      // friendly name. Never remove verified factors, nor any other device.
-      const listed=await client.auth.mfa.listFactors();
-      if(listed.error)throw listed.error;
-      const factors=mfaFactorList(listed.data);
-      const verified=(listed.data?.totp||[]).find(f=>f.status==="verified") ||
-        factors.find(f=>isTotp(f) && f.status==="verified");
-      if(verified){
-        factorId=verified.id;
-        pendingFactorId=null;
-        visible("mfa-resume",false);
-        visible("mfa-enroll",false);
-        visible("mfa-form",true);
-        inform("mfa-message","المصادقة مفعّلة مسبقًا. أدخل رمز التطبيق الموجود.");
-        return;
-      }
-      const pending=factors.filter(f=>isTotp(f) &&
-        f.status==="unverified" && f.friendly_name==="NA7N staff stories");
-      for(const f of pending){
-        const removed=await client.auth.mfa.unenroll({factorId:f.id});
-        if(removed.error)throw removed.error;
-      }
-      pendingFactorId=null;
-      factorId=null;
-      const {data,error}=await client.auth.mfa.enroll({
-        factorType:"totp",friendlyName:"NA7N staff stories"
-      });
-      if(error)throw error;
-      if(!data?.id || !data?.totp?.qr_code)throw new Error("missing_totp_setup");
-      factorId=data.id;
-      // QR and secret are shown to the signed-in user only; never persisted
-      // in the site, browser storage, analytics, logs or repository.
-      $("mfa-qr").src=data.totp.qr_code;
-      inform("mfa-secret",data.totp.secret||"");
-      $("mfa-secret").hidden=true;
-      $("mfa-show-secret").setAttribute("aria-expanded","false");
-      visible("mfa-setup",true);
-      visible("mfa-form",true);
-      visible("mfa-resume",false);
-      visible("mfa-enroll",false);
-      inform("mfa-message","تم إصدار مفتاح جديد. أضفه إلى تطبيق المصادقة، ثم أدخل رمز الستة أرقام. لا تستخدم المفتاح القديم.");
-    } catch(error){
-      const conflict=error?.code==="mfa_factor_name_conflict";
-      inform("mfa-message",conflict?
-        "يوجد إعداد سابق غير مكتمل ولم نتمكن من استبداله تلقائيًا. أعد تحميل الصفحة ثم اختر إعادة الإعداد. لا تشارك مفاتيح المصادقة.":
-        "تعذر إعداد المصادقة. تحقق من اتصالك، ثم أعد تحميل الصفحة. إذا استمرت المشكلة، أخبر إدارة الموقع دون إرسال رمز التحقق أو المفتاح السري.");
-    } finally {
-      busy=false;
-      $("mfa-enroll").disabled=false;
-    }
-  }
-  async function verifyMfa(event) {
-    event.preventDefault();
-    if(busy||!factorId)return;
-    const code=$("mfa-code").value.trim();
-    if(!/^[0-9]{6}$/.test(code))return;
-    busy=true;
-    try {
-      const challenge=await client.auth.mfa.challenge({factorId});
-      if(challenge.error||!challenge.data?.id)throw new Error("challenge");
-      const check=await client.auth.mfa.verify({factorId,challengeId:challenge.data.id,code});
-      if(check.error)throw new Error("verify");
-      $("mfa-code").value="";
-      inform("mfa-secret","");
-      $("mfa-qr").removeAttribute("src");
-      pendingFactorId=null;
-      await render();
-    } catch {
-      inform("mfa-message","لم يُقبل الرمز. تأكد من ضبط وقت الهاتف تلقائيًا واستخدم الرمز الحالي من التطبيق، ثم حاول مجددًا.");
-    } finally {busy=false;}
   }
   async function login(event) {
     event.preventDefault();if(busy||!client)return;
@@ -259,7 +112,7 @@
         await client.auth.signOut();
       }
       user=null;staff=null;clearPrivate();
-      inform("login-message","تم استقبال طلب إنشاء الحساب. افحص بريدك بحثًا عن رسالة تأكيد إن وصلت. لا توجد صلاحية إدارة مفعّلة حتى تثبت ملكية البريد وتعيّن الإدارة دورك. بعد التحقق، عد إلى هذه الصفحة وسجّل الدخول لتفعيل المصادقة الثنائية.");
+      inform("login-message","تم استقبال طلب إنشاء الحساب. افحص بريدك بحثًا عن رسالة تأكيد إن وصلت. لا توجد صلاحية إدارة مفعّلة حتى تثبت ملكية البريد وتعيّن الإدارة دورك. بعد التحقق، عد إلى هذه الصفحة وسجّل الدخول بالبريد وكلمة المرور.");
       visible("staff-register-form",false);
       $("show-staff-register").setAttribute("aria-expanded","false");
       $("show-staff-register").textContent="إنشاء حساب دخول للفريق";
@@ -466,18 +319,6 @@
   $("admin-login-form").addEventListener("submit",login);
   $("show-staff-register").addEventListener("click",toggleStaffRegister);
   $("staff-register-form").addEventListener("submit",registerStaff);
-  $("mfa-form").addEventListener("submit",verifyMfa);
-  $("mfa-enroll").addEventListener("click",enrollMfa);
-  $("mfa-resume").addEventListener("click",resumeMfa);
-  $("mfa-reset-key").addEventListener("click",enrollMfa);
-  $("mfa-show-secret").addEventListener("click",()=>{
-    const secret=$("mfa-secret");
-    secret.hidden=!secret.hidden;
-    const shown=!secret.hidden;
-    $("mfa-show-secret").setAttribute("aria-expanded",String(shown));
-    $("mfa-show-secret").textContent=shown?
-      "إخفاء مفتاح الإعداد اليدوي":"إظهار مفتاح الإعداد اليدوي عند الحاجة فقط";
-  });
   $("admin-logout").addEventListener("click",logout);
   $("denied-logout").addEventListener("click",logout);
   $("refresh-cases").addEventListener("click",loadCases);
@@ -487,3 +328,4 @@
   $("approve-case").addEventListener("click",approveCase);
   render();
 })();
+

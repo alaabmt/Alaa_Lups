@@ -28,79 +28,11 @@
  if(error){say(msg(error),"error");return;}await initSession();
  }
  async function signOut(){await sb.auth.signOut();location.reload();}
- // Staff and physicians must pass TOTP MFA before viewing assignments or making decisions.
- let pendingTotpId="";
- function mfaCard(){
-  let node=byId("mr-mfa-card");if(node)return node;
-  node=document.createElement("section");node.className="mr-card";node.id="mr-mfa-card";
-  const title=document.createElement("h2");title.textContent=T("المصادقة الثنائية لحماية الاعتماد الطبي","Two-factor authentication for medical reviews");
-  const intro=document.createElement("p");intro.textContent=T(
-   "افتح تطبيق المصادقة على هاتفك (مثل Microsoft Authenticator أو Google Authenticator). لا ترسل رمز التحقق أو مفتاح الإعداد عبر واتساب أو لأي شخص.",
-   "Use an authenticator app (e.g. Microsoft or Google Authenticator). Never share authentication codes or setup keys on WhatsApp.");
-  const qr=document.createElement("img");qr.id="mr-mfa-qr";qr.hidden=true;qr.alt=T("رمز إعداد المصادقة الثنائية","MFA setup QR code");qr.style.cssText="display:block;width:min(220px,100%);height:auto;margin:10px auto";
-  const help=document.createElement("p");help.id="mr-mfa-help";help.className="mr-meta";
-  const secret=document.createElement("code");secret.id="mr-mfa-secret";secret.style.cssText="display:block;direction:ltr;word-break:break-all;font-size:14px;margin:8px 0";
-  const setup=document.createElement("button");setup.id="mr-mfa-setup";setup.className="mr-btn secondary";setup.type="button";setup.textContent=T("إعداد المصادقة الثنائية","Set up two-factor authentication");
-  const form=document.createElement("form");form.id="mr-mfa-form";form.className="mr-field";form.hidden=true;
-  const label=document.createElement("label");label.htmlFor="mr-mfa-code";label.textContent=T("رمز التحقق المؤقت من 6 أرقام","Six-digit authenticator code");
-  const code=document.createElement("input");code.id="mr-mfa-code";code.name="mfa-code";code.inputMode="numeric";code.autocomplete="one-time-code";code.pattern="[0-9]{6}";code.minLength=6;code.maxLength=6;code.required=true;code.type="text";
-  const verify=document.createElement("button");verify.className="mr-btn";verify.type="submit";verify.textContent=T("التحقق والدخول","Verify and continue");
-  form.append(label,code,verify);
-  node.append(title,intro,help,setup,qr,secret,form);
-  byId("mr-user-card").after(node);
-  setup.addEventListener("click",async()=>{
-   setup.disabled=true;try{
-    const {data,error}=await sb.auth.mfa.enroll({factorType:"totp",friendlyName:"NA7N medical content review"});
-    if(error)throw error;
-    pendingTotpId=data.id;
-    qr.hidden=false;
-    const qrUrl=data.totp?.qr_code||"";
-    if(qrUrl.startsWith("data:image/"))qr.src=qrUrl;else qr.hidden=true;
-    secret.textContent=T("مفتاح الإعداد اليدوي (للاستخدام الشخصي فقط): ","Manual setup key (keep private): ")+(data.totp?.secret||"");
-    setup.hidden=true;form.hidden=false;
-    help.textContent=T("امسح الرمز أو أدخل المفتاح في تطبيق المصادقة، ثم أدخل رمز الأرقام الستة.",
-      "Scan the QR or enter the setup key in your authenticator app, then type the six-digit code.");
-   }catch(err){say(msg(err),"error");setup.disabled=false;}
-  });
-  form.addEventListener("submit",async(e)=>{
-   e.preventDefault();const code=byId("mr-mfa-code").value.trim();
-   if(!/^[0-9]{6}$/.test(code)){say(T("أدخل رمزًا من ستة أرقام.","Enter a six-digit code."),"error");return;}
-   if(!pendingTotpId){say(T("أعد إعداد المصادقة الثنائية.","Restart MFA setup."),"error");return;}
-   try{
-    const {error}=await sb.auth.mfa.challengeAndVerify({factorId:pendingTotpId,code});
-    if(error)throw error;
-    byId("mr-mfa-code").value="";pendingTotpId="";
-    secret.textContent="";qr.removeAttribute("src");node.hidden=true;
-    await initSession();
-   }catch(err){say(msg(err),"error");}
-  });
-  return node;
- }
- async function ensureMfa(){
-  const assurance=await sb.auth.mfa.getAuthenticatorAssuranceLevel();
-  if(assurance.error)throw assurance.error;
-  if(assurance.data?.currentLevel==="aal2"){const c=byId("mr-mfa-card");if(c)c.hidden=true;return true;}
-  const card=mfaCard();card.hidden=false;show("mr-panel",false);
-  const factors=await sb.auth.mfa.listFactors();if(factors.error)throw factors.error;
-  const verified=(factors.data?.totp||[]).find(x=>x.status==="verified");
-  const setup=byId("mr-mfa-setup"),form=byId("mr-mfa-form"),help=byId("mr-mfa-help");
-  if(verified){
-   setup.hidden=true;form.hidden=false;pendingTotpId=verified.id;
-   help.textContent=T("الحساب محمي. أدخل الرمز المتجدد من تطبيق المصادقة للمتابعة.",
-     "Your account has an authenticator. Enter the current six-digit code.");
-  }else{
-   setup.hidden=false;form.hidden=true;
-   help.textContent=T("قبل إدارة الأطباء يجب تفعيل المصادقة الثنائية. استخدم تطبيق مصادقة موثوق.",
-     "Set up two-factor authentication before you can manage clinical reviews.");
-  }
-  say(T("لن تُفتح صلاحيات المراجعة حتى ينجح التحقق بخطوتين.","Review permissions remain locked until MFA verification succeeds."));
-  return false;
- }
  async function initSession(){
   if(!sb){say(T("خدمة تسجيل الدخول غير متاحة.","Authentication service unavailable."),"error");return;}
   const {data,error}=await sb.auth.getUser();user=!error?data?.user:null;
   show("mr-login",!user);show("mr-panel",false);show("mr-signout",!!user);
-  if(!user){const c=byId("mr-mfa-card");if(c)c.hidden=true;say(T("سجّل الدخول بحساب الطبيب أو المنسق المكلف رسميًا.","Sign in with your assigned physician or coordinator account."));return;}
+  if(!user){say(T("سجّل الدخول بحساب الطبيب أو المنسق المكلف رسميًا.","Sign in with your assigned physician or coordinator account."));return;}
   text(byId("mr-user"),user.email||"");
   try{
    const roleTable=mode==="doctor"?"na7n_medical_reviewers":"na7n_medical_review_staff";
@@ -109,11 +41,8 @@
    if(!authz.data?.is_active || (mode==="doctor"&&!authz.data?.nomination_approved_at)){
     say(T("هذا الحساب غير مكلّف بهذا الدور. لا تُمنح الصلاحية إلا بعد التحقق والتكليف الإداري.","This account has no verified assignment for this role."),"error");return;
    }
-   const needsMfa = mode==="doctor" || authz.data.role==="publisher";
-   if(needsMfa && !(await ensureMfa()))return;
-   if(!needsMfa){const mfa=byId("mr-mfa-card");if(mfa)mfa.hidden=true;}
    show("mr-panel",true);
-   say(needsMfa ? T("تم التحقق من تسجيل الدخول والمصادقة الثنائية.","Sign-in and MFA verified.") : T("تم تسجيل الدخول إلى تنسيق المراجعات.","Signed in to review coordination."),"success");
+   say(T("تم تسجيل الدخول بنجاح.","Signed in successfully."),"success");
    if(mode==="doctor")await doctorHome();else await coordinatorHome();
   }catch(ex){say(msg(ex),"error");}
  }
