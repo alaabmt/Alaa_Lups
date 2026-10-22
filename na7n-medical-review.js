@@ -72,7 +72,7 @@
   newList.replaceChildren();completedList.replaceChildren();
   const pendingAssignments=assignments.filter(a=>a.is_active&&!decisions.some(d=>d.assignment_id===a.id));
   const completedAssignments=assignments.filter(a=>decisions.some(d=>d.assignment_id===a.id));
-  text(byId("mr-total-count"),assignments.length);
+  text(byId("mr-total-count"),ALLOWED.length);\n  text(byId("mr-assigned-count"),assignments.length);\n  text(byId("mr-unassigned-count"),Math.max(0,ALLOWED.length-assignments.length));
   text(byId("mr-completed-count"),completedAssignments.length);
   text(byId("mr-remaining-count"),pendingAssignments.length);
   const addAssignmentLink=(list,a,done)=>{
@@ -85,24 +85,23 @@
   if(!assignments.length)text(newList,T("لم تُكلّف بأي صفحة بعد. يجب أن توافق الإدارة على انضمامك وتكلّفك بالصفحة أولًا.","You have no assigned pages yet. Staff must first approve your application and assign a page."));
   if(!completedAssignments.length)text(completedList,T("لا توجد صفحات مكتملة بعد.","No completed pages yet."));
   const history=byId("mr-full-history");history.replaceChildren();
-  const ordered=assignments.slice().sort((a,b)=>new Date(a.assigned_at)-new Date(b.assigned_at));
-  if(!ordered.length){text(history,T("لا يوجد سجل صفحات بعد.","No page history yet."));}
-  else{
-   const table=document.createElement("table");table.className="mr-history-table";
-   const headRow=document.createElement("tr");
-   [T("الصفحة","Page"),T("الحالة","Status"),T("القرار","Decision"),T("التكليف","Assigned")].forEach(label=>{const th=document.createElement("th");th.textContent=label;headRow.append(th);});
-   const thead=document.createElement("thead");thead.append(headRow);table.append(thead);
-   const tbody=document.createElement("tbody");
-   ordered.forEach(a=>{
-    const done=decisions.find(d=>d.assignment_id===a.id),tr=document.createElement("tr");
-    const pageCell=document.createElement("td"),link=document.createElement("a");link.href="?assignment="+encodeURIComponent(a.id);link.textContent=pageLabel(a.page_path);pageCell.append(link);
-    const statusCell=document.createElement("td");statusCell.textContent=pageStatus(a,done);
-    const decisionCell=document.createElement("td");decisionCell.textContent=done?.decision||T("لم يُسجل بعد","Not recorded");
-    const dateCell=document.createElement("td");dateCell.textContent=refDate(a.assigned_at);
-    tr.append(pageCell,statusCell,decisionCell,dateCell);tbody.append(tr);
-   });
-   table.append(tbody);history.append(table);
-  }
+  const ordered=ALLOWED.map(path=>assignments.find(a=>a.page_path===path)||{page_path:path,is_active:false,unassigned:true});
+  const table=document.createElement("table");table.className="mr-history-table";
+  const headRow=document.createElement("tr");
+  [T("الصفحة","Page"),T("الحالة","Status"),T("القرار","Decision"),T("التكليف","Assigned")].forEach(label=>{const th=document.createElement("th");th.textContent=label;headRow.append(th);});
+  const thead=document.createElement("thead");thead.append(headRow);table.append(thead);
+  const tbody=document.createElement("tbody");
+  ordered.forEach(a=>{
+   const done=a.unassigned?null:decisions.find(d=>d.assignment_id===a.id),tr=document.createElement("tr");
+   const pageCell=document.createElement("td");
+   if(a.unassigned){pageCell.textContent=pageLabel(a.page_path);}
+   else{const link=document.createElement("a");link.href="?assignment="+encodeURIComponent(a.id);link.textContent=pageLabel(a.page_path);pageCell.append(link);}
+   const statusCell=document.createElement("td");statusCell.textContent=a.unassigned?T("بانتظار التكليف","Awaiting assignment"):pageStatus(a,done);
+   const decisionCell=document.createElement("td");decisionCell.textContent=a.unassigned?T("—","—"):(done?.decision||T("لم يُسجل بعد","Not recorded"));
+   const dateCell=document.createElement("td");dateCell.textContent=a.unassigned?T("—","—"):refDate(a.assigned_at);
+   tr.append(pageCell,statusCell,decisionCell,dateCell);tbody.append(tr);
+  });
+  table.append(tbody);history.append(table);
   let id=new URLSearchParams(location.search).get("assignment");if(!id && assignments.length===1)id=assignments[0].id;
   current=assignments.find(a=>a.id===id);
   if(!current){say(T("اختر صفحة من تكليفاتك.","Choose an assigned page."));show("mr-active-review",false);return;}
