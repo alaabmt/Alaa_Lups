@@ -49,3 +49,12 @@ body.medical-review-page{margin:0;background:#faf9fc;font:16px/1.7 system-ui,"Se
 .mr-progress-card.is-pending{background:#fffaf0;border-color:#ead6ad}
 .mr-progress-card.is-pending strong{color:#9a681e}
 @media(max-width:520px){.mr-progress-grid{grid-template-columns:1fr 1fr}.mr-progress-card:first-child{grid-column:1/-1}}
+
+.mr-history-wrap{overflow-x:auto}
+.mr-history-table{width:100%;border-collapse:collapse;min-width:620px;font-size:14px}
+.mr-history-table th,.mr-history-table td{padding:11px 10px;border-bottom:1px solid #e7deee;text-align:start;vertical-align:top}
+.mr-history-table th{background:#f7f2fb;color:#4d3565;font-weight:750}
+.mr-history-table tr:hover td{background:#fcf9ff}
+.mr-history-table a{font-weight:750}
+.mr-actions .mr-btn:disabled{opacity:.45}
+@media(max-width:720px){.mr-history-table{font-size:13px}.mr-history-table th,.mr-history-table td{padding:9px 7px}}

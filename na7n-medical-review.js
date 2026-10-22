@@ -8,6 +8,22 @@
  const sb=window.na7nSupabase || window.supabase?.createClient("https://wobpwxdlfrzfugzocdie.supabase.co","sb_publishable_QlDRz3T6CwgTHI3cdGJLMA_BwH4qlwO");
  let user=null,assignments=[],decisions=[],reviewers=[],staff=null,current=null,currentSha="",selectedBlock=null,lastAssignment=null;
  const ALLOWED=["newly-diagnosed.html","symptoms.html","treatment.html","appointment.html","living.html","pregnancy.html","newly-diagnosed-en.html","symptoms-en.html","treatment-en.html","appointment-en.html","living-en.html","pregnancy-en.html","about-lupus.html","about-lupus-en.html","diagnosis-tests.html","diagnosis-tests-en.html","kidneys.html","kidneys-en.html","skin-sun.html","skin-sun-en.html","faq.html","faq-en.html","fatigue.html"];
+ const PAGE_LABELS={
+  "newly-diagnosed.html":["شُخِّصت حديثًا","Newly diagnosed"],"symptoms.html":["الأعراض والتغيرات الصحية","Symptoms and changes"],
+  "treatment.html":["العلاج","Treatment"],"appointment.html":["الاستعداد للموعد","Prepare for an appointment"],
+  "living.html":["الحياة اليومية","Everyday life"],"pregnancy.html":["الحمل والذئبة","Pregnancy and lupus"],
+  "about-lupus.html":["افهم الذئبة","Understand lupus"],"diagnosis-tests.html":["الفحوص والتشخيص","Diagnosis and tests"],
+  "kidneys.html":["الكلى والذئبة","Kidneys and lupus"],"skin-sun.html":["الشمس والجلد","Sun and skin"],
+  "faq.html":["الأسئلة الشائعة","Frequently asked questions"],"fatigue.html":["التعب والإرهاق","Fatigue"],
+  "newly-diagnosed-en.html":["Newly diagnosed","شُخِّصت حديثًا"],"symptoms-en.html":["Symptoms and changes","الأعراض والتغيرات الصحية"],
+  "treatment-en.html":["Treatment","العلاج"],"appointment-en.html":["Prepare for an appointment","الاستعداد للموعد"],
+  "living-en.html":["Everyday life","الحياة اليومية"],"pregnancy-en.html":["Pregnancy and lupus","الحمل والذئبة"],
+  "about-lupus-en.html":["Understand lupus","افهم الذئبة"],"diagnosis-tests-en.html":["Diagnosis and tests","الفحوص والتشخيص"],
+  "kidneys-en.html":["Kidneys and lupus","الكلى والذئبة"],"skin-sun-en.html":["Sun and skin","الشمس والجلد"],
+  "faq-en.html":["Frequently asked questions","الأسئلة الشائعة"],"fatigue.html":["Fatigue","التعب والإرهاق"]
+ };
+ const pageLabel=path=>PAGE_LABELS[path]?.[en?1:0]||path;
+ const pageStatus=(a,done)=>done?T("مكتملة","Completed"):(a.is_active?T("جديدة","New"):T("غير نشطة","Inactive"));
  const show=(id,on=true)=>{const el=byId(id);if(el)el.hidden=!on;};
  const say=(message,type="info")=>{const el=byId("mr-status");if(el){el.textContent=message;el.dataset.kind=type;}};
  const encode=s=>new TextEncoder().encode(s);
@@ -61,13 +77,32 @@
   text(byId("mr-remaining-count"),pendingAssignments.length);
   const addAssignmentLink=(list,a,done)=>{
    const link=document.createElement("a");link.className="mr-review-link";link.href="?assignment="+encodeURIComponent(a.id);
-   link.textContent=a.page_path+" · "+(done?T("قرار محفوظ: ","Recorded: ")+done.decision:(a.is_active?T("بانتظار المراجعة","Awaiting review"):T("تكليف مُلغى","Assignment inactive")));
+   link.textContent=pageLabel(a.page_path)+" · "+(done?T("قرار محفوظ: ","Recorded: ")+done.decision:(a.is_active?T("بانتظار المراجعة","Awaiting review"):T("تكليف مُلغى","Assignment inactive")));
    list.append(link);
   };
   pendingAssignments.forEach(a=>addAssignmentLink(newList,a,null));
   completedAssignments.forEach(a=>addAssignmentLink(completedList,a,decisions.find(d=>d.assignment_id===a.id)));
   if(!assignments.length)text(newList,T("لم تُكلّف بأي صفحة بعد. يجب أن توافق الإدارة على انضمامك وتكلّفك بالصفحة أولًا.","You have no assigned pages yet. Staff must first approve your application and assign a page."));
   if(!completedAssignments.length)text(completedList,T("لا توجد صفحات مكتملة بعد.","No completed pages yet."));
+  const history=byId("mr-full-history");history.replaceChildren();
+  const ordered=assignments.slice().sort((a,b)=>new Date(a.assigned_at)-new Date(b.assigned_at));
+  if(!ordered.length){text(history,T("لا يوجد سجل صفحات بعد.","No page history yet."));}
+  else{
+   const table=document.createElement("table");table.className="mr-history-table";
+   const headRow=document.createElement("tr");
+   [T("الصفحة","Page"),T("الحالة","Status"),T("القرار","Decision"),T("التكليف","Assigned")].forEach(label=>{const th=document.createElement("th");th.textContent=label;headRow.append(th);});
+   const thead=document.createElement("thead");thead.append(headRow);table.append(thead);
+   const tbody=document.createElement("tbody");
+   ordered.forEach(a=>{
+    const done=decisions.find(d=>d.assignment_id===a.id),tr=document.createElement("tr");
+    const pageCell=document.createElement("td"),link=document.createElement("a");link.href="?assignment="+encodeURIComponent(a.id);link.textContent=pageLabel(a.page_path);pageCell.append(link);
+    const statusCell=document.createElement("td");statusCell.textContent=pageStatus(a,done);
+    const decisionCell=document.createElement("td");decisionCell.textContent=done?.decision||T("لم يُسجل بعد","Not recorded");
+    const dateCell=document.createElement("td");dateCell.textContent=refDate(a.assigned_at);
+    tr.append(pageCell,statusCell,decisionCell,dateCell);tbody.append(tr);
+   });
+   table.append(tbody);history.append(table);
+  }
   let id=new URLSearchParams(location.search).get("assignment");if(!id && assignments.length===1)id=assignments[0].id;
   current=assignments.find(a=>a.id===id);
   if(!current){say(T("اختر صفحة من تكليفاتك.","Choose an assigned page."));show("mr-active-review",false);return;}
@@ -75,6 +110,17 @@
   show("mr-active-review");await openReview(current);
  }
  async function openReview(a){
+  const ordered=assignments.slice().sort((x,y)=>new Date(x.assigned_at)-new Date(y.assigned_at));
+  const position=ordered.findIndex(x=>x.id===a.id);
+  const previous=position>0?ordered[position-1]:null;
+  const next=position>=0&&position<ordered.length-1?ordered[position+1]:null;
+  const setNav=(id,target,label)=>{
+   const button=byId(id);if(!button)return;
+   button.disabled=!target;button.textContent=label;
+   button.onclick=()=>{if(target)location.href="?assignment="+encodeURIComponent(target.id);};
+  };
+  setNav("mr-prev-assignment",previous,T("السابق","Previous"));
+  setNav("mr-next-assignment",next,T("التالي","Next"));
   const page=await loadPage(a.page_path);
   currentSha=page.sha;
   text(byId("mr-page-title"),a.page_path);
@@ -139,7 +185,11 @@
    if(consent.error){say(msg(consent.error),"error");return;}
   }
   const {error}=await sb.from("na7n_medical_review_decisions").insert({assignment_id:current.id,decision,statement});
-  if(error){say(msg(error),"error");return;}say(T("حُفظ قرارك. لا تظهر العلامة الخضراء إلا بعد موافقة طبيبين واستكمال اعتماد النشر.","Decision saved. Green status requires two physician approvals and publisher release."),"success");await doctorHome();
+  if(error){say(msg(error),"error");return;}
+  const nextPending=(assignments.filter(a=>a.id!==current.id&&a.is_active&&!decisions.some(d=>d.assignment_id===a.id)).sort((a,b)=>new Date(a.assigned_at)-new Date(b.assigned_at))[0]);
+  say(T("حُفظ قرارك. جارٍ فتح أول صفحة متبقية...","Decision saved. Opening the first remaining page..."),"success");
+  if(nextPending){location.href="?assignment="+encodeURIComponent(nextPending.id);return;}
+  history.replaceState({},document.title,location.pathname);await doctorHome();
  }
  async function coordinatorHome(){
   const {data,error}=await sb.from("na7n_medical_review_staff").select("*").eq("user_id",user.id).maybeSingle();
