@@ -202,13 +202,14 @@
  }
  async function submitDecision(e){
   e.preventDefault();if(!current||currentSha!==current.content_sha256)return;
-  const decision=document.querySelector('input[name="mr-decision"]:checked')?.value;
-  const statement=byId("mr-statement").value.trim();
   const criteria=collectCriteria();
-  if(!decision||!criteria||statement.length<10||!byId("mr-attest").checked){say(T("اختر خيارًا تحت المعايير الأربعة، واكتب أسباب الحالات غير المستوفاة، وسبب القرار، ثم أكد مراجعة الصفحة كاملة.","Complete all four criteria, add reasons for any unmet criterion, enter the decision rationale and attest full-page review."),"error");return;}
-  if(!confirm(T("سيسجل قرارك النهائي على هذه النسخة. هل تؤكد؟","Record your final decision on this exact content version?")))return;
+  if(!criteria){say(T("أكمل المعايير الأربعة واكتب سببًا لكل معيار يحتاج تعديلًا أو غير مستوفٍ.","Complete all four criteria and add a reason for every criterion needing changes or not met."),"error");return;}
+  const values=Object.values(criteria).map(x=>x.status);
+  const decision=values.includes("not_met")?"rejected":(values.includes("needs_changes")?"changes_requested":"approved");
+  const statement=T("قرار تلقائي من المعايير الأربعة: "+(decision==="approved"?"مستوفٍ":decision==="changes_requested"?"يحتاج تعديل":"غير مستوفٍ"),"Automatic decision from the four criteria: "+(decision==="approved"?"Met":decision==="changes_requested"?"Needs changes":"Not met"));
+  if(!confirm(T("سيُحفظ التقييم ويُحتسب القرار تلقائيًا من إجابات المعايير. هل تؤكد؟","Save this assessment and calculate the decision automatically from the criteria?")))return;
   if(decision==="approved"){
-   if(!byId("mr-name-consent").checked){say(T("وافق على عرض اسمك وتخصصك مع المراجعة المعتمدة.","Consent to display your name and specialty with the approved review."),"error");return;}
+   if(!byId("mr-name-consent")?.checked){say(T("وافق على عرض اسمك وتخصصك عند اعتماد الصفحة.","Consent to display your name and specialty when the page is approved."),"error");return;}
    const consent=await sb.rpc("na7n_medical_name_consent");
    if(consent.error){say(msg(consent.error),"error");return;}
   }
