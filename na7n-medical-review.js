@@ -102,7 +102,7 @@
    tr.append(pageCell,statusCell,decisionCell,dateCell);tbody.append(tr);
   });
   table.append(tbody);history.append(table);
-  let id=new URLSearchParams(location.search).get("assignment");if(!id && assignments.length===1)id=assignments[0].id;
+  let id=new URLSearchParams(location.search).get("assignment");if(!id){const firstPending=assignments.filter(a=>a.is_active&&!decisions.some(d=>d.assignment_id===a.id)).sort((a,b)=>new Date(a.assigned_at)-new Date(b.assigned_at))[0];id=firstPending?.id||assignments[0]?.id;}
   current=assignments.find(a=>a.id===id);
   if(!current){say(T("اختر صفحة من تكليفاتك.","Choose an assigned page."));show("mr-active-review",false);return;}
   if(!current.is_active){say(T("هذا التكليف لم يعد نشطًا؛ اطلب رابطًا جديدًا من الإدارة.","This assignment is no longer active."),"error");return;}
