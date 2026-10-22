@@ -113,7 +113,8 @@
   completedAssignments.forEach(a=>addAssignmentLink(completedList,a,decisions.find(d=>d.assignment_id===a.id)));
   if(!assignments.length)text(newList,T("لم تُكلّف بأي صفحة بعد. يجب أن توافق الإدارة على انضمامك وتكلّفك بالصفحة أولًا.","You have no assigned pages yet. Staff must first approve your application and assign a page."));
   if(!completedAssignments.length)text(completedList,T("لا توجد صفحات مكتملة بعد.","No completed pages yet."));
-  const history=byId("mr-full-history");history.replaceChildren();
+  const history=byId("mr-full-history");
+  if(history){history.replaceChildren();
   const ordered=ALLOWED.map(path=>assignments.find(a=>a.page_path===path)||{page_path:path,is_active:false,unassigned:true});
   const table=document.createElement("table");table.className="mr-history-table";
   const headRow=document.createElement("tr");
@@ -131,7 +132,7 @@
    const dateCell=document.createElement("td");dateCell.textContent=a.unassigned?T("—","—"):refDate(a.assigned_at);
    tr.append(pageCell,statusCell,decisionCell,dateCell);tbody.append(tr);
   });
-  table.append(tbody);history.append(table);
+  table.append(tbody);history.append(table);}
   let id=new URLSearchParams(location.search).get("assignment");if(!id){const firstPending=assignments.filter(a=>a.is_active&&!decisions.some(d=>d.assignment_id===a.id)).sort((a,b)=>new Date(a.assigned_at)-new Date(b.assigned_at))[0];id=firstPending?.id||assignments[0]?.id;}
   current=assignments.find(a=>a.id===id);
   if(!current){say(T("اختر صفحة من تكليفاتك.","Choose an assigned page."));show("mr-active-review",false);return;}
