@@ -58,3 +58,7 @@ body.medical-review-page{margin:0;background:#faf9fc;font:16px/1.7 system-ui,"Se
 .mr-history-table a{font-weight:750}
 .mr-actions .mr-btn:disabled{opacity:.45}
 @media(max-width:720px){.mr-history-table{font-size:13px}.mr-history-table th,.mr-history-table td{padding:9px 7px}}
+
+.mr-criteria{margin:14px 0;padding:15px;border:1px solid #d9cbe7;border-radius:14px;background:#fbf8fe}.mr-criteria h3{margin:0 0 5px;color:var(--mr-ink)}
+.mr-criterion{margin:13px 0;padding:12px;border:1px solid #e4d9ed;border-radius:12px}.mr-criterion legend{padding:0 6px;font-weight:750;color:#493267}.mr-criterion-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.mr-criterion-option{display:flex;gap:7px;align-items:center;padding:9px;border:1px solid #dfd4e8;border-radius:9px;cursor:pointer;background:#fff}.mr-criterion-option:has(input:checked){border-color:#76509c;background:#f7f0fc}.mr-criterion-reason{width:100%;min-height:70px;margin-top:10px;border:1px solid #d2c1df;border-radius:9px;padding:9px;resize:vertical}.mr-admin-reasons{margin-top:8px;padding:8px 10px;border-radius:9px;background:#fff7e7;color:#80500f;font-size:13px;white-space:pre-wrap}
+@media(max-width:520px){.mr-criterion-options{grid-template-columns:1fr}}

@@ -7,6 +7,33 @@
  const mode=document.body.dataset.reviewMode;
  const sb=window.na7nSupabase || window.supabase?.createClient("https://wobpwxdlfrzfugzocdie.supabase.co","sb_publishable_QlDRz3T6CwgTHI3cdGJLMA_BwH4qlwO");
  let user=null,assignments=[],decisions=[],reviewers=[],staff=null,current=null,currentSha="",selectedBlock=null,lastAssignment=null;
+ const REVIEW_CRITERIA=[
+  {key:"accuracy",ar:"الدقة الطبية والمراجع",en:"Medical accuracy and references"},
+  {key:"completeness",ar:"اكتمال المعلومات",en:"Completeness of information"},
+  {key:"safety",ar:"السلامة الطبية والتنبيهات",en:"Medical safety and warnings"},
+  {key:"clarity",ar:"وضوح الشرح للمريض",en:"Clarity for patients"}
+ ];
+ function setupCriteria(){
+  const box=byId("mr-criteria");if(!box||box.dataset.ready==="1")return;
+  box.dataset.ready="1";const intro=document.createElement("p");intro.className="mr-meta";intro.textContent=T("اختر خيارًا واحدًا تحت كل معيار. عند اختيار «يحتاج تعديل» أو «غير مستوفٍ» اكتب سببًا واضحًا.","Choose one option for every criterion. A clear reason is required for “Needs changes” or “Not met”.");box.append(intro);
+  REVIEW_CRITERIA.forEach(c=>{
+   const field=document.createElement("fieldset");field.className="mr-criterion";
+   const legend=document.createElement("legend");legend.textContent=en?c.en:c.ar;field.append(legend);
+   const options=document.createElement("div");options.className="mr-criterion-options";
+   [["met",T("مستوفٍ","Met")],["needs_changes",T("يحتاج تعديل","Needs changes")],["not_met",T("غير مستوفٍ","Not met")]].forEach(([value,label])=>{
+    const lab=document.createElement("label");lab.className="mr-criterion-option";const input=document.createElement("input");input.type="radio";input.name="mr-criterion-"+c.key;input.value=value;input.required=true;const span=document.createElement("span");span.textContent=label;lab.append(input,span);options.append(lab);
+   });
+   field.append(options);
+   const reason=document.createElement("textarea");reason.id="mr-reason-"+c.key;reason.className="mr-criterion-reason";reason.placeholder=T("سبب التعديل أو عدم الاستيفاء (مطلوب)","Reason for changes or non-compliance (required)");reason.maxLength=1000;reason.hidden=true;reason.setAttribute("aria-label",T("سبب الملاحظة","Reason"));field.append(reason);
+   field.addEventListener("change",()=>{const value=field.querySelector("input:checked")?.value,need=value==="needs_changes"||value==="not_met";reason.hidden=!need;reason.required=need;if(!need)reason.value="";});
+   box.append(field);
+  });
+ }
+ function collectCriteria(){
+  const out={};
+  for(const c of REVIEW_CRITERIA){const value=document.querySelector('input[name="mr-criterion-'+c.key+'"]:checked')?.value;if(!value)return null;const reason=byId("mr-reason-"+c.key)?.value.trim()||"";if((value==="needs_changes"||value==="not_met")&&reason.length<3)return null;out[c.key]={status:value,reason};}
+  return out;
+ }
  const ALLOWED=["newly-diagnosed.html","symptoms.html","treatment.html","appointment.html","living.html","pregnancy.html","newly-diagnosed-en.html","symptoms-en.html","treatment-en.html","appointment-en.html","living-en.html","pregnancy-en.html","about-lupus.html","about-lupus-en.html","diagnosis-tests.html","diagnosis-tests-en.html","kidneys.html","kidneys-en.html","skin-sun.html","skin-sun-en.html","faq.html","faq-en.html","fatigue.html"];
  const PAGE_LABELS={
   "newly-diagnosed.html":["شُخِّصت حديثًا","Newly diagnosed"],"symptoms.html":["الأعراض والتغيرات الصحية","Symptoms and changes"],
@@ -126,6 +153,7 @@
   text(byId("mr-version"),a.content_sha256.slice(0,12));
   const same=page.sha===a.content_sha256;
   text(byId("mr-version-status"),same?T("النسخة متطابقة مع التكليف","Exact assigned version"):T("تغيّرت الصفحة منذ إرسال التكليف — لا يمكن الاعتماد","Page changed — review disabled"));
+  setupCriteria();
   show("mr-review-edit",same && !decisions.find(d=>d.assignment_id===a.id));
   byId("mr-review-edit").querySelectorAll("input,textarea,button").forEach(x=>x.disabled=!same);
   if(!same){say(T("الصفحة المنشورة لا تطابق بصمة المحتوى المكلف. اطلب نسخة مراجعة جديدة.","The page no longer matches its assigned digest. Ask for a new review."),"error");return;}
@@ -176,14 +204,15 @@
   e.preventDefault();if(!current||currentSha!==current.content_sha256)return;
   const decision=document.querySelector('input[name="mr-decision"]:checked')?.value;
   const statement=byId("mr-statement").value.trim();
-  if(!decision||statement.length<10||!byId("mr-attest").checked){say(T("اختر القرار، واكتب سببًا من 10 أحرف على الأقل، وأكد مراجعة الصفحة كاملة.","Choose a decision, enter at least 10 characters and attest full-page review."),"error");return;}
+  const criteria=collectCriteria();
+  if(!decision||!criteria||statement.length<10||!byId("mr-attest").checked){say(T("اختر خيارًا تحت المعايير الأربعة، واكتب أسباب الحالات غير المستوفاة، وسبب القرار، ثم أكد مراجعة الصفحة كاملة.","Complete all four criteria, add reasons for any unmet criterion, enter the decision rationale and attest full-page review."),"error");return;}
   if(!confirm(T("سيسجل قرارك النهائي على هذه النسخة. هل تؤكد؟","Record your final decision on this exact content version?")))return;
   if(decision==="approved"){
    if(!byId("mr-name-consent").checked){say(T("وافق على عرض اسمك وتخصصك مع المراجعة المعتمدة.","Consent to display your name and specialty with the approved review."),"error");return;}
    const consent=await sb.rpc("na7n_medical_name_consent");
    if(consent.error){say(msg(consent.error),"error");return;}
   }
-  const {error}=await sb.from("na7n_medical_review_decisions").insert({assignment_id:current.id,decision,statement});
+  const {error}=await sb.from("na7n_medical_review_decisions").insert({assignment_id:current.id,decision,statement,criteria_review:criteria});
   if(error){say(msg(error),"error");return;}
   const nextPending=(assignments.filter(a=>a.id!==current.id&&a.is_active&&!decisions.some(d=>d.assignment_id===a.id)).sort((a,b)=>new Date(a.assigned_at)-new Date(b.assigned_at))[0]);
   say(T("حُفظ قرارك. جارٍ فتح أول صفحة متبقية...","Decision saved. Opening the first remaining page..."),"success");
@@ -339,6 +368,7 @@
    const d=decisions.find(z=>z.assignment_id===a.id),r=reviewers.find(z=>z.user_id===a.reviewer_id);
    const div=document.createElement("div");div.className="mr-note";
    div.textContent=a.page_path+" — "+(r?.display_name_ar||"—")+" — "+(d?.decision||T("بانتظار","Pending"))+" — "+(a.is_active?T("نشط","Active"):T("ملغى","Inactive"));
+   if(d?.criteria_review&&typeof d.criteria_review==="object"){const reasons=Object.entries(d.criteria_review).filter(([,v])=>v&&v.status&&v.status!=="met"&&v.reason).map(([k,v])=>{const c=REVIEW_CRITERIA.find(x=>x.key===k);return (en?c?.en:c?.ar||k)+": "+v.reason;});if(reasons.length){const p=document.createElement("div");p.className="mr-admin-reasons";p.textContent=T("أسباب تحتاج متابعة: ","Reasons needing follow-up: ")+reasons.join(" · ");div.append(p);}}
    list.append(div);
   }
   if(!assignments.length)text(list,T("لا توجد تكليفات حتى الآن.","No assignments yet."));
