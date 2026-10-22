@@ -63,6 +63,15 @@
   return {html:new TextDecoder("utf-8").decode(buffer),sha:hex(new Uint8Array(digest))};
  }
  function refDate(x){return x?new Date(x).toLocaleString(en?"en-US":"ar-AE",{dateStyle:"medium",timeStyle:"short"}):"—"}
+ function annualReviewInfo(done){
+  if(!done?.decided_at)return {label:T("تُراجع سنويًا بعد الاعتماد","Reviewed annually after approval"),className:"annual-pending"};
+  const next=new Date(done.decided_at);next.setFullYear(next.getFullYear()+1);
+  const days=Math.ceil((next.getTime()-Date.now())/86400000);
+  const date=next.toLocaleDateString(en?"en-US":"ar-AE",{dateStyle:"medium"});
+  if(days<0)return {label:T("مراجعة سنوية متأخرة: ","Annual review overdue: ")+date,className:"annual-overdue"};
+  if(days<=30)return {label:T("المراجعة السنوية قريبة: ","Annual review due soon: ")+date,className:"annual-soon"};
+  return {label:T("المراجعة السنوية القادمة: ","Next annual review: ")+date,className:"annual-ok"};
+ }
  function text(el,value){if(el)el.textContent=String(value??"");}
  const msg=e=>e?.message||T("تعذر إكمال الطلب.","Request failed.");
  async function signIn(e){e.preventDefault();say(T("جارٍ تسجيل الدخول...","Signing in..."));
@@ -107,7 +116,8 @@
    const title=document.createElement("strong");title.textContent=pageLabel(a.page_path);
    const badge=document.createElement("span");badge.className="mr-status-badge";badge.textContent=done?T("مكتملة","Completed"):(a.is_active?T("غير مكتملة","Incomplete"):T("غير نشطة","Inactive"));
    const detail=document.createElement("small");detail.textContent=done?T("قرار محفوظ: ","Recorded: ")+done.decision:(a.is_active?T("اضغط لبدء المراجعة","Tap to start review"):T("تحتاج تكليفًا جديدًا","Needs a new assignment"));
-   link.append(title,badge,detail);list.append(link);
+   const annual=document.createElement("small");annual.className="mr-annual "+annualReviewInfo(done).className;annual.textContent=annualReviewInfo(done).label;
+   link.append(title,badge,detail,annual);list.append(link);
   };
   pendingAssignments.forEach(a=>addAssignmentLink(newList,a,null));
   completedAssignments.forEach(a=>addAssignmentLink(completedList,a,decisions.find(d=>d.assignment_id===a.id)));

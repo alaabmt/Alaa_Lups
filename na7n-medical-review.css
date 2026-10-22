@@ -70,3 +70,5 @@ body.medical-review-page{margin:0;background:#faf9fc;font:16px/1.7 system-ui,"Se
 .mr-history-table tr.is-pending td{background:#fffafa}.mr-history-table tr.is-complete td{background:#f7fcf8}.mr-history-table tr.is-pending td:nth-child(2){color:#a62c35;font-weight:700}.mr-history-table tr.is-complete td:nth-child(2){color:#25864d;font-weight:700}
 .mr-progress-card.is-pending{background:#fff3f3;border-color:#e8b8bd}.mr-progress-card.is-pending strong{color:#b33441}
 .mr-status-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;font-size:13px}.mr-status-legend span{padding:5px 9px;border-radius:999px;font-weight:700}.mr-status-legend .complete{background:#dff4e5;color:#1d6e40}.mr-status-legend .pending{background:#ffe4e6;color:#a62c35}
+
+.mr-annual{grid-column:1/-1;font-weight:700}.mr-annual.annual-ok{color:#25864d}.mr-annual.annual-soon{color:#9a681e}.mr-annual.annual-overdue{color:#b33441}.mr-annual.annual-pending{color:#6d4895}
