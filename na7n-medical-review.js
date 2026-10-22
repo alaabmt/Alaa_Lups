@@ -52,14 +52,22 @@
   if(error)throw error;assignments=data||[];
   const d=await sb.from("na7n_medical_review_decisions").select("*");
   if(d.error)throw d.error;decisions=d.data||[];
-  const list=byId("mr-assignment-list");list.replaceChildren();
-  if(!assignments.length)text(list,T("لم تُكلّف بأي صفحة بعد. يجب أن توافق الإدارة على انضمامك وتكلّفك بالصفحة أولًا.","You have no assigned pages yet. Staff must first approve your application and assign a page."));
-  assignments.forEach(a=>{
-   const done=decisions.find(d=>d.assignment_id===a.id);
+  const newList=byId("mr-new-assignment-list"),completedList=byId("mr-completed-assignment-list");
+  newList.replaceChildren();completedList.replaceChildren();
+  const pendingAssignments=assignments.filter(a=>a.is_active&&!decisions.some(d=>d.assignment_id===a.id));
+  const completedAssignments=assignments.filter(a=>decisions.some(d=>d.assignment_id===a.id));
+  text(byId("mr-total-count"),assignments.length);
+  text(byId("mr-completed-count"),completedAssignments.length);
+  text(byId("mr-remaining-count"),pendingAssignments.length);
+  const addAssignmentLink=(list,a,done)=>{
    const link=document.createElement("a");link.className="mr-review-link";link.href="?assignment="+encodeURIComponent(a.id);
    link.textContent=a.page_path+" · "+(done?T("قرار محفوظ: ","Recorded: ")+done.decision:(a.is_active?T("بانتظار المراجعة","Awaiting review"):T("تكليف مُلغى","Assignment inactive")));
    list.append(link);
-  });
+  };
+  pendingAssignments.forEach(a=>addAssignmentLink(newList,a,null));
+  completedAssignments.forEach(a=>addAssignmentLink(completedList,a,decisions.find(d=>d.assignment_id===a.id)));
+  if(!assignments.length)text(newList,T("لم تُكلّف بأي صفحة بعد. يجب أن توافق الإدارة على انضمامك وتكلّفك بالصفحة أولًا.","You have no assigned pages yet. Staff must first approve your application and assign a page."));
+  if(!completedAssignments.length)text(completedList,T("لا توجد صفحات مكتملة بعد.","No completed pages yet."));
   let id=new URLSearchParams(location.search).get("assignment");if(!id && assignments.length===1)id=assignments[0].id;
   current=assignments.find(a=>a.id===id);
   if(!current){say(T("اختر صفحة من تكليفاتك.","Choose an assigned page."));show("mr-active-review",false);return;}

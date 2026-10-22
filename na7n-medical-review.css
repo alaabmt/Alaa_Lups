@@ -39,3 +39,13 @@ body.medical-review-page{margin:0;background:#faf9fc;font:16px/1.7 system-ui,"Se
 .mr-onboarding .mr-review-link{max-width:440px;background:#fff}
 .mr-onboarding .mr-btn{margin-top:10px}
 #mr-pending-applications .mr-note{background:#faf8fc}
+
+.mr-progress-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0 5px}
+.mr-progress-card{padding:15px;border:1px solid #d9cbe7;border-radius:14px;background:#faf7fd;text-align:center}
+.mr-progress-card strong{display:block;font-size:30px;line-height:1.15;color:var(--mr-purple)}
+.mr-progress-card span{display:block;margin-top:5px;font-size:14px;color:#5f5368}
+.mr-progress-card.is-complete{background:#f2faf4;border-color:#b9ddc3}
+.mr-progress-card.is-complete strong{color:#25864d}
+.mr-progress-card.is-pending{background:#fffaf0;border-color:#ead6ad}
+.mr-progress-card.is-pending strong{color:#9a681e}
+@media(max-width:520px){.mr-progress-grid{grid-template-columns:1fr 1fr}.mr-progress-card:first-child{grid-column:1/-1}}
