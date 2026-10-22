@@ -15,7 +15,7 @@
  ];
  function setupCriteria(){
   const box=byId("mr-criteria");if(!box||box.dataset.ready==="1")return;
-  box.dataset.ready="1";const intro=document.createElement("p");intro.className="mr-meta";intro.textContent=T("اختر خيارًا واحدًا تحت كل معيار. عند اختيار «يحتاج تعديل» أو «غير مستوفٍ» اكتب سببًا واضحًا.","Choose one option for every criterion. A clear reason is required for “Needs changes” or “Not met”.");box.append(intro);
+  box.dataset.ready="1";
   REVIEW_CRITERIA.forEach(c=>{
    const field=document.createElement("fieldset");field.className="mr-criterion";
    const legend=document.createElement("legend");legend.textContent=en?c.en:c.ar;field.append(legend);
