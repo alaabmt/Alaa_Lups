@@ -104,8 +104,12 @@
   if(error)throw error;assignments=data||[];
   const d=await sb.from("na7n_medical_review_decisions").select("*");
   if(d.error)throw d.error;decisions=d.data||[];
-  const newList=byId("mr-new-assignment-list"),completedList=byId("mr-completed-assignment-list");
-  newList.replaceChildren();completedList.replaceChildren();
+  const fallbackList=byId("mr-assignment-list");
+  const newList=byId("mr-new-assignment-list")||fallbackList;
+  const completedList=byId("mr-completed-assignment-list")||fallbackList;
+  if(!newList)throw new Error(T("تعذر تحميل قائمة الصفحات المكلفة.","Could not load the assigned-pages list."));
+  newList.replaceChildren();
+  if(completedList!==newList)completedList.replaceChildren();
   let commentCounts={};
   try{const comments=await sb.from("na7n_medical_review_comments").select("assignment_id");if(!comments.error)(comments.data||[]).forEach(c=>{commentCounts[c.assignment_id]=(commentCounts[c.assignment_id]||0)+1;});}catch(_e){}
   const pendingAssignments=assignments.filter(a=>a.is_active&&!decisions.some(d=>d.assignment_id===a.id));
@@ -125,7 +129,7 @@
   pendingAssignments.forEach(a=>addAssignmentLink(newList,a,null));
   completedAssignments.forEach(a=>addAssignmentLink(completedList,a,decisions.find(d=>d.assignment_id===a.id)));
   if(!assignments.length)text(newList,T("لم تُكلّف بأي صفحة بعد. يجب أن توافق الإدارة على انضمامك وتكلّفك بالصفحة أولًا.","You have no assigned pages yet. Staff must first approve your application and assign a page."));
-  if(!completedAssignments.length)text(completedList,T("لا توجد صفحات مكتملة بعد.","No completed pages yet."));
+  if(!completedAssignments.length&&completedList!==newList)text(completedList,T("لا توجد صفحات مكتملة بعد.","No completed pages yet."));
   const history=byId("mr-full-history");
   if(history){history.replaceChildren();
   const ordered=ALLOWED.map(path=>assignments.find(a=>a.page_path===path)||{page_path:path,is_active:false,unassigned:true});
