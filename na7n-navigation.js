@@ -25,6 +25,7 @@
     stories: ["قصص وتجارب المرضى", "Patient stories"],
     tools: ["أدوات المريض", "Patient tools"],
     assessment: ["متابعة صحتك", "Track your health"],
+    governance: ["حوكمة المحتوى", "Governance"],
     about: ["عن نَحْنُ", "About NA7N"]
   };
   const t = (ar, english) => en ? english : ar;
@@ -74,6 +75,7 @@
       [t("الأدوات", "Tools"), local("tools"), slug === "tools"],
       [t("تابع صحتك", "Track your health"), local("assessment"), slug === "assessment"],
       [t("قصصنا", "Stories"), local("stories"), slug === "stories"],
+      [t("الحوكمة", "Governance"), local("governance"), slug === "governance"],
       [t("عن نحن", "About"), local("about"), slug === "about"]
     ];
     header.classList.add("na7n-standard-header");
