@@ -283,4 +283,14 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/medicine-anifrolumab-en.html" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://na7nlupus.com/medicine-anifrolumab.html" />
   </url>
+  <url>
+    <loc>https://na7nlupus.com/governance.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/governance.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/governance-en.html" />
+  </url>
+  <url>
+    <loc>https://na7nlupus.com/governance-en.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://na7nlupus.com/governance.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://na7nlupus.com/governance-en.html" />
+  </url>
 </urlset>
