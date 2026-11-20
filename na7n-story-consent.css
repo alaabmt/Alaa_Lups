@@ -1,0 +1,21 @@
+
+/* Privacy-first, browser-only story consent choices */
+.sc-panel{max-width:820px;margin:26px auto 0;text-align:start;background:#fff;border:1px solid #dfd0e8;border-radius:22px;padding:clamp(20px,3vw,34px);box-shadow:0 8px 30px #422b5810}
+.sc-panel h2{font-size:clamp(22px,3vw,30px);margin:0 0 10px;color:#442b62;line-height:1.35}
+.sc-panel p{line-height:1.8;color:#51465b}
+.sc-intro{margin:0 0 18px}
+.sc-panel fieldset{margin:17px 0;border:1px solid #e5d9eb;border-radius:14px;padding:16px}
+.sc-panel legend{padding:0 8px;font-weight:800;color:#553875}
+.sc-choice{display:flex;align-items:start;gap:12px;padding:9px 2px;line-height:1.7;text-align:start;color:#41384a;cursor:pointer}
+.sc-choice input{flex:0 0 auto;width:19px;height:19px;margin-top:3px;accent-color:#65408a}
+.sc-notices{background:#f8f4fa;border-radius:12px;padding:12px 17px}
+.sc-notices p{margin:8px 0;font-size:14px}
+.sc-actions{display:flex;flex-wrap:wrap;gap:12px;margin:19px 0 10px}
+.sc-actions button{min-height:46px;border-radius:12px;padding:10px 18px;font:inherit;font-weight:700;cursor:pointer}
+.sc-copy{border:1px solid #5e3b7f;background:#5e3b7f;color:white}
+.sc-reset{border:1px solid #d4c4e0;background:white;color:#543772}
+.sc-status{font-weight:700;min-height:1.5em;margin:5px 0 0}
+.sc-fallback{width:100%;min-height:150px;border:1px solid #ac94bf;border-radius:10px;padding:12px;font:inherit}
+.sc-foot{font-size:13px;color:#64596e!important;border-top:1px solid #e8e0ec;padding-top:13px;margin:12px 0 0}
+.sc-panel :focus-visible{outline:3px solid #7955aa;outline-offset:3px}
+@media(max-width:650px){.sc-panel{padding:18px}.sc-actions button{width:100%}}
