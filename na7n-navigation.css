@@ -51,6 +51,21 @@
   .na7n-bottom-symbol{font-size:22px;line-height:1.15}
   .home-back-top{bottom:calc(80px + env(safe-area-inset-bottom,0px))!important}
 }
+/* Desktop navigation: show links in a dedicated row; mobile uses the menu button. */
+@media(min-width:1051px){
+  .na7n-standard-header.site-header{flex-wrap:wrap;row-gap:8px}
+  .na7n-standard-header.site-header .na7n-global-menu{
+    display:flex;
+    flex:1 1 100%;
+    width:100%;
+    justify-content:center;
+    align-items:center;
+    padding:7px 0 2px;
+    row-gap:8px;
+  }
+  .na7n-standard-header.site-header .na7n-menu-toggle{display:none!important}
+}
+
 /* Homepage is a navigation hub: the patient choices are the first meaningful action. */
 .home-page .home-hero{display:block!important;padding:24px 0 22px!important}
 .home-page .home-hero .hero-copy{max-width:1100px}
