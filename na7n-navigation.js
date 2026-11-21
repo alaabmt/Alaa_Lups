@@ -148,7 +148,26 @@
     const portalMenuLink = createLink(doctorPortalLabel, doctorPortalHref, "na7n-doctor-portal");
     portalMenuLink.hidden = true;
     menu.append(portalMenuLink);
+    // Keep the global menu visible on desktop and collapsible on smaller screens.
+    const desktopQuery = window.matchMedia("(min-width: 1051px)");
+    const syncMenuForViewport = () => {
+      const desktop = desktopQuery.matches;
+      toggle.hidden = desktop;
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", t("فتح قائمة التنقل", "Open navigation menu"));
+      toggle.textContent = "☰";
+      menu.classList.remove("open");
+      menu.hidden = !desktop;
+    };
+    if (typeof desktopQuery.addEventListener === "function") {
+      desktopQuery.addEventListener("change", syncMenuForViewport);
+    } else if (typeof desktopQuery.addListener === "function") {
+      desktopQuery.addListener(syncMenuForViewport);
+    }
+    syncMenuForViewport();
+
     toggle.addEventListener("click", () => {
+      if (desktopQuery.matches) return;
       const open = toggle.getAttribute("aria-expanded") === "true";
       toggle.setAttribute("aria-expanded", String(!open));
       toggle.setAttribute("aria-label", open ? t("فتح قائمة التنقل", "Open navigation menu") : t("إغلاق قائمة التنقل", "Close navigation menu"));
@@ -157,7 +176,7 @@
       menu.classList.toggle("open", !open);
     });
     menu.addEventListener("click", event => {
-      if (event.target.closest("a")) {
+      if (!desktopQuery.matches && event.target.closest("a")) {
         toggle.setAttribute("aria-expanded", "false");
         menu.classList.remove("open");
         menu.hidden = true;
@@ -170,7 +189,7 @@
       }
     });
     document.addEventListener("pointerdown", event => {
-      if (!menu.hidden && !header.contains(event.target)) {
+      if (!desktopQuery.matches && !menu.hidden && !header.contains(event.target)) {
         menu.hidden = true;
         menu.classList.remove("open");
         toggle.setAttribute("aria-expanded", "false");
