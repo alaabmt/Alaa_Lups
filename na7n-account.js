@@ -154,13 +154,17 @@
     passwordToggles.forEach(toggle => setPasswordVisibility(toggle, false));
     $("msg").textContent = "";
   }
+  const returnTarget=(()=>{const value=new URLSearchParams(location.search).get("return");if(!value)return null;try{const url=new URL(value,location.href);return url.origin===location.origin&&/\/living(?:-en)?\.html$/.test(url.pathname)?url.href:null}catch{return null}})();
+  function returnAfterAuth(){if(returnTarget)location.assign(returnTarget)}
+  const requestedMode=new URLSearchParams(location.search).get("mode");
+  if(requestedMode==="signup")showAuthPanel("signup");
   async function login() {
     if (busy) return;
     const email=$("login-email").value.trim(), password=$("login-password").value;
     if(!email||!$("login-email").checkValidity()){ $("msg").textContent=L("أدخل بريدًا إلكترونيًا صحيحًا."); $("login-email").focus(); return; }
     if(!password){ $("msg").textContent=L("أدخل كلمة المرور."); $("login-password").focus(); return; }
     busy=true; $("login").disabled=true; $("msg").textContent=L("جارٍ تسجيل الدخول…");
-    try{ const result=await s.auth.signInWithPassword({email,password}); if(result.error){$("msg").textContent=authError(result.error);return;} $("login-password").value=""; await state(); }
+    try{ const result=await s.auth.signInWithPassword({email,password}); if(result.error){$("msg").textContent=authError(result.error);return;} $("login-password").value=""; await state(); returnAfterAuth(); }
     catch{$("msg").textContent=L("تعذر الاتصال بخدمة الحساب. حاول مجددًا.")} finally{busy=false;$("login").disabled=false}
   }
   async function signup() {
@@ -180,7 +184,7 @@
       if(result.error){$("msg").textContent=authError(result.error);return}
       $("signup-password").value=$("signup-password2").value="";
       if (result.data?.session) {
-        await state(); // Immediate dashboard when Supabase Auth has email confirmation disabled.
+        await state(); returnAfterAuth(); // Return to the questionnaire only after a real session.
       } else {
         // Never claim instant activation when the backend did not issue a session.
         showAuthPanel("login");
