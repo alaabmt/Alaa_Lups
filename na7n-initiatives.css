@@ -1,0 +1,55 @@
+/* Our initiatives: scoped, responsive, no external assets or patient data collection */
+.na7n-initiatives{--mi-ink:#30213d;--mi-purple:#5c3d7d;--mi-muted:#5e5266;--mi-border:#e5dbe9;--mi-wash:#f9f5fc;background:#fff;color:var(--mi-ink)}
+.na7n-initiatives *{box-sizing:border-box}
+.na7n-initiatives a:focus-visible{outline:3px solid #a579cb;outline-offset:3px}
+.na7n-initiatives .mi-container{width:min(1120px,calc(100% - 40px));margin-inline:auto}
+.na7n-initiatives .mi-hero{background:radial-gradient(circle at 80% 20%,#ede0f6 0,transparent 42%),linear-gradient(135deg,#faf6fc,#fff 72%);border-bottom:1px solid var(--mi-border);overflow:hidden}
+.na7n-initiatives .mi-hero-layout{display:grid;grid-template-columns:1.3fr .7fr;align-items:center;gap:clamp(20px,4vw,60px);padding-block:clamp(46px,7vw,100px)}
+.na7n-initiatives .mi-kicker{font-size:13px;font-weight:800;letter-spacing:.03em;color:#6b4888;margin:0 0 14px}
+.na7n-initiatives .mi-hero h1{font-size:clamp(38px,6.5vw,68px);line-height:1.17;margin:0 0 20px;color:#3d2854}
+.na7n-initiatives .mi-lead{font-size:clamp(17px,2vw,21px);line-height:1.9;color:#493c53;margin:0;max-width:680px}
+.na7n-initiatives .mi-actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:26px}
+.na7n-initiatives .mi-action{display:inline-flex;justify-content:center;align-items:center;min-height:48px;padding:11px 19px;border:1px solid #735391;border-radius:12px;color:#583c77;font-weight:800;text-decoration:none;background:#fff;line-height:1.5}
+.na7n-initiatives .mi-action.primary{background:#593978;border-color:#593978;color:#fff}
+.na7n-initiatives .mi-symbol{min-height:260px;display:grid;place-items:center;position:relative}
+.na7n-initiatives .mi-symbol-core{width:min(260px,75%);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 38% 35%,#fff 0 16%,#e4d5ef 17% 49%,#b79ccc 50% 52%,#f8f2fc 53%);box-shadow:0 16px 55px #5939781b;display:grid;place-items:center;border:1px solid #d7c6e3;transform:rotate(-11deg)}
+.na7n-initiatives .mi-symbol-core span{font-size:clamp(39px,6vw,62px);font-weight:900;color:#664586;transform:rotate(11deg)}
+.na7n-initiatives .mi-orbit{position:absolute;width:49px;height:49px;background:#a2c7aa;border-radius:50%;inset-block-start:9%;inset-inline-end:8%;border:8px solid #fff}
+.na7n-initiatives .mi-orbit.alt{width:27px;height:27px;inset-block-start:auto;inset-inline-end:auto;inset-block-end:12%;inset-inline-start:4%;background:#c6b3d7;border:4px solid white}
+.na7n-initiatives .mi-section{padding-block:60px;scroll-margin-top:95px}
+.na7n-initiatives .mi-section.soft{width:auto;border-radius:0;padding-inline:0;background:#faf7fc}
+.na7n-initiatives .mi-section-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:22px;margin-bottom:25px;flex-wrap:wrap}
+.na7n-initiatives .mi-section-heading h2{margin:3px 0 0;font-size:clamp(27px,4vw,37px);line-height:1.3;color:#38284a}
+.na7n-initiatives .mi-section-heading p{margin:0;max-width:500px;color:#5c5064;font-size:15px;line-height:1.85}
+.na7n-initiatives .mi-mission-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.na7n-initiatives .mi-mission-grid article{border:1px solid var(--mi-border);border-radius:18px;padding:22px;background:white;min-width:0}
+.na7n-initiatives .mi-mission-grid h3{font-size:20px;margin:0 0 9px;color:#452f5d}
+.na7n-initiatives .mi-mission-grid p{font-size:15px;line-height:1.85;color:#53485b;margin:0}
+.na7n-initiatives .mi-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.na7n-initiatives .mi-card{background:#fff;border:1px solid #e4dbea;border-radius:22px;padding:25px;display:flex;flex-direction:column;min-width:0;box-shadow:0 8px 22px #4227510b}
+.na7n-initiatives .mi-card-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:22px}
+.na7n-initiatives .mi-card-num{font-size:27px;line-height:1;font-weight:850;color:#b39aca;font-variant-numeric:tabular-nums}
+.na7n-initiatives .mi-status{border-radius:999px;padding:6px 11px;font-size:12px;font-weight:800;line-height:1.45;background:#edf6ef;color:#356147;border:1px solid #d0e5d6}
+.na7n-initiatives .mi-status.plan{background:#f3edf8;border-color:#e7d9ef;color:#644582}
+.na7n-initiatives .mi-card h3{font-size:21px;line-height:1.42;margin:0 0 13px;color:#39274b}
+.na7n-initiatives .mi-card p{font-size:15px;line-height:1.85;color:#55495f;margin:0 0 21px}
+.na7n-initiatives .mi-card a{margin-top:auto;font-size:14px;font-weight:800;color:#583876;text-decoration:underline;text-underline-offset:4px;align-self:flex-start}
+.na7n-initiatives .mi-note{font-size:14px;line-height:1.85;color:#64566b;margin:22px 0 0}
+.na7n-initiatives .mi-process{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;list-style:none;margin:0;padding:0}
+.na7n-initiatives .mi-process li{border:1px solid var(--mi-border);background:#fff;border-radius:18px;padding:20px;min-width:0}
+.na7n-initiatives .mi-process b{display:block;font-size:26px;color:#9675b5;margin-bottom:9px}
+.na7n-initiatives .mi-process strong{display:block;color:#402d56;font-size:18px;margin-bottom:8px}
+.na7n-initiatives .mi-process p{margin:0;color:#5b5162;line-height:1.8;font-size:14px}
+.na7n-initiatives .mi-inspiration{background:#f8f5fa;border:1px solid #e6ddeb;border-radius:20px;padding:24px;margin:8px 0 0}
+.na7n-initiatives .mi-inspiration h2{font-size:22px;color:#43305a;margin:0 0 9px}
+.na7n-initiatives .mi-inspiration p{font-size:14px;line-height:1.9;margin:0 0 14px;color:#54495e}
+.na7n-initiatives .mi-inspiration ul{padding-inline-start:23px;margin:0}
+.na7n-initiatives .mi-inspiration li{margin:8px 0;line-height:1.75}
+.na7n-initiatives .mi-inspiration a{color:#583876;font-weight:700;text-underline-offset:3px}
+.na7n-initiatives .mi-ending{background:#4c3368;color:#fff;padding:46px 0;margin-top:18px}
+.na7n-initiatives .mi-ending h2{font-size:clamp(24px,4vw,34px);color:#fff;margin:0 0 10px}
+.na7n-initiatives .mi-ending p{font-size:16px;color:#f5eef9;line-height:1.9;margin:0 0 20px;max-width:770px}
+.na7n-initiatives .mi-ending .mi-action{border-color:#fff;color:#4b3168;background:#fff}
+@media(max-width:900px){.na7n-initiatives .mi-hero-layout{grid-template-columns:1fr}.na7n-initiatives .mi-symbol{display:none}.na7n-initiatives .mi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.na7n-initiatives .mi-mission-grid{grid-template-columns:1fr}.na7n-initiatives .mi-process{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:590px){.na7n-initiatives .mi-container{width:calc(100% - 32px)}.na7n-initiatives .mi-hero-layout{padding-block:38px}.na7n-initiatives .mi-section{padding-block:40px}.na7n-initiatives .mi-grid,.na7n-initiatives .mi-process{grid-template-columns:1fr}.na7n-initiatives .mi-card{padding:20px}.na7n-initiatives .mi-actions{align-items:stretch;flex-direction:column}.na7n-initiatives .mi-action{width:100%}.na7n-initiatives .mi-section-heading{gap:8px}.na7n-initiatives .mi-inspiration{padding:18px}}
+@media(prefers-reduced-motion:no-preference){.na7n-initiatives .mi-card,.na7n-initiatives .mi-action{transition:transform .16s ease,box-shadow .16s ease}.na7n-initiatives .mi-card:hover{transform:translateY(-3px);box-shadow:0 12px 27px #42275115}.na7n-initiatives .mi-action:hover{transform:translateY(-2px)}}
