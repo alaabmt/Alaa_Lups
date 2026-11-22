@@ -23,6 +23,7 @@
     faq: ["الأسئلة الشائعة", "Frequently asked questions"],
     articles: ["اسأل وتعلّم", "Questions and learning"],
     stories: ["قصص وتجارب المرضى", "Patient stories"],
+    initiatives: ["مبادراتنا", "Our initiatives"],
     tools: ["أدوات المريض", "Patient tools"],
     assessment: ["متابعة صحتك", "Track your health"],
     governance: ["حوكمة المحتوى", "Governance"],
@@ -75,6 +76,7 @@
       [t("الأدوات", "Tools"), local("tools"), slug === "tools"],
       [t("تابع صحتك", "Track your health"), local("assessment"), slug === "assessment"],
       [t("قصصنا", "Stories"), local("stories"), slug === "stories"],
+      [t("مبادراتنا", "Our initiatives"), local("initiatives"), slug === "initiatives"],
       [t("الحوكمة", "Governance"), local("governance"), slug === "governance"],
       [t("عن نحن", "About"), local("about"), slug === "about"]
     ];
@@ -236,6 +238,7 @@
       kidneys: ["appointment", "treatment"],
       "skin-sun": ["living", "appointment"],
       stories: ["living", "about-lupus"],
+      initiatives: ["stories", "articles"],
       tools: ["appointment", "assessment"],
       assessment: ["appointment", "tools"],
       articles: ["faq", "about-lupus"],
