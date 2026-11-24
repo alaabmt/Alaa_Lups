@@ -10,6 +10,7 @@
  const feedback=$("cm-create-feedback"), submit=$("cm-create-submit");
  const preview=$("cm-create-preview-box");
  const client=window.na7nSupabase;
+ const communityIdentity=window.Na7nCommunityIdentity;
  let user=null;
  const showGate=message=>{
    document.documentElement.classList.remove("cm-member-access");
@@ -45,7 +46,19 @@
    ]);
    document.documentElement.classList.add("cm-member-access");
    gate.hidden=true;
-   const permitted=!!(staff.data?.is_active && !staff.error && flags.data?.pilot_mode && !flags.error);
+   const chosenIdentity=communityIdentity
+     ?await communityIdentity.getProfile(client,user.id):null;
+   const permitted=!!(staff.data?.is_active && !staff.error && flags.data?.pilot_mode
+     && !flags.error && chosenIdentity?.nickname);
+   const setupLink=$("cm-setup-identity-link");
+   if(setupLink)setupLink.hidden=!!chosenIdentity?.nickname;
+   if(!chosenIdentity?.nickname){
+     unavailable.querySelector("h2").textContent=t("اختر اسمك المستعار قبل المشاركة","Choose a nickname before posting");
+     unavailable.querySelector("p").textContent=t(
+       "لحماية هويتك، اختر الاسم المستعار والصورة الرمزية اللذين سيراهما أعضاء المجتمع. لن يظهر اسمك الحقيقي بجانب مشاركاتك.",
+       "Protect your identity by choosing a nickname and avatar. Your real name will not appear on discussions."
+     );
+   }
    formWrap.hidden=!permitted;
    unavailable.hidden=permitted;
    success.hidden=true;
