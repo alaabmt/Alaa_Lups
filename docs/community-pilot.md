@@ -125,3 +125,6 @@ The pilot was hardened to revoke default grants from `anon` and `authenticated`,
 
 ### Before genuine patient rollout
 Do not create/allow patient accounts for actual posting here. The current Supabase database is outside the UAE; complete the intended UAE migration, legal/privacy review, risk-sensitive moderation and abuse controls, rate limiting, and incident response workflow before patient data is handled. Direct publishing is the **approved target behavior**, not permission to bypass these safeguards.
+
+## Member pseudonyms and avatars (2026-11-24)
+Implemented a separate public identity record and image picker for community members. All public community participant names come from unique chosen nicknames in `na7n_community_identities`, never confidential `na7n_profiles.full_name` or Auth email/phone. Arabic/English signup pages collect nicknames and preset-avatar choices. Existing members edit nickname or choose one of 12 preset symbols in My Account. Authorized staff pilot accounts may upload a private re-encoded WebP avatar; nonstaff uploads stay disabled pending UAE patient hosting. Community posts and replies now display their authors' nicknames and avatars and require the author to choose a nickname before posting. See [community-identity.md](community-identity.md) for security controls, verification and deployment limitations.
