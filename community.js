@@ -78,7 +78,7 @@
       category:p.category,
       title:en?p.title_en:p.title_ar,
       excerpt:en?p.excerpt_en:p.excerpt_ar,
-      meta:t("سؤال من فريق نَحْنُ — لا يتضمن تجارب مرضى","Staff-curated prompt — not a patient testimonial"),
+      meta:t("موضوع للنقاش","Discussion topic"),
       href:detailUrl('prompt',p.id)
     })));
     if(!list.length) ui.prompts.append(el("div","cm-empty",t("لا توجد موضوعات مطابقة. جرّب كلمة بحث أخرى.","No matching topics. Try a different search.")));
@@ -90,7 +90,7 @@
       category:p.category,title:p.title||t("نقاش","Discussion"),
       excerpt:(p.body||"").slice(0,180)+((p.body||"").length>180?"…":""),
       meta:formatDate(p.created_at)+" · "+(p.status==="approved"?
-        t("منشور تجريبي تمت مراجعته","Reviewed staff test post"):
+        t("تمت المراجعة","Reviewed"):
         t("بانتظار المراجعة — يظهر للمصرح لهم فقط","Pending moderation — restricted")),
       href:detailUrl('post',p.id)
     })));
@@ -139,7 +139,7 @@
     container.replaceChildren();
     (data||[]).forEach(item=>{
       const block=el("div","cm-comment");
-      const label=item.status==="approved"?t("تعليق تجريبي مُراجع","Reviewed test reply"):t("تعليق ينتظر المراجعة","Reply awaiting moderation");
+      const label=item.status==="approved"?t("تعليق تمت مراجعته","Reviewed reply"):t("تعليق ينتظر المراجعة","Reply awaiting moderation");
       block.append(el("div","cm-post-meta",label+" · "+formatDate(item.created_at)));
       block.append(el("p","",item.body));
       if(canModerate() && item.status==="pending"){
@@ -151,9 +151,9 @@
   }
   async function openPost(p){
     state.selected={type:"post",data:p};
-    const d=detailBase(p.category,p.title||t("نقاش تجريبي","Test discussion"),p.body);
+    const d=detailBase(p.category,p.title||t("نقاش","Discussion"),p.body);
     d.append(el("div","cm-post-meta",formatDate(p.created_at)+" · "+t(
-      "مشاركة من حساب فريق اختبار، وليست تجربة مريض","Authorized staff test content, not a patient account"
+      "مشاركة في المجتمع","Community post"
     )));
     if(p.status!=="approved")d.append(el("span","cm-mod-status",t("قيد المراجعة","Pending review")));
     const actions=el("div","cm-detail-actions");
@@ -163,7 +163,7 @@
         const count=state.helpful.filter(x=>x.post_id===p.id).length;
         actions.append(makeButton((liked?t("أزل مفيد","Remove helpful"):t("مفيد","Helpful"))+" ("+count+")",()=>toggleHelpful(p),true));
       }
-      actions.append(makeButton(t("علّق (اختبار)","Reply (test)"),()=>openComposer(p),true));
+      actions.append(makeButton(t("أضف تعليقًا","Add a reply"),()=>openComposer(p),true));
       actions.append(makeButton(t("إبلاغ","Report"),()=>reportPost(p),true));
     }
     if(canModerate()&&p.status==="pending"){
@@ -172,7 +172,7 @@
     }
     d.append(actions);
     const section=el("section","cm-reply-list");
-    section.append(el("h3","",t("التعليقات التجريبية","Test replies")));
+    section.append(el("h3","",t("التعليقات","Replies")));
     const replies=el("div","");replies.id="cm-replies";section.append(replies);d.append(section);
     await loadComments(p);bringDetail();
   }
@@ -208,7 +208,7 @@
   }
   async function moderate(id,status){
     if(!canModerate())return;
-    if(!window.confirm(t("تأكيد قرار المراجعة لهذا المحتوى التجريبي؟","Confirm moderation decision for this test content?")))return;
+    if(!window.confirm(t("تأكيد قرار مراجعة هذا المحتوى؟","Confirm the moderation decision?")))return;
     const {error}=await state.client.from("na7n_community_posts").update({status}).eq("id",id);
     if(error){window.alert(t("تعذر تحديث الحالة.","Could not update moderation status."));return;}
     await loadPosts();
@@ -223,7 +223,7 @@
     ui.title.required=!parent;ui.title.value="";
     ui.category.value=parent?.category||"daily";
     ui.body.value="";ui.feedback.textContent="";
-    $("cm-dialog-title").textContent=parent?t("تعليق تجريبي","Test reply"):t("نقاش تجريبي جديد","New test discussion");
+    $("cm-dialog-title").textContent=parent?t("تعليق جديد","New reply"):t("ابدأ نقاشًا","Start a discussion");
     ui.dialog.hidden=false;ui.body.focus();
   }
   function closeComposer(){ui.dialog.hidden=true;ui.feedback.textContent="";state.replyTo=null}
@@ -239,11 +239,17 @@
     ui.submit.disabled=true;
     const {error}=await state.client.from("na7n_community_posts").insert(payload);
     ui.submit.disabled=false;
-    if(error){ui.feedback.textContent=t("لم تُحفظ المشاركة. تحقّق من صلاحية فريق الاختبار وحاول مجددًا.","Post not saved. Verify staff test access and try again.");return;}
+    if(error){ui.feedback.textContent=t("لم تُحفظ المشاركة. حاول مجددًا.","Could not save the discussion. Please try again.");return;}
     closeComposer();await loadPosts();
-    window.alert(t("حُفظت المشاركة التجريبية للمراجعة؛ لن تظهر للجميع تلقائيًا.","Test submission saved for moderation; it will not publish automatically."));
+    window.alert(t("تم إرسال المشاركة للمراجعة قبل النشر.","Discussion submitted for review before publication."));
   });
-  ui.start.addEventListener("click",()=>openComposer());
+  ui.start.addEventListener("click",()=>{
+    if(canWrite()){ ui.writeStatus.textContent=""; openComposer(); return; }
+    ui.writeStatus.textContent=t(
+      "إضافة نقاشات جديدة غير متاحة حاليًا. يمكنك تصفّح الموضوعات.",
+      "Starting new discussions is not available yet. You can browse topics."
+    );
+  });
   $("cm-dialog-close").addEventListener("click",closeComposer);
   $("cm-cancel").addEventListener("click",closeComposer);
   ui.dialog.addEventListener("click",e=>{if(e.target===ui.dialog)closeComposer();});
@@ -311,19 +317,9 @@
     if (memberGate) memberGate.hidden=true;
     renderPrompts();
     renderThreads();
-    if (canWrite()) {
-      ui.start.disabled=false;
-      ui.writeStatus.textContent=t(
-        "أنت عضو مصرح له في الاختبار. يُسمح بالمحتوى الافتراضي فقط.",
-        "You're an authorized staff tester. Fictional content only."
-      );
-    } else {
-      ui.start.disabled=true;
-      ui.writeStatus.textContent=t(
-        "يمكنك قراءة الموضوعات. المشاركة متاحة لفريق الاختبار المصرح له فقط حاليًا.",
-        "You may read discussions. Posting is restricted to authorized staff testers for now."
-      );
-    }
+    // The button stays visible at the top; submission is still restricted by staff allowlist and RLS.
+    ui.start.disabled=false;
+    ui.writeStatus.textContent="";
     // Ask NA7N remains off and has no backend, even for signed-in members.
     $("cm-ai-button").disabled=true;
     await loadPosts();
