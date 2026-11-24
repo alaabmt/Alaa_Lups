@@ -22,7 +22,8 @@
     support:t("الدعم","Support"),
     goals:t("الأهداف","Goals")
   };
-  const state={user:null,staff:null,flags:null,item:null,reportTarget:null};
+  const identity=window.Na7nCommunityIdentity;
+  const state={user:null,staff:null,flags:null,item:null,reportTarget:null,viewerIdentity:null,topicIdentity:null};
   const memberGate=$("cm-member-gate");
   const gateStatus=$("cm-gate-status");
   const article=$("cm-topic-body");
@@ -60,7 +61,8 @@
     document.documentElement.classList.remove("cm-member-access");
     memberGate.hidden=false;
     gateStatus.textContent=message||t("سجّل دخولك للاطلاع على هذا النقاش.","Sign in to read this discussion.");
-    state.user=null;state.staff=null;state.item=null;
+    state.user=null;state.staff=null;state.item=null;state.viewerIdentity=null;state.topicIdentity=null;
+    $("cm-topic-author").replaceChildren();
     article.replaceChildren();actions.replaceChildren();replies.replaceChildren();
     if(!replyDialog.hidden)closeReply();
     if(!reportDialog.hidden)closeReportDialog();
@@ -160,12 +162,14 @@
       .order("created_at",{ascending:true}).limit(100);
     if(error){replies.append(el("p","cm-state",t("تعذّر تحميل التعليقات.","Couldn't load replies.")));return;}
     if(!data?.length){replies.append(el("p","cm-state",t("لا توجد تعليقات بعد.","No replies yet.")));return;}
+    const authors=identity?await identity.getProfiles(client,data.map(r=>r.author_id)):new Map();
     for(const reply of data){
       const box=el("div","cm-comment cm-topic-comment");
       if(reply.status!=="approved"&&!canModerate())continue;
       const meta=reply.status==="approved"
         ?readableDate(reply.created_at)
         :t("محتوى مخفي — للمشرف فقط","Hidden content — moderators only");
+      if(identity)box.append(identity.memberLabel(client,authors.get(reply.author_id)||null));
       box.append(el("p","cm-post-meta",meta));
       box.append(el("p","",reply.body));
       const controls=el("div","cm-detail-actions");
@@ -182,6 +186,13 @@
   }
   function openReply(){
     if(!canWrite()||kind!=="post")return;
+    if(!state.viewerIdentity){
+      if(window.confirm(t("اختر اسمًا مستعارًا وصورة رمزية في حسابك قبل التعليق. هل تريد الذهاب إلى حسابي؟",
+                          "Please choose your nickname and avatar in My Account first. Open My Account now?"))){
+        location.assign(accountPage+"#community-identity");
+      }
+      return;
+    }
     $("cm-reply-feedback").textContent="";
     replyInput.value="";
     replyDialog.hidden=false;
@@ -221,6 +232,9 @@
     $("cm-topic-meta").textContent=editorial
       ?t("موضوع للنقاش","Discussion topic")
       :readableDate(item.created_at)+(item.status==="approved"?"":" · "+t("مخفي عن الأعضاء","Hidden from members"));
+    const authorRoot=$("cm-topic-author");
+    authorRoot.replaceChildren();
+    if(!editorial&&identity)authorRoot.append(identity.memberLabel(client,state.topicIdentity));
     article.replaceChildren(el("p","",body||""));
     if (!editorial && Array.isArray(item.tags) && item.tags.length) {
       const terms=el("div","cm-topic-tags");
@@ -304,6 +318,7 @@
       $("cm-replies-section").hidden=true;
       return;
     }
+    state.topicIdentity=kind==="post"&&identity?await identity.getProfile(client,data.author_id):null;
     renderTopic(data);
   }
   async function init(){
@@ -327,6 +342,7 @@
     ]);
     state.flags=flagResult.error?null:flagResult.data;
     state.staff=staffResult.error?null:staffResult.data;
+    state.viewerIdentity=identity?await identity.getProfile(client,user.id):null;
     document.documentElement.classList.add("cm-member-access");
     memberGate.hidden=true;
     await loadTopic();
