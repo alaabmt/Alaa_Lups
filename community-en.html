@@ -8,7 +8,7 @@
 <link rel="canonical" href="https://na7nlupus.com/community-en.html">
 <link rel="alternate" hreflang="ar" href="https://na7nlupus.com/community.html">
 <link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="community.css?v=20261124-create-v2">
+<link rel="stylesheet" href="community.css?v=20261124-direct-v1">
 </head>
 <body>
 <header class="site-header"><a href="index-en.html">NA7N — Home</a> · <a href="community.html">العربية</a> · <a href="account-en.html">My Account</a></header>
@@ -72,6 +72,13 @@
         <p class="cm-section-sub">Explore conversations and share your ideas when posting becomes available.</p>
         <div id="cm-threads" class="cm-topic-grid" style="margin-top:18px"></div>
       </section>
+      <section class="cm-panel" id="cm-moderation-panel" aria-labelledby="cm-moderation-heading" hidden>
+        <h2 class="cm-section-title" id="cm-moderation-heading">Community reports · Moderation</h2>
+        <p class="cm-section-sub">Review member reports. Hide content, dismiss reports, or permanently delete posts.</p>
+        <div class="cm-actions"><button class="cm-button alt" type="button" id="cm-reports-refresh">Refresh reports</button></div>
+        <p id="cm-reports-status" class="cm-state" role="status" aria-live="polite"></p>
+        <div id="cm-reports-list"></div>
+      </section>
     </div>
     <aside class="cm-sidebar" aria-label="Safe participation">
       <div class="cm-panel">
@@ -97,5 +104,5 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script>
 <script src="na7n-auth.js?v=20261011-1"></script>
 <script src="na7n-navigation.js?v=20261124-create-v2"></script>
-<script src="community.js?v=20261124-create-v1"></script>
+<script src="community.js?v=20261124-direct-v1"></script>
 </body></html>
