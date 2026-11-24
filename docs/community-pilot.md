@@ -1,5 +1,7 @@
 # NA7N Community — controlled pilot (2026-11-24)
 
+> **Current approved community policy — 2026-11-24:** Authorized community discussions and replies are published immediately (`status='approved'`), with post-publication moderation. Members can report inappropriate posts/replies; moderators can hide, restore, or permanently delete them, and review reports in the moderator panel. Prior sections of this document describe the historical pre-moderation prototype and are superseded by this decision. **Posting remains restricted to the existing authorized staff test accounts, with no patient health data on the current non-UAE host.** `patient_posting_enabled=false` and `ask_ella_enabled=false` remain unchanged.
+
 ## Scope and current status
 - Arabic and English community pages (`community.html` and `community-en.html`) now require an existing, permanent signed-in account for reading. Unauthenticated visitors see only an invitation to sign in/register.
 - Six **staff-written** starter prompts (not patient submissions), visible only to signed-in members.
@@ -101,3 +103,25 @@ The pilot was hardened to revoke default grants from `anon` and `authenticated`,
 - Database constraint allows `general` and a bounded `tags text[]` column; policies and membership guards are unchanged. A fictional insert for an authorized contributor, with tags and pending status, succeeded in a rollback-only transaction.
 - Approved topic readers display tags in Arabic/English, and the account login flow has an allowlisted same-origin return to the composer.
 - When ready to move to approved UAE patient hosting, publish-directly with robust reporting/moderation procedures, rate limiting, privacy controls, escalation for unsafe medical advice, and risk-based detection. Explicitly approve such release; do not flip the flag in the current project.
+
+## Approved: immediate publishing and after-the-fact moderation
+**Decision:** Publish discussions and comments immediately after an authorized member submits them. No administrator preapproval for routine posts; moderators intervene after publication.
+
+### Implemented
+- `public.na7n_community_posts.status` defaults to `approved`. An INSERT RLS policy allows only active explicitly allowed staff accounts in pilot mode to submit `approved` content. A security-invoker trigger validates that comments belong to an existing approved top-level discussion. New patients or general new accounts cannot post to this non-UAE environment.
+- `community-create.html` and `community-create-en.html` publish immediately and link to the newly visible post.
+- `community-topic.js` posts replies immediately and refreshes the comment list without waiting for approval.
+- Any permanent signed-in member may **report an approved post or reply**; the report-reason interface offers privacy, medical advice, harassment, or other violations. Duplicate reports by the same member on the same content are prevented.
+- Moderators can **hide**, **restore**, or **permanently delete** discussions and replies. A moderator-only panel on community home shows unresolved reports and offers hide/delete/dismiss actions.
+- The `na7n_community_reports` table records resolutions and reviewing moderator. `na7n_community_moderation_actions` audits hide/restore/delete activity via invoker-rights trigger, with moderator-only read access.
+- Content remains accessible only to signed-in members, and published conversations are not labeled physician-verified.
+- Ask NA7N stays disabled.
+
+### Verification
+- A contributor-role SQL transaction successfully inserted a discussion and reply with `status='approved'` and submitted a report.
+- A contributor's attempted deletion did not delete the post. A moderator changed a reply to `hidden`, recorded report resolution, deleted the discussion and associated reply, and produced two deletion audit entries.
+- All QA records were rolled back. Existing community content remains untouched.
+- Supabase security advisor warnings were reviewed; remaining items relate to existing medical-review functions and auth settings, not to the new community tables. Track them separately rather than changing unrelated functions.
+
+### Before genuine patient rollout
+Do not create/allow patient accounts for actual posting here. The current Supabase database is outside the UAE; complete the intended UAE migration, legal/privacy review, risk-sensitive moderation and abuse controls, rate limiting, and incident response workflow before patient data is handled. Direct publishing is the **approved target behavior**, not permission to bypass these safeguards.
