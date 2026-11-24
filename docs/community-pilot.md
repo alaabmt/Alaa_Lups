@@ -77,3 +77,10 @@ The pilot was hardened to revoke default grants from `anon` and `authenticated`,
 ## Patient-facing copy and compact mobile layout (2026-11-24)
 - Removed the internal rollout sentence from the Arabic and English community introduction. Shortened the hero and replaced the large technical pilot notice with a concise, truthful note that member posting and replies are not open.
 - Reduced mobile hero padding, type size and warning space, so members reach the topic list with less scrolling.
+
+## Member-facing community UX wording (2026-11-24)
+- The primary **Start a discussion / ابدأ نقاشًا** button is positioned in the hero at the top of the community page, above filtering and discussion lists.
+- Patient-facing Arabic and English pages, topic pages, prompts, empty states, labels and homepage invitations no longer display the words "pilot", "test" or "تجريبي". The interface now uses ordinary community copy. Internal QA status continues to be documented here.
+- The visible CTA remains clickable, but if the signed-in account is not authorized to submit yet it shows an honest inline message: "إضافة نقاشات جديدة غير متاحة حاليًا. يمكنك تصفّح الموضوعات." Authorized staff members still use the same moderated submission form; every post enters `pending`.
+- The real production submission policy is **unchanged**: `patient_posting_enabled=false`, staff allowlist enforcement, RLS and privacy restrictions remain. Do not enable patient data collection on the current non-UAE region.
+- Ask NA7N is still disabled.
