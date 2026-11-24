@@ -6,7 +6,7 @@
 <title>ابدأ نقاشًا | مجتمع نَحْنُ</title>
 <meta name="description" content="اكتب عنوان نقاشك وشارك سؤالك مع مجتمع نَحْنُ.">
 <link rel="icon" href="favicon.svg">
-<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="community.css?v=20261124-create-v2">
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="community.css?v=20261124-live-v1">
 </head>
 <body>
 <header class="site-header"><a href="community.html">مجتمع نَحْنُ</a> · <a href="account.html">حسابي</a></header>
@@ -51,7 +51,7 @@
       <div class="cm-privacy-reminder">من فضلك لا تكتب معلومات صحية حساسة أو تفاصيل تعرّف بك أو بالآخرين. لا توجّه نصائح لتغيير جرعات الأدوية.</div>
       <div class="cm-actions">
         <button type="button" id="cm-create-preview" class="cm-button alt">معاينة النقاش</button>
-        <button type="submit" id="cm-create-submit" class="cm-button">إرسال النقاش</button>
+        <button type="submit" id="cm-create-submit" class="cm-button">نشر النقاش</button>
       </div>
       <p id="cm-create-feedback" class="cm-state" role="status" aria-live="polite"></p>
     </form>
@@ -63,13 +63,14 @@
     </section>
   </section>
   <section id="cm-create-success" class="cm-panel cm-create-success" hidden role="status">
-    <h2>تم استلام نقاشك</h2>
-    <p>أُرسل نقاشك للمراجعة، وسيظهر في المجتمع بعد اعتماده.</p>
+    <h2>تم نشر نقاشك</h2>
+    <p>نُشر نقاشك مباشرة وأصبح متاحًا لأعضاء المجتمع. قد يُخفي المشرف المحتوى المخالف لقواعد المشاركة أو يحذفه.</p>
+    <a class="cm-button" id="cm-view-new-post" href="community.html" hidden>اقرأ نقاشي</a>
     <a class="cm-button" href="community.html">العودة إلى مجتمع نَحْنُ</a>
   </section>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script>
 <script src="na7n-auth.js?v=20261011-1"></script>
 <script src="na7n-navigation.js?v=20261124-create-v2"></script>
-<script src="community-create.js?v=20261124-create-v1"></script>
+<script src="community-create.js?v=20261124-live-v1"></script>
 </body></html>
