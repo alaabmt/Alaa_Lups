@@ -185,3 +185,6 @@ body.na7n-topic-page .na7n-context{display:none!important}
 .cm-report-item .cm-detail-actions{margin-top:12px}
 .cm-report-item .cm-button{min-height:38px;padding:7px 11px;font-size:13px}
 @media(max-width:600px){.cm-report-reasons{grid-template-columns:1fr}.cm-report-reasons .cm-button{width:100%}}
+
+/* Hidden member-only panels and post-publish links must remain hidden despite button display rules. */
+.cm-page [hidden],.cm-member-gate[hidden],.cm-dialog[hidden]{display:none!important}
