@@ -132,3 +132,16 @@ body.na7n-topic-page .na7n-context{display:none!important}
   .cm-caution-symbol{font-size:17px}
   .cm-caution strong{font-size:13px}
 }
+
+/* Lead with the primary community action instead of a distant secondary card. */
+.cm-hero-actions{margin-top:20px;align-items:center}
+.cm-hero-actions .cm-button{min-height:49px;padding:11px 24px;text-align:center}
+.cm-hero-status{color:#67428a;font-size:13px;line-height:1.8;margin:10px 0 0}
+.cm-hero-status:empty{display:none}
+.cm-privacy-reminder{font-size:13px;line-height:1.7;color:#5b6871;margin:0 4px 18px}
+@media(max-width:600px){
+  .cm-hero-actions{display:flex;flex-direction:column;align-items:stretch}
+  .cm-hero-actions .cm-button{width:100%;min-height:46px}
+  .cm-hero-status{text-align:center}
+  .cm-privacy-reminder{margin:0 2px 14px;font-size:12px}
+}
