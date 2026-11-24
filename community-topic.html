@@ -8,7 +8,7 @@
 <title>النقاش | مجتمع نَحْنُ</title>
 <link rel="icon" href="favicon.svg">
 <link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="community.css?v=20261124-create-v2">
+<link rel="stylesheet" href="community.css?v=20261124-direct-v1">
 </head>
 <body class="na7n-topic-page">
 <header class="site-header"><a href="community.html">مجتمع نَحْنُ</a> · <a href="account.html">حسابي</a></header>
@@ -51,19 +51,31 @@
     <div class="cm-dialog-head"><h2 id="cm-reply-heading">أضف تعليقًا</h2><button type="button" class="cm-icon-button" id="cm-reply-close" aria-label="إغلاق">×</button></div>
     <form id="cm-reply-form">
       <div class="cm-form-row"><label for="cm-reply-input">التعليق</label><textarea id="cm-reply-input" minlength="12" maxlength="3000" required placeholder="شارك أفكارًا عامة دون معلومات صحية شخصية"></textarea></div>
-      <p class="cm-form-hint">تُراجع التعليقات قبل النشر. لا تُدخل معلومات صحية أو بيانات شخصية.</p>
+      <p class="cm-form-hint">تُعرض التعليقات مباشرة، وقد يزيل المشرف المحتوى المخالف. لا تشارك معلومات صحية شخصية.</p>
       <p id="cm-reply-feedback" role="status" aria-live="polite"></p>
       <div class="cm-actions">
-        <button class="cm-button" id="cm-reply-submit" type="submit">إرسال للمراجعة</button>
+        <button class="cm-button" id="cm-reply-submit" type="submit">نشر التعليق</button>
         <button class="cm-button alt" id="cm-reply-cancel" type="button">إلغاء</button>
       </div>
     </form>
+  </div>
+</div>
+<div class="cm-dialog" id="cm-report-dialog" hidden>
+  <div class="cm-dialog-body" role="dialog" aria-modal="true" aria-labelledby="cm-report-heading">
+    <div class="cm-dialog-head"><h2 id="cm-report-heading">الإبلاغ عن محتوى</h2><button type="button" class="cm-icon-button" id="cm-report-close" aria-label="إغلاق">×</button></div>
+    <p>اختر سبب البلاغ ليقوم مشرف المجتمع بمراجعته.</p>
+    <div class="cm-report-reasons">
+      <button type="button" class="cm-button alt" data-report-reason="privacy">معلومات شخصية أو خاصة</button>
+      <button type="button" class="cm-button alt" data-report-reason="medical">نصيحة طبية غير آمنة</button>
+      <button type="button" class="cm-button alt" data-report-reason="harassment">إساءة أو مضايقة</button>
+      <button type="button" class="cm-button alt" data-report-reason="other">مخالفة أخرى</button>
+    </div>
   </div>
 </div>
 <footer><p style="text-align:center">نَحْنُ — مشاركات المجتمع لا تغني عن مراجعة الفريق الطبي.</p></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script>
 <script src="na7n-auth.js?v=20261011-1"></script>
 <script src="na7n-navigation.js?v=20261124-topic-ui"></script>
-<script src="community-topic.js?v=20261124-create-v2"></script>
+<script src="community-topic.js?v=20261124-direct-v1"></script>
 </body>
 </html>
