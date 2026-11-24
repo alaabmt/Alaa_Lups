@@ -12,13 +12,23 @@
  const picker=$("community-avatar-options");
  const signupOptions=$("signup-avatar-options");
  if(!input||!signupOptions||!picker)return;
- let user=null,profile=null,style="leaf",loading=null,uploadAllowed=false,lastSavedImagePath=null,usingPreset=false;
+ let user=null,profile=null,style="leaf",loading=null,uploadAllowed=false,lastSavedImagePath=null,usingPreset=false,pendingPreviewUrl=null;
  function getSelectedStyle(){return style;}
+ function clearPendingPreview(){
+   if(pendingPreviewUrl)URL.revokeObjectURL(pendingPreviewUrl);
+   pendingPreviewUrl=null;
+ }
  function showPreview(){
    preview.replaceChildren();
    const p={nickname:input.value.trim()||tr("اسمك المستعار","Your nickname"),
-            avatar_style:style,avatar_path:usingPreset?null:(profile?.avatar_path||null)};
+            avatar_style:style,avatar_path:(usingPreset||pendingPreviewUrl)?null:(profile?.avatar_path||null)};
    const avatar=api.avatar(client,p,true);
+   if(pendingPreviewUrl){
+     const image=document.createElement("img");
+     image.src=pendingPreviewUrl;
+     image.alt="";
+     avatar.replaceChildren(image);
+   }
    preview.append(avatar);
    const content=document.createElement("div");
    const strong=document.createElement("strong");strong.textContent=p.nickname;
@@ -33,16 +43,27 @@
    style=chosen;
    // Selecting a preset means the saved custom image will be replaced when saved.
    usingPreset=true;
+   clearPendingPreview();
    fileInput.value="";
    showPreview();
  });
  input.addEventListener("input",showPreview);
  fileInput.addEventListener("change",()=>{
+   clearPendingPreview();
    const file=fileInput.files?.[0];
-   if(file){
-     status.textContent=tr("ستُصغّر الصورة وتُزال بياناتها الوصفية قبل الرفع. قد تكشف صورة الوجه هويتك.",
-       "The image will be resized with metadata removed. A face photo can reveal your identity.");
+   if(!file){showPreview();return;}
+   if(!["image/jpeg","image/png","image/webp"].includes(file.type)||file.size>4*1024*1024){
+     fileInput.value="";
+     status.textContent=tr("اختر صورة JPG أو PNG أو WebP لا تتجاوز 4 ميغابايت.",
+       "Choose JPG, PNG or WebP under 4 MB.");
+     showPreview();
+     return;
    }
+   pendingPreviewUrl=URL.createObjectURL(file);
+   usingPreset=false;
+   showPreview();
+   status.textContent=tr("هذه معاينة فقط؛ اضغط «حفظ الاسم والصورة» لرفعها. صورة الوجه قد تكشف هويتك.",
+     "Preview only. Select Save to upload. A face photograph can reveal your identity.");
  });
  function messageError(error){
    if(error?.code==="23505")return tr("هذا الاسم المستعار مستخدم بالفعل. اختر اسمًا مختلفًا.",
@@ -58,6 +79,7 @@
    api.picker(picker,style,chosen=>{
      style=chosen;
      usingPreset=true;
+     clearPendingPreview();
      fileInput.value="";
      showPreview();
    });
@@ -81,6 +103,7 @@
    await seedFromSignup(userData);
    const p=await api.getProfile(client,userData.id);
    profile=p;
+   clearPendingPreview();
    lastSavedImagePath=p?.avatar_path||null;
    usingPreset=false;
    const {data:staff}=await client.from("na7n_community_staff")
@@ -133,6 +156,7 @@
      profile={user_id:user.id,...payload};
      usingPreset=false;
      lastSavedImagePath=avatarPath;
+     clearPendingPreview();
      fileInput.value="";
      status.textContent=tr("تم حفظ الاسم والصورة اللذين سيظهران في المجتمع.",
        "Your nickname and avatar are saved for the community.");
