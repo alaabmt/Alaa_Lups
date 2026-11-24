@@ -173,3 +173,15 @@ body.na7n-topic-page .na7n-context{display:none!important}
  .cm-compose-page .cm-actions{flex-direction:column}
  .cm-compose-page .cm-actions .cm-button{width:100%}
 }
+
+/* Report dialog and moderator review queue for post-publication moderation. */
+.cm-report-reasons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+.cm-report-reasons .cm-button{white-space:normal;min-height:54px;padding:10px 13px;text-align:center}
+.cm-report-item{padding:17px 0;border-bottom:1px solid #e3e8ed}
+.cm-report-item:last-child{border-bottom:0}
+.cm-report-item .cm-post-meta{margin-bottom:8px}
+.cm-report-excerpt{font-size:15px;line-height:1.8;color:#334953;overflow-wrap:anywhere;white-space:pre-wrap}
+.cm-report-link{font-size:14px;font-weight:700;text-decoration:underline}
+.cm-report-item .cm-detail-actions{margin-top:12px}
+.cm-report-item .cm-button{min-height:38px;padding:7px 11px;font-size:13px}
+@media(max-width:600px){.cm-report-reasons{grid-template-columns:1fr}.cm-report-reasons .cm-button{width:100%}}
