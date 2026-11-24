@@ -171,7 +171,7 @@
         t("المحتوى لم يعد متاحًا.","Content no longer available.")));
       if(p){
         const link=el("a","cm-report-link",t("عرض النقاش","View discussion"));
-        link.href=detailUrl("post",p.parent_id||p.id);
+        link.href=detailUrl("post",p.parent_id||p.id)+(p.parent_id?"#cm-replies":"");
         item.append(link);
         const controls=el("div","cm-detail-actions");
         if(p.status==="approved")controls.append(actionButton(t("إخفاء","Hide"),()=>hideFlaggedPost(postId)));
