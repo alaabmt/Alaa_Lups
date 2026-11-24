@@ -92,3 +92,32 @@ html.cm-member-access #cm-member-gate { display:none!important; }
 .cm-member-gate .cm-gate-status{font-size:13px;color:#765d83;min-height:22px}
 .cm-member-gate .cm-gate-note{font-size:13px;color:#76677b;margin-top:23px}
 @media(max-width:600px){.cm-member-gate{margin:28px auto 70px;padding:24px 19px}.cm-member-gate .cm-actions{flex-direction:column}.cm-member-gate .cm-button{width:100%}}
+
+/* Standalone community topic reader. No in-page jump when opening a card. */
+.cm-topic{display:flex;text-decoration:none!important}
+.cm-topic:hover{text-decoration:none!important}
+.cm-topic:hover h3{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.cm-topic-view{max-width:830px;padding-top:10px}
+.cm-topic-back-nav{display:flex;justify-content:space-between;gap:20px;align-items:center;margin:13px 0 20px;font-size:14px}
+.cm-topic-back-nav a{color:#67428a;font-weight:750;text-decoration:none}
+.cm-topic-back-nav a:hover{text-decoration:underline}
+.cm-topic-article{padding:clamp(22px,4vw,42px);border-radius:24px;border:1px solid #e4e3e9;background:#fff;box-shadow:0 7px 25px rgba(28,36,60,.04)}
+.cm-topic-article h1{color:#302144;font-size:clamp(25px,4vw,36px);line-height:1.45;margin:14px 0 6px;overflow-wrap:anywhere}
+.cm-topic-content{padding:9px 0 16px}
+.cm-topic-content p{color:#334954;white-space:pre-line;font-size:clamp(16px,2.1vw,19px);line-height:2.05;margin:0;overflow-wrap:anywhere}
+.cm-topic-article .cm-detail-actions{border-top:1px solid #eee9f2;padding-top:19px;gap:9px}
+.cm-topic-article .cm-detail-actions .cm-button{font-size:14px;min-height:41px}
+.cm-topic-replies{margin-top:20px}
+.cm-topic-replies h2{font-size:clamp(22px,3vw,28px);margin:0 0 5px;color:#302144}
+.cm-topic-comment{border-color:#e4e8ec}
+.cm-topic-comment .cm-post-meta{margin:0;color:#77838b;font-size:12px}
+.cm-topic-comment p{white-space:pre-line;overflow-wrap:anywhere}
+.cm-topic-comment .cm-button{font-size:12px;min-height:36px}
+.cm-topic-guidance{background:#f2f7f7;border:1px solid #dce7e6;border-radius:14px;margin:22px 0;padding:18px 21px;color:#3b5660;font-size:14px;line-height:1.8}
+.cm-topic-guidance p{margin:6px 0 0;font-size:14px;color:#526974}
+body.na7n-topic-page .na7n-context{display:none!important}
+@media(max-width:600px){
+  .cm-topic-article{padding:20px 17px;border-radius:17px}
+  .cm-topic-back-nav{margin:8px 0 17px}
+  .cm-topic-view .cm-ai{bottom:10px}
+}
