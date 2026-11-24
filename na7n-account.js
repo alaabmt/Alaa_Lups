@@ -65,6 +65,7 @@
       const profileError = await ensureProfile(user);
       if (version !== stateVersion) return;
       if (profileError) $("dashboard-msg").textContent = L("تم تسجيل الدخول، لكن تعذر حفظ الملف الشخصي. يمكنك إعادة تحميل الصفحة والمحاولة لاحقًا.");
+      if(window.Na7nCommunityAccount) await window.Na7nCommunityAccount.onSignedIn(user);
       if ($("login-password")) $("login-password").value = "";
       $("signed-in-as").textContent = L("تم تسجيل الدخول: ") + user.email;
       $("dashboard").classList.remove("hidden");
@@ -170,7 +171,10 @@
   async function signup() {
     if (busy) return;
     const name=$("signup-name").value.trim(),email=$("signup-email").value.trim(),phone=$("signup-phone").value.trim(),password=$("signup-password").value,password2=$("signup-password2").value;
+    const alias=$("signup-alias").value.normalize("NFC").trim().replace(/\s+/g," "),avatarStyle=$("signup-avatar-style").value||"leaf";
     if(name.length<2){$("msg").textContent=L("أدخل اسمك أولًا."); $("signup-name").focus();return}
+    const aliasError=window.Na7nCommunityIdentity?.validate(alias,name)||"";
+    if(aliasError){$("msg").textContent=aliasError;$("signup-alias").focus();return;}
     if(!email||!$("signup-email").checkValidity()){$("msg").textContent=L("أدخل بريدًا إلكترونيًا صحيحًا."); $("signup-email").focus();return}
     const phoneDigits=phone.replace(/\D/g,"");
     if(!/^\+?[0-9\s().-]+$/.test(phone) || phoneDigits.length<7 || phoneDigits.length>15){$("msg").textContent=L("أدخل رقم هاتف صحيحًا (من 7 إلى 15 رقمًا)."); $("signup-phone").focus();return}
@@ -179,7 +183,7 @@
     if(!$("signup-consent").checked){$("msg").textContent=L("نحتاج موافقتك على إنشاء الحساب وحفظ المتابعة.");return}
     busy=true;$("signup").disabled=true;$("msg").textContent=L("جارٍ إنشاء الحساب…");
     try{
-      const metadata={full_name:name, phone};
+      const metadata={full_name:name,phone,community_nickname:alias,community_avatar_style:avatarStyle};
       const result=await s.auth.signUp({email,password,options:{data:metadata}});
       if(result.error){$("msg").textContent=authError(result.error);return}
       $("signup-password").value=$("signup-password2").value="";
