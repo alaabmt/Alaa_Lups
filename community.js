@@ -44,17 +44,32 @@
   };
   const filterMatches = (category,...parts) => (state.activeCategory==="all" || state.activeCategory===category)
     && parts.join(" ").toLocaleLowerCase().includes(state.query.toLocaleLowerCase());
-  const card = ({category,title,excerpt,meta,onClick}) => {
-    const b=el("button","cm-topic");
-    b.type="button";
+  const detailUrl=(kind,id)=>{
+    const params = new URLSearchParams({kind,id:String(id)});
+    return (en?"community-topic-en.html":"community-topic.html")+"?"+params.toString();
+  };
+  const card = ({category,title,excerpt,meta,href}) => {
+    const b=el("a","cm-topic");
+    b.href=href;
     b.append(el("span","cm-tag",categories[category] || category));
     b.append(el("h3","",title));
     b.append(el("p","",excerpt));
     if(meta) b.append(el("span","cm-post-meta",meta));
-    b.append(el("span","cm-more",t("افتح الموضوع ←","Open topic →")));
-    b.addEventListener("click",onClick);
+    b.append(el("span","cm-more",t("اقرأ النقاش ←","Read discussion →")));
     return b;
   };
+  const rememberFilters=()=>history.replaceState(
+    {...(history.state||{}), na7nCommunity:{category:state.activeCategory,query:state.query}},"",location.href
+  );
+  const remembered = history.state?.na7nCommunity;
+  if (remembered && typeof remembered==="object"){
+    state.activeCategory=Object.prototype.hasOwnProperty.call(categories,remembered.category) ? remembered.category : "all";
+    state.query=typeof remembered.query==="string" ? remembered.query.slice(0,160) : "";
+    ui.search.value=state.query;
+    ui.filters.querySelectorAll("[data-category]").forEach(button=>
+      button.setAttribute("aria-pressed",String(button.dataset.category===state.activeCategory))
+    );
+  }
   function renderPrompts(){
     ui.prompts.replaceChildren();
     const list=state.prompts.filter(p=>filterMatches(p.category,p.title_ar,p.title_en,p.excerpt_ar,p.excerpt_en));
@@ -64,7 +79,7 @@
       title:en?p.title_en:p.title_ar,
       excerpt:en?p.excerpt_en:p.excerpt_ar,
       meta:t("سؤال من فريق نَحْنُ — لا يتضمن تجارب مرضى","Staff-curated prompt — not a patient testimonial"),
-      onClick:()=>openPrompt(p)
+      href:detailUrl('prompt',p.id)
     })));
     if(!list.length) ui.prompts.append(el("div","cm-empty",t("لا توجد موضوعات مطابقة. جرّب كلمة بحث أخرى.","No matching topics. Try a different search.")));
   }
@@ -77,7 +92,7 @@
       meta:formatDate(p.created_at)+" · "+(p.status==="approved"?
         t("منشور تجريبي تمت مراجعته","Reviewed staff test post"):
         t("بانتظار المراجعة — يظهر للمصرح لهم فقط","Pending moderation — restricted")),
-      onClick:()=>openPost(p)
+      href:detailUrl('post',p.id)
     })));
     if(!list.length) ui.threads.append(el("div","cm-empty",t(
       "لا توجد نقاشات تجريبية منشورة بعد. موضوعات البداية أعلاه متاحة للقراءة.",
@@ -234,11 +249,12 @@
   ui.dialog.addEventListener("click",e=>{if(e.target===ui.dialog)closeComposer();});
   document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!ui.dialog.hidden)closeComposer();});
   ui.search.addEventListener("input",()=>{
-    state.query=ui.search.value.trim();renderPrompts();renderThreads();
+    state.query=ui.search.value.trim();rememberFilters();renderPrompts();renderThreads();
   });
   ui.filters.addEventListener("click",e=>{
     const button=e.target.closest("[data-category]");if(!button)return;
     state.activeCategory=button.dataset.category;
+    rememberFilters();
     ui.filters.querySelectorAll(".cm-filter").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));
     renderPrompts();renderThreads();
   });
