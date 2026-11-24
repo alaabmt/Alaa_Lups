@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="مجتمع نَحْنُ: مساحة عربية لتبادل الأفكار العامة حول التعايش مع الذئبة. نسخة تجريبية دون مشاركات مرضى حقيقية.">
+<title>مجتمع نَحْنُ | الذئبة</title>
+<link rel="icon" href="favicon.svg">
+<link rel="canonical" href="https://na7nlupus.com/community.html">
+<link rel="alternate" hreflang="en" href="https://na7nlupus.com/community-en.html">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="community.css?v=20261124-1">
+</head>
+<body>
+<header class="site-header"><a href="index.html">نَحْنُ — الرئيسية</a> · <a href="community-en.html">English</a> · <a href="account.html">حسابي</a></header>
+<main class="cm-page" id="site-content">
+  <section class="cm-hero" aria-labelledby="cm-page-title">
+    <div>
+      <span class="cm-eyebrow">لأننا معًا، نتعلم أكثر</span>
+      <h1 id="cm-page-title">مجتمع نَحْنُ</h1>
+      <p class="cm-lead">مساحة لتبادل الأفكار والتجارب اليومية، وطرح أسئلة تساعدنا على فهم الحياة مع الذئبة. يبدأ مجتمعنا بموضوعات من فريق «نحن»، ثم يتوسع بمشاركة الأعضاء بعد اعتماد ضوابط الخصوصية والسلامة.</p>
+      <div class="cm-actions">
+        <a class="cm-button" href="#cm-topics">تصفّح النقاشات</a>
+        <a class="cm-button alt" href="account.html">حسابي</a>
+      </div>
+    </div>
+    <div class="cm-hero-art" aria-hidden="true">
+      <div class="cm-quote"><span>فكرة للنقاش</span>كيف أجعل يومي أكثر توازنًا؟</div>
+      <div class="cm-quote"><span>فكرة للنقاش</span>ما العادات الصغيرة التي تسهّل يومي؟</div>
+    </div>
+  </section>
+  <div class="cm-caution" role="note"><span class="cm-caution-symbol" aria-hidden="true">ⓘ</span><div><strong>نسخة تجريبية تحت الإعداد</strong>الموضوعات التالية أسئلة افتتاحية أعدّها فريق الموقع، وليست شهادات مرضى. نشر المشاركات والتعليقات محصور بفريق الاختبار المصرّح له، وبمحتوى افتراضي غير صحي. لا تُدخل معلوماتك الطبية أو بياناتك الشخصية هنا.</div></div>
+  <div class="cm-grid">
+    <div class="cm-main-column">
+      <section class="cm-panel" id="cm-topics" aria-labelledby="cm-topics-heading">
+        <h2 class="cm-section-title" id="cm-topics-heading">ابحث عن موضوع يهمك</h2>
+        <p class="cm-section-sub">اختر موضوعًا، واطّلع على سؤال البداية. نستمع للأفكار العامة، ولا ننشر تفاصيل صحية شخصية.</p>
+        <label for="cm-search" class="cm-section-sub">البحث في الموضوعات</label>
+        <div class="cm-searchbox">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+          <input id="cm-search" type="search" autocomplete="off" placeholder="الإرهاق، التغذية، العمل...">
+        </div>
+        <div class="cm-filters" id="cm-filters" role="group" aria-label="تصفية حسب الموضوع">
+          <button class="cm-filter" data-category="all" type="button" aria-pressed="true">الجميع</button>
+          <button class="cm-filter" data-category="daily" type="button" aria-pressed="false">الحياة اليومية</button>
+          <button class="cm-filter" data-category="treatment" type="button" aria-pressed="false">العلاج والأدوية</button>
+          <button class="cm-filter" data-category="nutrition" type="button" aria-pressed="false">التغذية</button>
+          <button class="cm-filter" data-category="work" type="button" aria-pressed="false">العمل والدراسة</button>
+          <button class="cm-filter" data-category="support" type="button" aria-pressed="false">الدعم</button>
+          <button class="cm-filter" data-category="goals" type="button" aria-pressed="false">الأهداف</button>
+        </div>
+      </section>
+      <section aria-labelledby="cm-starter-heading">
+        <h2 class="cm-section-title" id="cm-starter-heading">أسئلة البداية</h2>
+        <p class="cm-result-count" id="cm-count" aria-live="polite">تحميل الموضوعات...</p>
+        <div id="cm-prompts" class="cm-topic-grid" aria-live="polite"></div>
+      </section>
+      <section id="cm-detail" class="cm-detail" aria-live="polite" hidden></section>
+      <section class="cm-panel" id="cm-threads-section" aria-labelledby="cm-threads-heading" style="margin-top:30px">
+        <h2 class="cm-section-title" id="cm-threads-heading">نقاشات الفريق التجريبية</h2>
+        <p class="cm-section-sub">لا توجد هنا نقاشات لمرضى حقيقيين. يُراجع كل نقاش تجريبي قبل إظهاره.</p>
+        <div class="cm-actions">
+          <button id="cm-start" type="button" class="cm-button" disabled>ابدأ نقاشًا تجريبيًا</button>
+          <span id="cm-write-status" class="cm-state">المشاركة غير متاحة للجمهور في هذه المرحلة.</span>
+        </div>
+        <div id="cm-threads" class="cm-topic-grid" style="margin-top:18px"></div>
+      </section>
+    </div>
+    <aside class="cm-sidebar" aria-label="المشاركة الآمنة">
+      <div class="cm-panel">
+        <h3>قواعد مجتمع نَحْنُ</h3>
+        <ul>
+          <li>تبادل الخبرات باحترام وبدون إساءة.</li>
+          <li>لا تضع أسماءً أو أرقام هواتف أو تحاليل طبية.</li>
+          <li>لا تشخّص الآخرين ولا تقترح تغيير دوائهم.</li>
+          <li>المعلومة الطبية المعتمدة تختلف عن التجربة الشخصية.</li>
+        </ul>
+        <a href="governance.html">اطّلع على الحوكمة</a>
+      </div>
+      <div class="cm-panel">
+        <h3>متابعتك تبقى خاصة</h3>
+        <p>استبياناتك الأسبوعية وأهدافك داخل «حسابي» ليست منشورات عامة، ولن تنتقل تلقائيًا إلى المجتمع.</p>
+        <a href="account.html">اذهب إلى حسابي</a>
+      </div>
+    </aside>
+  </div>
+</main>
+<div class="cm-ai" aria-label="المساعد الذكي المستقبلي"><button type="button" id="cm-ai-button" disabled aria-disabled="true" title="المساعد الذكي غير مفعّل؛ لن يستقبل أسئلة أو بيانات"><span aria-hidden="true">✦</span>اسأل نَحْنُ<span>غير مُفعّل</span></button></div>
+<div id="cm-dialog" class="cm-dialog" hidden>
+  <div class="cm-dialog-body" role="dialog" aria-modal="true" aria-labelledby="cm-dialog-title">
+    <div class="cm-dialog-head"><h2 id="cm-dialog-title">نقاش تجريبي</h2><button class="cm-icon-button" type="button" id="cm-dialog-close" aria-label="إغلاق">×</button></div>
+    <p class="cm-state">لأعضاء فريق الاختبار فقط. استخدم محتوى افتراضيًا، ولا تُدخل معلومات صحية حقيقية.</p>
+    <form id="cm-compose-form">
+      <div class="cm-form-row" id="cm-category-row"><label for="cm-category">القسم</label>
+        <select id="cm-category" required><option value="daily">الحياة اليومية</option><option value="treatment">العلاج والأدوية</option><option value="nutrition">التغذية</option><option value="work">العمل والدراسة</option><option value="support">الدعم</option><option value="goals">الأهداف</option></select></div>
+      <div class="cm-form-row" id="cm-title-row"><label for="cm-title">عنوان النقاش</label><input id="cm-title" maxlength="140" minlength="8" required placeholder="عنوان واضح ومحدد"></div>
+      <div class="cm-form-row"><label for="cm-body">النص</label><textarea id="cm-body" minlength="12" maxlength="3000" required></textarea><p class="cm-form-hint">تُرسل للمراجعة، ولا تظهر للعامة قبل الموافقة.</p></div>
+      <p id="cm-form-feedback" class="cm-state" role="status" aria-live="polite"></p>
+      <div class="cm-actions"><button type="submit" class="cm-button" id="cm-submit">أرسل للمراجعة</button><button type="button" class="cm-button alt" id="cm-cancel">إلغاء</button></div>
+    </form>
+  </div>
+</div>
+<footer><p style="text-align:center">نَحْنُ — المعلومات العامة لا تغني عن مراجعة الطبيب. المجتمع تجريبي وغير متاح لمشاركات المرضى الآن.</p></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script>
+<script src="na7n-auth.js?v=20261011-1"></script>
+<script src="na7n-navigation.js?v=20261124-community"></script>
+<script src="community.js?v=20261124-1"></script>
+</body></html>
