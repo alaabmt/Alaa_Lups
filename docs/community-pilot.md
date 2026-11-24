@@ -52,4 +52,7 @@ This is a *prepared placeholder*, not an operating AI tool. No patient data is s
 ## QA state at creation
 - Six curated topics inserted; zero test posts and zero testers.
 - `pilot_mode=true`, `patient_posting_enabled=false`, `ask_ella_enabled=false`.
-- Six community tables have RLS with eleven policies.
+- Six community tables have RLS with twelve policies.
+
+## Post-deployment privilege validation
+The pilot was hardened to revoke default grants from `anon` and `authenticated`, then restore only required CRUD privileges. The anonymous reader has no INSERT privilege on any community table; it can select the six prompts and zero approved posts. Anonymous and authenticated RLS policies for posts are separate so public access does not reference private staff tables. A simulated anonymous SQL read completed successfully.
