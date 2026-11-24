@@ -43,7 +43,12 @@
     if (value !== undefined) node.textContent=value;
     return node;
   };
-  const localLink = href => typeof href === "string" && /^[a-z0-9-]+(?:-en)?\.html$/i.test(href) ? href.replace(/\.html$/,en?"-en.html":".html").replace(/-en-en\.html$/,"-en.html") : null;
+  const localLink = href => {
+    if (typeof href !== "string" || !/^[a-z0-9-]+(?:-en)?\.html$/i.test(href)) return null;
+    if (!en) return href.replace(/-en\.html$/, ".html");
+    if (href === "fatigue.html") return "living-en.html"; // Related English page, not an exact translation.
+    return href.replace(/(?:-en)?\.html$/, "-en.html");
+  };
   const formatDate = value => {
     try {return new Intl.DateTimeFormat(en?"en-GB":"ar-AE",{year:"numeric",month:"short",day:"numeric"}).format(new Date(value));}
     catch {return "";}
@@ -122,7 +127,7 @@
     b.type="button";b.addEventListener("click",action);return b;
   };
   async function loadComments(post){
-    if(!state.client || !ui.detail.hidden===false) return;
+    if(!state.client || ui.detail.hidden) return;
     const container=$("cm-replies");
     if(!container) return;
     const {data,error}=await state.client.from("na7n_community_posts").select("id,author_id,body,status,created_at").eq("parent_id",post.id).order("created_at",{ascending:true}).limit(80);
