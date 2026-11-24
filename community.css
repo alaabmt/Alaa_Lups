@@ -121,3 +121,14 @@ body.na7n-topic-page .na7n-context{display:none!important}
   .cm-topic-back-nav{margin:8px 0 17px}
   .cm-topic-view .cm-ai{bottom:10px}
 }
+
+/* Keep the discussion list visible sooner on small screens. */
+@media(max-width:600px){
+  .cm-hero{margin:6px 0 16px;padding:20px 18px}
+  .cm-hero h1{font-size:32px;margin:10px 0 6px}
+  .cm-hero .cm-lead{font-size:16px;line-height:1.7;margin-bottom:8px}
+  .cm-hero .cm-actions{margin-top:14px}
+  .cm-caution{padding:10px 12px;margin-bottom:18px;font-size:12px;gap:8px;line-height:1.6}
+  .cm-caution-symbol{font-size:17px}
+  .cm-caution strong{font-size:13px}
+}
