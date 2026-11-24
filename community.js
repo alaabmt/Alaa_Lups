@@ -95,8 +95,8 @@
       href:detailUrl('post',p.id)
     })));
     if(!list.length) ui.threads.append(el("div","cm-empty",t(
-      "لا توجد نقاشات تجريبية منشورة بعد. موضوعات البداية أعلاه متاحة للقراءة.",
-      "No test discussions have been published yet. You can explore the starter topics above."
+      "لا توجد نقاشات منشورة بعد. يمكنك قراءة الموضوعات أعلاه.",
+      "No discussions have been posted yet. You can explore the topics above."
     )));
   }
   function detailBase(category,title,body){
@@ -118,8 +118,8 @@
     state.selected={type:"prompt",data:p};
     const d=detailBase(p.category,en?p.title_en:p.title_ar,en?p.excerpt_en:p.excerpt_ar);
     d.append(el("div","cm-post-meta",t(
-      "هذا سؤال افتتاحي صاغه فريق الموقع، وليس نقاش مريض. لا تُقبل ردود المرضى في النسخة التجريبية.",
-      "This is a staff-curated prompt, not a patient discussion. Patient replies are disabled during the pilot."
+      "سؤال للنقاش. التعليقات على هذا الموضوع غير متاحة حاليًا.",
+      "Discussion topic. Replies are not available here yet."
     )));
     const actions=el("div","cm-detail-actions");
     const href=localLink(p.link_url);
