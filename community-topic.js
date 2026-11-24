@@ -122,7 +122,7 @@
   }
   async function moderate(id,status){
     if(!canModerate())return;
-    if(!window.confirm(t("تأكيد مراجعة هذه المشاركة التجريبية؟","Confirm moderation of this test content?")))return;
+    if(!window.confirm(t("تأكيد مراجعة هذا المحتوى؟","Confirm moderation of this content?")))return;
     const {error}=await client.from("na7n_community_posts").update({status}).eq("id",id);
     if(error){renderStatus(t("تعذّر حفظ قرار المراجعة.","Moderation decision could not be saved."));return;}
     if(id===topicId)await loadTopic();
@@ -140,7 +140,7 @@
     for(const reply of data){
       const box=el("div","cm-comment cm-topic-comment");
       const meta=reply.status==="approved"
-        ?t("تعليق تجريبي مُراجع","Reviewed test reply")
+        ?t("تعليق تمت مراجعته","Reviewed reply")
         :t("بانتظار المراجعة","Awaiting moderation");
       box.append(el("p","cm-post-meta",meta+" · "+readableDate(reply.created_at)));
       box.append(el("p","",reply.body));
@@ -179,7 +179,7 @@
     submitReply.disabled=false;
     if(error){$("cm-reply-feedback").textContent=t("تعذّر إرسال التعليق.","Could not submit reply.");return;}
     closeReply();
-    renderStatus(t("تم إرسال تعليقك التجريبي للمراجعة.","Test reply submitted for moderation."));
+    renderStatus(t("تم إرسال تعليقك للمراجعة.","Your reply was submitted for review."));
     await loadReplies();
   }
   function renderTopic(item){
@@ -191,10 +191,10 @@
     $("cm-topic-title").textContent=title||t("نقاش","Discussion");
     document.title=(title||t("النقاش","Discussion"))+" | "+t("مجتمع نَحْنُ","NA7N Community");
     $("cm-topic-meta").textContent=editorial
-      ?t("موضوع تثقيفي للنقاش","Staff-created discussion topic")
+      ?t("موضوع للنقاش","Discussion topic")
       :readableDate(item.created_at)+" · "+(item.status==="approved"
-        ?t("نقاش تجريبي تمت مراجعته","Reviewed pilot discussion")
-        :t("نقاش تجريبي قيد المراجعة","Pilot discussion awaiting moderation"));
+        ?t("نقاش تمت مراجعته","Reviewed discussion")
+        :t("نقاش قيد المراجعة","Discussion awaiting moderation"));
     article.replaceChildren(el("p","",body||""));
     actions.replaceChildren();
     $("cm-replies-section").hidden=editorial;
@@ -205,8 +205,8 @@
         a.href=href;actions.append(a);
       }
       article.append(el("p","cm-post-meta",t(
-        "محتوى افتتاحي من فريق نَحْنُ؛ التعليقات غير متاحة حاليًا على هذه الموضوعات.",
-        "An introductory topic from NA7N. Replies to these starter topics are not available yet."
+        "التعليقات على هذا الموضوع غير متاحة حاليًا.",
+        "Replies are not available for this topic yet."
       )));
     }else{
       if(canWrite()){
@@ -215,7 +215,7 @@
           helpful.id="cm-helpful";actions.append(helpful);
           refreshHelpful();
         }
-        actions.append(button(t("أضف تعليقًا تجريبيًا","Add a test reply"),openReply,true));
+        actions.append(button(t("أضف تعليقًا","Add a reply"),openReply,true));
         actions.append(button(t("إبلاغ","Report"),reportPost,true));
       }
       if(canModerate()&&item.status==="pending"){
