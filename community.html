@@ -8,10 +8,21 @@
 <link rel="canonical" href="https://na7nlupus.com/community.html">
 <link rel="alternate" hreflang="en" href="https://na7nlupus.com/community-en.html">
 <link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="community.css?v=20261124-1">
+<link rel="stylesheet" href="community.css?v=20261124-members">
 </head>
 <body>
 <header class="site-header"><a href="index.html">نَحْنُ — الرئيسية</a> · <a href="community-en.html">English</a> · <a href="account.html">حسابي</a></header>
+<section class="cm-member-gate" id="cm-member-gate" aria-labelledby="cm-gate-heading">
+  <div class="cm-gate-mark" aria-hidden="true">✦</div>
+  <h1 id="cm-gate-heading">مجتمع نَحْنُ للأعضاء المسجلين فقط</h1>
+  <p>للدخول إلى المجتمع والاطلاع على النقاشات، سجّل دخولك إلى حسابك. إذا لم يكن لديك حساب، يمكنك إنشاء حساب جديد أولًا.</p>
+  <p id="cm-gate-status" class="cm-gate-status" role="status" aria-live="polite">جارٍ التحقق من تسجيل الدخول…</p>
+  <div class="cm-actions">
+    <a class="cm-button" href="account.html?mode=login&amp;return=community.html">تسجيل الدخول</a>
+    <a class="cm-button alt" href="account.html?mode=signup&amp;return=community.html">إنشاء حساب جديد</a>
+  </div>
+  <p class="cm-gate-note">نشر مشاركات المرضى غير متاح حاليًا. الاختبار محصور بفريق العمل دون بيانات صحية حقيقية.</p>
+</section>
 <main class="cm-page" id="site-content">
   <section class="cm-hero" aria-labelledby="cm-page-title">
     <div>
@@ -103,5 +114,5 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script>
 <script src="na7n-auth.js?v=20261011-1"></script>
 <script src="na7n-navigation.js?v=20261124-community"></script>
-<script src="community.js?v=20261124-1"></script>
+<script src="community.js?v=20261124-members"></script>
 </body></html>
