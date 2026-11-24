@@ -8,7 +8,7 @@
 <title>Discussion | NA7N Community</title>
 <link rel="icon" href="favicon.svg">
 <link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="community.css?v=20261124-topic-ui">
+<link rel="stylesheet" href="community.css?v=20261124-ux2">
 </head>
 <body class="na7n-topic-page">
 <header class="site-header"><a href="community-en.html">NA7N Community</a> · <a href="account-en.html">My Account</a></header>
@@ -37,7 +37,7 @@
   </article>
   <section class="cm-panel cm-topic-replies" aria-labelledby="cm-replies-title" id="cm-replies-section" hidden>
     <h2 id="cm-replies-title">Replies</h2>
-    <p class="cm-section-sub" id="cm-replies-desc">Only authorized staff test replies are available at this stage.</p>
+    <p class="cm-section-sub" id="cm-replies-desc"></p>
     <div id="cm-replies" aria-live="polite"></div>
   </section>
   <aside class="cm-topic-guidance" aria-label="Safe sharing">
@@ -48,10 +48,10 @@
 <div class="cm-ai" aria-label="Future AI assistant"><button type="button" id="cm-ai-button" disabled aria-disabled="true"><span aria-hidden="true">✦</span>Ask NA7N <span>Off</span></button></div>
 <div class="cm-dialog" id="cm-reply-dialog" hidden>
   <div class="cm-dialog-body" role="dialog" aria-modal="true" aria-labelledby="cm-reply-heading">
-    <div class="cm-dialog-head"><h2 id="cm-reply-heading">Test reply</h2><button type="button" class="cm-icon-button" id="cm-reply-close" aria-label="Close">×</button></div>
+    <div class="cm-dialog-head"><h2 id="cm-reply-heading">Add a reply</h2><button type="button" class="cm-icon-button" id="cm-reply-close" aria-label="Close">×</button></div>
     <form id="cm-reply-form">
-      <div class="cm-form-row"><label for="cm-reply-input">Reply</label><textarea id="cm-reply-input" minlength="12" maxlength="3000" required placeholder="Fictional test content only"></textarea></div>
-      <p class="cm-form-hint">Authorized staff only. Replies require moderation. Never enter real health information.</p>
+      <div class="cm-form-row"><label for="cm-reply-input">Reply</label><textarea id="cm-reply-input" minlength="12" maxlength="3000" required placeholder="Share general ideas without personal health information"></textarea></div>
+      <p class="cm-form-hint">Replies are reviewed before publication. Do not share medical or personal information.</p>
       <p id="cm-reply-feedback" role="status" aria-live="polite"></p>
       <div class="cm-actions">
         <button class="cm-button" id="cm-reply-submit" type="submit">Submit for moderation</button>
@@ -64,6 +64,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script>
 <script src="na7n-auth.js?v=20261011-1"></script>
 <script src="na7n-navigation.js?v=20261124-topic-ui"></script>
-<script src="community-topic.js?v=20261124-topic-ui"></script>
+<script src="community-topic.js?v=20261124-ux2"></script>
 </body>
 </html>
