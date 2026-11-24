@@ -8,7 +8,7 @@
 <title>Discussion | NA7N Community</title>
 <link rel="icon" href="favicon.svg">
 <link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="community.css?v=20261124-create-v2">
+<link rel="stylesheet" href="community.css?v=20261124-direct-v1">
 </head>
 <body class="na7n-topic-page">
 <header class="site-header"><a href="community-en.html">NA7N Community</a> · <a href="account-en.html">My Account</a></header>
@@ -51,19 +51,31 @@
     <div class="cm-dialog-head"><h2 id="cm-reply-heading">Add a reply</h2><button type="button" class="cm-icon-button" id="cm-reply-close" aria-label="Close">×</button></div>
     <form id="cm-reply-form">
       <div class="cm-form-row"><label for="cm-reply-input">Reply</label><textarea id="cm-reply-input" minlength="12" maxlength="3000" required placeholder="Share general ideas without personal health information"></textarea></div>
-      <p class="cm-form-hint">Replies are reviewed before publication. Do not share medical or personal information.</p>
+      <p class="cm-form-hint">Replies appear immediately and can be moderated afterward. Do not share personal medical details.</p>
       <p id="cm-reply-feedback" role="status" aria-live="polite"></p>
       <div class="cm-actions">
-        <button class="cm-button" id="cm-reply-submit" type="submit">Submit for moderation</button>
+        <button class="cm-button" id="cm-reply-submit" type="submit">Publish reply</button>
         <button class="cm-button alt" id="cm-reply-cancel" type="button">Cancel</button>
       </div>
     </form>
+  </div>
+</div>
+<div class="cm-dialog" id="cm-report-dialog" hidden>
+  <div class="cm-dialog-body" role="dialog" aria-modal="true" aria-labelledby="cm-report-heading">
+    <div class="cm-dialog-head"><h2 id="cm-report-heading">Report content</h2><button type="button" class="cm-icon-button" id="cm-report-close" aria-label="Close">×</button></div>
+    <p>Please choose the reason for your report. A community moderator will review it.</p>
+    <div class="cm-report-reasons">
+      <button type="button" class="cm-button alt" data-report-reason="privacy">Personal or private information</button>
+      <button type="button" class="cm-button alt" data-report-reason="medical">Unsafe medical advice</button>
+      <button type="button" class="cm-button alt" data-report-reason="harassment">Abuse or harassment</button>
+      <button type="button" class="cm-button alt" data-report-reason="other">Other violation</button>
+    </div>
   </div>
 </div>
 <footer><p style="text-align:center">NA7N — Community discussions cannot replace medical advice.</p></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script>
 <script src="na7n-auth.js?v=20261011-1"></script>
 <script src="na7n-navigation.js?v=20261124-topic-ui"></script>
-<script src="community-topic.js?v=20261124-create-v2"></script>
+<script src="community-topic.js?v=20261124-direct-v1"></script>
 </body>
 </html>
