@@ -198,6 +198,7 @@
     gate.hidden=false;
     gateStatus.textContent=message||t("يرجى تسجيل الدخول للاطلاع على المجتمع.","Sign in to view the community.");
     state.user=null;state.staff=null;state.prompts=[];state.posts=[];state.identities.clear();
+    const notice=$("cm-identity-notice");if(notice)notice.hidden=true;
     if(reportPanel)reportPanel.hidden=true;
     if(reportList)reportList.replaceChildren();
     const modNav=$("cm-mod-nav");if(modNav)modNav.hidden=true;
@@ -225,6 +226,11 @@
       user=data.user;
     }catch{showGate(t("تعذّر التحقق من حسابك.","Unable to verify your account."));return;}
     state.user=user;
+    const notice=$("cm-identity-notice");
+    if(notice && identity){
+      const myIdentity=await identity.getProfile(client,user.id);
+      notice.hidden=Boolean(myIdentity?.nickname);
+    }
     const [prompts,posts,staff]=await Promise.all([
       client.from("na7n_community_prompts")
         .select("id,category,title_ar,title_en,excerpt_ar,excerpt_en")
