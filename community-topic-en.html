@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="NA7N Community discussion for signed-in members only.">
+<title>Discussion | NA7N Community</title>
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="community.css?v=20261124-topic-ui">
+</head>
+<body class="na7n-topic-page">
+<header class="site-header"><a href="community-en.html">NA7N Community</a> · <a href="account-en.html">My Account</a></header>
+<section class="cm-member-gate" id="cm-member-gate" aria-labelledby="cm-gate-heading">
+  <div class="cm-gate-mark" aria-hidden="true">✦</div>
+  <h1 id="cm-gate-heading">This discussion is for registered members</h1>
+  <p>Sign in or create an account to read this discussion and replies.</p>
+  <p id="cm-gate-status" class="cm-gate-status" role="status" aria-live="polite">Checking your account…</p>
+  <div class="cm-actions">
+    <a class="cm-button" id="cm-login-link" href="account-en.html?mode=login&amp;return=community-topic-en.html">Sign in</a>
+    <a class="cm-button alt" id="cm-signup-link" href="account-en.html?mode=signup&amp;return=community-topic-en.html">Create an account</a>
+  </div>
+</section>
+<main id="site-content" class="cm-page cm-topic-view">
+  <nav class="cm-topic-back-nav" aria-label="Community navigation">
+    <a id="cm-back" href="community-en.html#cm-topics" class="cm-topic-back">← Back to discussions</a>
+    <a id="cm-language-switch" href="community-topic.html">العربية</a>
+  </nav>
+  <article class="cm-topic-article" aria-labelledby="cm-topic-title">
+    <span class="cm-tag" id="cm-topic-category">Discussion</span>
+    <h1 id="cm-topic-title">Loading discussion…</h1>
+    <p class="cm-post-meta" id="cm-topic-meta"></p>
+    <div id="cm-topic-body" class="cm-topic-content" aria-live="polite"></div>
+    <div class="cm-detail-actions" id="cm-topic-actions"></div>
+    <p class="cm-state" id="cm-topic-feedback" aria-live="polite" role="status"></p>
+  </article>
+  <section class="cm-panel cm-topic-replies" aria-labelledby="cm-replies-title" id="cm-replies-section" hidden>
+    <h2 id="cm-replies-title">Replies</h2>
+    <p class="cm-section-sub" id="cm-replies-desc">Only authorized staff test replies are available at this stage.</p>
+    <div id="cm-replies" aria-live="polite"></div>
+  </section>
+  <aside class="cm-topic-guidance" aria-label="Safe sharing">
+    <strong>Share experiences, not medical prescriptions.</strong>
+    <p>Discussions are for learning and general support, not diagnosis or medication changes. Do not share private medical details.</p>
+  </aside>
+</main>
+<div class="cm-ai" aria-label="Future AI assistant"><button type="button" id="cm-ai-button" disabled aria-disabled="true"><span aria-hidden="true">✦</span>Ask NA7N <span>Off</span></button></div>
+<div class="cm-dialog" id="cm-reply-dialog" hidden>
+  <div class="cm-dialog-body" role="dialog" aria-modal="true" aria-labelledby="cm-reply-heading">
+    <div class="cm-dialog-head"><h2 id="cm-reply-heading">Test reply</h2><button type="button" class="cm-icon-button" id="cm-reply-close" aria-label="Close">×</button></div>
+    <form id="cm-reply-form">
+      <div class="cm-form-row"><label for="cm-reply-input">Reply</label><textarea id="cm-reply-input" minlength="12" maxlength="3000" required placeholder="Fictional test content only"></textarea></div>
+      <p class="cm-form-hint">Authorized staff only. Replies require moderation. Never enter real health information.</p>
+      <p id="cm-reply-feedback" role="status" aria-live="polite"></p>
+      <div class="cm-actions">
+        <button class="cm-button" id="cm-reply-submit" type="submit">Submit for moderation</button>
+        <button class="cm-button alt" id="cm-reply-cancel" type="button">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+<footer><p style="text-align:center">NA7N — Community discussions cannot replace medical advice.</p></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script>
+<script src="na7n-auth.js?v=20261011-1"></script>
+<script src="na7n-navigation.js?v=20261124-community"></script>
+<script src="community-topic.js?v=20261124-topic-ui"></script>
+</body>
+</html>
