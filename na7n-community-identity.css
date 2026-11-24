@@ -31,3 +31,10 @@
 .cm-topic .na7n-member-label{margin:0 0 11px}
 .cm-topic-comment .na7n-member-label{margin:5px 0}
 @media(max-width:610px){.na7n-avatar-options{grid-template-columns:repeat(4,minmax(0,1fr))}.na7n-identity-editor{margin:15px 10px;padding:18px}.na7n-identity-actions{flex-direction:column}.na7n-identity-actions .button{width:100%}}
+
+.cm-identity-notice{display:flex;align-items:flex-start;gap:15px;background:#eef8f4;border:1px solid #d4e7dd;border-radius:15px;padding:15px 17px;margin:0 0 17px;line-height:1.7}
+.cm-identity-notice[hidden]{display:none!important}
+.cm-identity-notice>span{font-size:26px}
+.cm-identity-notice strong{font-size:16px;color:#284d42}
+.cm-identity-notice p{font-size:13px;margin:2px 0;color:#4b615b}
+.cm-identity-notice a{font-size:13px;font-weight:750;color:#305e80;text-decoration:underline}
