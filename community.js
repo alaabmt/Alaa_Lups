@@ -270,7 +270,7 @@
     let user;
     try {
       const {data,error}=await state.client.auth.getUser();
-      if (error || !data?.user) {
+      if (error || !data?.user || data.user.is_anonymous === true) {
         showGate();
         return;
       }
