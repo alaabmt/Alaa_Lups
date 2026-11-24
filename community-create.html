@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>ابدأ نقاشًا | مجتمع نَحْنُ</title>
+<meta name="description" content="اكتب عنوان نقاشك وشارك سؤالك مع مجتمع نَحْنُ.">
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="community.css?v=20261124-create-v1">
+</head>
+<body>
+<header class="site-header"><a href="community.html">مجتمع نَحْنُ</a> · <a href="account.html">حسابي</a></header>
+<section class="cm-member-gate" id="cm-member-gate" aria-labelledby="cm-gate-heading">
+ <div class="cm-gate-mark" aria-hidden="true">✦</div>
+ <h1 id="cm-gate-heading">ابدأ نقاشًا بعد تسجيل الدخول</h1>
+ <p>المشاركة في مجتمع نَحْنُ مخصصة للأعضاء المسجلين.</p>
+ <p id="cm-gate-status" class="cm-gate-status" role="status" aria-live="polite">جارٍ التحقق من الحساب…</p>
+ <div class="cm-actions">
+   <a class="cm-button" href="account.html?mode=login&amp;return=community-create.html">تسجيل الدخول</a>
+   <a class="cm-button alt" href="account.html?mode=signup&amp;return=community-create.html">إنشاء حساب</a>
+ </div>
+</section>
+<main class="cm-page cm-compose-page" id="site-content">
+  <nav class="cm-topic-back-nav" aria-label="العودة إلى المجتمع"><a href="community.html" class="cm-topic-back">→ العودة إلى النقاشات</a><a href="community-create-en.html">English</a></nav>
+  <section class="cm-compose-hero">
+    <span class="cm-eyebrow">مجتمع نَحْنُ</span>
+    <h1>ابدأ نقاشًا</h1>
+    <p>ما السؤال أو التجربة التي تريد مشاركتها مع الآخرين؟</p>
+  </section>
+  <section id="cm-create-unavailable" class="cm-panel" hidden aria-live="polite">
+    <h2>إنشاء النقاشات غير متاح لهذا الحساب حاليًا</h2>
+    <p>يمكنك قراءة النقاشات الحالية. سنتيح المشاركة للأعضاء عند اكتمال متطلبات حماية البيانات والإشراف.</p>
+    <a class="cm-button alt" href="community.html">تصفح النقاشات</a>
+  </section>
+  <section id="cm-create-form-wrap" class="cm-panel" hidden>
+    <form id="cm-create-form">
+      <div class="cm-form-row">
+        <label for="cm-create-title">عنوان النقاش <span aria-hidden="true">*</span></label>
+        <input id="cm-create-title" type="text" minlength="8" maxlength="140" required placeholder="مثال: كيف تنظّمون يومكم عندما تشعرون بالإرهاق؟">
+        <p class="cm-form-hint">اجعل العنوان واضحًا ومختصرًا.</p>
+      </div>
+      <div class="cm-form-row">
+        <label for="cm-create-body">ما الذي تود مشاركته؟ <span aria-hidden="true">*</span></label>
+        <textarea id="cm-create-body" minlength="12" maxlength="3000" rows="7" required placeholder="اشرح سؤالك أو فكرتك، وما الذي ترغب في معرفة تجارب الآخرين بشأنه…"></textarea>
+      </div>
+      <div class="cm-form-row">
+        <label for="cm-create-tags">كلمات دلالية (اختيارية)</label>
+        <input id="cm-create-tags" maxlength="180" placeholder="الإرهاق، العمل، النوم" autocomplete="off">
+        <p class="cm-form-hint">افصل بين الكلمات بفاصلة؛ حتى 5 كلمات دلالية. لا يلزم اختيار قسم.</p>
+      </div>
+      <div class="cm-privacy-reminder">من فضلك لا تكتب معلومات صحية حساسة أو تفاصيل تعرّف بك أو بالآخرين. لا توجّه نصائح لتغيير جرعات الأدوية.</div>
+      <div class="cm-actions">
+        <button type="button" id="cm-create-preview" class="cm-button alt">معاينة النقاش</button>
+        <button type="submit" id="cm-create-submit" class="cm-button">إرسال النقاش</button>
+      </div>
+      <p id="cm-create-feedback" class="cm-state" role="status" aria-live="polite"></p>
+    </form>
+    <section id="cm-create-preview-box" class="cm-detail" hidden aria-labelledby="cm-preview-heading">
+      <h2 id="cm-preview-heading">معاينة ما كتبته</h2>
+      <h3 id="cm-preview-title"></h3><p id="cm-preview-text"></p>
+      <p id="cm-preview-tags" class="cm-post-meta"></p>
+      <button type="button" id="cm-preview-close" class="cm-button alt">العودة للتعديل</button>
+    </section>
+  </section>
+  <section id="cm-create-success" class="cm-panel cm-create-success" hidden role="status">
+    <h2>تم استلام نقاشك</h2>
+    <p>أُرسل نقاشك للمراجعة، وسيظهر في المجتمع بعد اعتماده.</p>
+    <a class="cm-button" href="community.html">العودة إلى مجتمع نَحْنُ</a>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script>
+<script src="na7n-auth.js?v=20261011-1"></script>
+<script src="na7n-navigation.js?v=20261124-community"></script>
+<script src="community-create.js?v=20261124-create-v1"></script>
+</body></html>
