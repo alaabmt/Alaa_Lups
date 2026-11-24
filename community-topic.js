@@ -1,0 +1,300 @@
+/* NA7N Community reader: member-only detail pages, no patient data, no AI calls. */
+(() => {
+  "use strict";
+  const en=document.documentElement.lang==="en";
+  const t=(ar,english)=>en?english:ar;
+  const $=id=>document.getElementById(id);
+  const client=window.na7nSupabase||null;
+  const query=new URLSearchParams(location.search);
+  const kind=query.get("kind");
+  const topicId=query.get("id")||"";
+  const listPage=en?"community-en.html":"community.html";
+  const accountPage=en?"account-en.html":"account.html";
+  const detailPage=en?"community-topic-en.html":"community-topic.html";
+  const valid=kind==="prompt" ? /^[a-z0-9-]{2,60}$/i.test(topicId)
+    : kind==="post" && /^[a-f0-9]{8}-[a-f0-9-]{27,36}$/i.test(topicId);
+  const categories={
+    daily:t("الحياة اليومية","Daily life"),
+    treatment:t("العلاج والأدوية","Treatment"),
+    nutrition:t("التغذية","Nutrition"),
+    work:t("العمل والدراسة","Work & study"),
+    support:t("الدعم","Support"),
+    goals:t("الأهداف","Goals")
+  };
+  const state={user:null,staff:null,flags:null,item:null};
+  const memberGate=$("cm-member-gate");
+  const gateStatus=$("cm-gate-status");
+  const article=$("cm-topic-body");
+  const feedback=$("cm-topic-feedback");
+  const actions=$("cm-topic-actions");
+  const replyDialog=$("cm-reply-dialog");
+  const replies=$("cm-replies");
+  const replyForm=$("cm-reply-form");
+  const replyInput=$("cm-reply-input");
+  const submitReply=$("cm-reply-submit");
+  const canWrite=()=>!!(state.user && state.staff?.is_active && state.flags?.pilot_mode);
+  const canModerate=()=>canWrite() && state.staff.role==="moderator";
+  const el=(tag,cls,text)=>{
+    const e=document.createElement(tag);
+    if(cls)e.className=cls;
+    if(text!==undefined)e.textContent=text;
+    return e;
+  };
+  const button=(label,fn,secondary=false)=>{
+    const b=el("button","cm-button"+(secondary?" alt":""),label);
+    b.type="button";b.addEventListener("click",fn);return b;
+  };
+  const renderStatus=(message)=>{feedback.textContent=message||"";};
+  function readableDate(value){
+    try{return new Intl.DateTimeFormat(en?"en-GB":"ar-AE",{year:"numeric",month:"short",day:"numeric"}).format(new Date(value));}catch{return "";}
+  }
+  const relatedHref=href=>{
+    if(typeof href!=="string"||!/^[a-z0-9-]+\.html$/i.test(href))return null;
+    if(!en)return href;
+    if(href==="fatigue.html")return "living-en.html";
+    return href.replace(/\.html$/,"-en.html");
+  };
+  function clearForGate(message){
+    document.documentElement.classList.remove("cm-member-access");
+    memberGate.hidden=false;
+    gateStatus.textContent=message||t("سجّل دخولك للاطلاع على هذا النقاش.","Sign in to read this discussion.");
+    state.user=null;state.staff=null;state.item=null;
+    article.replaceChildren();actions.replaceChildren();replies.replaceChildren();
+    if(!replyDialog.hidden)closeReply();
+  }
+  function setupNavigation(){
+    const returnPath=detailPage+location.search;
+    $("cm-login-link").href=accountPage+"?mode=login&return="+encodeURIComponent(returnPath);
+    $("cm-signup-link").href=accountPage+"?mode=signup&return="+encodeURIComponent(returnPath);
+    const other=en?"community-topic.html":"community-topic-en.html";
+    $("cm-language-switch").href=other+location.search;
+    const back=$("cm-back");
+    back.addEventListener("click",event=>{
+      // Back to the original list restores its scroll, text search and selected category.
+      // For externally shared links, use a normal link to the community list instead.
+      try{
+        const referring=new URL(document.referrer);
+        const refFile=referring.pathname.split("/").pop();
+        if(referring.origin===location.origin && ["community.html","community-en.html"].includes(refFile)
+           && history.length>1){
+          event.preventDefault();
+          history.back();
+        }
+      }catch{ /* No safe referrer: fallback to linked list. */ }
+    });
+  }
+  async function refreshHelpful(){
+    if(kind!=="post"||!state.item||state.item.status!=="approved")return;
+    const target=$("cm-helpful");
+    if(!target)return;
+    const [countResult,ownResult]=await Promise.all([
+      client.from("na7n_community_helpful").select("post_id",{head:true,count:"exact"}).eq("post_id",topicId),
+      client.from("na7n_community_helpful").select("post_id").eq("post_id",topicId).eq("user_id",state.user.id).maybeSingle()
+    ]);
+    const liked=!!ownResult.data;
+    target.textContent=(liked?t("إزالة مفيد","Remove helpful"):t("مفيد","Helpful"))+
+      " ("+(countResult.count??0)+")";
+    target.dataset.liked=String(liked);
+  }
+  async function toggleHelpful(){
+    if(!canWrite()||state.item?.status!=="approved")return;
+    const liked=$("cm-helpful")?.dataset.liked==="true";
+    const result=liked
+      ?await client.from("na7n_community_helpful").delete().eq("post_id",topicId).eq("user_id",state.user.id)
+      :await client.from("na7n_community_helpful").insert({post_id:topicId,user_id:state.user.id});
+    if(result.error){renderStatus(t("تعذّر حفظ التفاعل.","Could not save your reaction."));return;}
+    await refreshHelpful();
+  }
+  async function reportPost(){
+    if(!canWrite())return;
+    const raw=window.prompt(t(
+      "اختر سبب الإبلاغ: 1 خصوصية، 2 معلومات طبية، 3 إساءة، 4 أخرى",
+      "Report reason: 1 privacy, 2 medical advice, 3 abuse, 4 other"
+    ));
+    if(raw==null)return;
+    const reason=({"1":"privacy","2":"medical","3":"harassment","4":"other"})[raw.trim()];
+    if(!reason){renderStatus(t("اختر رقمًا من 1 إلى 4.","Choose a number from 1 to 4."));return;}
+    const {error}=await client.from("na7n_community_reports").insert({
+      post_id:topicId,reporter_id:state.user.id,reason
+    });
+    renderStatus(error?t("تعذّر إرسال البلاغ أو أُرسل سابقًا.","The report could not be sent or was already submitted.")
+      :t("تم إرسال البلاغ للإشراف.","Report sent to moderation."));
+  }
+  async function moderate(id,status){
+    if(!canModerate())return;
+    if(!window.confirm(t("تأكيد مراجعة هذه المشاركة التجريبية؟","Confirm moderation of this test content?")))return;
+    const {error}=await client.from("na7n_community_posts").update({status}).eq("id",id);
+    if(error){renderStatus(t("تعذّر حفظ قرار المراجعة.","Moderation decision could not be saved."));return;}
+    if(id===topicId)await loadTopic();
+    else await loadReplies();
+  }
+  async function loadReplies(){
+    if(kind!=="post"||!state.item)return;
+    replies.replaceChildren();
+    const {data,error}=await client.from("na7n_community_posts")
+      .select("id,parent_id,author_id,body,status,created_at")
+      .eq("parent_id",topicId)
+      .order("created_at",{ascending:true}).limit(100);
+    if(error){replies.append(el("p","cm-state",t("تعذّر تحميل التعليقات.","Couldn't load replies.")));return;}
+    if(!data?.length){replies.append(el("p","cm-state",t("لا توجد تعليقات بعد.","No replies yet.")));return;}
+    for(const reply of data){
+      const box=el("div","cm-comment cm-topic-comment");
+      const meta=reply.status==="approved"
+        ?t("تعليق تجريبي مُراجع","Reviewed test reply")
+        :t("بانتظار المراجعة","Awaiting moderation");
+      box.append(el("p","cm-post-meta",meta+" · "+readableDate(reply.created_at)));
+      box.append(el("p","",reply.body));
+      if(canModerate()&&reply.status==="pending"){
+        box.append(button(t("اعتماد التعليق","Approve reply"),()=>moderate(reply.id,"approved"),true));
+        box.append(" ");
+        box.append(button(t("رفض التعليق","Reject reply"),()=>moderate(reply.id,"rejected"),true));
+      }
+      replies.append(box);
+    }
+  }
+  function openReply(){
+    if(!canWrite()||kind!=="post")return;
+    $("cm-reply-feedback").textContent="";
+    replyInput.value="";
+    replyDialog.hidden=false;
+    replyInput.focus();
+  }
+  function closeReply(){
+    replyDialog.hidden=true;
+    $("cm-reply-feedback").textContent="";
+  }
+  async function saveReply(event){
+    event.preventDefault();
+    if(!canWrite()||kind!=="post"||!state.item||!replyForm.reportValidity())return;
+    const body=replyInput.value.trim();
+    if(body.length<12||body.length>3000){
+      $("cm-reply-feedback").textContent=t("يجب أن يتراوح التعليق بين 12 و3000 حرف.","Reply must have 12–3000 characters.");
+      return;
+    }
+    submitReply.disabled=true;
+    const {error}=await client.from("na7n_community_posts").insert({
+      parent_id:topicId,author_id:state.user.id,
+      category:state.item.category,title:null,body,status:"pending"
+    });
+    submitReply.disabled=false;
+    if(error){$("cm-reply-feedback").textContent=t("تعذّر إرسال التعليق.","Could not submit reply.");return;}
+    closeReply();
+    renderStatus(t("تم إرسال تعليقك التجريبي للمراجعة.","Test reply submitted for moderation."));
+    await loadReplies();
+  }
+  function renderTopic(item){
+    state.item=item;
+    const editorial=kind==="prompt";
+    const title=editorial ? (en?item.title_en:item.title_ar) : item.title;
+    const body=editorial ? (en?item.excerpt_en:item.excerpt_ar) : item.body;
+    $("cm-topic-category").textContent=categories[item.category]||item.category;
+    $("cm-topic-title").textContent=title||t("نقاش","Discussion");
+    document.title=(title||t("النقاش","Discussion"))+" | "+t("مجتمع نَحْنُ","NA7N Community");
+    $("cm-topic-meta").textContent=editorial
+      ?t("موضوع تثقيفي للنقاش","Staff-created discussion topic")
+      :readableDate(item.created_at)+" · "+(item.status==="approved"
+        ?t("نقاش تجريبي تمت مراجعته","Reviewed pilot discussion")
+        :t("نقاش تجريبي قيد المراجعة","Pilot discussion awaiting moderation"));
+    article.replaceChildren(el("p","",body||""));
+    actions.replaceChildren();
+    $("cm-replies-section").hidden=editorial;
+    if(editorial){
+      const href=relatedHref(item.link_url);
+      if(href){
+        const a=el("a","cm-button alt",t("اقرأ معلومات مرتبطة بالموضوع","Read related information"));
+        a.href=href;actions.append(a);
+      }
+      article.append(el("p","cm-post-meta",t(
+        "محتوى افتتاحي من فريق نَحْنُ؛ التعليقات غير متاحة حاليًا على هذه الموضوعات.",
+        "An introductory topic from NA7N. Replies to these starter topics are not available yet."
+      )));
+    }else{
+      if(canWrite()){
+        if(item.status==="approved"){
+          const helpful=button(t("مفيد","Helpful"),toggleHelpful,true);
+          helpful.id="cm-helpful";actions.append(helpful);
+          refreshHelpful();
+        }
+        actions.append(button(t("أضف تعليقًا تجريبيًا","Add a test reply"),openReply,true));
+        actions.append(button(t("إبلاغ","Report"),reportPost,true));
+      }
+      if(canModerate()&&item.status==="pending"){
+        actions.append(button(t("اعتماد النقاش","Approve post"),()=>moderate(topicId,"approved")));
+        actions.append(button(t("رفض النقاش","Reject post"),()=>moderate(topicId,"rejected"),true));
+      }
+      loadReplies();
+    }
+    if(editorial||item.status==="approved"){
+      actions.append(button(t("نسخ رابط النقاش","Copy discussion link"),async()=>{
+        try{
+          await navigator.clipboard.writeText(location.origin+location.pathname+location.search);
+          renderStatus(t("تم نسخ الرابط. يتطلب فتحه تسجيل الدخول.","Link copied. Sign-in is required to open it."));
+        }catch{
+          renderStatus(t("يمكنك نسخ الرابط من شريط العنوان.","Copy the URL from your browser address bar."));
+        }
+      },true));
+    }
+  }
+  async function loadTopic(){
+    renderStatus("");
+    if(!valid){
+      $("cm-topic-title").textContent=t("رابط غير صالح","Invalid link");
+      article.replaceChildren(el("p","cm-state",t("تحقق من رابط الموضوع أو عُد إلى قائمة النقاشات.","Check the link or return to discussions.")));
+      return;
+    }
+    const fetch = kind==="prompt"
+      ?client.from("na7n_community_prompts")
+        .select("id,category,title_ar,title_en,excerpt_ar,excerpt_en,link_url").eq("id",topicId).maybeSingle()
+      :client.from("na7n_community_posts")
+        .select("id,parent_id,category,title,body,status,author_id,created_at").eq("id",topicId).is("parent_id",null).maybeSingle();
+    const {data,error}=await fetch;
+    if(error||!data){
+      $("cm-topic-title").textContent=t("الموضوع غير متاح","Discussion unavailable");
+      article.replaceChildren(el("p","cm-state",t(
+        "قد يكون الرابط غير صحيح أو أن الموضوع غير متاح لحسابك.",
+        "This link may be incorrect, or the discussion may not be available to your account."
+      )));
+      actions.replaceChildren();
+      $("cm-replies-section").hidden=true;
+      return;
+    }
+    renderTopic(data);
+  }
+  async function init(){
+    setupNavigation();
+    if(!client){
+      clearForGate(t("خدمة تسجيل الدخول غير متاحة الآن.","Sign-in service is unavailable."));
+      return;
+    }
+    let user;
+    try{
+      const {data,error}=await client.auth.getUser();
+      if(error||!data?.user||data.user.is_anonymous===true){clearForGate();return;}
+      user=data.user;
+    }catch{clearForGate(t("تعذّر التحقق من حسابك. أعد تحميل الصفحة.","Could not verify your account. Reload this page."));return;}
+    state.user=user;
+    const [flagResult,staffResult]=await Promise.all([
+      client.from("na7n_community_features")
+        .select("pilot_mode,patient_posting_enabled,ask_ella_enabled").eq("id",1).maybeSingle(),
+      client.from("na7n_community_staff")
+        .select("role,is_active").eq("user_id",user.id).maybeSingle()
+    ]);
+    state.flags=flagResult.error?null:flagResult.data;
+    state.staff=staffResult.error?null:staffResult.data;
+    document.documentElement.classList.add("cm-member-access");
+    memberGate.hidden=true;
+    await loadTopic();
+    // This UI intentionally cannot activate the AI assistant.
+    $("cm-ai-button").disabled=true;
+    client.auth.onAuthStateChange((_event,session)=>{
+      if((session?.user?.id||null)!==(state.user?.id||null))
+        clearForGate(t("انتهت الجلسة؛ سجّل الدخول مجددًا.","Session ended. Please sign in again."));
+    });
+  }
+  $("cm-reply-close").addEventListener("click",closeReply);
+  $("cm-reply-cancel").addEventListener("click",closeReply);
+  replyForm.addEventListener("submit",saveReply);
+  replyDialog.addEventListener("click",event=>{if(event.target===replyDialog)closeReply();});
+  document.addEventListener("keydown",event=>{if(event.key==="Escape"&&!replyDialog.hidden)closeReply();});
+  init().catch(()=>clearForGate(t("تعذّر فتح النقاش. أعد تحميل الصفحة.","Unable to open this discussion. Please reload.")));
+})();
