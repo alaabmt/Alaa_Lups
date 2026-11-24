@@ -14,6 +14,7 @@
   const valid=kind==="prompt" ? /^[a-z0-9-]{2,60}$/i.test(topicId)
     : kind==="post" && /^[a-f0-9]{8}-[a-f0-9-]{27,36}$/i.test(topicId);
   const categories={
+    general:t("عام","General"),
     daily:t("الحياة اليومية","Daily life"),
     treatment:t("العلاج والأدوية","Treatment"),
     nutrition:t("التغذية","Nutrition"),
@@ -187,7 +188,7 @@
     const editorial=kind==="prompt";
     const title=editorial ? (en?item.title_en:item.title_ar) : item.title;
     const body=editorial ? (en?item.excerpt_en:item.excerpt_ar) : item.body;
-    $("cm-topic-category").textContent=categories[item.category]||item.category;
+    $("cm-topic-category").textContent=categories[item.category]||categories.general;
     $("cm-topic-title").textContent=title||t("نقاش","Discussion");
     document.title=(title||t("النقاش","Discussion"))+" | "+t("مجتمع نَحْنُ","NA7N Community");
     $("cm-topic-meta").textContent=editorial
@@ -196,6 +197,11 @@
         ?t("نقاش تمت مراجعته","Reviewed discussion")
         :t("نقاش قيد المراجعة","Discussion awaiting moderation"));
     article.replaceChildren(el("p","",body||""));
+    if (!editorial && Array.isArray(item.tags) && item.tags.length) {
+      const terms=el("div","cm-topic-tags");
+      for (const tag of item.tags) terms.append(el("span","cm-tag","#"+tag));
+      article.append(terms);
+    }
     actions.replaceChildren();
     $("cm-replies-section").hidden=editorial;
     if(editorial){
@@ -246,7 +252,7 @@
       ?client.from("na7n_community_prompts")
         .select("id,category,title_ar,title_en,excerpt_ar,excerpt_en,link_url").eq("id",topicId).maybeSingle()
       :client.from("na7n_community_posts")
-        .select("id,parent_id,category,title,body,status,author_id,created_at").eq("id",topicId).is("parent_id",null).maybeSingle();
+        .select("id,parent_id,category,title,body,tags,status,author_id,created_at").eq("id",topicId).is("parent_id",null).maybeSingle();
     const {data,error}=await fetch;
     if(error||!data){
       $("cm-topic-title").textContent=t("الموضوع غير متاح","Discussion unavailable");
