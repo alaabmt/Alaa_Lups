@@ -18,20 +18,9 @@
     nutrition: t("التغذية","Nutrition"), work: t("العمل والدراسة","Work & study"),
     support: t("الدعم","Support"), goals: t("الأهداف","Goals")
   };
-  // Explicit static fallback is editorial content, NOT invented member posts.
-  const fallback = [
-    ["daily-energy","daily","كيف تنظم يومك عندما يكون الإرهاق شديدًا؟","How do you plan around fatigue?","ما العادات الصغيرة التي تساعدك على تنظيم وقت النشاط والراحة؟ شارك أفكارًا عامة، لا تفاصيل طبية شخصية.","What small routines help balance activity and rest? Share general ideas, not personal health details.","fatigue.html"],
-    ["medication-routine","treatment","ما طريقتك لتذكّر مواعيد أدويتك؟","How do you remember your medication schedule?","هل تساعدك المذكرات أو المنبهات؟ تحدث عن تنظيم المواعيد، دون ذكر الجرعات أو طلب تغيير العلاج.","Do reminders help you stay organized? Avoid dosages or treatment-change advice.","treatment.html"],
-    ["meal-planning","nutrition","ما أفكارك لوجبات يومية سهلة التحضير؟","What are your easy everyday meal ideas?","نتبادل أفكارًا عامة لتخطيط الوجبات وطرح الأسئلة المناسبة على أخصائي التغذية.","Share general meal planning ideas and questions for a dietitian.","heritage-nutrition.html"],
-    ["work-life","work","كيف تنظّم يوم العمل مع حاجتك للراحة؟","How do you balance work and rest?","ما التغييرات البسيطة التي تساعدك في ترتيب الأولويات والتواصل مع فريق العمل؟","What adjustments help set priorities and communicate at work?","living.html"],
-    ["support","support","ما العبارة التي تشعرك بالدعم من الآخرين؟","What words help you feel supported?","نقاش عن المساندة والتفاهم داخل الأسرة والأصدقاء، دون مشاركة معلومات تعريفية.","A conversation about family and friend support, without identifying information.","stories.html"],
-    ["weekly-goals","goals","ما الهدف الصغير الذي تريد تحقيقه هذا الأسبوع؟","What small goal matters to you this week?","اختر خطوة واقعية مرتبطة بروتين يومك. أهدافك الصحية الخاصة تبقى داخل حسابك.","Choose one realistic step. Private goals stay in your account.","account.html"]
-  ].map(([id,category,title_ar,title_en,excerpt_ar,excerpt_en,link_url],i)=>({
-    id,category,title_ar,title_en,excerpt_ar,excerpt_en,link_url,sort_order:i
-  }));
   const state = {
     client: window.na7nSupabase || null,
-    user: null, staff: null, activeCategory: "all", query: "", prompts: fallback,
+    user: null, staff: null, activeCategory: "all", query: "", prompts: [],
     posts: [], helpful: [], selected: null, replyTo: null,
     flags: {pilot_mode:true,patient_posting_enabled:false,ask_ella_enabled:false}
   };
@@ -253,41 +242,83 @@
     ui.filters.querySelectorAll(".cm-filter").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));
     renderPrompts();renderThreads();
   });
-  async function init(){
-    renderPrompts();renderThreads();
-    if(!state.client)return;
-    const [f,p]=await Promise.all([
-      state.client.from("na7n_community_features").select("pilot_mode,patient_posting_enabled,ask_ella_enabled").eq("id",1).maybeSingle(),
-      state.client.from("na7n_community_prompts").select("id,category,title_ar,title_en,excerpt_ar,excerpt_en,link_url,sort_order").order("sort_order")
-    ]);
-    if(!f.error&&f.data)state.flags=f.data;
-    if(!p.error&&p.data?.length){state.prompts=p.data;renderPrompts();}
-    try {
-      const {data}=await state.client.auth.getUser();
-      state.user=data?.user||null;
-      if(state.user){
-        const {data:staff}=await state.client.from("na7n_community_staff").select("role,is_active").eq("user_id",state.user.id).maybeSingle();
-        state.staff=staff||null;
-      }
-    }catch{state.user=null;}
-    if(canWrite()){
-      ui.start.disabled=false;
-      ui.writeStatus.textContent=t("أنت عضو مصرح له في الاختبار. يُسمح بالمحتوى الافتراضي فقط.","You're an authorized staff tester. Fictional content only.");
-    }else{
-      ui.start.disabled=true;
-      ui.writeStatus.textContent=t("المشاركة متاحة لفريق الاختبار المصرح له فقط؛ ليست مفتوحة للمرضى بعد.","Only authorized staff testers can post. Patient participation is not open yet.");
+
+  const memberGate = $("cm-member-gate");
+  const memberGateStatus = $("cm-gate-status");
+  function showGate(reason) {
+    document.documentElement.classList.remove("cm-member-access");
+    if (memberGate) memberGate.hidden = false;
+    if (memberGateStatus) memberGateStatus.textContent = reason || t(
+      "للاطلاع على المجتمع، يرجى تسجيل الدخول أو إنشاء حساب.",
+      "Please sign in or create an account to view the community."
+    );
+    state.user=null; state.staff=null; state.prompts=[]; state.posts=[]; state.helpful=[]; state.selected=null;
+    ui.start.disabled=true;
+    ui.prompts.replaceChildren(); ui.threads.replaceChildren();
+    ui.detail.hidden=true; ui.detail.replaceChildren();
+    ui.count.textContent="";
+    ui.writeStatus.textContent="";
+    closeComposer();
+  }
+  async function init() {
+    // Do not query or render any community records before a verified session.
+    if (!state.client) {
+      showGate(t("تعذّر الاتصال بخدمة الحساب. حاول إعادة تحميل الصفحة.",
+                 "Account service is unavailable. Please reload the page."));
+      return;
     }
-    // Ask NA7N remains disabled even if a database flag is changed.
-    // A separate clinically governed, UAE-hosted AI backend is required before activation.
+    let user;
+    try {
+      const {data,error}=await state.client.auth.getUser();
+      if (error || !data?.user) {
+        showGate();
+        return;
+      }
+      user=data.user;
+    } catch {
+      showGate(t("تعذّر التحقق من الحساب. حاول إعادة تحميل الصفحة.",
+                 "Unable to verify your account. Please reload the page."));
+      return;
+    }
+    state.user=user;
+    const [features,prompts,staff] = await Promise.all([
+      state.client.from("na7n_community_features").select("pilot_mode,patient_posting_enabled,ask_ella_enabled").eq("id",1).maybeSingle(),
+      state.client.from("na7n_community_prompts").select("id,category,title_ar,title_en,excerpt_ar,excerpt_en,link_url,sort_order").order("sort_order"),
+      state.client.from("na7n_community_staff").select("role,is_active").eq("user_id",user.id).maybeSingle()
+    ]);
+    if (!features.error && features.data) state.flags=features.data;
+    if (!prompts.error) state.prompts=prompts.data||[];
+    state.staff=staff.error?null:staff.data;
+    // Membership is checked in Supabase; DOM visibility is only a UX gate.
+    // Database SELECT grants and row-level security independently block anonymous reads.
+    document.documentElement.classList.add("cm-member-access");
+    if (memberGate) memberGate.hidden=true;
+    renderPrompts();
+    renderThreads();
+    if (canWrite()) {
+      ui.start.disabled=false;
+      ui.writeStatus.textContent=t(
+        "أنت عضو مصرح له في الاختبار. يُسمح بالمحتوى الافتراضي فقط.",
+        "You're an authorized staff tester. Fictional content only."
+      );
+    } else {
+      ui.start.disabled=true;
+      ui.writeStatus.textContent=t(
+        "يمكنك قراءة الموضوعات. المشاركة متاحة لفريق الاختبار المصرح له فقط حاليًا.",
+        "You may read discussions. Posting is restricted to authorized staff testers for now."
+      );
+    }
+    // Ask NA7N remains off and has no backend, even for signed-in members.
     $("cm-ai-button").disabled=true;
     await loadPosts();
-    state.client.auth.onAuthStateChange((_,session)=>{
-      if((session?.user?.id||null)!==(state.user?.id||null)){
-        state.user=session?.user||null;state.staff=null;
-        ui.start.disabled=true;
-        ui.writeStatus.textContent=t("أعد تحميل الصفحة لتحديث صلاحيات الاختبار.","Reload to refresh staff test access.");
+    state.client.auth.onAuthStateChange((_event,session)=>{
+      if ((session?.user?.id||null)!==(state.user?.id||null)) {
+        showGate(t("تم إنهاء الجلسة. سجّل دخولك للعودة إلى المجتمع.",
+                   "Your session has ended. Sign in to return to the community."));
       }
     });
   }
-  init().catch(()=>{renderPrompts();renderThreads();});
+  init().catch(()=>showGate(t("تعذّر فتح المجتمع. تحقق من تسجيل الدخول وأعد تحميل الصفحة.",
+                             "Could not open the community. Verify your sign-in and reload.")));
+
 })();
