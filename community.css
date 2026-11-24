@@ -76,3 +76,19 @@
 @media(max-width:940px){.cm-hero{grid-template-columns:1fr}.cm-hero-art{display:none}.cm-grid{grid-template-columns:1fr}.cm-sidebar{position:static;display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.cm-sidebar .cm-panel{margin:0}}
 @media(max-width:600px){.cm-page{padding:8px 14px 85px}.cm-hero{padding:25px 20px;border-radius:20px;margin-top:9px}.cm-topic-grid{grid-template-columns:1fr}.cm-topic{min-height:unset}.cm-sidebar{grid-template-columns:1fr}.cm-panel{padding:17px}.cm-ai{inset-inline-end:10px;bottom:12px}.cm-ai button{font-size:13px;padding:8px 12px}.cm-quote:nth-child(2){margin:0}}
 @media(prefers-reduced-motion:reduce){.cm-topic{transition:none}.cm-topic:hover{transform:none}}
+
+/* Authenticated-members-only community screen. Fail closed until auth.getUser succeeds. */
+html:not(.cm-member-access) #site-content,
+html:not(.cm-member-access) .cm-ai,
+html:not(.cm-member-access) .cm-dialog,
+html:not(.cm-member-access) .na7n-breadcrumb,
+html:not(.cm-member-access) .na7n-context { display:none!important; }
+html.cm-member-access #cm-member-gate { display:none!important; }
+.cm-member-gate{width:min(680px,92vw);margin:54px auto 76px;padding:clamp(24px,5vw,46px);border:1px solid #e3d9ef;border-radius:26px;box-shadow:0 8px 30px rgba(45,34,64,.06);background:linear-gradient(130deg,#faf7fd,#f2faf9);text-align:center}
+.cm-gate-mark{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-size:27px;color:#65428b;background:#fff;border:1px solid #e6dbea;margin:0 auto 18px}
+.cm-member-gate h1{font-size:clamp(25px,4vw,35px);line-height:1.5;color:#342348;margin:0 0 13px}
+.cm-member-gate p{font-size:16px;color:#4d5865;line-height:1.9}
+.cm-member-gate .cm-actions{justify-content:center;margin-top:20px}
+.cm-member-gate .cm-gate-status{font-size:13px;color:#765d83;min-height:22px}
+.cm-member-gate .cm-gate-note{font-size:13px;color:#76677b;margin-top:23px}
+@media(max-width:600px){.cm-member-gate{margin:28px auto 70px;padding:24px 19px}.cm-member-gate .cm-actions{flex-direction:column}.cm-member-gate .cm-button{width:100%}}
