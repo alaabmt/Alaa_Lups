@@ -15,7 +15,7 @@
     work:t("العمل والدراسة","Work & study"),support:t("الدعم","Support"),
     goals:t("الأهداف","Goals")
   };
-  const state={category:"all",query:"",prompts:[],posts:[],user:null};
+  const state={category:"all",query:"",prompts:[],posts:[],user:null,staff:null};
   const el=(tag,cls,text)=>{
     const node=document.createElement(tag);
     if(cls)node.className=cls;
@@ -81,14 +81,120 @@
       t("لا توجد نقاشات منشورة بعد. يمكنك قراءة الموضوعات أعلاه.",
         "No discussions yet. You can explore the topics above.")));
   }
+  const reportPanel=$("cm-moderation-panel");
+  const reportList=$("cm-reports-list");
+  const reportStatus=$("cm-reports-status");
+  const reasonLabels={
+    privacy:t("معلومات خاصة","Private information"),
+    medical:t("نصيحة طبية غير آمنة","Unsafe medical advice"),
+    harassment:t("إساءة أو مضايقة","Abuse or harassment"),
+    other:t("مخالفة أخرى","Other")
+  };
+  const isModerator=()=>state.staff?.is_active===true&&state.staff?.role==="moderator";
+  const actionButton=(label,handler,secondary=true)=>{
+    const b=el("button","cm-button"+(secondary?" alt":""),label);
+    b.type="button";b.addEventListener("click",handler);return b;
+  };
+  async function resolveReports(postId,resolution){
+    const {error}=await client.from("na7n_community_reports").update({
+      resolved_at:new Date().toISOString(),
+      resolution,
+      reviewed_by:state.user.id
+    }).eq("post_id",postId).is("resolved_at",null);
+    return !error;
+  }
+  async function hideFlaggedPost(postId){
+    if(!isModerator())return;
+    if(!window.confirm(t("إخفاء المحتوى عن أعضاء المجتمع؟","Hide this content from community members?")))return;
+    const {data,error}=await client.from("na7n_community_posts")
+      .update({status:"hidden"}).eq("id",postId).select("id").maybeSingle();
+    if(error||!data){reportStatus.textContent=t("تعذّر إخفاء المحتوى.","Could not hide content.");return;}
+    const resolved=await resolveReports(postId,"hidden");
+    reportStatus.textContent=resolved?t("تم إخفاء المحتوى.","Content hidden."):
+      t("تم الإخفاء، لكن تعذّر إغلاق البلاغات تلقائيًا.","Content hidden, but report resolution failed.");
+    await reloadReportsAndPosts();
+  }
+  async function deleteFlaggedPost(postId){
+    if(!isModerator())return;
+    if(!window.confirm(t("الحذف نهائي ويزيل التعليقات المرتبطة بالنقاش. هل تريد المتابعة؟",
+                         "Deletion is permanent and may remove related comments. Continue?")))return;
+    const {data,error}=await client.from("na7n_community_posts").delete().eq("id",postId).select("id").maybeSingle();
+    if(error||!data){reportStatus.textContent=t("تعذّر حذف المحتوى.","Could not delete content.");return;}
+    reportStatus.textContent=t("حُذف المحتوى نهائيًا.","Content permanently deleted.");
+    await reloadReportsAndPosts();
+  }
+  async function dismissReports(postId){
+    if(!isModerator())return;
+    if(!window.confirm(t("إغلاق هذه البلاغات دون إزالة المحتوى؟","Dismiss these reports without removing the content?")))return;
+    const ok=await resolveReports(postId,"dismissed");
+    reportStatus.textContent=ok?t("أُغلقت البلاغات.","Reports dismissed."):
+      t("تعذّر إغلاق البلاغات.","Could not dismiss reports.");
+    await loadReports();
+  }
+  async function reloadReportsAndPosts(){
+    await loadReports();
+    const {data,error}=await client.from("na7n_community_posts")
+      .select("id,parent_id,category,title,body,tags,status,created_at")
+      .order("created_at",{ascending:false}).limit(120);
+    if(!error)state.posts=data||[];
+    renderPosts();
+  }
+  async function loadReports(){
+    if(!isModerator())return;
+    reportPanel.hidden=false;
+    reportList.replaceChildren();
+    const {data:reports,error}=await client.from("na7n_community_reports")
+      .select("id,post_id,reason,created_at").is("resolved_at",null)
+      .order("created_at",{ascending:false}).limit(100);
+    if(error){reportStatus.textContent=t("تعذّر تحميل البلاغات.","Could not load reports.");return;}
+    const byTarget=new Map();
+    for(const r of reports||[]){
+      if(!byTarget.has(r.post_id))byTarget.set(r.post_id,[]);
+      byTarget.get(r.post_id).push(r);
+    }
+    if(!byTarget.size){
+      reportList.append(el("p","cm-state",t("لا توجد بلاغات جديدة.","No outstanding reports.")));
+      return;
+    }
+    reportStatus.textContent=t("البلاغات المفتوحة: ","Open reports: ")+(reports?.length||0);
+    const ids=[...byTarget.keys()];
+    const {data:posts,error:postError}=await client.from("na7n_community_posts")
+      .select("id,parent_id,title,body,status").in("id",ids);
+    if(postError){reportList.append(el("p","cm-state",t("تعذّر تحميل المحتوى المبلّغ عنه.","Could not load flagged content.")));return;}
+    const lookup=new Map((posts||[]).map(p=>[p.id,p]));
+    for(const [postId,flags] of byTarget.entries()){
+      const p=lookup.get(postId);
+      const item=el("div","cm-report-item");
+      item.append(el("p","cm-post-meta",t("بلاغات: ","Reports: ")+flags.length+" · "+
+        [...new Set(flags.map(r=>reasonLabels[r.reason]||r.reason))].join("، ")));
+      item.append(el("p","cm-report-excerpt",p?(p.title||p.body||"").slice(0,260):
+        t("المحتوى لم يعد متاحًا.","Content no longer available.")));
+      if(p){
+        const link=el("a","cm-report-link",t("عرض النقاش","View discussion"));
+        link.href=detailUrl("post",p.parent_id||p.id);
+        item.append(link);
+        const controls=el("div","cm-detail-actions");
+        if(p.status==="approved")controls.append(actionButton(t("إخفاء","Hide"),()=>hideFlaggedPost(postId)));
+        controls.append(actionButton(t("حذف نهائي","Permanently delete"),()=>deleteFlaggedPost(postId)));
+        controls.append(actionButton(t("تجاهل البلاغ","Dismiss report"),()=>dismissReports(postId)));
+        item.append(controls);
+      }else{
+        item.append(actionButton(t("إغلاق البلاغ","Dismiss report"),()=>dismissReports(postId)));
+      }
+      reportList.append(item);
+    }
+  }
   function showGate(message){
     document.documentElement.classList.remove("cm-member-access");
     gate.hidden=false;
     gateStatus.textContent=message||t("يرجى تسجيل الدخول للاطلاع على المجتمع.","Sign in to view the community.");
-    state.user=null;state.prompts=[];state.posts=[];
+    state.user=null;state.staff=null;state.prompts=[];state.posts=[];
+    if(reportPanel)reportPanel.hidden=true;
+    if(reportList)reportList.replaceChildren();
     ui.prompts.replaceChildren();ui.threads.replaceChildren();
     ui.count.textContent="";ui.status.textContent="";
   }
+  if($("cm-reports-refresh"))$("cm-reports-refresh").addEventListener("click",loadReports);
   ui.search.addEventListener("input",()=>{
     state.query=ui.search.value.trim();
     remember();renderPrompts();renderPosts();
@@ -109,20 +215,24 @@
       user=data.user;
     }catch{showGate(t("تعذّر التحقق من حسابك.","Unable to verify your account."));return;}
     state.user=user;
-    const [prompts,posts]=await Promise.all([
+    const [prompts,posts,staff]=await Promise.all([
       client.from("na7n_community_prompts")
         .select("id,category,title_ar,title_en,excerpt_ar,excerpt_en")
         .order("sort_order"),
       client.from("na7n_community_posts")
         .select("id,parent_id,category,title,body,tags,status,created_at")
-        .order("created_at",{ascending:false}).limit(120)
+        .order("created_at",{ascending:false}).limit(120),
+      client.from("na7n_community_staff")
+        .select("role,is_active").eq("user_id",user.id).maybeSingle()
     ]);
+    state.staff=staff.error?null:staff.data;
     state.prompts=prompts.error?[]:(prompts.data||[]);
     state.posts=posts.error?[]:(posts.data||[]);
     document.documentElement.classList.add("cm-member-access");
     gate.hidden=true;
     ui.status.textContent=posts.error?t("تعذّر تحميل نقاشات الأعضاء.","Unable to load member discussions."):"";
     renderPrompts();renderPosts();
+    if(isModerator())await loadReports();
     client.auth.onAuthStateChange((_evt,session)=>{
       if((session?.user?.id||null)!==state.user?.id){
         showGate(t("انتهت الجلسة. سجّل الدخول مجددًا.","Session ended. Sign in again."));
