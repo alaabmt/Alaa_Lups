@@ -145,3 +145,31 @@ body.na7n-topic-page .na7n-context{display:none!important}
   .cm-hero-status{text-align:center}
   .cm-privacy-reminder{margin:0 2px 14px;font-size:12px}
 }
+
+/* Dedicated member-only discussion composer: mobile-first, no nested selection modal. */
+.cm-compose-page{max-width:800px;margin-inline:auto}
+.cm-compose-hero{margin:10px 0 21px}
+.cm-compose-hero h1{color:#302144;font-size:clamp(28px,4.5vw,40px);line-height:1.4;margin:12px 0 4px}
+.cm-compose-hero p{font-size:16px;color:#52636e;line-height:1.9;margin:0}
+.cm-compose-page .cm-panel{padding:clamp(19px,3.5vw,34px)}
+.cm-compose-page .cm-form-row{margin-bottom:21px;gap:8px}
+.cm-compose-page .cm-form-row label{color:#352648;font-size:16px}
+.cm-compose-page .cm-form-row input,.cm-compose-page .cm-form-row textarea{padding:13px 15px;border-radius:12px;font-size:16px}
+.cm-compose-page .cm-form-row textarea{min-height:180px}
+.cm-compose-page .cm-form-hint{margin:0;font-size:12px}
+.cm-compose-page .cm-actions{margin-top:18px}
+.cm-compose-page .cm-actions .cm-button{min-width:156px}
+.cm-compose-page .cm-privacy-reminder{background:#f4faf9;border:1px solid #dceae8;border-radius:12px;padding:14px;margin:8px 0 14px;color:#405b5a}
+.cm-compose-page #cm-create-preview-box h2{font-size:21px}
+.cm-compose-page #cm-create-preview-box h3{font-size:19px;line-height:1.5;margin:10px 0}
+.cm-compose-page #cm-create-preview-box p{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.9}
+.cm-create-success{border-color:#d3e7dc}
+.cm-create-success h2{color:#28564b;font-size:26px}
+.cm-create-success p{line-height:1.9}
+.cm-topic-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+@media(max-width:600px){
+ .cm-compose-hero{margin:4px 0 15px}
+ .cm-compose-page .cm-panel{padding:18px 16px}
+ .cm-compose-page .cm-actions{flex-direction:column}
+ .cm-compose-page .cm-actions .cm-button{width:100%}
+}
