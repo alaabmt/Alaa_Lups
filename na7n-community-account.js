@@ -12,12 +12,12 @@
  const picker=$("community-avatar-options");
  const signupOptions=$("signup-avatar-options");
  if(!input||!signupOptions||!picker)return;
- let user=null,profile=null,style="leaf",loading=null,uploadAllowed=false,lastSavedImagePath=null;
+ let user=null,profile=null,style="leaf",loading=null,uploadAllowed=false,lastSavedImagePath=null,usingPreset=false;
  function getSelectedStyle(){return style;}
  function showPreview(){
    preview.replaceChildren();
    const p={nickname:input.value.trim()||tr("اسمك المستعار","Your nickname"),
-            avatar_style:style,avatar_path:profile?.avatar_path||null};
+            avatar_style:style,avatar_path:usingPreset?null:(profile?.avatar_path||null)};
    const avatar=api.avatar(client,p,true);
    preview.append(avatar);
    const content=document.createElement("div");
@@ -32,7 +32,7 @@
  api.picker(picker,style,chosen=>{
    style=chosen;
    // Selecting a preset means the saved custom image will be replaced when saved.
-   if(profile)profile={...profile,avatar_path:null};
+   usingPreset=true;
    fileInput.value="";
    showPreview();
  });
@@ -57,7 +57,7 @@
    style=profile?.avatar_style||user?.user_metadata?.community_avatar_style||"leaf";
    api.picker(picker,style,chosen=>{
      style=chosen;
-     if(profile)profile={...profile,avatar_path:null};
+     usingPreset=true;
      fileInput.value="";
      showPreview();
    });
@@ -82,6 +82,7 @@
    const p=await api.getProfile(client,userData.id);
    profile=p;
    lastSavedImagePath=p?.avatar_path||null;
+   usingPreset=false;
    const {data:staff}=await client.from("na7n_community_staff")
      .select("is_active").eq("user_id",userData.id).maybeSingle();
    uploadAllowed=Boolean(staff?.is_active);
@@ -112,7 +113,7 @@
    if(errorMessage){status.textContent=errorMessage;input.focus();return;}
    save.disabled=true;status.textContent=tr("جارٍ الحفظ…","Saving…");
    try{
-     let avatarPath=profile?.avatar_path||null;
+     let avatarPath=usingPreset?null:(profile?.avatar_path||null);
      const chosenFile=fileInput.files?.[0];
      if(chosenFile){
        if(!uploadAllowed){
@@ -130,6 +131,7 @@
      if(error){status.textContent=messageError(error);return false;}
      const previous=lastSavedImagePath;
      profile={user_id:user.id,...payload};
+     usingPreset=false;
      lastSavedImagePath=avatarPath;
      fileInput.value="";
      status.textContent=tr("تم حفظ الاسم والصورة اللذين سيظهران في المجتمع.",
@@ -147,7 +149,7 @@
  }
  async function switchToPreset(){
    if(!user)return;
-   if(profile)profile={...profile,avatar_path:null};
+   usingPreset=true;
    fileInput.value="";
    await saveIdentity();
  }
