@@ -30,7 +30,7 @@
       <h1 id="cm-page-title">NA7N Community</h1>
       <p class="cm-lead">Share ideas, ask questions, and learn together about living with lupus.</p>
       <div class="cm-actions cm-hero-actions">
-        <button id="cm-start" type="button" class="cm-button">Start a discussion</button>
+        <a id="cm-start" class="cm-button" href="community-create-en.html">Start a discussion</a>
         <a class="cm-button alt" href="#cm-topics">Browse discussions</a>
       </div>
       <p class="cm-hero-status" id="cm-write-status" role="status" aria-live="polite"></p>
@@ -53,6 +53,7 @@
         </div>
         <div class="cm-filters" id="cm-filters" role="group" aria-label="Filter by topic">
           <button class="cm-filter" data-category="all" type="button" aria-pressed="true">All</button>
+          <button class="cm-filter" data-category="general" type="button" aria-pressed="false">General</button>
           <button class="cm-filter" data-category="daily" type="button" aria-pressed="false">Daily life</button>
           <button class="cm-filter" data-category="treatment" type="button" aria-pressed="false">Treatment</button>
           <button class="cm-filter" data-category="nutrition" type="button" aria-pressed="false">Nutrition</button>
@@ -66,7 +67,6 @@
         <p class="cm-result-count" id="cm-count" aria-live="polite">Loading topics...</p>
         <div id="cm-prompts" class="cm-topic-grid" aria-live="polite"></div>
       </section>
-      <section id="cm-detail" class="cm-detail" aria-live="polite" hidden></section>
       <section class="cm-panel" id="cm-threads-section" aria-labelledby="cm-threads-heading" style="margin-top:30px">
         <h2 class="cm-section-title" id="cm-threads-heading">Member discussions</h2>
         <p class="cm-section-sub">Explore conversations and share your ideas when posting becomes available.</p>
@@ -93,23 +93,9 @@
   </div>
 </main>
 <div class="cm-ai" aria-label="Future AI assistant"><button type="button" id="cm-ai-button" disabled aria-disabled="true" title="The AI assistant is off and cannot receive questions or data"><span aria-hidden="true">✦</span>Ask NA7N<span>Off</span></button></div>
-<div id="cm-dialog" class="cm-dialog" hidden>
-  <div class="cm-dialog-body" role="dialog" aria-modal="true" aria-labelledby="cm-dialog-title">
-    <div class="cm-dialog-head"><h2 id="cm-dialog-title">Start a discussion</h2><button class="cm-icon-button" type="button" id="cm-dialog-close" aria-label="Close">×</button></div>
-    <p class="cm-state">Do not include real medical information or personal identifiers.</p>
-    <form id="cm-compose-form">
-      <div class="cm-form-row" id="cm-category-row"><label for="cm-category">Category</label>
-        <select id="cm-category" required><option value="daily">Daily life</option><option value="treatment">Treatment</option><option value="nutrition">Nutrition</option><option value="work">Work & study</option><option value="support">Support</option><option value="goals">Goals</option></select></div>
-      <div class="cm-form-row" id="cm-title-row"><label for="cm-title">Discussion title</label><input id="cm-title" maxlength="140" minlength="8" required placeholder="Clear, specific title"></div>
-      <div class="cm-form-row"><label for="cm-body">Message</label><textarea id="cm-body" minlength="12" maxlength="3000" required></textarea><p class="cm-form-hint">Submitted for moderation and not made public until approved.</p></div>
-      <p id="cm-form-feedback" class="cm-state" role="status" aria-live="polite"></p>
-      <div class="cm-actions"><button type="submit" class="cm-button" id="cm-submit">Submit for review</button><button type="button" class="cm-button alt" id="cm-cancel">Cancel</button></div>
-    </form>
-  </div>
-</div>
 <footer><p style="text-align:center">NA7N — General information does not replace clinical care. </p></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script>
 <script src="na7n-auth.js?v=20261011-1"></script>
 <script src="na7n-navigation.js?v=20261124-community"></script>
-<script src="community.js?v=20261124-ux2"></script>
+<script src="community.js?v=20261124-create-v1"></script>
 </body></html>
