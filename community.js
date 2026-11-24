@@ -15,7 +15,8 @@
     work:t("العمل والدراسة","Work & study"),support:t("الدعم","Support"),
     goals:t("الأهداف","Goals")
   };
-  const state={category:"all",query:"",prompts:[],posts:[],user:null,staff:null};
+  const identity=window.Na7nCommunityIdentity;
+  const state={category:"all",query:"",prompts:[],posts:[],user:null,staff:null,identities:new Map()};
   const el=(tag,cls,text)=>{
     const node=document.createElement(tag);
     if(cls)node.className=cls;
@@ -28,12 +29,13 @@
   };
   const matches=(category,...parts)=>(state.category==="all"||state.category===category)
     && parts.join(" ").toLocaleLowerCase().includes(state.query.toLocaleLowerCase());
-  function card({category,title,excerpt,meta,href}){
+  function card({category,title,excerpt,meta,href,author}){
     const a=el("a","cm-topic");a.href=href;
     a.append(el("span","cm-tag",categories[category]||categories.general));
     a.append(el("h3","",title));
     a.append(el("p","",excerpt));
     if(meta)a.append(el("span","cm-post-meta",meta));
+    if(author&&identity) a.append(identity.memberLabel(client,author));
     a.append(el("span","cm-more",t("اقرأ النقاش ←","Read discussion →")));
     return a;
   }
@@ -66,14 +68,15 @@
   }
   function renderPosts(){
     ui.threads.replaceChildren();
-    const listed=state.posts.filter(p=>!p.parent_id&&matches(p.category,p.title||"",p.body||"",...(p.tags||[])));
+    const listed=state.posts.filter(p=>p.status==="approved"&&!p.parent_id&&matches(p.category,p.title||"",p.body||"",...(p.tags||[])));
     for(const p of listed){
       let date="";
       try{date=new Intl.DateTimeFormat(en?"en-GB":"ar-AE",{month:"short",day:"numeric",year:"numeric"}).format(new Date(p.created_at));}catch{}
       ui.threads.append(card({
         category:p.category,title:p.title||t("نقاش","Discussion"),
         excerpt:(p.body||"").slice(0,175)+((p.body||"").length>175?"…":""),
-        meta:date+(p.status==="approved"?"":t(" · قيد المراجعة"," · Pending review")),
+        meta:date,
+        author:state.identities.get(p.author_id)||null,
         href:detailUrl("post",p.id)
       }));
     }
@@ -136,7 +139,12 @@
     const {data,error}=await client.from("na7n_community_posts")
       .select("id,parent_id,category,title,body,tags,status,created_at")
       .order("created_at",{ascending:false}).limit(120);
-    if(!error)state.posts=data||[];
+    if(!error){
+      state.posts=data||[];
+      state.identities=identity
+        ?await identity.getProfiles(client,state.posts.filter(p=>!p.parent_id).map(p=>p.author_id))
+        :new Map();
+    }
     renderPosts();
   }
   async function loadReports(){
@@ -189,7 +197,7 @@
     document.documentElement.classList.remove("cm-member-access");
     gate.hidden=false;
     gateStatus.textContent=message||t("يرجى تسجيل الدخول للاطلاع على المجتمع.","Sign in to view the community.");
-    state.user=null;state.staff=null;state.prompts=[];state.posts=[];
+    state.user=null;state.staff=null;state.prompts=[];state.posts=[];state.identities.clear();
     if(reportPanel)reportPanel.hidden=true;
     if(reportList)reportList.replaceChildren();
     const modNav=$("cm-mod-nav");if(modNav)modNav.hidden=true;
@@ -222,7 +230,7 @@
         .select("id,category,title_ar,title_en,excerpt_ar,excerpt_en")
         .order("sort_order"),
       client.from("na7n_community_posts")
-        .select("id,parent_id,category,title,body,tags,status,created_at")
+        .select("id,parent_id,author_id,category,title,body,tags,status,created_at")
         .order("created_at",{ascending:false}).limit(120),
       client.from("na7n_community_staff")
         .select("role,is_active").eq("user_id",user.id).maybeSingle()
@@ -230,6 +238,7 @@
     state.staff=staff.error?null:staff.data;
     state.prompts=prompts.error?[]:(prompts.data||[]);
     state.posts=posts.error?[]:(posts.data||[]);
+    if(identity)state.identities=await identity.getProfiles(client,state.posts.filter(p=>!p.parent_id).map(p=>p.author_id));
     document.documentElement.classList.add("cm-member-access");
     gate.hidden=true;
     ui.status.textContent=posts.error?t("تعذّر تحميل نقاشات الأعضاء.","Unable to load member discussions."):"";
