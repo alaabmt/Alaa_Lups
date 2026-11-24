@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Start a discussion | NA7N Community</title>
+<meta name="description" content="Start a discussion in NA7N Community.">
+<link rel="icon" href="favicon.svg">
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="community.css?v=20261124-create-v1">
+</head>
+<body>
+<header class="site-header"><a href="community-en.html">NA7N Community</a> · <a href="account-en.html">My Account</a></header>
+<section class="cm-member-gate" id="cm-member-gate" aria-labelledby="cm-gate-heading">
+ <div class="cm-gate-mark" aria-hidden="true">✦</div>
+ <h1 id="cm-gate-heading">Sign in to start a discussion</h1>
+ <p>Only signed-in NA7N Community members can access this page.</p>
+ <p id="cm-gate-status" class="cm-gate-status" role="status" aria-live="polite">Checking account…</p>
+ <div class="cm-actions">
+   <a class="cm-button" href="account-en.html?mode=login&amp;return=community-create-en.html">Sign in</a>
+   <a class="cm-button alt" href="account-en.html?mode=signup&amp;return=community-create-en.html">Create an account</a>
+ </div>
+</section>
+<main class="cm-page cm-compose-page" id="site-content">
+  <nav class="cm-topic-back-nav" aria-label="Return to community"><a href="community-en.html" class="cm-topic-back">← Back to discussions</a><a href="community-create.html">العربية</a></nav>
+  <section class="cm-compose-hero">
+    <span class="cm-eyebrow">NA7N Community</span>
+    <h1>Start a discussion</h1>
+    <p>What would you like to ask or share with other community members?</p>
+  </section>
+  <section id="cm-create-unavailable" class="cm-panel" hidden aria-live="polite">
+    <h2>Posting is not yet enabled for this account</h2>
+    <p>You can explore current discussions. Member posting will open after privacy and moderation safeguards are completed.</p>
+    <a class="cm-button alt" href="community-en.html">Browse discussions</a>
+  </section>
+  <section id="cm-create-form-wrap" class="cm-panel" hidden>
+    <form id="cm-create-form">
+      <div class="cm-form-row">
+        <label for="cm-create-title">Discussion title <span aria-hidden="true">*</span></label>
+        <input id="cm-create-title" type="text" minlength="8" maxlength="140" required placeholder="Example: How do you organize your day when feeling tired?">
+        <p class="cm-form-hint">Keep your title short and descriptive.</p>
+      </div>
+      <div class="cm-form-row">
+        <label for="cm-create-body">What would you like to share? <span aria-hidden="true">*</span></label>
+        <textarea id="cm-create-body" minlength="12" maxlength="3000" rows="7" required placeholder="Describe your question, experience or idea…"></textarea>
+      </div>
+      <div class="cm-form-row">
+        <label for="cm-create-tags">Tags (optional)</label>
+        <input id="cm-create-tags" maxlength="180" placeholder="Fatigue, work, sleep" autocomplete="off">
+        <p class="cm-form-hint">Separate tags with commas, up to 5. No category selection required.</p>
+      </div>
+      <div class="cm-privacy-reminder">Do not include identifying information, private health records or instructions to change medication doses.</div>
+      <div class="cm-actions">
+        <button type="button" id="cm-create-preview" class="cm-button alt">Preview discussion</button>
+        <button type="submit" id="cm-create-submit" class="cm-button">Submit discussion</button>
+      </div>
+      <p id="cm-create-feedback" class="cm-state" role="status" aria-live="polite"></p>
+    </form>
+    <section id="cm-create-preview-box" class="cm-detail" hidden aria-labelledby="cm-preview-heading">
+      <h2 id="cm-preview-heading">Your discussion preview</h2>
+      <h3 id="cm-preview-title"></h3><p id="cm-preview-text"></p>
+      <p id="cm-preview-tags" class="cm-post-meta"></p>
+      <button type="button" id="cm-preview-close" class="cm-button alt">Continue editing</button>
+    </section>
+  </section>
+  <section id="cm-create-success" class="cm-panel cm-create-success" hidden role="status">
+    <h2>Your discussion was received</h2>
+    <p>Your discussion has been submitted for review and will appear in the community after approval.</p>
+    <a class="cm-button" href="community-en.html">Back to NA7N Community</a>
+  </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script>
+<script src="na7n-auth.js?v=20261011-1"></script>
+<script src="na7n-navigation.js?v=20261124-community"></script>
+<script src="community-create.js?v=20261124-create-v1"></script>
+</body></html>
