@@ -2,13 +2,13 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="NA7N Community: general peer-support discussion prompts for living with lupus. Staff-only pilot, no real patient posts.">
+<meta name="description" content="NA7N Community: members share ideas and explore conversations about living with lupus.">
 <title>NA7N Community | Lupus</title>
 <link rel="icon" href="favicon.svg">
 <link rel="canonical" href="https://na7nlupus.com/community-en.html">
 <link rel="alternate" hreflang="ar" href="https://na7nlupus.com/community.html">
 <link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="community.css?v=20261124-topic-ui">
+<link rel="stylesheet" href="community.css?v=20261124-ux2">
 </head>
 <body>
 <header class="site-header"><a href="index-en.html">NA7N — Home</a> · <a href="community.html">العربية</a> · <a href="account-en.html">My Account</a></header>
@@ -21,7 +21,7 @@
     <a class="cm-button" href="account-en.html?mode=login&amp;return=community-en.html">Sign in</a>
     <a class="cm-button alt" href="account-en.html?mode=signup&amp;return=community-en.html">Create an account</a>
   </div>
-  <p class="cm-gate-note">Patient posting is not yet open. Staff testing only; no real health data.</p>
+  <p class="cm-gate-note">For your privacy, please do not share personal medical information.</p>
 </section>
 <main class="cm-page" id="site-content">
   <section class="cm-hero" aria-labelledby="cm-page-title">
@@ -29,17 +29,18 @@
       <span class="cm-eyebrow">Learn together, support one another</span>
       <h1 id="cm-page-title">NA7N Community</h1>
       <p class="cm-lead">Share ideas, ask questions, and learn together about living with lupus.</p>
-      <div class="cm-actions">
-        <a class="cm-button" href="#cm-topics">Explore discussions</a>
-        <a class="cm-button alt" href="account-en.html">My account</a>
+      <div class="cm-actions cm-hero-actions">
+        <button id="cm-start" type="button" class="cm-button">Start a discussion</button>
+        <a class="cm-button alt" href="#cm-topics">Browse discussions</a>
       </div>
+      <p class="cm-hero-status" id="cm-write-status" role="status" aria-live="polite"></p>
     </div>
     <div class="cm-hero-art" aria-hidden="true">
       <div class="cm-quote"><span>Discussion idea</span>How can I make my day feel more balanced?</div>
       <div class="cm-quote"><span>Discussion idea</span>What small routines make my day easier?</div>
     </div>
   </section>
-  <div class="cm-caution" role="note"><span class="cm-caution-symbol" aria-hidden="true">ⓘ</span><div><strong>Community preview</strong>Member posting and replies are not yet available. Please do not share private health information.</div></div>
+  <p class="cm-privacy-reminder">To protect your privacy, please do not share personal medical records or contact information.</p>
   <div class="cm-grid">
     <div class="cm-main-column">
       <section class="cm-panel" id="cm-topics" aria-labelledby="cm-topics-heading">
@@ -67,12 +68,8 @@
       </section>
       <section id="cm-detail" class="cm-detail" aria-live="polite" hidden></section>
       <section class="cm-panel" id="cm-threads-section" aria-labelledby="cm-threads-heading" style="margin-top:30px">
-        <h2 class="cm-section-title" id="cm-threads-heading">Staff pilot discussions</h2>
-        <p class="cm-section-sub">No real patient discussions appear here. Every staff test post must be reviewed before publication.</p>
-        <div class="cm-actions">
-          <button id="cm-start" type="button" class="cm-button" disabled>Start a test discussion</button>
-          <span id="cm-write-status" class="cm-state">Public posting is not yet available.</span>
-        </div>
+        <h2 class="cm-section-title" id="cm-threads-heading">Member discussions</h2>
+        <p class="cm-section-sub">Explore conversations and share your ideas when posting becomes available.</p>
         <div id="cm-threads" class="cm-topic-grid" style="margin-top:18px"></div>
       </section>
     </div>
@@ -98,8 +95,8 @@
 <div class="cm-ai" aria-label="Future AI assistant"><button type="button" id="cm-ai-button" disabled aria-disabled="true" title="The AI assistant is off and cannot receive questions or data"><span aria-hidden="true">✦</span>Ask NA7N<span>Off</span></button></div>
 <div id="cm-dialog" class="cm-dialog" hidden>
   <div class="cm-dialog-body" role="dialog" aria-modal="true" aria-labelledby="cm-dialog-title">
-    <div class="cm-dialog-head"><h2 id="cm-dialog-title">Test discussion</h2><button class="cm-icon-button" type="button" id="cm-dialog-close" aria-label="Close">×</button></div>
-    <p class="cm-state">Authorized staff testers only. Use fictional content; never enter real health information.</p>
+    <div class="cm-dialog-head"><h2 id="cm-dialog-title">Start a discussion</h2><button class="cm-icon-button" type="button" id="cm-dialog-close" aria-label="Close">×</button></div>
+    <p class="cm-state">Do not include real medical information or personal identifiers.</p>
     <form id="cm-compose-form">
       <div class="cm-form-row" id="cm-category-row"><label for="cm-category">Category</label>
         <select id="cm-category" required><option value="daily">Daily life</option><option value="treatment">Treatment</option><option value="nutrition">Nutrition</option><option value="work">Work & study</option><option value="support">Support</option><option value="goals">Goals</option></select></div>
@@ -110,9 +107,9 @@
     </form>
   </div>
 </div>
-<footer><p style="text-align:center">NA7N — General information does not replace clinical care. The community is a staff-only pilot.</p></footer>
+<footer><p style="text-align:center">NA7N — General information does not replace clinical care. </p></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script>
 <script src="na7n-auth.js?v=20261011-1"></script>
 <script src="na7n-navigation.js?v=20261124-community"></script>
-<script src="community.js?v=20261124-topic-ui"></script>
+<script src="community.js?v=20261124-ux2"></script>
 </body></html>
