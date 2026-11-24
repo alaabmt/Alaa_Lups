@@ -63,6 +63,7 @@
     state.user=null;state.staff=null;state.item=null;
     article.replaceChildren();actions.replaceChildren();replies.replaceChildren();
     if(!replyDialog.hidden)closeReply();
+    if(!reportDialog.hidden)closeReportDialog();
   }
   function setupNavigation(){
     const returnPath=detailPage+location.search;
@@ -258,7 +259,9 @@
         }
         actions.append(button(t("حذف النقاش نهائيًا","Delete discussion"),()=>deletePost(topicId),true));
       }
-      loadReplies();
+      loadReplies().then(()=>{
+        if(location.hash==="#cm-replies")$("cm-replies-section").scrollIntoView({block:"start"});
+      });
     }
     if(editorial||item.status==="approved"){
       actions.append(button(t("نسخ رابط النقاش","Copy discussion link"),async()=>{
