@@ -6,7 +6,7 @@
 <title>Start a discussion | NA7N Community</title>
 <meta name="description" content="Start a discussion in NA7N Community.">
 <link rel="icon" href="favicon.svg">
-<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="community.css?v=20261124-create-v2">
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="community.css?v=20261124-live-v1">
 </head>
 <body>
 <header class="site-header"><a href="community-en.html">NA7N Community</a> · <a href="account-en.html">My Account</a></header>
@@ -51,7 +51,7 @@
       <div class="cm-privacy-reminder">Do not include identifying information, private health records or instructions to change medication doses.</div>
       <div class="cm-actions">
         <button type="button" id="cm-create-preview" class="cm-button alt">Preview discussion</button>
-        <button type="submit" id="cm-create-submit" class="cm-button">Submit discussion</button>
+        <button type="submit" id="cm-create-submit" class="cm-button">Publish discussion</button>
       </div>
       <p id="cm-create-feedback" class="cm-state" role="status" aria-live="polite"></p>
     </form>
@@ -63,13 +63,14 @@
     </section>
   </section>
   <section id="cm-create-success" class="cm-panel cm-create-success" hidden role="status">
-    <h2>Your discussion was received</h2>
-    <p>Your discussion has been submitted for review and will appear in the community after approval.</p>
+    <h2>Your discussion is published</h2>
+    <p>Your discussion has been published and is now visible to members. Community moderators may remove posts that break the guidelines.</p>
+    <a class="cm-button" id="cm-view-new-post" href="community-en.html" hidden>Open my discussion</a>
     <a class="cm-button" href="community-en.html">Back to NA7N Community</a>
   </section>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script>
 <script src="na7n-auth.js?v=20261011-1"></script>
 <script src="na7n-navigation.js?v=20261124-create-v2"></script>
-<script src="community-create.js?v=20261124-create-v1"></script>
+<script src="community-create.js?v=20261124-live-v1"></script>
 </body></html>
