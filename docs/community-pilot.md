@@ -84,3 +84,10 @@ The pilot was hardened to revoke default grants from `anon` and `authenticated`,
 - The visible CTA remains clickable, but if the signed-in account is not authorized to submit yet it shows an honest inline message: "إضافة نقاشات جديدة غير متاحة حاليًا. يمكنك تصفّح الموضوعات." Authorized staff members still use the same moderated submission form; every post enters `pending`.
 - The real production submission policy is **unchanged**: `patient_posting_enabled=false`, staff allowlist enforcement, RLS and privacy restrictions remain. Do not enable patient data collection on the current non-UAE region.
 - Ask NA7N is still disabled.
+
+## Team discussion activation (2026-11-24)
+- The **Start a discussion** CTA was previously correctly rendered but opening its form was blocked for every account, because `na7n_community_staff` contained zero authorized accounts.
+- Based on the project restriction that current registered accounts are staff accounts for non-patient testing, the seven existing **email-confirmed, non-anonymous accounts created before 2026-11-24** were allowlisted once via an explicit database migration. Six are `contributor`; the sole existing active medical-review `coordinator` is assigned the `moderator` role.
+- **New accounts do not get permission automatically.** Any future allowance requires verification by an authorized administrator. This is not a patient-community release.
+- A SQL test with the role and JWT claims of an existing contributor successfully inserted a fictional post with `status='pending'` and `author_id = auth.uid()`; the transaction was rolled back, leaving no test content.
+- `patient_posting_enabled=false` and `ask_ella_enabled=false` remain unchanged. No real patient data may be entered on the current India-hosted project.
