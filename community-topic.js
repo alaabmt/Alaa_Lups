@@ -22,7 +22,7 @@
     support:t("الدعم","Support"),
     goals:t("الأهداف","Goals")
   };
-  const state={user:null,staff:null,flags:null,item:null};
+  const state={user:null,staff:null,flags:null,item:null,reportTarget:null};
   const memberGate=$("cm-member-gate");
   const gateStatus=$("cm-gate-status");
   const article=$("cm-topic-body");
@@ -33,6 +33,7 @@
   const replyForm=$("cm-reply-form");
   const replyInput=$("cm-reply-input");
   const submitReply=$("cm-reply-submit");
+  const reportDialog=$("cm-report-dialog");
   const canWrite=()=>!!(state.user && state.staff?.is_active && state.flags?.pilot_mode);
   const canModerate=()=>canWrite() && state.staff.role==="moderator";
   const el=(tag,cls,text)=>{
@@ -106,20 +107,40 @@
     if(result.error){renderStatus(t("تعذّر حفظ التفاعل.","Could not save your reaction."));return;}
     await refreshHelpful();
   }
-  async function reportPost(){
-    if(!canWrite())return;
-    const raw=window.prompt(t(
-      "اختر سبب الإبلاغ: 1 خصوصية، 2 معلومات طبية، 3 إساءة، 4 أخرى",
-      "Report reason: 1 privacy, 2 medical advice, 3 abuse, 4 other"
-    ));
-    if(raw==null)return;
-    const reason=({"1":"privacy","2":"medical","3":"harassment","4":"other"})[raw.trim()];
-    if(!reason){renderStatus(t("اختر رقمًا من 1 إلى 4.","Choose a number from 1 to 4."));return;}
+  function openReportDialog(id){
+    if(!state.user || !id)return;
+    state.reportTarget=id;
+    reportDialog.hidden=false;
+    const first=reportDialog.querySelector("[data-report-reason]");
+    if(first)first.focus();
+  }
+  function closeReportDialog(){
+    reportDialog.hidden=true;
+    state.reportTarget=null;
+  }
+  async function submitReport(reason){
+    if(!state.user || !state.reportTarget || !["privacy","medical","harassment","other"].includes(reason))return;
+    const target=state.reportTarget;
+    closeReportDialog();
     const {error}=await client.from("na7n_community_reports").insert({
-      post_id:topicId,reporter_id:state.user.id,reason
+      post_id:target,reporter_id:state.user.id,reason
     });
-    renderStatus(error?t("تعذّر إرسال البلاغ أو أُرسل سابقًا.","The report could not be sent or was already submitted.")
-      :t("تم إرسال البلاغ للإشراف.","Report sent to moderation."));
+    renderStatus(error
+      ?t("لم يُرسل البلاغ. ربما سبق أن أبلغت عن هذا المحتوى.","Report not sent. You may have already reported this content.")
+      :t("وصل بلاغك إلى فريق الإشراف. شكرًا لمساعدتنا في حماية المجتمع.","Your report was sent to the moderation team."));
+  }
+  async function deletePost(id){
+    if(!canModerate())return;
+    if(!window.confirm(t("الحذف نهائي ولا يمكن التراجع عنه. هل تريد المتابعة؟",
+                         "Deletion is permanent and cannot be undone. Continue?")))return;
+    const {error}=await client.from("na7n_community_posts").delete().eq("id",id);
+    if(error){renderStatus(t("تعذّر حذف المحتوى.","Could not delete the content."));return;}
+    if(id===topicId){
+      location.assign(listPage);
+    }else{
+      renderStatus(t("حُذف التعليق.","Reply deleted."));
+      await loadReplies();
+    }
   }
   async function moderate(id,status){
     if(!canModerate())return;
@@ -140,16 +161,21 @@
     if(!data?.length){replies.append(el("p","cm-state",t("لا توجد تعليقات بعد.","No replies yet.")));return;}
     for(const reply of data){
       const box=el("div","cm-comment cm-topic-comment");
+      if(reply.status!=="approved"&&!canModerate())continue;
       const meta=reply.status==="approved"
-        ?t("تعليق تمت مراجعته","Reviewed reply")
-        :t("بانتظار المراجعة","Awaiting moderation");
-      box.append(el("p","cm-post-meta",meta+" · "+readableDate(reply.created_at)));
+        ?readableDate(reply.created_at)
+        :t("محتوى مخفي — للمشرف فقط","Hidden content — moderators only");
+      box.append(el("p","cm-post-meta",meta));
       box.append(el("p","",reply.body));
-      if(canModerate()&&reply.status==="pending"){
-        box.append(button(t("اعتماد التعليق","Approve reply"),()=>moderate(reply.id,"approved"),true));
-        box.append(" ");
-        box.append(button(t("رفض التعليق","Reject reply"),()=>moderate(reply.id,"rejected"),true));
+      const controls=el("div","cm-detail-actions");
+      if(reply.status==="approved")controls.append(button(t("إبلاغ عن التعليق","Report reply"),()=>openReportDialog(reply.id),true));
+      if(canModerate()){
+        if(reply.status==="approved")controls.append(button(t("إخفاء التعليق","Hide reply"),()=>moderate(reply.id,"hidden"),true));
+        if(reply.status==="hidden")controls.append(button(t("إعادة إظهار التعليق","Restore reply"),()=>moderate(reply.id,"approved"),true));
+        if(reply.status==="pending")controls.append(button(t("اعتماد التعليق","Approve reply"),()=>moderate(reply.id,"approved"),true));
+        controls.append(button(t("حذف التعليق نهائيًا","Delete reply"),()=>deletePost(reply.id),true));
       }
+      if(controls.childNodes.length)box.append(controls);
       replies.append(box);
     }
   }
@@ -175,12 +201,12 @@
     submitReply.disabled=true;
     const {error}=await client.from("na7n_community_posts").insert({
       parent_id:topicId,author_id:state.user.id,
-      category:state.item.category,title:null,body,status:"pending"
+      category:state.item.category,title:null,body,status:"approved"
     });
     submitReply.disabled=false;
     if(error){$("cm-reply-feedback").textContent=t("تعذّر إرسال التعليق.","Could not submit reply.");return;}
     closeReply();
-    renderStatus(t("تم إرسال تعليقك للمراجعة.","Your reply was submitted for review."));
+    renderStatus(t("نُشر تعليقك مباشرة.","Your reply is now published."));
     await loadReplies();
   }
   function renderTopic(item){
@@ -193,9 +219,7 @@
     document.title=(title||t("النقاش","Discussion"))+" | "+t("مجتمع نَحْنُ","NA7N Community");
     $("cm-topic-meta").textContent=editorial
       ?t("موضوع للنقاش","Discussion topic")
-      :readableDate(item.created_at)+" · "+(item.status==="approved"
-        ?t("نقاش تمت مراجعته","Reviewed discussion")
-        :t("نقاش قيد المراجعة","Discussion awaiting moderation"));
+      :readableDate(item.created_at)+(item.status==="approved"?"":" · "+t("مخفي عن الأعضاء","Hidden from members"));
     article.replaceChildren(el("p","",body||""));
     if (!editorial && Array.isArray(item.tags) && item.tags.length) {
       const terms=el("div","cm-topic-tags");
@@ -215,18 +239,24 @@
         "Replies are not available for this topic yet."
       )));
     }else{
-      if(canWrite()){
-        if(item.status==="approved"){
+      if(item.status==="approved"){
+        if(canWrite()){
           const helpful=button(t("مفيد","Helpful"),toggleHelpful,true);
           helpful.id="cm-helpful";actions.append(helpful);
           refreshHelpful();
+          actions.append(button(t("أضف تعليقًا","Add a reply"),openReply,true));
         }
-        actions.append(button(t("أضف تعليقًا","Add a reply"),openReply,true));
-        actions.append(button(t("إبلاغ","Report"),reportPost,true));
+        actions.append(button(t("إبلاغ","Report"),()=>openReportDialog(topicId),true));
       }
-      if(canModerate()&&item.status==="pending"){
-        actions.append(button(t("اعتماد النقاش","Approve post"),()=>moderate(topicId,"approved")));
-        actions.append(button(t("رفض النقاش","Reject post"),()=>moderate(topicId,"rejected"),true));
+      if(canModerate()){
+        if(item.status==="approved"){
+          actions.append(button(t("إخفاء النقاش","Hide discussion"),()=>moderate(topicId,"hidden"),true));
+        }else if(item.status==="hidden"){
+          actions.append(button(t("إعادة إظهار النقاش","Restore discussion"),()=>moderate(topicId,"approved"),true));
+        }else if(item.status==="pending"){
+          actions.append(button(t("اعتماد النقاش","Approve discussion"),()=>moderate(topicId,"approved"),true));
+        }
+        actions.append(button(t("حذف النقاش نهائيًا","Delete discussion"),()=>deletePost(topicId),true));
       }
       loadReplies();
     }
@@ -264,6 +294,13 @@
       $("cm-replies-section").hidden=true;
       return;
     }
+    if(data.status!=="approved"&&!canModerate()&&kind==="post"){
+      $("cm-topic-title").textContent=t("الموضوع غير متاح","Discussion unavailable");
+      article.replaceChildren(el("p","cm-state",t("هذا النقاش غير متاح حاليًا.","This discussion is not currently available.")));
+      actions.replaceChildren();
+      $("cm-replies-section").hidden=true;
+      return;
+    }
     renderTopic(data);
   }
   async function init(){
@@ -297,10 +334,21 @@
         clearForGate(t("انتهت الجلسة؛ سجّل الدخول مجددًا.","Session ended. Please sign in again."));
     });
   }
+  $("cm-report-close").addEventListener("click",closeReportDialog);
+  reportDialog.addEventListener("click",event=>{if(event.target===reportDialog)closeReportDialog();});
+  reportDialog.addEventListener("click",event=>{
+    const selected=event.target.closest("[data-report-reason]");
+    if(selected)submitReport(selected.dataset.reportReason);
+  });
   $("cm-reply-close").addEventListener("click",closeReply);
   $("cm-reply-cancel").addEventListener("click",closeReply);
   replyForm.addEventListener("submit",saveReply);
   replyDialog.addEventListener("click",event=>{if(event.target===replyDialog)closeReply();});
-  document.addEventListener("keydown",event=>{if(event.key==="Escape"&&!replyDialog.hidden)closeReply();});
+  document.addEventListener("keydown",event=>{
+    if(event.key==="Escape"){
+      if(!replyDialog.hidden)closeReply();
+      if(!reportDialog.hidden)closeReportDialog();
+    }
+  });
   init().catch(()=>clearForGate(t("تعذّر فتح النقاش. أعد تحميل الصفحة.","Unable to open this discussion. Please reload.")));
 })();
