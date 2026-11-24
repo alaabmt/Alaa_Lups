@@ -154,7 +154,7 @@
     passwordToggles.forEach(toggle => setPasswordVisibility(toggle, false));
     $("msg").textContent = "";
   }
-  const returnTarget=(()=>{const value=new URLSearchParams(location.search).get("return");if(!value)return null;try{const url=new URL(value,location.href);return url.origin===location.origin&&/\/(?:living|community)(?:-en)?\.html$/.test(url.pathname)?url.href:null}catch{return null}})();
+  const returnTarget=(()=>{const value=new URLSearchParams(location.search).get("return");if(!value)return null;try{const url=new URL(value,location.href);return url.origin===location.origin&&/\/(?:living|community|community-topic)(?:-en)?\.html$/.test(url.pathname)?url.href:null}catch{return null}})();
   function returnAfterAuth(){if(returnTarget)location.assign(returnTarget)}
   const requestedMode=new URLSearchParams(location.search).get("mode");
   if(requestedMode==="signup")showAuthPanel("signup");
