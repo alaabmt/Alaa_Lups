@@ -73,3 +73,7 @@ The pilot was hardened to revoke default grants from `anon` and `authenticated`,
 - Topic content, post status, replies and reactions are fetched **only after permanent-member authentication**. Anonymous visitors see a sign-in gate; sign-in URLs carry an allowlisted same-origin return target including the topic query parameters.
 - Introductory prompts deliberately show no patient replies. Posting and replying remain restricted to authorized pilot staff; Ask NA7N remains switched off.
 - New member-only topic pages are marked `noindex,nofollow` and never embed content in public HTML.
+
+## Patient-facing copy and compact mobile layout (2026-11-24)
+- Removed the internal rollout sentence from the Arabic and English community introduction. Shortened the hero and replaced the large technical pilot notice with a concise, truthful note that member posting and replies are not open.
+- Reduced mobile hero padding, type size and warning space, so members reach the topic list with less scrolling.
