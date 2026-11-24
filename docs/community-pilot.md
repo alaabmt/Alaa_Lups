@@ -64,3 +64,12 @@ The pilot was hardened to revoke default grants from `anon` and `authenticated`,
 - **Publish:** Even signed-in members cannot submit posts yet, unless independently allowlisted as staff testers; patient data and AI interactions remain prohibited.
 - **Verified SQL:** A standard authenticated-role read returned six editorial prompts, whereas a simulated temporary anonymous Auth token returned zero prompts. The `anon` role has no SELECT privilege for prompts or posts, and `ask_ella_enabled` is still false.
 - **Hosting limitation:** On GitHub Pages, a static HTML shell and JavaScript can always be downloaded. The sensitive forum content is protected by database permissions/RLS, **not** by claiming the HTML itself is inaccessible over HTTP. Future private files and uploads require authenticated server/storage delivery.
+
+## Discussion-reading UX update (2026-11-24)
+- Intro copy no longer describes internal rollout stages. Patient-facing text focuses on exchanging everyday ideas, asking questions and learning together.
+- Clicking a starter-topic or approved/staff-visible discussion card opens a **dedicated URL** (`community-topic.html?kind=prompt&id=...` or `?kind=post&id=...`; matching English page `community-topic-en.html`). The entire card is a native anchor; it no longer triggers an in-page scroll.
+- Each detail reader has a visible **Back to discussions** link, and clicking it after arriving from the community list uses browser history to retain the list's scroll, current search and selected category. Externally shared deep links use an ordinary fallback link to the community list.
+- List filtering values are held in the current history entry rather than query parameters or persistent storage.
+- Topic content, post status, replies and reactions are fetched **only after permanent-member authentication**. Anonymous visitors see a sign-in gate; sign-in URLs carry an allowlisted same-origin return target including the topic query parameters.
+- Introductory prompts deliberately show no patient replies. Posting and replying remain restricted to authorized pilot staff; Ask NA7N remains switched off.
+- New member-only topic pages are marked `noindex,nofollow` and never embed content in public HTML.
