@@ -12,7 +12,7 @@
  const picker=$("community-avatar-options");
  const signupOptions=$("signup-avatar-options");
  if(!input||!signupOptions||!picker)return;
- let user=null,profile=null,style="leaf",loading=null,uploadAllowed=false;
+ let user=null,profile=null,style="leaf",loading=null,uploadAllowed=false,lastSavedImagePath=null;
  function getSelectedStyle(){return style;}
  function showPreview(){
    preview.replaceChildren();
@@ -81,6 +81,7 @@
    await seedFromSignup(userData);
    const p=await api.getProfile(client,userData.id);
    profile=p;
+   lastSavedImagePath=p?.avatar_path||null;
    const {data:staff}=await client.from("na7n_community_staff")
      .select("is_active").eq("user_id",userData.id).maybeSingle();
    uploadAllowed=Boolean(staff?.is_active);
@@ -120,16 +121,24 @@
        }
        avatarPath=await api.uploadAvatar(client,user.id,chosenFile);
      }
-     const payload={user_id:user.id,nickname,avatar_style:style,avatar_path:avatarPath,
+     const payload={nickname,avatar_style:style,avatar_path:avatarPath,
                     updated_at:new Date().toISOString()};
-     const {error}=await client.from("na7n_community_identities")
-       .upsert(payload,{onConflict:"user_id"});
-     if(error){status.textContent=messageError(error);return;}
-     profile=payload;
+     const request=profile?.user_id
+       ?client.from("na7n_community_identities").update(payload).eq("user_id",user.id)
+       :client.from("na7n_community_identities").insert({user_id:user.id,...payload});
+     const {error}=await request;
+     if(error){status.textContent=messageError(error);return false;}
+     const previous=lastSavedImagePath;
+     profile={user_id:user.id,...payload};
+     lastSavedImagePath=avatarPath;
      fileInput.value="";
      status.textContent=tr("تم حفظ الاسم والصورة اللذين سيظهران في المجتمع.",
        "Your nickname and avatar are saved for the community.");
      showPreview();
+     if(previous && previous!==avatarPath && uploadAllowed){
+       try{await api.removeAvatar(client,user.id);}catch{/* Unreferenced file remains private. */}
+     }
+     return true;
    }catch(error){
      status.textContent=error?.message?.includes("4 MB")?error.message:
        tr("تعذّر رفع الصورة. جرّب صورة أصغر أو استخدم إحدى الصور الجاهزة.",
@@ -138,14 +147,9 @@
  }
  async function switchToPreset(){
    if(!user)return;
-   const oldPath=profile?.avatar_path||null;
    if(profile)profile={...profile,avatar_path:null};
    fileInput.value="";
    await saveIdentity();
-   // Only remove the old file if the selected preset was successfully saved.
-   if(oldPath && profile?.avatar_path===null && uploadAllowed){
-     try{await api.removeAvatar(client,user.id);}catch{/* Old file is private and no longer referenced. */}
-   }
  }
  save.addEventListener("click",saveIdentity);
  remove.addEventListener("click",switchToPreset);
