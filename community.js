@@ -142,6 +142,7 @@
   async function loadReports(){
     if(!isModerator())return;
     reportPanel.hidden=false;
+    const modNav=$("cm-mod-nav");if(modNav)modNav.hidden=false;
     reportList.replaceChildren();
     const {data:reports,error}=await client.from("na7n_community_reports")
       .select("id,post_id,reason,created_at").is("resolved_at",null)
@@ -191,6 +192,7 @@
     state.user=null;state.staff=null;state.prompts=[];state.posts=[];
     if(reportPanel)reportPanel.hidden=true;
     if(reportList)reportList.replaceChildren();
+    const modNav=$("cm-mod-nav");if(modNav)modNav.hidden=true;
     ui.prompts.replaceChildren();ui.threads.replaceChildren();
     ui.count.textContent="";ui.status.textContent="";
   }
