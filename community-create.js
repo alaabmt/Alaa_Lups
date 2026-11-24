@@ -1,4 +1,4 @@
-/* NA7N Community compose: member-only, authorized staff submissions only, pending moderation. */
+/* NA7N Community compose: member-only, authorized staff immediate publication with later moderation. */
 (() => {
  "use strict";
  const en=document.documentElement.lang==="en";
@@ -62,14 +62,19 @@
    if(cleanTitle.length<8||cleanBody.length<12||cleanTitle.length>140||cleanBody.length>3000){
      feedback.textContent=t("تحقق من طول العنوان والمحتوى.","Check your title and message lengths.");return;
    }
-   submit.disabled=true;feedback.textContent=t("جارٍ إرسال النقاش…","Submitting discussion…");
-   const {error}=await client.from("na7n_community_posts").insert({
+   submit.disabled=true;feedback.textContent=t("جارٍ نشر النقاش…","Publishing discussion…");
+   const {data:published,error}=await client.from("na7n_community_posts").insert({
       author_id:user.id,parent_id:null,category:"general",
-      title:cleanTitle,body:cleanBody,tags:validTags,status:"pending"
-   });
+      title:cleanTitle,body:cleanBody,tags:validTags,status:"approved"
+   }).select("id").single();
    submit.disabled=false;
    if(error){feedback.textContent=t("تعذّر حفظ النقاش. حاول لاحقًا.","Could not save the discussion. Please try later.");return;}
    formWrap.hidden=true;
+   if(published?.id){
+     const view=$("cm-view-new-post");
+     view.href=(en?"community-topic-en.html":"community-topic.html")+"?kind=post&id="+encodeURIComponent(published.id);
+     view.hidden=false;
+   }
    success.hidden=false;
    success.scrollIntoView({behavior:"auto",block:"start"});
  });
