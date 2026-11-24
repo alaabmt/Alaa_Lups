@@ -30,7 +30,7 @@
       <h1 id="cm-page-title">مجتمع نَحْنُ</h1>
       <p class="cm-lead">نتبادل الأفكار والتجارب، ونتعلّم معًا عن الحياة مع الذئبة.</p>
       <div class="cm-actions cm-hero-actions">
-        <button id="cm-start" type="button" class="cm-button">ابدأ نقاشًا</button>
+        <a id="cm-start" class="cm-button" href="community-create.html">ابدأ نقاشًا</a>
         <a class="cm-button alt" href="#cm-topics">تصفح النقاشات</a>
       </div>
       <p class="cm-hero-status" id="cm-write-status" role="status" aria-live="polite"></p>
@@ -53,6 +53,7 @@
         </div>
         <div class="cm-filters" id="cm-filters" role="group" aria-label="تصفية حسب الموضوع">
           <button class="cm-filter" data-category="all" type="button" aria-pressed="true">الجميع</button>
+          <button class="cm-filter" data-category="general" type="button" aria-pressed="false">عام</button>
           <button class="cm-filter" data-category="daily" type="button" aria-pressed="false">الحياة اليومية</button>
           <button class="cm-filter" data-category="treatment" type="button" aria-pressed="false">العلاج والأدوية</button>
           <button class="cm-filter" data-category="nutrition" type="button" aria-pressed="false">التغذية</button>
@@ -66,7 +67,6 @@
         <p class="cm-result-count" id="cm-count" aria-live="polite">تحميل الموضوعات...</p>
         <div id="cm-prompts" class="cm-topic-grid" aria-live="polite"></div>
       </section>
-      <section id="cm-detail" class="cm-detail" aria-live="polite" hidden></section>
       <section class="cm-panel" id="cm-threads-section" aria-labelledby="cm-threads-heading" style="margin-top:30px">
         <h2 class="cm-section-title" id="cm-threads-heading">نقاشات الأعضاء</h2>
         <p class="cm-section-sub">استكشف النقاشات وتبادل الأفكار عندما تتاح المشاركة.</p>
@@ -93,23 +93,9 @@
   </div>
 </main>
 <div class="cm-ai" aria-label="المساعد الذكي المستقبلي"><button type="button" id="cm-ai-button" disabled aria-disabled="true" title="المساعد الذكي غير مفعّل؛ لن يستقبل أسئلة أو بيانات"><span aria-hidden="true">✦</span>اسأل نَحْنُ<span>غير مُفعّل</span></button></div>
-<div id="cm-dialog" class="cm-dialog" hidden>
-  <div class="cm-dialog-body" role="dialog" aria-modal="true" aria-labelledby="cm-dialog-title">
-    <div class="cm-dialog-head"><h2 id="cm-dialog-title">ابدأ نقاشًا</h2><button class="cm-icon-button" type="button" id="cm-dialog-close" aria-label="إغلاق">×</button></div>
-    <p class="cm-state">تجنّب نشر أي معلومات صحية حقيقية أو بيانات شخصية.</p>
-    <form id="cm-compose-form">
-      <div class="cm-form-row" id="cm-category-row"><label for="cm-category">القسم</label>
-        <select id="cm-category" required><option value="daily">الحياة اليومية</option><option value="treatment">العلاج والأدوية</option><option value="nutrition">التغذية</option><option value="work">العمل والدراسة</option><option value="support">الدعم</option><option value="goals">الأهداف</option></select></div>
-      <div class="cm-form-row" id="cm-title-row"><label for="cm-title">عنوان النقاش</label><input id="cm-title" maxlength="140" minlength="8" required placeholder="عنوان واضح ومحدد"></div>
-      <div class="cm-form-row"><label for="cm-body">النص</label><textarea id="cm-body" minlength="12" maxlength="3000" required></textarea><p class="cm-form-hint">تُرسل للمراجعة، ولا تظهر للعامة قبل الموافقة.</p></div>
-      <p id="cm-form-feedback" class="cm-state" role="status" aria-live="polite"></p>
-      <div class="cm-actions"><button type="submit" class="cm-button" id="cm-submit">أرسل للمراجعة</button><button type="button" class="cm-button alt" id="cm-cancel">إلغاء</button></div>
-    </form>
-  </div>
-</div>
 <footer><p style="text-align:center">نَحْنُ — المعلومات العامة لا تغني عن مراجعة الطبيب. </p></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3"></script>
 <script src="na7n-auth.js?v=20261011-1"></script>
 <script src="na7n-navigation.js?v=20261124-community"></script>
-<script src="community.js?v=20261124-ux2"></script>
+<script src="community.js?v=20261124-create-v1"></script>
 </body></html>
