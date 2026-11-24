@@ -91,3 +91,4 @@ The pilot was hardened to revoke default grants from `anon` and `authenticated`,
 - **New accounts do not get permission automatically.** Any future allowance requires verification by an authorized administrator. This is not a patient-community release.
 - A SQL test with the role and JWT claims of an existing contributor successfully inserted a fictional post with `status='pending'` and `author_id = auth.uid()`; the transaction was rolled back, leaving no test content.
 - `patient_posting_enabled=false` and `ask_ella_enabled=false` remain unchanged. No real patient data may be entered on the current India-hosted project.
+- A second transaction-only SQL test verified that the designated moderator can change a pending discussion to `approved` and that the moderation timestamp is populated. That transaction was also rolled back.
