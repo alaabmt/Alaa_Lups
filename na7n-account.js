@@ -65,7 +65,15 @@
       const profileError = await ensureProfile(user);
       if (version !== stateVersion) return;
       if (profileError) $("dashboard-msg").textContent = L("تم تسجيل الدخول، لكن تعذر حفظ الملف الشخصي. يمكنك إعادة تحميل الصفحة والمحاولة لاحقًا.");
-      if(window.Na7nCommunityAccount) await window.Na7nCommunityAccount.onSignedIn(user);
+      if(window.Na7nCommunityAccount){
+        try{await window.Na7nCommunityAccount.onSignedIn(user);}
+        catch{
+          const note=$("community-identity-status");
+          if(note)note.textContent=accountEnglish
+            ?"Could not load community profile settings. Please reload the page."
+            :"تعذّر تحميل إعدادات الاسم المستعار. أعد تحميل الصفحة.";
+        }
+      }
       if ($("login-password")) $("login-password").value = "";
       $("signed-in-as").textContent = L("تم تسجيل الدخول: ") + user.email;
       $("dashboard").classList.remove("hidden");
